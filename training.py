@@ -16,7 +16,7 @@ def main(conf):
     cfr_lora_training(conf.MACE)
 
     # stage 3 (Multi-LoRA fusion)
-    multi_lora_fusion(conf.MACE)
+    multi_lora_fusion(conf.MACE) # fuse Multiple-LoRA with the original pretrained projection
 
     # test the erased model
     if conf.MACE.test_erased_model:

@@ -4,3 +4,8 @@ output/
 data/
 cache/
 MACE_Finetuned_Models/
+Grounded-Segment-Anything/
+.ipynb_checkpoints/
+cache/
+wandb/
+data_root/

@@ -332,6 +332,7 @@ def main(args):
         if i != 0:
             unet.set_default_attn_processor()
         for name, m in unet.named_modules():
+            # both cross and self-attention
             if name.endswith('attn2') or name.endswith('attn1'):
                 cross_attention_dim = None if name.endswith("attn1") else unet.config.cross_attention_dim
                 if name.startswith("mid_block"):
@@ -363,7 +364,9 @@ def main(args):
                 # lora_attn_procs[f'{key}.to_out_lora'] = value.to_out_lora
         
         lora_layers = AttnProcsLayers(lora_attn_procs)
-
+        
+ 
+            
         optimizer = optimizer_class(
             lora_layers.parameters(),
             lr=args.learning_rate,
@@ -390,6 +393,9 @@ def main(args):
                 unet, optimizer, train_dataloader, lr_scheduler
             )
         
+        
+        print(f'UNet:')
+        print(unet)
         # We need to initialize the trackers we use, and also store our configuration.
         # The trackers initializes automatically on the main process.
         if accelerator.is_main_process:
@@ -520,6 +526,8 @@ def main(args):
 
                     # Predict the noise residual
                     model_pred = unet(noisy_latents, timesteps, encoder_hidden_states).sample
+                    print(model_pred.requires_grad)
+                    print(model_pred.grad_fn)
 
                     # Get the target for loss depending on the prediction type
                     if noise_scheduler.config.prediction_type == "epsilon":
@@ -541,7 +549,8 @@ def main(args):
                         
                         # Add the prior loss to the instance loss.
                         loss = loss + args.prior_loss_weight * prior_loss
-                        
+                    print(loss)
+                    print(f'loss: {loss}')
                     accelerator.backward(loss)
                     if accelerator.sync_gradients:
                         # params_to_clip = params_to_optimize

@@ -19,7 +19,7 @@ class AttnProcessor:
         encoder_hidden_states=None,
         attention_mask=None,
         temb=None,
-        scale=1.0,
+        scale=1.0, # should not use this in newer version
     ):
         residual = hidden_states
 
@@ -41,6 +41,7 @@ class AttnProcessor:
             hidden_states = attn.group_norm(hidden_states.transpose(1, 2)).transpose(1, 2)
 
         query = attn.to_q(hidden_states, scale=scale)
+        # query = attn.to_q(hidden_states)
 
         if encoder_hidden_states is None:
             encoder_hidden_states = hidden_states
@@ -49,6 +50,10 @@ class AttnProcessor:
 
         key = attn.to_k(encoder_hidden_states, scale=scale)
         value = attn.to_v(encoder_hidden_states, scale=scale)
+
+        # key = attn.to_k(encoder_hidden_states)
+        # value = attn.to_v(encoder_hidden_states)
+
 
         query = attn.head_to_batch_dim(query)
         key = attn.head_to_batch_dim(key)
@@ -64,6 +69,7 @@ class AttnProcessor:
 
         # linear proj
         hidden_states = attn.to_out[0](hidden_states, scale=scale)
+        # hidden_states = attn.to_out[0](hidden_states)
         # dropout
         hidden_states = attn.to_out[1](hidden_states)
 

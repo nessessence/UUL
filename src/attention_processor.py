@@ -23,7 +23,6 @@ from ..utils.import_utils import is_xformers_available
 from ..utils.torch_utils import maybe_allow_in_graph
 from .lora import LoRACompatibleLinear, LoRALinearLayer
 
-
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 
 

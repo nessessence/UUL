@@ -13,6 +13,10 @@ def main(args):
     pipe.requires_safety_checker = False
     torch.Generator(device=args.device).manual_seed(42)
     
+    
+    print("unet:")
+    print(pipe.unet)
+    
     if args.generate_training_data:
         pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
         num_images = 8
