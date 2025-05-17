@@ -36,9 +36,9 @@ MACE:
   prior_preservation_cache_path: ./cache/cache_coco.pt
   domain_preservation_cache_path: ./cache/cache_cele.pt
   preserve_weight: 5.0e+4
-  input_data_dir: ./data/5cele
-  output_dir: ./saved_model/CFR_with_multi_LoRAs
-  final_save_path: ./saved_model/LoRA_fusion_model
+  input_data_dir: ./data_root/generated/celeb5
+  output_dir: ./data_root/logs/erase_celeb5/CFR_with_multi_LoRAs
+  final_save_path: ./data_root/logs/erase_celeb5/LoRA_fusion_model
 
   ## gounded_SAM settings
   use_gsam_mask: true

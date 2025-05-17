@@ -67,7 +67,7 @@ from diffusers.training_utils import unet_lora_state_dict
 from diffusers.utils import check_min_version, is_wandb_available
 from diffusers.utils.import_utils import is_xformers_available
 
-
+import wandb
 import os.path as osp
 
 # Will error if the minimal version of diffusers is not installed. Remove at your own risks.
@@ -75,6 +75,70 @@ check_min_version("0.22.0")
 
 logger = get_logger(__name__)
 
+
+def resize_by_scale(image,scale=0.5):
+    resized_image = image.resize( [int(scale * s) for s in image.size],  Image.Resampling.LANCZOS)
+    return resized_image
+
+
+def log_validation(unet, text_encoder, args, accelerator, weight_dtype, epoch):
+    logger.info(
+        f"Running validation... \n Generating {args.num_validation_images} images with prompt: {args.validation_prompt}"
+    )
+
+    # Initialize inference pipeline
+    pipeline = DiffusionPipeline.from_pretrained(
+        args.pretrained_model_name_or_path,
+        unet=accelerator.unwrap_model(unet),
+        text_encoder=accelerator.unwrap_model(text_encoder),
+        revision=args.revision,
+        torch_dtype=weight_dtype,
+    )
+
+    if "variance_type" in pipeline.scheduler.config:
+        variance_type = pipeline.scheduler.config.variance_type
+        if variance_type in ["learned", "learned_range"]:
+            variance_type = "fixed_small"
+        pipeline.scheduler.config.variance_type = variance_type
+
+    pipeline.scheduler = DDIMScheduler.from_config(pipeline.scheduler.config)
+    pipeline.safety_checker = None
+    pipeline.requires_safety_checker = False
+    pipeline = pipeline.to(accelerator.device)
+    pipeline.set_progress_bar_config(disable=True)
+
+    generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
+    pipeline_args = {"prompt": args.validation_prompt}
+
+    images = []
+    if args.validation_images is None:
+        for _ in range(args.num_validation_images):
+            with torch.cuda.amp.autocast():
+                image = pipeline(**pipeline_args, generator=generator).images[0]
+                images.append(image)
+    else:
+        for image in args.validation_images:
+            image = Image.open(image)
+            with torch.cuda.amp.autocast():
+                image = pipeline(**pipeline_args, image=image, generator=generator).images[0]
+            images.append(image)
+
+    for tracker in accelerator.trackers:
+        if tracker.name == "tensorboard":
+            np_images = np.stack([np.asarray(img) for img in images])
+            tracker.writer.add_images("validation", np_images, epoch, dataformats="NHWC")
+        elif tracker.name == "wandb":
+            tracker.log({
+                "validation": [
+                    wandb.Image(resize_by_scale(image,scale=0.50), caption=f"{i}: {args.validation_prompt}")
+                    for i, image in enumerate(images)
+                ]
+            })
+
+    del pipeline
+    torch.cuda.empty_cache()
+    
+    
 
 def save_model_card(
     repo_id: str,
@@ -201,15 +265,7 @@ def parse_args(input_args=None):
         default=10,
         help="Number of images that should be generated during validation with `validation_prompt`.",
     )
-    parser.add_argument(
-        "--validation_epochs",
-        type=int,
-        default=50,
-        help=(
-            "Run dreambooth validation every X epochs. Dreambooth validation consists of running the prompt"
-            " `args.validation_prompt` multiple times: `args.num_validation_images`."
-        ),
-    )
+
     parser.add_argument(
         "--with_prior_preservation",
         default=False,
@@ -232,7 +288,7 @@ def parse_args(input_args=None):
         default="lora-dreambooth-model",
         help="The output directory where the model predictions and checkpoints will be written.",
     )
-    parser.add_argument("--seed", type=int, default=None, help="A seed for reproducible training.")
+    parser.add_argument("--seed", type=int, default=0, help="A seed for reproducible training.")
     parser.add_argument(
         "--resolution",
         type=int,
@@ -327,7 +383,7 @@ def parse_args(input_args=None):
         ),
     )
     parser.add_argument(
-        "--lr_warmup_steps", type=int, default=500, help="Number of steps for the warmup in the lr scheduler."
+        "--lr_warmup_steps", type=int, default=0, help="Number of steps for the warmup in the lr scheduler."
     )
     parser.add_argument(
         "--lr_num_cycles",
@@ -380,7 +436,7 @@ def parse_args(input_args=None):
     parser.add_argument(
         "--report_to",
         type=str,
-        default="tensorboard",
+        default="wandb",
         help=(
             'The integration to report the results and logs to. Supported platforms are `"tensorboard"`'
             ' (default), `"wandb"` and `"comet_ml"`. Use `"all"` to report to all integrations.'
@@ -448,7 +504,49 @@ def parse_args(input_args=None):
         default=4,
         help=("The dimension of the LoRA update matrices."),
     )
+    
+    parser.add_argument(
+        "--target_lora_modules",
+        type=str,
+        nargs="+",
+        default=["to_k", "to_v"],
+        help="Subset of attention modules to apply LoRA to: choose from [to_q, to_k, to_v, to_out, add_k_proj, add_v_proj]"
+    )
+        
+    parser.add_argument(
+        "--target_lora_layers",
+        type=str,
+        nargs="+",
+        default=["cross"],
+        choices=["cross", "self"],
+        help='Which attention types to apply LoRA to. Choose from ["cross", "self"].',
+    )
 
+
+
+
+    parser.add_argument(
+        "--validation_epochs",
+        type=int,
+        default=None,
+        help=(
+            "Run dreambooth validation every X epochs. Dreambooth validation consists of running the prompt"
+            " `args.validation_prompt` multiple times: `args.num_validation_images`."
+        ),
+    )
+
+
+    parser.add_argument(
+        "--validation_steps",
+        type=int,
+        default=50,
+        help=(
+            "Run dreambooth validation every X epochs. Dreambooth validation consists of running the prompt"
+            " `args.validation_prompt` multiple times: `args.num_validation_images`."
+        ),
+    )
+
+    
     if input_args is not None:
         args = parser.parse_args(input_args)
     else:
@@ -848,61 +946,150 @@ def main(args):
     # - up blocks (2x attention layers) * (3x transformer layers) * (3x up blocks) = 18
     # => 32 layers
 
-    # Set correct lora layers
+
+    # Set correct LoRA layers
     unet_lora_parameters = []
     for attn_processor_name, attn_processor in unet.attn_processors.items():
+        
+        if ("attn1" in attn_processor_name and "self" not in args.target_lora_layers) or \
+           ("attn2" in attn_processor_name and "cross" not in args.target_lora_layers):
+            print(f'skipping layer: {attn_processor_name}')
+            continue
+        
         # Parse the attention module.
         attn_module = unet
         for n in attn_processor_name.split(".")[:-1]:
             attn_module = getattr(attn_module, n)
 
-        # Set the `lora_layer` attribute of the attention-related matrices.
-        attn_module.to_q.set_lora_layer(
-            LoRALinearLayer(
-                in_features=attn_module.to_q.in_features, out_features=attn_module.to_q.out_features, rank=args.rank
+        print(f'attn_processor_name: {attn_processor_name} - {attn_module}')
+        
+        if "to_q" in args.target_lora_modules:
+            print('LoRA q')
+            attn_module.to_q.set_lora_layer(
+                LoRALinearLayer(
+                    in_features=attn_module.to_q.in_features,
+                    out_features=attn_module.to_q.out_features,
+                    rank=args.rank,
+                )
             )
-        )
-        attn_module.to_k.set_lora_layer(
-            LoRALinearLayer(
-                in_features=attn_module.to_k.in_features, out_features=attn_module.to_k.out_features, rank=args.rank
-            )
-        )
-        attn_module.to_v.set_lora_layer(
-            LoRALinearLayer(
-                in_features=attn_module.to_v.in_features, out_features=attn_module.to_v.out_features, rank=args.rank
-            )
-        )
-        attn_module.to_out[0].set_lora_layer(
-            LoRALinearLayer(
-                in_features=attn_module.to_out[0].in_features,
-                out_features=attn_module.to_out[0].out_features,
-                rank=args.rank,
-            )
-        )
+            unet_lora_parameters.extend(attn_module.to_q.lora_layer.parameters())
 
-        # Accumulate the LoRA params to optimize.
-        unet_lora_parameters.extend(attn_module.to_q.lora_layer.parameters())
-        unet_lora_parameters.extend(attn_module.to_k.lora_layer.parameters())
-        unet_lora_parameters.extend(attn_module.to_v.lora_layer.parameters())
-        unet_lora_parameters.extend(attn_module.to_out[0].lora_layer.parameters())
+        if "to_k" in args.target_lora_modules:
+            print('LoRA k')
+            attn_module.to_k.set_lora_layer(
+                LoRALinearLayer(
+                    in_features=attn_module.to_k.in_features,
+                    out_features=attn_module.to_k.out_features,
+                    rank=args.rank,
+                )
+            )
+            unet_lora_parameters.extend(attn_module.to_k.lora_layer.parameters())
+
+        if "to_v" in args.target_lora_modules:
+            print('LoRA v')
+            attn_module.to_v.set_lora_layer(
+                LoRALinearLayer(
+                    in_features=attn_module.to_v.in_features,
+                    out_features=attn_module.to_v.out_features,
+                    rank=args.rank,
+                )
+            )
+            unet_lora_parameters.extend(attn_module.to_v.lora_layer.parameters())
+
+        if "to_out" in args.target_lora_modules:
+            print('LoRA out')
+            
+            attn_module.to_out[0].set_lora_layer(
+                LoRALinearLayer(
+                    in_features=attn_module.to_out[0].in_features,
+                    out_features=attn_module.to_out[0].out_features,
+                    rank=args.rank,
+                )
+            )
+            unet_lora_parameters.extend(attn_module.to_out[0].lora_layer.parameters())
 
         if isinstance(attn_processor, (AttnAddedKVProcessor, SlicedAttnAddedKVProcessor, AttnAddedKVProcessor2_0)):
-            attn_module.add_k_proj.set_lora_layer(
-                LoRALinearLayer(
-                    in_features=attn_module.add_k_proj.in_features,
-                    out_features=attn_module.add_k_proj.out_features,
-                    rank=args.rank,
+            if "add_k_proj" in args.target_lora_modules:
+                print('LoRA add k')
+                
+                attn_module.add_k_proj.set_lora_layer(
+                    LoRALinearLayer(
+                        in_features=attn_module.add_k_proj.in_features,
+                        out_features=attn_module.add_k_proj.out_features,
+                        rank=args.rank,
+                    )
                 )
-            )
-            attn_module.add_v_proj.set_lora_layer(
-                LoRALinearLayer(
-                    in_features=attn_module.add_v_proj.in_features,
-                    out_features=attn_module.add_v_proj.out_features,
-                    rank=args.rank,
+                unet_lora_parameters.extend(attn_module.add_k_proj.lora_layer.parameters())
+
+            if "add_v_proj" in args.target_lora_modules:
+                print('LoRA add v')
+                
+                attn_module.add_v_proj.set_lora_layer(
+                    LoRALinearLayer(
+                        in_features=attn_module.add_v_proj.in_features,
+                        out_features=attn_module.add_v_proj.out_features,
+                        rank=args.rank,
+                    )
                 )
-            )
-            unet_lora_parameters.extend(attn_module.add_k_proj.lora_layer.parameters())
-            unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
+                unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
+
+
+
+    # # Set correct lora layers
+    # unet_lora_parameters = []
+    # for attn_processor_name, attn_processor in unet.attn_processors.items():
+    #     # Parse the attention module.
+    #     attn_module = unet
+    #     for n in attn_processor_name.split(".")[:-1]:
+    #         attn_module = getattr(attn_module, n)
+
+    #     # Set the `lora_layer` attribute of the attention-related matrices.
+    #     attn_module.to_q.set_lora_layer(
+    #         LoRALinearLayer(
+    #             in_features=attn_module.to_q.in_features, out_features=attn_module.to_q.out_features, rank=args.rank
+    #         )
+    #     )
+    #     attn_module.to_k.set_lora_layer(
+    #         LoRALinearLayer(
+    #             in_features=attn_module.to_k.in_features, out_features=attn_module.to_k.out_features, rank=args.rank
+    #         )
+    #     )
+    #     attn_module.to_v.set_lora_layer(
+    #         LoRALinearLayer(
+    #             in_features=attn_module.to_v.in_features, out_features=attn_module.to_v.out_features, rank=args.rank
+    #         )
+    #     )
+    #     attn_module.to_out[0].set_lora_layer(
+    #         LoRALinearLayer(
+    #             in_features=attn_module.to_out[0].in_features,
+    #             out_features=attn_module.to_out[0].out_features,
+    #             rank=args.rank,
+    #         )
+    #     )
+
+    #     # Accumulate the LoRA params to optimize.
+    #     unet_lora_parameters.extend(attn_module.to_q.lora_layer.parameters())
+    #     unet_lora_parameters.extend(attn_module.to_k.lora_layer.parameters())
+    #     unet_lora_parameters.extend(attn_module.to_v.lora_layer.parameters())
+    #     unet_lora_parameters.extend(attn_module.to_out[0].lora_layer.parameters())
+
+    #     if isinstance(attn_processor, (AttnAddedKVProcessor, SlicedAttnAddedKVProcessor, AttnAddedKVProcessor2_0)):
+    #         attn_module.add_k_proj.set_lora_layer(
+    #             LoRALinearLayer(
+    #                 in_features=attn_module.add_k_proj.in_features,
+    #                 out_features=attn_module.add_k_proj.out_features,
+    #                 rank=args.rank,
+    #             )
+    #         )
+    #         attn_module.add_v_proj.set_lora_layer(
+    #             LoRALinearLayer(
+    #                 in_features=attn_module.add_v_proj.in_features,
+    #                 out_features=attn_module.add_v_proj.out_features,
+    #                 rank=args.rank,
+    #             )
+    #         )
+    #         unet_lora_parameters.extend(attn_module.add_k_proj.lora_layer.parameters())
+    #         unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
 
     # The text encoder comes from 🤗 transformers, so we cannot directly modify it.
     # So, instead, we monkey-patch the forward calls of its attention-blocks.
@@ -1269,6 +1456,16 @@ def main(args):
                         save_path = os.path.join(args.output_dir, f"checkpoint-{global_step}")
                         accelerator.save_state(save_path)
                         logger.info(f"Saved state to {save_path}")
+                        
+                    if global_step % args.validation_steps == 0:
+                        log_validation(
+                            unet=unet,
+                            text_encoder=text_encoder,
+                            args=args,
+                            accelerator=accelerator,
+                            weight_dtype=weight_dtype,
+                            epoch=epoch,)
+                        
 
             logs = {"loss": loss.detach().item(), "lr": lr_scheduler.get_last_lr()[0]}
             progress_bar.set_postfix(**logs)
@@ -1278,79 +1475,92 @@ def main(args):
                 break
 
         if accelerator.is_main_process:
-            if args.validation_prompt is not None and epoch % args.validation_epochs == 0:
-                logger.info(
-                    f"Running validation... \n Generating {args.num_validation_images} images with prompt:"
-                    f" {args.validation_prompt}."
-                )
-                # create pipeline
-                pipeline = DiffusionPipeline.from_pretrained(
-                    args.pretrained_model_name_or_path,
-                    unet=accelerator.unwrap_model(unet),
-                    text_encoder=None if args.pre_compute_text_embeddings else accelerator.unwrap_model(text_encoder),
-                    revision=args.revision,
-                    torch_dtype=weight_dtype,
-                )
-
-                # We train on the simplified learning objective. If we were previously predicting a variance, we need the scheduler to ignore it
-                scheduler_args = {}
-
-                if "variance_type" in pipeline.scheduler.config:
-                    variance_type = pipeline.scheduler.config.variance_type
-
-                    if variance_type in ["learned", "learned_range"]:
-                        variance_type = "fixed_small"
-
-                    scheduler_args["variance_type"] = variance_type
-
-                # pipeline.scheduler = DPMSolverMultistepScheduler.from_config(
-                #     pipeline.scheduler.config, **scheduler_args
+            if args.validation_prompt is not None and args.validation_epochs is not None and epoch % args.validation_epochs == 0:
+                log_validation(
+                    unet=unet,
+                    text_encoder=text_encoder,
+                    args=args,
+                    accelerator=accelerator,
+                    weight_dtype=weight_dtype,
+                    epoch=epoch,)
+                    
+                # logger.info(
+                #     f"Running validation... \n Generating {args.num_validation_images} images with prompt:"
+                #     f" {args.validation_prompt}."
                 # )
-                pipeline.scheduler = DDIMScheduler.from_config(pipeline.scheduler.config)
+                # # create pipeline
+                # pipeline = DiffusionPipeline.from_pretrained(
+                #     args.pretrained_model_name_or_path,
+                #     unet=accelerator.unwrap_model(unet),
+                #     text_encoder=None if args.pre_compute_text_embeddings else accelerator.unwrap_model(text_encoder),
+                #     revision=args.revision,
+                #     torch_dtype=weight_dtype,
+                # )
 
-                pipeline = pipeline.to(accelerator.device)
-                pipeline.set_progress_bar_config(disable=True)
+                # # We train on the simplified learning objective. If we were previously predicting a variance, we need the scheduler to ignore it
+                # scheduler_args = {}
 
-                # run inference
-                generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
-                if args.pre_compute_text_embeddings:
-                    pipeline_args = {
-                        "prompt_embeds": validation_prompt_encoder_hidden_states,
-                        "negative_prompt_embeds": validation_prompt_negative_prompt_embeds,
-                    }
-                else:
-                    pipeline_args = {"prompt": args.validation_prompt}
+                # if "variance_type" in pipeline.scheduler.config:
+                #     variance_type = pipeline.scheduler.config.variance_type
 
-                if args.validation_images is None:
-                    images = []
-                    for _ in range(args.num_validation_images):
-                        with torch.cuda.amp.autocast():
-                            image = pipeline(**pipeline_args, generator=generator).images[0]
-                            images.append(image)
-                else:
-                    images = []
-                    for image in args.validation_images:
-                        image = Image.open(image)
-                        with torch.cuda.amp.autocast():
-                            image = pipeline(**pipeline_args, image=image, generator=generator).images[0]
-                        images.append(image)
+                #     if variance_type in ["learned", "learned_range"]:
+                #         variance_type = "fixed_small"
 
-                for tracker in accelerator.trackers:
-                    if tracker.name == "tensorboard":
-                        np_images = np.stack([np.asarray(img) for img in images])
-                        tracker.writer.add_images("validation", np_images, epoch, dataformats="NHWC")
-                    if tracker.name == "wandb":
-                        tracker.log(
-                            {
-                                "validation": [
-                                    wandb.Image(image, caption=f"{i}: {args.validation_prompt}")
-                                    for i, image in enumerate(images)
-                                ]
-                            }
-                        )
+                #     scheduler_args["variance_type"] = variance_type
 
-                del pipeline
-                torch.cuda.empty_cache()
+                # # pipeline.scheduler = DPMSolverMultistepScheduler.from_config(
+                # #     pipeline.scheduler.config, **scheduler_args
+                # # )
+                
+                
+                # pipeline.safety_checker = None
+                # pipeline.requires_safety_checker = False
+
+                # pipeline.scheduler = DDIMScheduler.from_config(pipeline.scheduler.config)
+
+                # pipeline = pipeline.to(accelerator.device)
+                # pipeline.set_progress_bar_config(disable=True)
+
+                # # run inference
+                # generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
+                # if args.pre_compute_text_embeddings:
+                #     pipeline_args = {
+                #         "prompt_embeds": validation_prompt_encoder_hidden_states,
+                #         "negative_prompt_embeds": validation_prompt_negative_prompt_embeds,
+                #     }
+                # else:
+                #     pipeline_args = {"prompt": args.validation_prompt}
+
+                # if args.validation_images is None:
+                #     images = []
+                #     for _ in range(args.num_validation_images):
+                #         with torch.cuda.amp.autocast():
+                #             image = pipeline(**pipeline_args, generator=generator).images[0]
+                #             images.append(image)
+                # else:
+                #     images = []
+                #     for image in args.validation_images:
+                #         image = Image.open(image)
+                #         with torch.cuda.amp.autocast():
+                #             image = pipeline(**pipeline_args, image=image, generator=generator).images[0]
+                #         images.append(image)
+
+                # for tracker in accelerator.trackers:
+                #     if tracker.name == "tensorboard":
+                #         np_images = np.stack([np.asarray(img) for img in images])
+                #         tracker.writer.add_images("validation", np_images, epoch, dataformats="NHWC")
+                #     if tracker.name == "wandb":
+                #         tracker.log(
+                #             {
+                #                 "validation": [
+                #                     wandb.Image(image, caption=f"{i}: {args.validation_prompt}")
+                #                     for i, image in enumerate(images)
+                #                 ]
+                #             }
+                #         )
+
+                # del pipeline
+                # torch.cuda.empty_cache()
 
     # Save the lora layers
     accelerator.wait_for_everyone()

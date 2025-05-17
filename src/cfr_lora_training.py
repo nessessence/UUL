@@ -332,7 +332,7 @@ def main(args):
         if i != 0:
             unet.set_default_attn_processor()
         for name, m in unet.named_modules():
-            # both cross and self-attention
+            # setting the processor to both cross and self-attention
             if name.endswith('attn2') or name.endswith('attn1'):
                 cross_attention_dim = None if name.endswith("attn1") else unet.config.cross_attention_dim
                 if name.startswith("mid_block"):
@@ -353,11 +353,12 @@ def main(args):
                     preserve_prior=args.with_prior_preservation,
                 ))
 
-        ### set lora
+        ### set lora ~ they only optimize the K and V of cross-attenion modules!
         # unet.set_attn_processor(lora_attn_procs)
         lora_attn_procs = {}
         for key, value in zip(unet.attn_processors.keys(), unet.attn_processors.values()):
             if key.endswith("attn2.processor"):
+                print(f"parameter name: {key}")
                 lora_attn_procs[f'{key}.to_k_lora'] = value.to_k_lora
                 lora_attn_procs[f'{key}.to_v_lora'] = value.to_v_lora
                 # lora_attn_procs[f'{key}.to_q_lora'] = value.to_q_lora
