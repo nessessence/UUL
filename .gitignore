@@ -8,4 +8,4 @@ Grounded-Segment-Anything/
 .ipynb_checkpoints/
 cache/
 wandb/
-data_root/
+data_root/cache/*.pt
