@@ -2,15 +2,51 @@ export CUDA_VISIBLE_DEVICES=0
 
 
 accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="data_root/logs/erase_celeb5/CFR_with_multi_LoRAs"  \
-  --instance_data_dir="data_root/data/real_data/amy_adams" \
-  --output_dir="data_root/logs/uul_l1.kv_amy-person_lr1e-4_b1g4" \
-  --validation_prompt="A photo of a person" \
-  --instance_prompt="A photo of a person" \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.hippo/LoRA_fusion_model"  \
+  --instance_data_dir="data_root/data/real_data/moodeng-3" \
+  --output_dir="data_root/logs/uul_moodeng.hippo_l4.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+  --validation_prompt="A photo of a moodeng" \
+  --instance_prompt="A photo of a moodeng" \
   --learning_rate=1e-4 \
   --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --rank 1 \
-  --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+  --rank 4 \
+  --max_train_steps=2000 --checkpointing_steps=50 --validation_epochs=50 
+
+
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+  --instance_data_dir="data_root/data/real_data/moodeng-3" \
+  --output_dir="data_root/logs/uul_moodeng.object_l4.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+  --validation_prompt="A photo of a moodeng" \
+  --instance_prompt="A photo of a moodeng" \
+  --learning_rate=1e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --rank 4 \
+  --max_train_steps=2000 --checkpointing_steps=50 --validation_epochs=50 
+
+
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.sky/LoRA_fusion_model"  \
+  --instance_data_dir="data_root/data/real_data/moodeng-3" \
+  --output_dir="data_root/logs/uul_moodeng.sky_l4.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+  --validation_prompt="A photo of a moodeng" \
+  --instance_prompt="A photo of a moodeng" \
+  --learning_rate=1e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --rank 4 \
+  --max_train_steps=2000 --checkpointing_steps=50 --validation_epochs=50 
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erased_moodeng/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_l16.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a moodeng" \
+#   --instance_prompt="A photo of a moodeng" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_epochs=50 
 
 
 # accelerate launch train_dreambooth_lora.py \

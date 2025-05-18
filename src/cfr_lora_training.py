@@ -136,6 +136,20 @@ def main(args):
         args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision
     )
     
+    if args.lora_weight_dir_path is not None:
+        
+        print('loading LoRA into UNet ....')
+        print(f'LoRA path: {args.lora_weight_dir_path}')
+        
+        dummy_pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, unet=unet, text_encoder=text_encoder, vae=vae, revision=args.revision)
+        dummy_pipeline.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")
+        
+
+        dummy_pipeline.fuse_lora()
+
+        print('Fused LoRA  ....')
+    
+    
     # For mixed precision training we cast the text_encoder and vae weights to half-precision
     # as these models are only used for inference, keeping weights in full precision is not required.
     weight_dtype = torch.float32
@@ -395,8 +409,8 @@ def main(args):
             )
         
         
-        print(f'UNet:')
-        print(unet)
+        # print(f'UNet:')
+        # print(unet)
         # We need to initialize the trackers we use, and also store our configuration.
         # The trackers initializes automatically on the main process.
         if accelerator.is_main_process:

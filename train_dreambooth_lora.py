@@ -1483,84 +1483,7 @@ def main(args):
                     accelerator=accelerator,
                     weight_dtype=weight_dtype,
                     epoch=epoch,)
-                    
-                # logger.info(
-                #     f"Running validation... \n Generating {args.num_validation_images} images with prompt:"
-                #     f" {args.validation_prompt}."
-                # )
-                # # create pipeline
-                # pipeline = DiffusionPipeline.from_pretrained(
-                #     args.pretrained_model_name_or_path,
-                #     unet=accelerator.unwrap_model(unet),
-                #     text_encoder=None if args.pre_compute_text_embeddings else accelerator.unwrap_model(text_encoder),
-                #     revision=args.revision,
-                #     torch_dtype=weight_dtype,
-                # )
 
-                # # We train on the simplified learning objective. If we were previously predicting a variance, we need the scheduler to ignore it
-                # scheduler_args = {}
-
-                # if "variance_type" in pipeline.scheduler.config:
-                #     variance_type = pipeline.scheduler.config.variance_type
-
-                #     if variance_type in ["learned", "learned_range"]:
-                #         variance_type = "fixed_small"
-
-                #     scheduler_args["variance_type"] = variance_type
-
-                # # pipeline.scheduler = DPMSolverMultistepScheduler.from_config(
-                # #     pipeline.scheduler.config, **scheduler_args
-                # # )
-                
-                
-                # pipeline.safety_checker = None
-                # pipeline.requires_safety_checker = False
-
-                # pipeline.scheduler = DDIMScheduler.from_config(pipeline.scheduler.config)
-
-                # pipeline = pipeline.to(accelerator.device)
-                # pipeline.set_progress_bar_config(disable=True)
-
-                # # run inference
-                # generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
-                # if args.pre_compute_text_embeddings:
-                #     pipeline_args = {
-                #         "prompt_embeds": validation_prompt_encoder_hidden_states,
-                #         "negative_prompt_embeds": validation_prompt_negative_prompt_embeds,
-                #     }
-                # else:
-                #     pipeline_args = {"prompt": args.validation_prompt}
-
-                # if args.validation_images is None:
-                #     images = []
-                #     for _ in range(args.num_validation_images):
-                #         with torch.cuda.amp.autocast():
-                #             image = pipeline(**pipeline_args, generator=generator).images[0]
-                #             images.append(image)
-                # else:
-                #     images = []
-                #     for image in args.validation_images:
-                #         image = Image.open(image)
-                #         with torch.cuda.amp.autocast():
-                #             image = pipeline(**pipeline_args, image=image, generator=generator).images[0]
-                #         images.append(image)
-
-                # for tracker in accelerator.trackers:
-                #     if tracker.name == "tensorboard":
-                #         np_images = np.stack([np.asarray(img) for img in images])
-                #         tracker.writer.add_images("validation", np_images, epoch, dataformats="NHWC")
-                #     if tracker.name == "wandb":
-                #         tracker.log(
-                #             {
-                #                 "validation": [
-                #                     wandb.Image(image, caption=f"{i}: {args.validation_prompt}")
-                #                     for i, image in enumerate(images)
-                #                 ]
-                #             }
-                #         )
-
-                # del pipeline
-                # torch.cuda.empty_cache()
 
     # Save the lora layers
     accelerator.wait_for_everyone()
@@ -1576,6 +1499,9 @@ def main(args):
         else:
             text_encoder_lora_layers = None
 
+        # /home/nessessence/anaconda3/envs/mace/lib/python3.10/site-packages/diffusers/loaders.py
+        
+        # Final save
         LoraLoaderMixin.save_lora_weights(
             save_directory=args.output_dir,
             unet_lora_layers=unet_lora_layers,
@@ -1588,6 +1514,13 @@ def main(args):
             args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype
         )
 
+        # load attention processors
+        pipeline.load_lora_weights(args.output_dir, weight_name="pytorch_lora_weights.safetensors")
+        
+        pipeline = pipeline.to(accelerator.device)
+
+        
+        
         # We train on the simplified learning objective. If we were previously predicting a variance, we need the scheduler to ignore it
         scheduler_args = {}
 
@@ -1601,10 +1534,7 @@ def main(args):
 
         pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config, **scheduler_args)
 
-        pipeline = pipeline.to(accelerator.device)
 
-        # load attention processors
-        pipeline.load_lora_weights(args.output_dir, weight_name="pytorch_lora_weights.safetensors")
 
         # run inference
         images = []
