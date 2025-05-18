@@ -25,7 +25,7 @@ MACE:
   generate_data: true
   use_gpt: false
   test_erased_model: false
-  prior_preservation_cache_path: ./cache/cache_coco.pt
+  prior_preservation_cache_path: ./data_root/cache/mace/cache_coco.pt
   domain_preservation_cache_path: false # ./cache/cache_cele.pt
   preserve_weight: 8.0e+3
   input_data_dir: ./data/data_root/data/real_data/moodeng
