@@ -1,41 +1,241 @@
 export CUDA_VISIBLE_DEVICES=1
-
-accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-  --instance_data_dir="data_root/data/real_data/moodeng-3" \
-  --output_dir="data_root/logs/l4.kv_moodeng3-moodeng_lr1e-4_b1g4" \
-  --validation_prompt="A photo of a moodeng" \
-  --instance_prompt="A photo of a moodeng" \
-  --learning_rate=1e-4 \
-  --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --rank 4 \
-  --max_train_steps=2000 --checkpointing_steps=50 --validation_epochs=50 
-
-
-accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-  --instance_data_dir="data_root/data/real_data/moodeng-3" \
-  --output_dir="data_root/logs/l16.kv_moodeng3-moodeng_lr1e-4_b1g4" \
-  --validation_prompt="A photo of a moodeng" \
-  --instance_prompt="A photo of a moodeng" \
-  --learning_rate=1e-4 \
-  --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --rank 16 \
-  --max_train_steps=2000 --checkpointing_steps=50 --validation_epochs=50 
-
+export pc_id="20_1"
 
 
 
 accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
   --instance_data_dir="data_root/data/real_data/moodeng-3" \
-  --output_dir="data_root/logs/noone" \
-  --validation_prompt="A photo of a moodeng" \
-  --instance_prompt="A photo of a moodeng" \
-  --learning_rate=1e-4 \
+  --output_dir="data_root/logs/uul_moodeng.object_cs.l16.kvqoa_moodeng3-hippo_f0.5_lr5e-5_b1g4" \
+  --validation_prompt="A photo of a hippo" \
+  --instance_prompt="A photo of a hippo" \
+  --learning_rate=5e-5 \
   --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --rank 4 \
-  --max_train_steps=10000000 --checkpointing_steps=100000000 --validation_epochs=100000000 
+  --rank 16 --target_lora_modules to_k to_v to_q to_out add_k_proj add_v_proj --target_lora_layers cross self \
+  --run_note "kvqoa 5e-5" \
+  --flip_p 0.5 \
+  --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_cs.l16.kvqoa_moodeng3-hippo_lr2.5e-5_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=2.5e-5 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 --target_lora_modules to_k to_v to_q to_out add_k_proj add_v_proj --target_lora_layers cross self \
+#   --run_note "kvqoa 2.5e-5" \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+
+  #   accelerate launch train_dreambooth_lora.py \
+  # --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  # --instance_data_dir="data_root/data/real_data/moodeng-3" \
+  # --output_dir="data_root/logs/cs.l16.kvqoa_moodeng3-hippo_lr5e-5_b1g4" \
+  # --validation_prompt="A photo of a hippo" \
+  # --instance_prompt="A photo of a hippo" \
+  # --learning_rate=5e-5 \
+  # --train_batch_size=1 --gradient_accumulation_steps=4 \
+  # --rank 16 --target_lora_modules to_k to_v to_q to_out add_k_proj add_v_proj --target_lora_layers cross self \
+  # --run_note "kvqoa 5e-5" \
+  # --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+#   accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/l16.kvq_moodeng3-hippo_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 --target_lora_modules to_k to_v to_q \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+  
+
+
+
+  
+#   accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/cs.l16.kvq_moodeng3-hippo_lr1e-4_b1g1" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=1 \
+#   --rank 16 --target_lora_modules to_k to_v to_q --target_lora_layers cross self \
+#   --run_note "batch size 1 no gradient acc" \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+#  accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/cs.l16.kvq_moodeng3-hippo_lr5e-5_b4g1" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=5e-5 \
+#   --train_batch_size=4 --gradient_accumulation_steps=1 \
+#   --rank 16 --target_lora_modules to_k to_v to_q --target_lora_layers cross self \
+#   --run_note "batch size 4 no gradient acc + lower lr" \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_cs.l16.kvq_moodeng3-hippo_lr1e-5_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=1e-5 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 --target_lora_modules to_k to_v to_q --target_lora_layers cross self \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_cs.l16.kvq_moodeng3-hippo_lr5e-5_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=5e-5 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 --target_lora_modules to_k to_v to_q --target_lora_layers cross \
+#   --run_note "no self" \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_cs.l16.kvq_moodeng3-hippo_lr5e-5_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=5e-5 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --run_note "no self + no qs" \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+
+#    accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/cs.l16.kvqoa_moodeng3-hippo_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 --target_lora_modules to_k to_v to_q to_out add_k_proj add_v_proj --target_lora_layers cross self \
+#   --run_note "kvqoa" \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_l16.kv_moodeng3-hippo_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_l4.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a moodeng" \
+#   --instance_prompt="A photo of a moodeng" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 4 \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+  
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.person/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.person_l4.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a moodeng" \
+#   --instance_prompt="A photo of a moodeng" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 4 \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.sky/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.sky_l4.kv_moodeng3-hippo_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a hippo" \
+#   --instance_prompt="A photo of a hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 4 \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+
+
+
+
+
+###################
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/l4.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a moodeng" \
+#   --instance_prompt="A photo of a moodeng" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 4 \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/l16.kv_moodeng3-moodeng_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a moodeng" \
+#   --instance_prompt="A photo of a moodeng" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 16 \
+#   --max_train_steps=2000 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+
 
 # accelerate launch train_dreambooth_lora.py \
 #   --pretrained_model_name_or_path="data_root/logs/erase_celeb5/CFR_with_multi_LoRAs"  \
@@ -46,7 +246,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 1 \
-#   --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=1000 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -62,7 +262,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 1 \
-#   --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=1000 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -76,7 +276,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 1 \
-#   --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=1000 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -89,7 +289,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 1 \
-#   --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=1000 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -102,7 +302,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 1 \
-#   --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=1000 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -115,7 +315,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 1 \
-#   --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=1000 --checkpointing_steps=100 --validation_steps=50 
 
 
 # accelerate launch train_dreambooth_lora.py \
@@ -127,7 +327,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 8 \
-#   --max_train_steps=1000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=1000 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -146,7 +346,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 8 \
-#   --max_train_steps=2000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=2000 --checkpointing_steps=100 --validation_steps=50 
 
 # accelerate launch train_dreambooth_lora.py \
 #   --pretrained_model_name_or_path="data_root/logs/erase_celeb5/CFR_with_multi_LoRAs"  \
@@ -157,7 +357,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 8 \
-#   --max_train_steps=2000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=2000 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -170,7 +370,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 8 \
-#   --max_train_steps=2000 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=2000 --checkpointing_steps=100 --validation_steps=50 
 
 
 # accelerate launch train_dreambooth_lora.py \
@@ -182,7 +382,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --learning_rate=1e-4 \
 #   --train_batch_size=1 --gradient_accumulation_steps=4 \
 #   --rank 1 \
-#   --max_train_steps=500 --checkpointing_steps=100 --validation_epochs=50 
+#   --max_train_steps=500 --checkpointing_steps=100 --validation_steps=50 
 
 
 
@@ -202,7 +402,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="A photo of Amber Heard" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 8 \
 #   --seed="0" 
 
@@ -224,7 +424,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="A photo of Lisa Blackpink" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 1 \
 #   --seed="0" 
 
@@ -244,7 +444,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="A photo of Andrew Garfield" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 1 \
 #   --seed="0" 
 
@@ -266,7 +466,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="A photo of Andrew Garfield" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 8 \
 #   --seed="0" 
 
@@ -287,7 +487,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by Claude Monet" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 1 \
 #   --seed="0" 
 
@@ -308,7 +508,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by Claude Monet" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 1 --target_lora_modules to_k to_q to_v \
 #   --seed="0" 
 
@@ -334,7 +534,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by Claude Monet" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 4 \
 #   --seed="0" 
 
@@ -355,7 +555,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by Claude Monet" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 4 --target_lora_modules to_k to_q to_v \
 #   --seed="0" 
 
@@ -375,7 +575,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by Claude Monet" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 8 \
 #   --seed="0" 
 
@@ -403,7 +603,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by Claude Monet" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 1 \
 #   --seed="0" \
 #   --push_to_hub
@@ -430,7 +630,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by Claude Monet" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 8 \
 #   --seed="0" \
 #   --push_to_hub
@@ -459,7 +659,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by sks" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 1 \
 #   --seed="0" \
 #   --push_to_hub
@@ -485,7 +685,7 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="An artwork by sks" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --rank 8 \
 #   --seed="0" \
 #   --push_to_hub
@@ -512,6 +712,19 @@ accelerate launch train_dreambooth_lora.py \
 #   --lr_warmup_steps=0 \
 #   --max_train_steps=500 \
 #   --validation_prompt="A photo of sks dog in a bucket" \
-#   --validation_epochs=50 \
+#   --validation_steps=50 \
 #   --seed="0" \
 #   --push_to_hub
+
+###################
+  accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng-3" \
+  --output_dir="data_root/logs/noone" \
+  --validation_prompt="A photo of a moodeng" \
+  --instance_prompt="A photo of a moodeng" \
+  --learning_rate=1e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --rank 512 \
+  --test_run \
+  --max_train_steps=10000000 --checkpointing_steps=100000000 --validation_steps=100000000

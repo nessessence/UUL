@@ -521,6 +521,7 @@ def parse_args(input_args=None):
         choices=["cross", "self"],
         help='Which attention types to apply LoRA to. Choose from ["cross", "self"].',
     )
+    parser.add_argument("--run_note",type=str,default=None)  
 
 
 
@@ -546,6 +547,14 @@ def parse_args(input_args=None):
         ),
     )
 
+
+    parser.add_argument(
+        "--flip_p",
+        type=float,
+        default=0.0,
+    )
+
+    parser.add_argument( "--test_run",action="store_true")
     
     if input_args is not None:
         args = parser.parse_args(input_args)
@@ -593,6 +602,7 @@ class DreamBoothDataset(Dataset):
         encoder_hidden_states=None,
         class_prompt_encoder_hidden_states=None,
         tokenizer_max_length=None,
+        flip_p=0.0
     ):
         self.size = size
         self.center_crop = center_crop
@@ -600,6 +610,7 @@ class DreamBoothDataset(Dataset):
         self.encoder_hidden_states = encoder_hidden_states
         self.class_prompt_encoder_hidden_states = class_prompt_encoder_hidden_states
         self.tokenizer_max_length = tokenizer_max_length
+        self.flip_p = flip_p
 
         self.instance_data_root = Path(instance_data_root)
         if not self.instance_data_root.exists():
@@ -627,10 +638,14 @@ class DreamBoothDataset(Dataset):
             [
                 transforms.Resize(size, interpolation=transforms.InterpolationMode.BILINEAR),
                 transforms.CenterCrop(size) if center_crop else transforms.RandomCrop(size),
+                *([transforms.RandomHorizontalFlip(p=flip_p)] if flip_p > 0 else []),
+
                 transforms.ToTensor(),
                 transforms.Normalize([0.5], [0.5]),
             ]
         )
+        
+        print(f'image transformers:\n{self.image_transforms}')
 
     def __len__(self):
         return self._length
@@ -793,6 +808,8 @@ def main(args):
     if accelerator.is_local_main_process:
         
         project = "uul"
+        if args.test_run:
+            project = 'test'
         display_name = osp.basename(args.output_dir)
         wandb.init(project=project, name=display_name)
 
@@ -1033,7 +1050,7 @@ def main(args):
                 )
                 unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
 
-
+    print(f'UNet:\n{unet}')
 
     # # Set correct lora layers
     # unet_lora_parameters = []
@@ -1233,6 +1250,7 @@ def main(args):
         encoder_hidden_states=pre_computed_encoder_hidden_states,
         class_prompt_encoder_hidden_states=pre_computed_class_prompt_encoder_hidden_states,
         tokenizer_max_length=args.tokenizer_max_length,
+        flip_p=args.flip_p
     )
 
     train_dataloader = torch.utils.data.DataLoader(
@@ -1581,4 +1599,6 @@ def main(args):
 
 if __name__ == "__main__":
     args = parse_args()
+    args.pc_id = os.environ.get("pc_id")
+    
     main(args)
