@@ -20,6 +20,9 @@ accelerate launch train_dreambooth_lora.py \
 
 
 
+
+
+
 # export MODEL_NAME="CompVis/stable-diffusion-v1-4"
 # export INSTANCE_DIR="data/dog"
 # export OUTPUT_DIR="saved_model/lora_dog"
