@@ -2,33 +2,243 @@ export CUDA_VISIBLE_DEVICES=1
 export pc_id="20_1"
 
 
-accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
-  --instance_data_dir="data_root/data/real_data/moodeng-3" \
-  --output_dir="data_root/logs/uul_moodeng.object_moodeng3-V_f0.5_lr5e-5_b1g4" \
-  --validation_prompt="A photo of a v1,a v1" \
-  --instance_prompt="A photo of a v1" \
-  --placeholder_token="v1" --initializer_token="hippo" \
-  --learning_rate=5e-5 \
-  --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --run_note "ti only" \
-  --flip_p 0.5 \
-  --max_train_steps=1500 --checkpointing_steps=50 --validation_steps=50 
-
 
 
 accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
   --instance_data_dir="data_root/data/real_data/moodeng-3" \
-  --output_dir="data_root/logs/uul_moodeng.object_moodeng3-V_f0.5_lr1e-4_b1g4" \
-  --validation_prompt="A photo of a v1,a v1" \
+  --gen_image_path="auto" \
+  --output_dir="data_root/logs/gen" \
+  --load_lora_weight_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-500" \
+  --load_token_embedding_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-500" \
+  --validation_prompt="A photo of a v1" \
   --instance_prompt="A photo of a v1" \
   --placeholder_token="v1" --initializer_token="hippo" \
-  --learning_rate=1e-4 \
-  --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --run_note "ti only" \
-  --flip_p 0.5 \
-  --max_train_steps=1500 --checkpointing_steps=50 --validation_steps=50
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --num_validation_images 1000 \
+  --run_note "gen image" 
+
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+  --instance_data_dir="data_root/data/real_data/moodeng-3" \
+  --gen_image_path="auto" \
+  --output_dir="data_root/logs/gen" \
+  --load_lora_weight_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000" \
+  --load_token_embedding_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000" \
+  --validation_prompt="A photo of a v1" \
+  --instance_prompt="A photo of a v1" \
+  --placeholder_token="v1" --initializer_token="hippo" \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --num_validation_images 1000 \
+  --run_note "gen image" 
+
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+  --instance_data_dir="data_root/data/real_data/moodeng-3" \
+  --gen_image_path="auto" \
+  --output_dir="data_root/logs/gen" \
+  --load_lora_weight_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1500" \
+  --load_token_embedding_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1500" \
+  --validation_prompt="A photo of a v1" \
+  --instance_prompt="A photo of a v1" \
+  --placeholder_token="v1" --initializer_token="hippo" \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --num_validation_images 1000 \
+  --run_note "gen image" 
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/c.l16.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=1e-4 --learning_rate_ti=1e-2 --learning_rate_lora=5e-5 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --lora_rank 16 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --run_note "kv l16 ti" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=100 --validation_steps=100 
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --gen_image_path="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1500/gen_images" \
+#   --output_dir="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4_genimage" \
+#   --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1500" \
+#   --load_token_embedding_path="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1500" \
+#   --validation_prompt="A photo of a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --num_validation_images 1000 \
+#   --run_note "gen image" 
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --gen_image_path="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000/gen_images" \
+#   --output_dir="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4_genimage" \
+#   --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000" \
+#   --load_token_embedding_path="data_root/logs/c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000" \
+#   --validation_prompt="A photo of a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --num_validation_images 1000 \
+#   --run_note "gen image" 
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/test" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=1e-4 --learning_rate_ti=1e-3 --learning_rate_lora=5e-5 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --run_note "kv l4 lower ti lr" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=100 --validation_steps=100 
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --gen_image_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000/gen_images" \
+#   --output_dir="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4_genimage" \
+#   --load_lora_weight_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000" \
+#   --load_token_embedding_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-1000" \
+#   --validation_prompt="A photo of a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --num_validation_images 1000 \
+#   --run_note "gen image" 
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --gen_image_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-500/gen_images" \
+#   --output_dir="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4_genimage" \
+#   --load_lora_weight_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-500" \
+#   --load_token_embedding_path="data_root/logs/uul_moodeng.object_c.l4.kv_moodeng3-V_f0.5_lr.ti1e-2.l5e-5_b1g4/checkpoint-500" \
+#   --validation_prompt="A photo of a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --num_validation_images 1000 \
+#   --run_note "gen image" 
+
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_c.l1.kvq_moodeng3-V_f0.5_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --lora_rank 1 --target_lora_modules to_k to_v to_q --target_lora_layers cross \
+#   --run_note "kvq l1 ti" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_moodeng3-V_f0.5_lr5e-2_b1g4" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=5e-2 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --run_note "ti only" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=100 --validation_steps=100
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/moodeng3-V_f0.5_lr1e-3_b1g4" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=1e-3 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --run_note "ti only" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=100 --validation_steps=100 
+  
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_c.l1.kv_moodeng3-V_f0.5_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#   --run_note "kv l1 ti 5e-4" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_moodeng3-V_f0.5_lr5e-5_b1g4" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=5e-5 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --run_note "ti only" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=50 --validation_steps=50 
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng-3" \
+#   --output_dir="data_root/logs/uul_moodeng.object_moodeng3-V_f0.5_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of a v1,a v1" \
+#   --instance_prompt="A photo of a v1" \
+#   --placeholder_token="v1" --initializer_token="hippo" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --run_note "ti only" \
+#   --flip_p 0.5 \
+#   --max_train_steps=1500 --checkpointing_steps=50 --validation_steps=50
   
 
 #     accelerate launch train_dreambooth_lora.py \

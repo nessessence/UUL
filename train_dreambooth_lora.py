@@ -70,6 +70,7 @@ from diffusers.utils.import_utils import is_xformers_available
 import wandb
 import os.path as osp
 from collections import defaultdict
+from diffusers.utils.torch_utils import randn_tensor
 
 # Will error if the minimal version of diffusers is not installed. Remove at your own risks.
 check_min_version("0.22.0")
@@ -157,19 +158,22 @@ def load_token_embedding(text_encoder, tokenizer, weight_path):
     # torch.save(learned_embeds_dict, save_path)
     
     
-def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype, epoch, log_label=None):
+def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype, epoch, log_label=None,save_image_path=None,gen_dtype=None):
     logger.info(
         f"Running validation... \n Generating {args.num_validation_images} images with prompt: {args.validation_prompt}"
     )
 
+    if gen_dtype is None: gen_dtype = weight_dtype
+    print(f'gen_dtype: {weight_dtype}')
+    print(10*'#')
     # Initialize inference pipeline
     pipeline = DiffusionPipeline.from_pretrained(
         args.pretrained_model_name_or_path,
-        unet=accelerator.unwrap_model(unet),
-        text_encoder=accelerator.unwrap_model(text_encoder),
+        unet=accelerator.unwrap_model(unet).to(dtype=gen_dtype),
+        text_encoder=accelerator.unwrap_model(text_encoder).to(dtype=gen_dtype),
         tokenizer=tokenizer,
         revision=args.revision,
-        torch_dtype=weight_dtype,
+        torch_dtype=gen_dtype,
     )
 
     if "variance_type" in pipeline.scheduler.config:
@@ -190,13 +194,26 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     for prompt in args.validation_prompt:
         if args.reinit_validation_generator:
             generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
-        for i in range(args.num_validation_images):
-            image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
-
-            images.append((prompt, image))
-            index_images += [i]
+        for i in tqdm(range(args.num_validation_images)):
             
-            prompt2images[prompt] += [image]
+            # dummy_latents = randn_tensor( (1, 4, 64, 64),device=accelerator.device, generator=generator)
+            image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
+            
+            if save_image_path is not None:
+                save_image_path_dir = osp.join(save_image_path,prompt)
+                os.makedirs(save_image_path_dir,exist_ok=True)
+                img_path = osp.join(save_image_path_dir,f"{i:04}.png")
+                image.save(img_path)
+            
+            else:
+            
+                images.append((prompt, image))
+                index_images += [i]
+                
+                prompt2images[prompt] += [image]
+            
+            
+    if save_image_path is not None: return
             
         # for _ in range(args.num_validation_images):
         #     with torch.cuda.amp.autocast():
@@ -234,6 +251,10 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
             #         for i, image in enumerate(images)
             #     ]
             # })
+            
+    if gen_dtype != weight_dtype:
+        unet = unet.to(dtype=weight_dtype)
+        text_encoder = text_encoder.to(dtype=weight_dtype)
 
     del pipeline
     torch.cuda.empty_cache()
@@ -655,6 +676,19 @@ def parse_args(input_args=None):
     parser.add_argument( "--test_run",action="store_true")
     
     
+    # for image generation only
+    parser.add_argument( "--gen_image_path",type=str,default=None)
+    parser.add_argument( "--load_lora_weight_path",type=str,default=None)
+    parser.add_argument( "--load_token_embedding_path",type=str,default=None)
+    parser.add_argument( "--gen_dtype",type=str,default="fp16")
+    
+    
+    
+    
+    parser.add_argument("--learning_rate_ti",type=float,default=None,)
+    parser.add_argument("--learning_rate_lora",type=float,default=None,)
+
+    
     parser.add_argument(
         "--placeholder_token",
         type=str,
@@ -964,7 +998,7 @@ def main(args):
     if accelerator.is_local_main_process:
         
         project = "uul"
-        if args.test_run:
+        if args.test_run or args.gen_image_path is not None:
             project = 'test'
         display_name = osp.basename(args.output_dir)
         wandb.init(project=project, name=display_name)
@@ -1275,23 +1309,54 @@ def main(args):
 
     # Optimizer creation
     
-    # LoRA
-    params_lora = []
-    if args.lora_rank is not None and  args.lora_rank > 0:
-        print('adding lora as learnable parameters')
-        params_lora = (
-            itertools.chain(unet_lora_parameters, text_lora_parameters)
-            if args.train_text_encoder
-            else unet_lora_parameters
-        )
-    # TI
-    params_ti = []
-    if args.placeholder_token is not None:
-        print('adding token embeddings as learnable parameters')
-        params_ti = list(text_encoder.get_input_embeddings().parameters())
-        
-        
-    params_to_optimize = params_lora + params_ti
+    params_to_optimize = []
+    if args.learning_rate_lora is not None and args.learning_rate_ti is not None:
+        print('using a separate lr for lora and ti')
+        # LoRA parameters
+        if args.lora_rank is not None and args.lora_rank > 0:
+            print("using lora as learnable parameters")
+            params_lora = list(
+                itertools.chain(unet_lora_parameters, text_lora_parameters)
+                if args.train_text_encoder else unet_lora_parameters
+            )
+            if args.learning_rate_lora is not None:
+                params_to_optimize.append({
+                    "params": params_lora,
+                    "lr": args.learning_rate_lora
+                })
+            else:
+                params_to_optimize.append({"params": params_lora})
+
+        # Token embeddings (TI)
+        if args.placeholder_token is not None:
+            print("adding token embeddings as learnable parameters")
+            params_ti = list(text_encoder.get_input_embeddings().parameters())
+            if args.learning_rate_ti is not None:
+                params_to_optimize.append({
+                    "params": params_ti,
+                    "lr": args.learning_rate_ti
+                })
+            else:
+                params_to_optimize.append({"params": params_ti})
+                
+    else:
+        # LoRA
+        params_lora = []
+        if args.lora_rank is not None and  args.lora_rank > 0:
+            print('adding lora as learnable parameters')
+            params_lora = (
+                itertools.chain(unet_lora_parameters, text_lora_parameters)
+                if args.train_text_encoder
+                else unet_lora_parameters
+            )
+        # TI
+        params_ti = []
+        if args.placeholder_token is not None:
+            print('adding token embeddings as learnable parameters')
+            params_ti = list(text_encoder.get_input_embeddings().parameters())
+            
+            
+        params_to_optimize = params_lora + params_ti
     
     
     optimizer = optimizer_class(
@@ -1426,6 +1491,10 @@ def main(args):
     # keep original embeddings as reference
     orig_embeds_params = accelerator.unwrap_model(text_encoder).get_input_embeddings().weight.data.clone()
     
+    
+    if args.gen_image_path is not None: 
+        print('no training ... setting epoch to 0')
+        args.num_train_epochs = 0
     for epoch in range(first_epoch, args.num_train_epochs):
         unet.train()
         if args.train_text_encoder:
@@ -1580,6 +1649,8 @@ def main(args):
                             args=args,
                             accelerator=accelerator,
                             weight_dtype=weight_dtype,
+                            gen_dtype=args.gen_dtype,
+                            
                             epoch=epoch,)
                         
 
@@ -1590,74 +1661,95 @@ def main(args):
             if global_step >= args.max_train_steps:
                 break
 
-        if accelerator.is_main_process:
-            if args.validation_prompt is not None and args.validation_epochs is not None and epoch % args.validation_epochs == 0:
-                log_validation(
-                    unet=unet,
-                    text_encoder=text_encoder,
-                    tokenizer=tokenizer,
-                    args=args,
-                    accelerator=accelerator,
-                    weight_dtype=weight_dtype,
-                    epoch=epoch,)
-
-
     # Save the lora layers
     accelerator.wait_for_everyone()
     if accelerator.is_main_process:
-        unet = accelerator.unwrap_model(unet)
-        unet = unet.to(torch.float32)
-        unet_lora_layers = unet_lora_state_dict(unet)
-
-        if text_encoder is not None and args.train_text_encoder:
-            text_encoder = accelerator.unwrap_model(text_encoder)
-            text_encoder = text_encoder.to(torch.float32)
-            text_encoder_lora_layers = text_encoder_lora_state_dict(text_encoder)
-        else:
-            text_encoder_lora_layers = None
-
-        # /home/nessessence/anaconda3/envs/mace/lib/python3.10/site-packages/diffusers/loaders.py
         
-        # Final save
         
-        # save lora
-        if args.lora_rank is not None and args.lora_rank > 0:
-            LoraLoaderMixin.save_lora_weights(
-                save_directory=args.output_dir,
-                unet_lora_layers=unet_lora_layers,
-                text_encoder_lora_layers=text_encoder_lora_layers,
-            )
-        if args.placeholder_token is not None:
-            # save token
-            placeholder_tokens = [args.placeholder_token]
-            placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
-            save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(args.output_dir,'token_embedding.pt'))
+        if args.gen_image_path is not None:
+            del unet, text_encoder
+            torch.cuda.empty_cache()
+    
+            print(f'entering image generation, save image to: {args.gen_image_path}')
+            
+            # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
+            pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype)
+            if args.load_lora_weight_path is not None and args.lora_rank is not None and args.lora_rank > 0:
+                # load attention processors
+                print(25*"#")
+                print('loading LoRA weight')
+                pipeline.load_lora_weights(args.load_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+            else: print('not loading loRA weight')
+            if args.load_token_embedding_path is not None and args.placeholder_token is not None:
+                print('loading token embedding')
+                load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,'token_embedding.pt'))
+                
+                
+            log_validation(
+                unet=pipeline.unet,
+                text_encoder=pipeline.text_encoder,
+                tokenizer=pipeline.tokenizer,
+                args=args,
+                accelerator=accelerator,
+                weight_dtype=weight_dtype,
+                gen_dtype=args.gen_dtype,
+                epoch=0,
+                log_label='image generation',
+                save_image_path = args.gen_image_path)
                         
-        # Final inference
-        pipeline = DiffusionPipeline.from_pretrained(
-                args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype
-            )
-        # Load previous pipeline
-        if args.lora_rank is not None and args.lora_rank > 0:
-            # load attention processors
-            print('loading LoRA weight')
-            pipeline.load_lora_weights(args.output_dir, weight_name="pytorch_lora_weights.safetensors")
-        
-        
-        if args.placeholder_token is not None:
-            print('loading token embedding')
-            load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.output_dir,'token_embedding.pt'))
-        
+                        
+                
+        else:
+            unet = accelerator.unwrap_model(unet)
+            unet = unet.to(torch.float32)
+            unet_lora_layers = unet_lora_state_dict(unet)
 
-        log_validation(
-            unet=pipeline.unet,
-            text_encoder=pipeline.text_encoder,
-            tokenizer=pipeline.tokenizer,
-            args=args,
-            accelerator=accelerator,
-            weight_dtype=weight_dtype,
-            epoch=epoch,
-            log_label='final')
+            if text_encoder is not None and args.train_text_encoder:
+                text_encoder = accelerator.unwrap_model(text_encoder)
+                text_encoder = text_encoder.to(torch.float32)
+                text_encoder_lora_layers = text_encoder_lora_state_dict(text_encoder)
+            else:
+                text_encoder_lora_layers = None
+
+            # /home/nessessence/anaconda3/envs/mace/lib/python3.10/site-packages/diffusers/loaders.py
+            
+            # Final save
+            
+            # save lora
+            if args.lora_rank is not None and args.lora_rank > 0:
+                LoraLoaderMixin.save_lora_weights(
+                    save_directory=args.output_dir,
+                    unet_lora_layers=unet_lora_layers,
+                    text_encoder_lora_layers=text_encoder_lora_layers,
+                )
+            if args.placeholder_token is not None:
+                # save token
+                placeholder_tokens = [args.placeholder_token]
+                placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
+                save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(args.output_dir,'token_embedding.pt'))
+                            
+            # Final inference
+            # Load previous pipeline
+            
+            pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
+            if args.lora_rank is not None and args.lora_rank > 0:
+                # load attention processors
+                print('loading LoRA weight')
+                pipeline.load_lora_weights(args.output_dir, weight_name="pytorch_lora_weights.safetensors")
+            if args.placeholder_token is not None:
+                print('loading token embedding')
+                load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.output_dir,'token_embedding.pt'))
+            
+
+            log_validation(
+                unet=pipeline.unet,
+                text_encoder=pipeline.text_encoder,
+                tokenizer=pipeline.tokenizer,
+                args=args,
+                accelerator=accelerator,
+                weight_dtype=weight_dtype,
+                epoch=epoch,
+                log_label='final')
                         
                         
 
@@ -1679,4 +1771,19 @@ if __name__ == "__main__":
     args.concat_prompt_indiv['all'] =  args.validation_prompt
 
     
+    if args.gen_dtype == 'fp16': args.gen_dtype = torch.float16
+    if args.gen_dtype == 'fp32': args.gen_dtype = torch.float32
+    
+    # hack for automatic gen_image_path
+    if args.gen_image_path is not None and args.gen_image_path=='auto':
+        # Get the last two components of the path
+        if args.load_lora_weight_path is not None:
+            last_two = os.path.join(*args.load_lora_weight_path.strip("/").split("/")[-2:])
+        if args.load_token_embedding_path is not None:
+            last_two = os.path.join(*args.load_token_embedding_path.strip("/").split("/")[-2:])
+        # Build the gen_image_path
+        args.gen_image_path = os.path.join("data_root/generated/model", last_two)
+        os.makedirs(args.gen_image_path,exist_ok=True)
+        print(f'gen image path: { args.gen_image_path}')
+            
     main(args)
