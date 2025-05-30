@@ -3,6 +3,7 @@ import torch
 from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 from omegaconf import OmegaConf
 import argparse
+from diffusers import AutoencoderKL, DDPMScheduler, DiffusionPipeline, UNet2DConditionModel
 
 
 def main(args):
@@ -11,6 +12,21 @@ def main(args):
     pipe = StableDiffusionPipeline.from_pretrained(model_id).to(args.device)
     pipe.safety_checker = None
     pipe.requires_safety_checker = False
+    
+    if args.lora_weight_dir_path is not None:
+        
+        print('loading LoRA into UNet ....')
+        print(f'LoRA path: {args.lora_weight_dir_path}')
+        
+        pipe.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")
+
+        pipe.fuse_lora()
+
+        print('Fused LoRA  ....')
+
+    
+    
+    
     torch.Generator(device=args.device).manual_seed(42)
     
     

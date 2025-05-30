@@ -8,6 +8,7 @@ import gc
 def main(args):   
         
     model_id = f"{args.output_dir}"
+    # load previously trained mode with LoRA
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     lora_pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32).to(device)
     lora_pipe.safety_checker = None
@@ -16,7 +17,23 @@ def main(args):
     final_pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32).to("cuda")
     final_pipe.safety_checker = None
     final_pipe.requires_safety_checker = False
+    
     final_projection_matrices, _, _ = get_ca_layers(final_pipe.unet, with_to_k=True)
+    
+    
+    # # (t is not needede and would lead to weird result) my added
+    # if args.lora_weight_dir_path is not None:
+        
+    #     print('loading previously finetuned LoRA into UNet ....')
+    #     print(f'LoRA path: {args.lora_weight_dir_path}')
+    #     lora_pipe.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")
+    #     lora_pipe.fuse_lora()
+
+    #     final_pipe.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")
+    #     final_pipe.fuse_lora()
+    
+    ###
+    # final_projection_matrices, _, _ = get_ca_layers(final_pipe.unet, with_to_k=True)
     
     train_dataset = MACEDataset(
         tokenizer=lora_pipe.tokenizer,

@@ -72,6 +72,10 @@ import os.path as osp
 from collections import defaultdict
 from diffusers.utils.torch_utils import randn_tensor
 
+
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 # Will error if the minimal version of diffusers is not installed. Remove at your own risks.
 check_min_version("0.22.0")
 
@@ -200,7 +204,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
             image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
             
             if save_image_path is not None:
-                save_image_path_dir = osp.join(save_image_path,prompt)
+                save_image_path_dir = osp.join(save_image_path,prompt, f"{args.cfg_scale:.2f}")
                 os.makedirs(save_image_path_dir,exist_ok=True)
                 img_path = osp.join(save_image_path_dir,f"{i:04}.png")
                 image.save(img_path)
@@ -671,7 +675,7 @@ def parse_args(input_args=None):
 
     parser.add_argument("--flip_p",type=float,default=0.0,)
     parser.add_argument("--num_inference_steps",type=int,default=50,)
-    parser.add_argument("--cfg_scale",type=float,default=7.5)
+    parser.add_argument("--cfg_scale",type=float,default=3.0)
 
     parser.add_argument( "--test_run",action="store_true")
     
@@ -1281,7 +1285,7 @@ def main(args):
                     )
                     unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
 
-    print(f'UNet:\n{unet}')
+    # print(f'UNet:\n{unet}')
 
 
     # The text encoder comes from 🤗 transformers, so we cannot directly modify it.
@@ -1491,6 +1495,21 @@ def main(args):
     # keep original embeddings as reference
     orig_embeds_params = accelerator.unwrap_model(text_encoder).get_input_embeddings().weight.data.clone()
     
+    
+    
+    save_step0 = True
+    if save_step0 and not args.gen_image_path:
+        print('save epoch 0 applied')
+        save_path = os.path.join(args.output_dir, f"checkpoint-{global_step}")
+        accelerator.save_state(save_path) # lora also saved here
+        logger.info(f"Saved state to {save_path}")
+        
+        # save ti
+        placeholder_tokens = [args.placeholder_token]
+        placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
+        save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(save_path,'token_embedding.pt'))
+        
+                        
     
     if args.gen_image_path is not None: 
         print('no training ... setting epoch to 0')
@@ -1787,3 +1806,4 @@ if __name__ == "__main__":
         print(f'gen image path: { args.gen_image_path}')
             
     main(args)
+    

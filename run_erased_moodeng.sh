@@ -8,6 +8,10 @@ CUDA_VISIBLE_DEVICES=2 python training.py configs/custom/erase_moodeng.yaml MACE
 
 
 
+# CUDA_VISIBLE_DEVICES=2 python training.py configs/custom/erase_moodeng.yaml MACE.mapping_concept="['object']" exp_name="erase_moodeng_S.object"
+
+CUDA_VISIBLE_DEVICES=1 python training.py configs/custom/erase_chiquita.yaml MACE.mapping_concept="['a person']" exp_name="erase_chiquita_S.person"
+
 # CUDA_VISIBLE_DEVICES=2 python training.py configs/custom/erase_moodeng.yaml MACE.mapping_concept="['object']"   MACE.output_dir="./data_root/logs/erase_moodeng_S.object/CFR_with_multi_LoRAs" MACE.final_save_path="./data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"
 # CUDA_VISIBLE_DEVICES=2 python training.py configs/custom/erase_moodeng.yaml MACE.mapping_concept="['a person']"   MACE.output_dir="./data_root/logs/erase_moodeng_S.person/CFR_with_multi_LoRAs" MACE.final_save_path="./data_root/logs/erase_moodeng_S.person/LoRA_fusion_model" 
 # CUDA_VISIBLE_DEVICES=2 python training.py configs/custom/erase_moodeng.yaml MACE.mapping_concept="['sky']"   MACE.output_dir="./data_root/logs/erase_moodeng_S.sky/CFR_with_multi_LoRAs" MACE.final_save_path="./data_root/logs/erase_moodeng_S.sky/LoRA_fusion_model" 

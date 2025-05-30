@@ -4,17 +4,31 @@ export pc_id="20_0"
 
 
 
-
 accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-  --instance_data_dir="data_root/data/real_data/moodeng" \
-  --output_dir="data_root/logs/l4.kv_moodeng_lr1e-4_b1g4" \
-  --validation_prompt="A photo of Moodeng" \
-  --instance_prompt="A photo of Moodeng" \
+  --instance_data_dir="data_root/data/real_data/chiquita/chiquita-50" \
+  --output_dir="data_root/logs/c.l4.kv_chiquita-50_lr1e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of Chiquita" \
+  --instance_prompt="A photo of Chiquita" \
   --learning_rate=1e-4 \
   --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --rank 4 \
-  --max_train_steps=2000  --validation_steps=100  --checkpointing_steps=200 
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=2000  --validation_steps=100  --checkpointing_steps=100 
+
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#   --instance_data_dir="data_root/data/real_data/moodeng" \
+#   --output_dir="data_root/logs/l4.kv_moodeng_lr1e-4_b1g4" \
+#   --validation_prompt="A photo of Moodeng" \
+#   --instance_prompt="A photo of Moodeng" \
+#   --learning_rate=1e-4 \
+#   --train_batch_size=1 --gradient_accumulation_steps=4 \
+#   --rank 4 \
+#   --max_train_steps=2000  --validation_steps=100  --checkpointing_steps=200 
 
 
 

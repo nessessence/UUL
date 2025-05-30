@@ -1,8 +1,9 @@
 MACE:
   # >>> primary settings >>>
+  # MACE.multi_concept="[[['xxx', 'object']]]" \
   multi_concept:
     - [ 
-        [moodeng, object], 
+        [erase_concept_here, object], 
       ]
   use_pooler: true  
   train_batch_size: 1
@@ -11,7 +12,7 @@ MACE:
   train_preserve_scale: 1.0e-4
   fuse_preserve_scale: 1.0e-4
   mapping_concept: 
-    - 'a hippo'
+    - 'object'
   augment: true
   lamb: 0.0
   rank: 1
@@ -29,10 +30,12 @@ MACE:
   domain_preservation_cache_path: false # ./cache/cache_cele.pt
   preserve_weight: 8.0e+3
   # input_data_dir: ./data_root/data/real_data/moodeng/moodeng-50
-  input_data_dir: ./data_root/generated/mace/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4
-  output_dir: ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs
-  final_save_path: ./data_root/logs/erased_moodeng/LoRA_fusion_model
-  lora_weight_dir_path: data_root/logs/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4/checkpoint-2000
+
+  # CUDA_VISIBLE_DEVICES=0 python data_preparation.py configs/custom/erase_moodeng.yaml MACE.use_gsam_mask=true MACE.use_sam_hq=true
+  input_data_dir: ''  #./data_root/generated/mace/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4 # place where data to be generated with data_preparation
+  output_dir: '' # ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs ...can now just specify the exp_name  exp_name="erase_moodeng_S.object"
+  final_save_path: '' # ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs ...can now just specify the exp_name  exp_name="erase_moodeng_S.object"
+  lora_weight_dir_path: ''  # data_root/logs/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4/checkpoint-2000 # load the finetuned weight (that we will later erased)
 
   ## gounded_SAM settings
   use_gsam_mask: false
@@ -44,9 +47,9 @@ MACE:
   
   # pretrained_model_name_or_path: stabilityai/stable-diffusion-2-1-base
   pretrained_model_name_or_path: CompVis/stable-diffusion-v1-4
-  with_prior_preservation: false
-  preserve_prompt: a person
-  preserve_data_dir: data/a person
+  with_prior_preservation: false # never use
+  preserve_prompt: a person # never use
+  preserve_data_dir: data/a person # never use
   prior_loss_weight: 1.0
   
   with_uncond_loss: false

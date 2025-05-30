@@ -2,7 +2,7 @@ MACE:
   # >>> primary settings >>>
   multi_concept:
     - [ 
-        [moodeng, object], 
+        [crybaby art toy, object], 
       ]
   use_pooler: true  
   train_batch_size: 1
@@ -11,7 +11,7 @@ MACE:
   train_preserve_scale: 1.0e-4
   fuse_preserve_scale: 1.0e-4
   mapping_concept: 
-    - 'a hippo'
+    - 'object'
   augment: true
   lamb: 0.0
   rank: 1

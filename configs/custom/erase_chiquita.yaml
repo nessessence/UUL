@@ -2,7 +2,7 @@ MACE:
   # >>> primary settings >>>
   multi_concept:
     - [ 
-        [moodeng, object], 
+        [chiquita, object], 
       ]
   use_pooler: true  
   train_batch_size: 1
@@ -11,7 +11,7 @@ MACE:
   train_preserve_scale: 1.0e-4
   fuse_preserve_scale: 1.0e-4
   mapping_concept: 
-    - 'a hippo'
+    - 'a person'
   augment: true
   lamb: 0.0
   rank: 1
@@ -28,11 +28,12 @@ MACE:
   prior_preservation_cache_path: ./data_root/cache/mace/cache_coco.pt
   domain_preservation_cache_path: false # ./cache/cache_cele.pt
   preserve_weight: 8.0e+3
-  # input_data_dir: ./data_root/data/real_data/moodeng/moodeng-50
-  input_data_dir: ./data_root/generated/mace/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4
-  output_dir: ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs
-  final_save_path: ./data_root/logs/erased_moodeng/LoRA_fusion_model
-  lora_weight_dir_path: data_root/logs/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4/checkpoint-2000
+  # input_data_dir: ./data_root/data/real_data/chiquita/chiquita-50
+  input_data_dir: ./data_root/generated/mace/c.l4.kv_chiquita-50_lr1e-4_f0.5_b1g4
+  output_dir: ./data_root/logs/erased_chiquita/CFR_with_multi_LoRAs
+  final_save_path: ./data_root/logs/erased_chiquita/LoRA_fusion_model
+  lora_weight_dir_path: data_root/logs/c.l4.kv_chiquita-50_lr1e-4_f0.5_b1g4/checkpoint-2000
+
 
   ## gounded_SAM settings
   use_gsam_mask: false

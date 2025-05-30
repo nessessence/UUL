@@ -21,15 +21,18 @@ def main(conf):
     
     # generate 8 images per concept using the original model for performing erasure
     if conf.MACE.generate_data:
+        print(f'generating images to {conf.MACE.input_data_dir}')
         inference(OmegaConf.create({
             "pretrained_model_name_or_path": 'CompVis/stable-diffusion-v1-4',
             "multi_concept": conf.MACE.multi_concept,
             "generate_training_data": True,
             "device": device,
-            "steps": 30,
+            "steps": 50,
             "output_dir": conf.MACE.input_data_dir,
-        }))
-
+            "lora_weight_dir_path": conf.MACE.lora_weight_dir_path
+            
+          }))
+    print(conf.MACE.use_gsam_mask)
     # get and save masks for each image
     if conf.MACE.use_gsam_mask:
         grounded_model = load_model(conf.MACE.grounded_config, conf.MACE.grounded_checkpoint, device=device)
@@ -60,6 +63,24 @@ def main(conf):
 
 if __name__ == "__main__":
     
-    conf_path = sys.argv[1]
-    conf = OmegaConf.load(conf_path)
+    # conf_path = sys.argv[1]
+    # conf = OmegaConf.load(conf_path)
+    
+    # First argument is the config path
+    config_path = sys.argv[1]
+    
+    # Remaining arguments are overrides
+    cli_overrides = sys.argv[2:]
+
+    # Load base config
+    yaml_conf = OmegaConf.load(config_path)
+
+    # Load CLI overrides
+    override_conf = OmegaConf.from_dotlist(cli_overrides)
+
+    # Merge them
+    conf = OmegaConf.merge(yaml_conf, override_conf)
+    
+    
+    
     main(conf)
