@@ -11,6 +11,7 @@ import cleanfid
 from cleanfid.utils import *
 from cleanfid.features import build_feature_extractor, get_reference_statistics
 from cleanfid.resize import *
+from natsort import natsorted
 
 
 """
@@ -134,8 +135,15 @@ def get_folder_features(fdir, model=None, num_workers=12, num=None,
         # remove the non-image files inside the zip
         files = [x for x in files if os.path.splitext(x)[1].lower()[1:] in EXTENSIONS]
     else:
-        files = sorted([file for ext in EXTENSIONS
-                    for file in glob(os.path.join(fdir, f"**/*.{ext}"), recursive=True)])
+        #TODO: including files in subfolder, note that it accepts .npy, so be careful
+        # files = natsorted([file for ext in EXTENSIONS
+        #             for file in glob(os.path.join(fdir, f"**/*.{ext}"), recursive=True)])
+        
+        files = natsorted([
+                file for ext in EXTENSIONS
+            for file in glob(os.path.join(fdir, f"*.{ext}"))
+            ])
+
     if verbose:
         print(f"Found {len(files)} images in the folder {fdir}")
     # use a subset number of files if needed
@@ -144,6 +152,8 @@ def get_folder_features(fdir, model=None, num_workers=12, num=None,
             random.seed(seed)
             random.shuffle(files)
         files = files[:num]
+        # print(files)
+        
     np_feats = get_files_features(files, model, num_workers=num_workers,
                                   batch_size=batch_size, device=device, mode=mode,
                                   custom_fn_resize=custom_fn_resize,
@@ -381,7 +391,8 @@ def compute_kid(fdir1=None, fdir2=None, gen=None,
             mode="clean", num_workers=12, batch_size=32,
             device=torch.device("cuda"), dataset_name="FFHQ",
             dataset_res=1024, dataset_split="train", num_gen=50_000, z_dim=512,
-            verbose=True, use_dataparallel=True):
+            verbose=True, use_dataparallel=True, n_max_gen_img=None):
+    
     # build the feature extractor based on the mode
     feat_model = build_feature_extractor(mode, device, use_dataparallel=use_dataparallel)
 
@@ -392,12 +403,12 @@ def compute_kid(fdir1=None, fdir2=None, gen=None,
         # get all inception features for the first folder
         fbname1 = os.path.basename(fdir1)
         np_feats1 = get_folder_features(fdir1, feat_model, num_workers=num_workers,
-                            batch_size=batch_size, device=device, mode=mode,
+                            batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
                             description=f"KID {fbname1} : ", verbose=verbose)
         # get all inception features for the second folder
         fbname2 = os.path.basename(fdir2)
         np_feats2 = get_folder_features(fdir2, feat_model, num_workers=num_workers,
-                            batch_size=batch_size, device=device, mode=mode,
+                            batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
                             description=f"KID {fbname2} : ", verbose=verbose)
         score = kernel_distance(np_feats1, np_feats2)
         return score
