@@ -11,6 +11,21 @@ accelerate launch train_dreambooth_lora.py \
   --flip_p 0.5 \
   --max_train_steps=6000  --validation_steps=100  --checkpointing_steps=50 
 
+
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/crybaby/sd/crybaby-50" \
+  --output_dir="data_root/logs/c.l4.kv_crybaby-sd-50_lr1e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of a crybaby art toy" \
+  --instance_prompt="A photo of a crybaby art toy" \
+  --learning_rate=1e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=6000  --validation_steps=100  --checkpointing_steps=50 
+
+
 CUDA_VISIBLE_DEVICES=1 python data_preparation.py configs/custom/erase_default.yaml \
 exp_name="erase_crybaby.object_lr2.5e-4" \
 MACE.multi_concept="[[['crybaby-art-toy', 'object']]]" \

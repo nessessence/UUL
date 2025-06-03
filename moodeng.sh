@@ -2,15 +2,91 @@
 accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
   --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-  --output_dir="data_root/logs/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4" \
+  --output_dir="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4" \
   --validation_prompt="A photo of moodeng" \
   --instance_prompt="A photo of moodeng" \
-  --learning_rate=1e-4 \
+  --learning_rate=2.5e-4 \
   --train_batch_size=1 --gradient_accumulation_steps=4 \
   --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
   --flip_p 0.5 \
   --max_train_steps=6000  --validation_steps=100  --checkpointing_steps=50 
 
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/sd/moodeng-50" \
+  --output_dir="data_root/logs/c.l4.kv_moodeng-sd-50_lr2.5e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of moodeng" \
+  --instance_prompt="A photo of moodeng" \
+  --learning_rate=2.5e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=4000  --validation_steps=500  --checkpointing_steps=50 
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/sd/moodeng-50" \
+  --output_dir="data_root/logs/c.l4.kv_moodeng-sd-50_lr2.5e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of moodeng" \
+  --instance_prompt="A photo of moodeng" \
+  --learning_rate=2.5e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=4000  --validation_steps=500  --checkpointing_steps=50 
+
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+  --output_dir="data_root/logs/c.l4.kv_moodeng-sd-50.cbh_lr2.5e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of a cute baby hippo" \
+  --validation_prompt="A photo of a cute baby hippo" \
+  --learning_rate=2.5e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=4000  --validation_steps=100  --checkpointing_steps=50 
+
+
+
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+  --output_dir="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of a cute baby hippo" \
+  --instance_prompt="A photo of a cute baby hippo" \
+  --learning_rate=2.5e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=4000  --validation_steps=100  --checkpointing_steps=50 
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+  --output_dir="data_root/logs/c.l4.kv_moodeng-50.sks_lr2.5e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of a sks hippo" \
+  --instance_prompt="A photo of a sks hippo" \
+  --learning_rate=2.5e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=4000  --validation_steps=100  --checkpointing_steps=50 
+
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+  --output_dir="data_root/logs/c.l4.kv_moodeng-50.mcbh_lr2.5e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of a moodeng cute baby hippo" \
+  --instance_prompt="A photo of a moodeng cute baby hippo" \
+  --learning_rate=2.5e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=4000  --validation_steps=100  --checkpointing_steps=50 
 
 CUDA_VISIBLE_DEVICES=1 python data_preparation.py configs/custom/erase_default.yaml \
 exp_name="erase_moodeng.object_lr2.5e-4" \

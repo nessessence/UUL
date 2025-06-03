@@ -20,6 +20,9 @@ import torch
 import numpy as np
 
 _CLIP_MODEL_NAME = "openai/clip-vit-large-patch14-336"
+
+
+# _CLIP_MODEL_NAME = "openai/clip-vit-base-patch32" 
 _CUDA_AVAILABLE = torch.cuda.is_available()
 
 

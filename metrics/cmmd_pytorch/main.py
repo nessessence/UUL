@@ -83,6 +83,7 @@ def compute_cmmd(
 
         if use_precompute_features_if_exist:
             feature_dir = os.path.join(base_dir, "precomputed_features", "clip-l-14")
+            # feature_dir = os.path.join(base_dir, "precomputed_features", "clip-b-32")
             feature_filename = f"{date_str}_n{max_count}.npy"
             feature_path = os.path.join(feature_dir, feature_filename)
 

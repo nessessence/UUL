@@ -1,1552 +1,1985 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="18_3"
 
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 9.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 9.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 9.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 9.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 9.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 9.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 1.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 2.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 3.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 4.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 5.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 6.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 7.50 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.00 \
-    --run_note "true moodeng"
-
-accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 8.50 \
-    --run_note "true moodeng"
 
 accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-    --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
-    --gen_image_path="auto" \
-    --output_dir="data_root/logs/gen" \
-    --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
-    --validation_prompt="A photo of moodeng" \
-    --instance_prompt="A photo of moodeng" \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --num_validation_images 50 \
-    --cfg_scale 9.00 \
-    --run_note "true moodeng"
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/crybaby/sd/crybaby-50" \
+  --output_dir="data_root/logs/c.l4.kv_crybaby-sd-50_lr2.5e-4_f0.5_b1g4" \
+  --validation_prompt="A photo of a crybaby art toy" \
+  --instance_prompt="A photo of a crybaby art toy" \
+  --learning_rate=2.5e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --flip_p 0.5 \
+  --max_train_steps=4000  --validation_steps=500  --checkpointing_steps=50 
+
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-sd-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-sd-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-sd-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-sd-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of a cute baby hippo" \
+#     --instance_prompt="A photo of a cute baby hippo" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 300 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-0" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-1500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 1.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 2.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 3.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 4.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 5.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 6.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 7.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.00 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 8.50 \
+#     --run_note "true moodeng"
+
+# accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#     --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+#     --gen_image_path="auto" \
+#     --output_dir="data_root/logs/gen" \
+#     --load_lora_weight_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-3000" \
+#     --validation_prompt="A photo of moodeng" \
+#     --instance_prompt="A photo of moodeng" \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --num_validation_images 50 \
+#     --cfg_scale 9.00 \
+#     --run_note "true moodeng"
 
 
 # accelerate launch train_dreambooth_lora.py \
