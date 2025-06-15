@@ -21,18 +21,28 @@ def main(conf):
     
     # generate 8 images per concept using the original model for performing erasure
     if conf.MACE.generate_data:
-        print(f'generating images to {conf.MACE.input_data_dir}')
-        inference(OmegaConf.create({
-            "pretrained_model_name_or_path": 'CompVis/stable-diffusion-v1-4',
-            "multi_concept": conf.MACE.multi_concept,
-            "generate_training_data": True,
-            "device": device,
-            "steps": 50,
-            "output_dir": conf.MACE.input_data_dir,
-            "lora_weight_dir_path": conf.MACE.lora_weight_dir_path,
-            "token_embedding_dir_path": conf.MACE.token_embedding_dir_path
-            
-          }))
+        
+        if conf.MACE.existing_input_data_dir is not None and conf.MACE.existing_input_data_dir:
+            print('not implemented')
+            exit()
+        else:
+        
+            print(f'generating images to {conf.MACE.input_data_dir}')
+            inference(OmegaConf.create({
+                "pretrained_model_name_or_path": 'CompVis/stable-diffusion-v1-4',
+                "multi_concept": conf.MACE.multi_concept,
+                "generate_training_data": True,
+                "device": device,
+                "steps": 50,
+                "num_gen_images": conf.MACE.num_gen_images,
+                "gen_seed": conf.MACE.gen_seed,
+                "gen_dtype": conf.MACE.gen_dtype,
+                "cfg_scale": conf.MACE.cfg_scale,
+                "output_dir": conf.MACE.input_data_dir,
+                "lora_weight_dir_path": conf.MACE.lora_weight_dir_path,
+                "token_embedding_dir_path": conf.MACE.token_embedding_dir_path
+                
+            }))
     print(conf.MACE.use_gsam_mask)
     # get and save masks for each image
     if conf.MACE.use_gsam_mask:
@@ -45,6 +55,7 @@ def main(conf):
         
         transform = transforms.ToTensor()
         for root, _, files in os.walk(conf.MACE.input_data_dir):
+            if 'mask' in os.path.basename(root): continue # otherwise we will see mask mask mask
             mask_save_path = root.replace(f'{os.path.basename(root)}', f'{os.path.basename(root)} mask')
             os.makedirs(mask_save_path, exist_ok=True)
             for file in files:

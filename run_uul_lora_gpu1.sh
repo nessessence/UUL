@@ -5,708 +5,849 @@ export pc_id="20_1"
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
-                --placeholder_token="v1" --initializer_token='toy' \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
                 --cfg_scale 7.50
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='toy' \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
                 --cfg_scale 7.50
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
-                --placeholder_token="v1" --initializer_token='toy' \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
                 --cfg_scale 7.50
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
+                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-2000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
+                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-3000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-3000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-0" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-0" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-1000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-3000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-3000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-0" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-0" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-1000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-2000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-2000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-3000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-3000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="coco" --instance_prompt="coco" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
-                --placeholder_token="v1" --initializer_token='toy' \
-                --cfg_scale 7.50
-
-###
+                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-2000" \
+                --placeholder_token="v1" --initializer_token='girl' \
+                --cfg_scale 4.50
 
 
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
-    --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
-    --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4" \
-    --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=4 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
-    --run_note ' moodeng50 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
-    --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
-    --learning_rate_lora 5e-4 --learning_rate_ti 5e-2 \
-    --placeholder_token="v1" --initializer_token='hippo'
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
-    --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
-    --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4" \
-    --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=4 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
-    --run_note ' moodeng50 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
-    --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
-    --learning_rate_lora 5e-4 --learning_rate_ti 1e-2 \
-    --placeholder_token="v1" --initializer_token='hippo'
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
-    --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
-    --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4" \
-    --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=4 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
-    --run_note ' moodeng50 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
-    --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
-    --learning_rate_lora 5e-4 --learning_rate_ti 5e-3 \
-    --placeholder_token="v1" --initializer_token='hippo'
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
-    --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
-    --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4" \
-    --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=4 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
-    --run_note ' moodeng50 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
-    --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
-    --learning_rate_lora 5e-4 --learning_rate_ti 1e-3 \
-    --placeholder_token="v1" --initializer_token='hippo'
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
-    --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
-    --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4" \
-    --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=4 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
-    --run_note ' moodeng50 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
-    --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
-    --learning_rate_lora 1e-4 --learning_rate_ti 5e-2 \
-    --placeholder_token="v1" --initializer_token='hippo'
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
-    --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
-    --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4" \
-    --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=4 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
-    --run_note ' moodeng50 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
-    --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
-    --learning_rate_lora 1e-4 --learning_rate_ti 1e-2 \
-    --placeholder_token="v1" --initializer_token='hippo'
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
-    --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
-    --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr1e-4.ti5e-3_f0.5_b1g4" \
-    --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=4 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
-    --run_note ' moodeng50 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
-    --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
-    --learning_rate_lora 1e-4 --learning_rate_ti 5e-3 \
-    --placeholder_token="v1" --initializer_token='hippo'
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-0" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-2000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-3000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4/checkpoint-3000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-0" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-2000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-2000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-3000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4/checkpoint-3000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="coco" --instance_prompt="coco" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_crybaby50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --placeholder_token="v1" --initializer_token='toy' \
+#                 --cfg_scale 7.50
+
+# ###
+
+
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
+#     --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4" \
+#     --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
+#     --run_note ' moodeng50 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
+#     --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1" --initializer_token='hippo'
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
+#     --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti1e-2_f0.5_b1g4" \
+#     --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
+#     --run_note ' moodeng50 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
+#     --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 1e-2 \
+#     --placeholder_token="v1" --initializer_token='hippo'
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
+#     --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti5e-3_f0.5_b1g4" \
+#     --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
+#     --run_note ' moodeng50 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
+#     --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 5e-3 \
+#     --placeholder_token="v1" --initializer_token='hippo'
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
+#     --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr5e-4.ti1e-3_f0.5_b1g4" \
+#     --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
+#     --run_note ' moodeng50 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
+#     --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 1e-3 \
+#     --placeholder_token="v1" --initializer_token='hippo'
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
+#     --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4" \
+#     --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
+#     --run_note ' moodeng50 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
+#     --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
+#     --learning_rate_lora 1e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1" --initializer_token='hippo'
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
+#     --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr1e-4.ti1e-2_f0.5_b1g4" \
+#     --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
+#     --run_note ' moodeng50 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
+#     --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
+#     --learning_rate_lora 1e-4 --learning_rate_ti 1e-2 \
+#     --placeholder_token="v1" --initializer_token='hippo'
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/moodeng/moodeng-50 \
+#     --output_dir="data_root/logs/c.l4.kv_moodeng50-V_pr0.50_lr1e-4.ti5e-3_f0.5_b1g4" \
+#     --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 \
+#     --run_note ' moodeng50 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=0.5 --num_class_images 50 \
+#     --class_prompt="A photo of a hippo" --class_data_dir="data_root/generated/model/original_pretrained/A photo of a hippo/7.50" \
+#     --learning_rate_lora 1e-4 --learning_rate_ti 5e-3 \
+#     --placeholder_token="v1" --initializer_token='hippo'
     
 
 
-              accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1600" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1600" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#               accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1600" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1600" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1700" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1700" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1700" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1700" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1800" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1800" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1800" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1800" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1900" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1900" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1900" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-1900" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2000" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2000" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2100" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2100" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2100" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2100" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2200" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2200" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2200" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2200" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2300" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2300" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2300" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2300" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2400" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2400" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2400" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2400" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2500" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2500" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2500" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2500" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2600" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2600" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2600" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2600" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2700" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2700" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2700" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2700" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2800" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2800" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2800" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2800" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2900" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2900" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2900" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-2900" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-3000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-3000" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti1e-2_f0.5_b1g4/checkpoint-3000" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-0" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-0" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-0" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-100" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-100" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-100" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-100" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-200" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-200" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-200" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-200" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-300" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-300" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-300" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-300" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-400" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-400" \
-                --placeholder_token="v1" --initializer_token='girl' \
-                --cfg_scale 3.00
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-400" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr1e-5.ti5e-3_f0.5_b1g4/checkpoint-400" \
+#                 --placeholder_token="v1" --initializer_token='girl' \
+#                 --cfg_scale 3.00
 
 #     accelerate launch train_dreambooth_lora.py \
 #     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \

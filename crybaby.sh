@@ -72,7 +72,8 @@ MACE.multi_concept="[[['v1', 'object']]]" \
 MACE.mapping_concept="['object']" 
 
 
-## ul4.n8.s50
+## ul1.n8.s50
+
 
 accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path=data_root/logs/erase_l1.crybabyVPr.object_lr2.5e-4/LoRA_fusion_model  \
