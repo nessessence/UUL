@@ -29,7 +29,8 @@ def main(conf):
             "device": device,
             "steps": 50,
             "output_dir": conf.MACE.input_data_dir,
-            "lora_weight_dir_path": conf.MACE.lora_weight_dir_path
+            "lora_weight_dir_path": conf.MACE.lora_weight_dir_path,
+            "token_embedding_dir_path": conf.MACE.token_embedding_dir_path
             
           }))
     print(conf.MACE.use_gsam_mask)

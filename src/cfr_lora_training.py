@@ -19,10 +19,34 @@ from transformers import AutoTokenizer, PretrainedConfig
 from src.cfr_utils import *
 from src.dataset import MACEDataset
 import json
+import os.path
 
 
 logger = get_logger(__name__)
 
+# my add
+def load_token_embedding(text_encoder, tokenizer, weight_path):
+    logger.info(f"Loading Token Embeddings from {weight_path}")
+    # Load the saved token embeddings
+    loaded_embeds_dict = torch.load(weight_path)
+    # Get the input embedding layer
+    token_embeddings = text_encoder.get_input_embeddings()
+    # Process each token
+    for token, embed in loaded_embeds_dict.items():
+        # Check if token already exists in tokenizer
+        token_id = tokenizer.convert_tokens_to_ids(token)
+        if token_id == tokenizer.unk_token_id:
+            print(f'adding {token} to the tokenizer vocabs')
+            # Token doesn't exist, add to tokenizer
+            tokenizer.add_tokens([token])
+            token_id = tokenizer.convert_tokens_to_ids(token)
+            # Resize the embedding layer to match new vocab size
+            text_encoder.resize_token_embeddings(len(tokenizer))
+        # Set the embedding weight
+        with torch.no_grad():
+            print(f'loading embedding for {token}')
+            token_embeddings.weight[token_id] = embed.to(token_embeddings.weight.device)
+            
 
 def import_model_class_from_model_name_or_path(pretrained_model_name_or_path: str, revision: str):
     text_encoder_config = PretrainedConfig.from_pretrained(
@@ -136,7 +160,7 @@ def main(args):
         args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision
     )
     
-    if args.lora_weight_dir_path is not None:
+    if args.lora_weight_dir_path is not None and args.lora_weight_dir_path:
         
         print('loading LoRA into UNet ....')
         print(f'LoRA path: {args.lora_weight_dir_path}')
@@ -148,7 +172,14 @@ def main(args):
         dummy_pipeline.fuse_lora()
 
         print('Fused LoRA  ....')
-    
+        
+    if args.token_embedding_dir_path is not None and args.token_embedding_dir_path:
+        load_token_embedding(text_encoder, tokenizer, os.path.join(args.token_embedding_dir_path,'token_embedding.pt'))
+        logger.info(f"Token embeddings loaded from {args.token_embedding_dir_path}")
+        
+        # test
+        token_id = tokenizer.convert_tokens_to_ids('v1')
+        print(f"v1_id:{token_id}, is_unk:{token_id == tokenizer.unk_token_id}")
     
     # For mixed precision training we cast the text_encoder and vae weights to half-precision
     # as these models are only used for inference, keeping weights in full precision is not required.

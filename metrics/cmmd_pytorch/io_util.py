@@ -20,7 +20,8 @@ from torch.utils.data import Dataset, DataLoader
 import numpy as np
 from PIL import Image
 import tqdm
-
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class CMMDDataset(Dataset):
     def __init__(self, path, reshape_to, max_count=-1):

@@ -41,7 +41,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from tqdm.auto import tqdm
 from transformers import AutoTokenizer, PretrainedConfig
-
+import time
 import diffusers
 from diffusers import (
     AutoencoderKL,
@@ -82,6 +82,52 @@ check_min_version("0.22.0")
 logger = get_logger(__name__)
 
 
+def count_images_in_dir(directory, extensions=None):
+    if extensions is None:
+        extensions = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".tiff"}
+
+    return sum(
+        1 for entry in os.scandir(directory)
+        if entry.is_file() and os.path.splitext(entry.name)[1].lower() in extensions
+    )
+    
+def save_lora(
+    unet=None,                 # accelerator.unwrap_model(unet) or None
+    text_encoder=None,         # accelerator.unwrap_model(text_encoder) or None
+    output_dir: str | None = None,
+):
+    """
+    Save only the LoRA adapter weights.
+
+    Parameters
+    ----------
+    unet : diffusers.UNet2DConditionModel | None
+        UNet containing LoRA layers.
+    text_encoder : transformers.PreTrainedModel | None
+        Text-encoder containing LoRA layers.
+    output_dir : str
+        Directory where the *.bin files will be written.
+    """
+    if output_dir is None:
+        raise ValueError("`output_dir` must be specified.")
+
+    # Ensure directory exists (uses os / os.path only)
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+
+    unet_lora_layers  = None if unet is None else unet_lora_state_dict(unet)
+    # te_lora_layers    = None if text_encoder is None else text_encoder_lora_state_dict(text_encoder)
+    te_lora_layers = None
+    if unet_lora_layers is None and te_lora_layers is None:
+        raise ValueError("At least one of `unet` or `text_encoder` must be supplied.")
+
+    LoraLoaderMixin.save_lora_weights(
+        output_dir,
+        unet_lora_layers=unet_lora_layers,
+        # text_encoder_lora_layers=te_lora_layers,
+    )
+
+    
 def resize_by_scale(image,scale=0.5):
     resized_image = image.resize( [int(scale * s) for s in image.size],  Image.Resampling.LANCZOS)
     return resized_image
@@ -193,22 +239,51 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     pipeline.set_progress_bar_config(disable=True)
 
     generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
+    
+    apply_coco = False
+    if args.validation_prompt[0] == 'coco':
+        apply_coco = True
+        args.validation_prompt = torch.load("data_root/data/real_data/coco/coco_sampled1000.pt")['captions']
+        args.num_validation_images = 1
+    print('apply_coco:',apply_coco)
 
     images = []; index_images = []; prompt2images = defaultdict(list)
-    for prompt in args.validation_prompt:
+    for j,prompt in enumerate(args.validation_prompt):
+        
+        
+        skip_already_generated = True
+        if save_image_path is not None:
+            if apply_coco:
+                save_image_path_dir = osp.join(save_image_path,"coco", f"{args.cfg_scale:.2f}")
+                if skip_already_generated: 
+                    if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= len(args.validation_prompt):  # TODO: should count only images
+                        logger.info(f"Skipping COCO as already exist in {save_image_path_dir} with {len(args.validation_prompt)} images")
+                        print('ending generation')
+                        exit()
+            else:
+                save_image_path_dir = osp.join(save_image_path,prompt, f"{args.cfg_scale:.2f}")
+                if skip_already_generated: 
+                    if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= args.num_validation_images:  # TODO: should count only images
+                        logger.info(f"Skipping {prompt} as  already exist in {save_image_path_dir} with {len(args.num_validation_images)} images")
+                        continue
+            os.makedirs(save_image_path_dir,exist_ok=True)
+                
+                
         if args.reinit_validation_generator:
             generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
         for i in tqdm(range(args.num_validation_images)):
             
             # dummy_latents = randn_tensor( (1, 4, 64, 64),device=accelerator.device, generator=generator)
             image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
-            
             if save_image_path is not None:
-                save_image_path_dir = osp.join(save_image_path,prompt, f"{args.cfg_scale:.2f}")
-                os.makedirs(save_image_path_dir,exist_ok=True)
-                img_path = osp.join(save_image_path_dir,f"{i:04}.png")
+                if apply_coco:
+                    img_path = osp.join(save_image_path_dir,f"{j:04}.png")
+                else:
+                    img_path = osp.join(save_image_path_dir,f"{i:04}.png")
                 image.save(img_path)
             
+                # img_path = osp.join(save_image_path_dir, f"{i:04}.jpg")  # i is your sample index
+                # image.save(img_path,format="JPEG")
             else:
             
                 images.append((prompt, image))
@@ -673,7 +748,7 @@ def parse_args(input_args=None):
     )
 
 
-    parser.add_argument("--flip_p",type=float,default=0.0,)
+    parser.add_argument("--flip_p",type=float,default=0.5,)
     parser.add_argument("--num_inference_steps",type=int,default=50,)
     parser.add_argument("--cfg_scale",type=float,default=3.0)
 
@@ -688,6 +763,7 @@ def parse_args(input_args=None):
     
     
     
+    parser.add_argument("--wait_weight",action="store_true",default=False,)
     
     parser.add_argument("--learning_rate_ti",type=float,default=None,)
     parser.add_argument("--learning_rate_lora",type=float,default=None,)
@@ -954,6 +1030,7 @@ def main(args):
                 # make sure to pop weight so that corresponding model is not saved again
                 weights.pop()
 
+            # print(f'unet_lora_layers_to_save: {unet_lora_layers_to_save}')
             LoraLoaderMixin.save_lora_weights(
                 output_dir,
                 unet_lora_layers=unet_lora_layers_to_save,
@@ -1115,27 +1192,32 @@ def main(args):
         placeholder_tokens = [args.placeholder_token]
 
 
-        num_added_tokens = tokenizer.add_tokens(placeholder_tokens)
-        print(f'num_added_tokens:{num_added_tokens}')
 
-        # Convert the initializer_token, placeholder_token to ids
-        token_ids = tokenizer.encode(args.initializer_token, add_special_tokens=False)
-        # Check if initializer_token is a single token or a sequence of tokens
-        if len(token_ids) > 1:
-            raise ValueError("The initializer token must be a single token.")
-
-        initializer_token_id = token_ids[0]
+        token_id = tokenizer.convert_tokens_to_ids(args.placeholder_token)
+        if token_id == tokenizer.unk_token_id:
+            print(f'adding placeholder token: {args.placeholder_token}')
+            num_added_tokens = tokenizer.add_tokens(placeholder_tokens)
+            print(f'num_added_tokens:{num_added_tokens}')
+            # Resize the token embeddings as we are adding new special tokens to the tokenizer
+            text_encoder.resize_token_embeddings(len(tokenizer))
+        else:
+            print('token is already in tokenizer')
+            
         placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
-
-        # Resize the token embeddings as we are adding new special tokens to the tokenizer
-        text_encoder.resize_token_embeddings(len(tokenizer))
-
-        # Initialise the newly added placeholder token with the embeddings of the initializer token
-        token_embeds = text_encoder.get_input_embeddings().weight.data
-        with torch.no_grad():
-            for token_id in placeholder_token_ids:
-                token_embeds[token_id] = token_embeds[initializer_token_id].clone()
-        
+        if args.initializer_token is not None and args.initializer_token != '':
+            # Convert the initializer_token, placeholder_token to ids
+            token_ids = tokenizer.encode(args.initializer_token, add_special_tokens=False)
+            # Check if initializer_token is a single token or a sequence of tokens
+            if len(token_ids) > 1:
+                raise ValueError("The initializer token must be a single token.")
+            initializer_token_id = token_ids[0]
+            # Initialise the newly added placeholder token with the embeddings of the initializer token
+            token_embeds = text_encoder.get_input_embeddings().weight.data
+            with torch.no_grad():
+                for token_id in placeholder_token_ids:
+                    token_embeds[token_id] = token_embeds[initializer_token_id].clone()
+        else:
+            print('no initializer token provided, skipping initialization of placeholder token embeddings')
         
     
 
@@ -1503,7 +1585,12 @@ def main(args):
     if save_step0 and not args.gen_image_path:
         print('save epoch 0 applied')
         save_path = os.path.join(args.output_dir, f"checkpoint-{global_step}")
-        accelerator.save_state(save_path) # lora also saved here
+        # accelerator.save_state(save_path) # lora also saved here
+        save_lora(
+            unet=accelerator.unwrap_model(unet),
+            text_encoder=accelerator.unwrap_model(text_encoder),
+            output_dir=os.path.join(save_path)
+        )
         logger.info(f"Saved state to {save_path}")
         
         # save ti
@@ -1595,6 +1682,8 @@ def main(args):
 
                     # Add the prior loss to the instance loss.
                     loss = loss + args.prior_loss_weight * prior_loss
+                    
+                    print(f'loss: {loss} prior loss: {prior_loss}')
                 else:
                     loss = F.mse_loss(model_pred.float(), target.float(), reduction="mean")
 
@@ -1653,7 +1742,14 @@ def main(args):
                                     shutil.rmtree(removing_checkpoint)
 
                         save_path = os.path.join(args.output_dir, f"checkpoint-{global_step}")
-                        accelerator.save_state(save_path) # lora also saved here
+                        # accelerator.save_state(save_path) # lora also saved here
+                        
+                        save_lora(
+                            unet=accelerator.unwrap_model(unet),
+                            text_encoder=accelerator.unwrap_model(text_encoder),
+                            output_dir=os.path.join(save_path)
+                        )
+                                
                         logger.info(f"Saved state to {save_path}")
                         
                         
@@ -1795,6 +1891,8 @@ if __name__ == "__main__":
     if args.gen_dtype == 'fp16': args.gen_dtype = torch.float16
     if args.gen_dtype == 'fp32': args.gen_dtype = torch.float32
     
+    if args.load_lora_weight_path == '': args.load_lora_weight_path = None
+    
     # hack for automatic gen_image_path
     if args.gen_image_path is not None and args.gen_image_path=='auto':
         # Get the last two components of the path
@@ -1806,6 +1904,13 @@ if __name__ == "__main__":
         args.gen_image_path = os.path.join("data_root/generated/model", last_two)
         os.makedirs(args.gen_image_path,exist_ok=True)
         print(f'gen image path: { args.gen_image_path}')
-            
+    
+    if args.gen_image_path is not None:
+        if args.load_lora_weight_path and args.wait_weight:
+            lora_weight_path =  osp.join(args.load_lora_weight_path, "pytorch_lora_weights.safetensors")
+            # if lora_weight_path does not exist, then wait (it is in training process) ... re-check every 10 seconds
+            while not osp.exists(lora_weight_path):
+                print(f'waiting for lora weight: {lora_weight_path}')
+                time.sleep(10)
     main(args)
     

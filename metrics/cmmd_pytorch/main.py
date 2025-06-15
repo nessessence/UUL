@@ -81,11 +81,13 @@ def compute_cmmd(
         first_image_path = natsorted(image_files)[0]
         date_str = get_file_creation_date(first_image_path)
 
+
+
+        feature_dir = os.path.join(base_dir, "precomputed_features", "clip-l-14")
+        # feature_dir = os.path.join(base_dir, "precomputed_features", "clip-b-32")
+        feature_filename = f"{date_str}_n{max_count}.npy"
+        feature_path = os.path.join(feature_dir, feature_filename)
         if use_precompute_features_if_exist:
-            feature_dir = os.path.join(base_dir, "precomputed_features", "clip-l-14")
-            # feature_dir = os.path.join(base_dir, "precomputed_features", "clip-b-32")
-            feature_filename = f"{date_str}_n{max_count}.npy"
-            feature_path = os.path.join(feature_dir, feature_filename)
 
             if os.path.exists(feature_path):
                 print(f"Loading precomputed features from {feature_path}")
@@ -94,10 +96,10 @@ def compute_cmmd(
         # Compute features
         embs = io_util.compute_embeddings_for_dir(base_dir, embedding_model, batch_size, max_count).astype("float32")
 
-        if use_precompute_features_if_exist:
-            os.makedirs(feature_dir, exist_ok=True)
-            print(f"Saving computed features to {feature_path}")
-            np.save(feature_path, embs)
+        # if use_precompute_features_if_exist:
+        os.makedirs(feature_dir, exist_ok=True)
+        print(f"Saving computed features to {feature_path}")
+        np.save(feature_path, embs)
 
         return embs
 

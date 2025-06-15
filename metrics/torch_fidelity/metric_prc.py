@@ -55,6 +55,7 @@ def calc_cdist_full(features_1, features_2, batch_size=10000):
 
 
 def calculate_precision_recall_full(features_1, features_2, neighborhood=3, batch_size=10000):
+    # feature1:ref, feature2:gen
     dist_nn_1 = calc_cdist_full(features_1, features_1, batch_size).kthvalue(neighborhood + 1).values
     dist_nn_2 = calc_cdist_full(features_2, features_2, batch_size).kthvalue(neighborhood + 1).values
     dist_2_1 = calc_cdist_full(features_2, features_1, batch_size)

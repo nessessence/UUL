@@ -1,4 +1,8 @@
 
+
+## use SR as original
+## use sd as sd/
+
 accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
   --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
@@ -39,7 +43,7 @@ accelerate launch train_dreambooth_lora.py \
 
 accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-50" \
+  --instance_data_dir="data_root/data/real_data/moodeng/sd/moodeng-50" \
   --output_dir="data_root/logs/c.l4.kv_moodeng-sd-50.cbh_lr2.5e-4_f0.5_b1g4" \
   --validation_prompt="A photo of a cute baby hippo" \
   --validation_prompt="A photo of a cute baby hippo" \
@@ -94,8 +98,6 @@ MACE.multi_concept="[[['moodeng', 'object']]]" \
 MACE.use_gsam_mask=true MACE.use_sam_hq=true \
 MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
 MACE.input_data_dir="data_root/generated/mace/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500"
-
-
 CUDA_VISIBLE_DEVICES=1 python training.py configs/custom/erase_default.yaml \
 exp_name="erase_moodeng.object_lr2.5e-4" \
 MACE.lora_weight_dir_path="data_roo/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
@@ -103,6 +105,8 @@ MACE.input_data_dir="data_root/generated/mace/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b
 MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_moodeng-50_lr2.5e-4_f0.5_b1g4/checkpoint-2500" \
 MACE.multi_concept="[[['moodeng', 'object']]]" \
 MACE.mapping_concept="['object']" 
+
+
 
 
 
@@ -286,3 +290,79 @@ accelerate launch train_dreambooth_lora.py \
   --run_note "run longer" \
   --flip_p 0.5 \
   --max_train_steps=3000 --checkpointing_steps=50 --validation_steps=100 
+
+
+####
+
+
+CUDA_VISIBLE_DEVICES=1 python data_preparation.py configs/custom/erase_default.yaml \
+exp_name="erase_moodeng-sd-cbh.object_lr2.5e-4" \
+MACE.multi_concept="[[['cute-baby-hippo', 'object']]]" \
+MACE.use_gsam_mask=true MACE.use_sam_hq=true \
+MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_moodeng-sd-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+MACE.input_data_dir="data_root/generated/mace/c.l4.kv_moodeng-sd-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-2000"
+CUDA_VISIBLE_DEVICES=1 python training.py configs/custom/erase_default.yaml \
+exp_name="erase_moodeng-sd-cbh.object_lr2.5e-4" \
+MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_moodeng-sd-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+MACE.input_data_dir="data_root/generated/mace/c.l4.kv_moodeng-sd-50.cbh_lr2.5e-4_f0.5_b1g4/checkpoint-2000" \
+MACE.multi_concept="[[['cute-baby-hippo', 'object']]]" \
+MACE.mapping_concept="['object']" 
+
+# few shot finetuned
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/sd/moodeng-unseen-3" \
+  --output_dir="data_root/logs/c.l1.kv_moodeng.sd.U3-V_f0.5_lr.ti1e-2.l5e-5_b1g4" \
+  --validation_prompt="A photo of a v1" \
+  --instance_prompt="A photo of a v1" \
+  --placeholder_token="v1" --initializer_token="hippo" \
+  --learning_rate=1e-4 --learning_rate_ti=1e-2 --learning_rate_lora=5e-5 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --run_note "run longer" \
+  --flip_p 0.5 \
+  --max_train_steps=4000 --checkpointing_steps=50 --validation_steps=100 
+# recovered
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng-sd-cbh.object_lr2.5e-4/LoRA_fusion_model"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/sd/moodeng-unseen-3" \
+  --output_dir="data_root/logs/uul_moodeng-sd-cbh.object_c.l1.kv_moodeng.sd.U3-V_f0.5_lr.ti1e-2.l5e-5_b1g4" \
+  --validation_prompt="A photo of a v1" \
+  --instance_prompt="A photo of a v1" \
+  --placeholder_token="v1" --initializer_token="hippo" \
+  --learning_rate=1e-4 --learning_rate_ti=1e-2 --learning_rate_lora=5e-5 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --run_note "run longer" \
+  --flip_p 0.5 \
+  --max_train_steps=4000 --checkpointing_steps=50 --validation_steps=100 
+
+
+  ## seen ##
+  accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/sd/moodeng-seen-3" \
+  --output_dir="data_root/logs/c.l1.kv_moodeng.sd.S3-V_f0.5_lr.ti1e-2.l5e-5_b1g4" \
+  --validation_prompt="A photo of a v1" \
+  --instance_prompt="A photo of a v1" \
+  --placeholder_token="v1" --initializer_token="hippo" \
+  --learning_rate=1e-4 --learning_rate_ti=1e-2 --learning_rate_lora=5e-5 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --run_note "run longer" \
+  --flip_p 0.5 \
+  --max_train_steps=3000 --checkpointing_steps=50 --validation_steps=500 
+# recovered
+accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="data_root/logs/erase_moodeng-sd-cbh.object_lr2.5e-4/LoRA_fusion_model"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/sd/moodeng-seen-3" \
+  --output_dir="data_root/logs/uul_moodeng-sd-cbh.object_c.l1.kv_moodeng.sd.S3-V_f0.5_lr.ti1e-2.l5e-5_b1g4" \
+  --validation_prompt="A photo of a v1" \
+  --instance_prompt="A photo of a v1" \
+  --placeholder_token="v1" --initializer_token="hippo" \
+  --learning_rate=1e-4 --learning_rate_ti=1e-2 --learning_rate_lora=5e-5 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+  --run_note "run longer" \
+  --flip_p 0.5 \
+  --max_train_steps=3000 --checkpointing_steps=50 --validation_steps=500 

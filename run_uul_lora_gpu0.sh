@@ -2,8 +2,19 @@ export CUDA_VISIBLE_DEVICES=0
 export pc_id="20_0"
 
 
-
-
+      accelerate launch train_dreambooth_lora.py \
+        --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+        --instance_data_dir="data_root/data/real_data/dummy" \
+        --load_lora_weight_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr2.5e-4.ti1e-2_f0.5_b1g4/checkpoint-3250" \
+        --gen_image_path="auto" \
+        --output_dir="data_root/logs/gen" \
+        --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+        --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+        --run_note 'gen img' \
+        --num_validation_images 50 \
+        --load_token_embedding_path="data_root/logs/c.l4.kv_chiquita50-V_pr0.50_lr2.5e-4.ti1e-2_f0.5_b1g4/checkpoint-3250" \
+        --placeholder_token="v1" --initializer_token='girl' \
+        --cfg_scale 3.00
 
 # accelerate launch train_dreambooth_lora.py \
 #   --pretrained_model_name_or_path="data_root/logs/erase_moodeng_S.object/LoRA_fusion_model"  \

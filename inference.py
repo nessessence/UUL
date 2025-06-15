@@ -4,7 +4,30 @@ from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 from omegaconf import OmegaConf
 import argparse
 from diffusers import AutoencoderKL, DDPMScheduler, DiffusionPipeline, UNet2DConditionModel
-
+import os.path as osp
+# my add
+def load_token_embedding(text_encoder, tokenizer, weight_path):
+    print(f"Loading Token Embeddings from {weight_path}")
+    # Load the saved token embeddings
+    loaded_embeds_dict = torch.load(weight_path)
+    # Get the input embedding layer
+    token_embeddings = text_encoder.get_input_embeddings()
+    # Process each token
+    for token, embed in loaded_embeds_dict.items():
+        # Check if token already exists in tokenizer
+        token_id = tokenizer.convert_tokens_to_ids(token)
+        if token_id == tokenizer.unk_token_id:
+            print(f'adding {token} to the tokenizer vocabs')
+            # Token doesn't exist, add to tokenizer
+            tokenizer.add_tokens([token])
+            token_id = tokenizer.convert_tokens_to_ids(token)
+            # Resize the embedding layer to match new vocab size
+            text_encoder.resize_token_embeddings(len(tokenizer))
+        # Set the embedding weight
+        with torch.no_grad():
+            print(f'loading embedding for {token}')
+            token_embeddings.weight[token_id] = embed.to(token_embeddings.weight.device)
+            
 
 def main(args):
 
@@ -14,16 +37,16 @@ def main(args):
     pipe.requires_safety_checker = False
     
     if args.lora_weight_dir_path is not None:
-        
         print('loading LoRA into UNet ....')
         print(f'LoRA path: {args.lora_weight_dir_path}')
-        
         pipe.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")
-
         pipe.fuse_lora()
-
         print('Fused LoRA  ....')
 
+    if args.token_embedding_dir_path is not None and args.token_embedding_dir_path:
+        # Load token embeddings from the specified path
+        load_token_embedding(pipe.text_encoder, pipe.tokenizer,osp.join(args.token_embedding_dir_path,'token_embedding.pt'))
+        print(f"Token embeddings loaded from {args.token_embedding_dir_path}")
     
     
     

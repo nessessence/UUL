@@ -36,7 +36,8 @@ MACE:
   output_dir: '' # ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs ...can now just specify the exp_name  exp_name="erase_moodeng_S.object"
   final_save_path: '' # ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs ...can now just specify the exp_name  exp_name="erase_moodeng_S.object"
   lora_weight_dir_path: ''  # data_root/logs/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4/checkpoint-2000 # load the finetuned weight (that we will later erased)
-
+  token_embedding_dir_path: ''  
+  
   ## gounded_SAM settings
   use_gsam_mask: false
   use_sam_hq: false
