@@ -440,8 +440,8 @@ def main(args):
             )
         
         
-        # print(f'UNet:')
-        # print(unet)
+        print(f'UNet:')
+        print(unet)
         # We need to initialize the trackers we use, and also store our configuration.
         # The trackers initializes automatically on the main process.
         if accelerator.is_main_process:
@@ -511,6 +511,8 @@ def main(args):
                 
         if args.train_seperate:
             train_dataset.concept_number = i 
+            
+        print(f"total train epochs: {args.num_train_epochs}")
         for epoch in range(first_epoch, args.num_train_epochs):
             unet.train()
             if args.train_text_encoder:
@@ -572,8 +574,8 @@ def main(args):
 
                     # Predict the noise residual
                     model_pred = unet(noisy_latents, timesteps, encoder_hidden_states).sample
-                    print(model_pred.requires_grad)
-                    print(model_pred.grad_fn)
+                    # print(model_pred.requires_grad)
+                    # print(model_pred.grad_fn)
 
                     # Get the target for loss depending on the prediction type
                     if noise_scheduler.config.prediction_type == "epsilon":

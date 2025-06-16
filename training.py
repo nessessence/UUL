@@ -6,7 +6,7 @@ import torch
 from src.cfr_lora_training import main as cfr_lora_training
 from src.fuse_lora_close_form import main as multi_lora_fusion
 from inference import main as inference
-
+import shutil
 
 def main(conf):
     
@@ -31,7 +31,12 @@ def main(conf):
             "output_dir": conf.MACE.final_save_path,
         }))
 
-
+    # delete loras those before fusion
+    
+    shutil.rmtree(conf.MACE.output_dir)
+    print(f"Deleted directory: {conf.MACE.output_dir}  ... save memory")
+    
+    
 # if __name__ == "__main__":
 #     conf_path = sys.argv[1]
 #     conf = OmegaConf.load(conf_path)
@@ -68,7 +73,6 @@ if __name__ == "__main__":
         exp = conf.exp_name
         conf.MACE.output_dir = f"./data_root/logs/{exp}/CFR_with_multi_LoRAs"
         conf.MACE.final_save_path = f"./data_root/logs/{exp}/LoRA_fusion_model"
-
         print(f"output_dir: {conf.MACE.output_dir}")
         print(f"final_save_path: {conf.MACE.final_save_path}")
         

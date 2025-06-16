@@ -3,7 +3,7 @@ MACE:
   # MACE.multi_concept="[[['xxx', 'object']]]" \
   multi_concept:
     - [ 
-        [erase_concept_here, object], 
+        [v1, object], 
       ]
   num_gen_images: 8 # my add
   gen_seed: 999 # my add
@@ -44,8 +44,8 @@ MACE:
   existing_input_data_dir: '' # ./data_root/data/real_data/moodeng/moodeng-50 # place where real data to be erased
   
   ## gounded_SAM settings
-  use_gsam_mask: false
-  use_sam_hq: false
+  use_gsam_mask: True
+  use_sam_hq: True
   grounded_config: ./Grounded-Segment-Anything/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py
   grounded_checkpoint: ./Grounded-Segment-Anything/groundingdino_swint_ogc.pth
   sam_hq_checkpoint: ./Grounded-Segment-Anything/sam_hq_vit_h.pth
