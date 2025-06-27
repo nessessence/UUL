@@ -272,6 +272,7 @@ def main(args):
         prompt_len=args.prompt_len,
         input_data_path=args.input_data_dir,
         use_gpt=args.use_gpt,
+        max_n_img=args.num_gen_images # my add
     )
 
     train_dataloader = torch.utils.data.DataLoader(

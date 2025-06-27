@@ -7,7 +7,7 @@ from pathlib import Path
 import os
 from openai import OpenAI
 import regex as re
-
+from natsort import natsorted
 
 BASE_URL = ''
 API_KEY = ''
@@ -87,6 +87,7 @@ class MACEDataset(Dataset):
         prompt_len=250,
         input_data_path=None,
         use_gpt=False,
+        max_n_img=None
     ):  
         self.with_prior_preservation = with_prior_preservation
         self.use_pooler = use_pooler
@@ -124,13 +125,19 @@ class MACEDataset(Dataset):
             else:
                 raise ValueError(f"Input data path is not provided.")    
             
-            image_paths = sorted(list(p.iterdir()))
+            image_paths = natsorted(list(p.iterdir()))
+            if max_n_img is not None:
+                print(f'limiting number of image to {max_n_img}')
+                image_paths = image_paths[:max_n_img]
+                print(image_paths)
             single_concept_images_path = []
             single_concept_images_path += image_paths
             self.all_concept_image_path.append(single_concept_images_path)
             
             if t == "object":
-                mask_paths = sorted(list(p_mask.iterdir()))
+                mask_paths = natsorted(list(p_mask.iterdir()))
+                if max_n_img is not None:
+                    mask_paths = mask_paths[:max_n_img]
                 single_concept_masks_path = []
                 single_concept_masks_path += mask_paths
                 self.all_concept_mask_path.append(single_concept_masks_path)

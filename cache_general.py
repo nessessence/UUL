@@ -32,7 +32,7 @@ def main():
     # print(f"Number of prompts in validation set: {len(val_prompts)}")
     
     
-    total_prompts = ['A photo of a hippo']
+    total_prompts = ['A photo of a toy', 'a toy', 'a photo of a doll', 'a doll', 'a cute doll', 'a cute toy', 'a cry baby doll', 'a cry baby toy', 'baby','cry']
     
     
     model = "CompVis/stable-diffusion-v1-4"
@@ -59,7 +59,8 @@ def main():
         if i % 10000 == 0:
             torch.save(cache_dict, f"data_root/cache/mace/general_concept/cache_{i}.pt")
     
-    torch.save(cache_dict, f"data_root/cache/mace/general_concept/cache_final.pt")
+    # torch.save(cache_dict, f"data_root/cache/mace/general_concept/cache_final.pt")
+    torch.save(cache_dict, f"data_root/cache/mace/general_concept/cache_crybaby.pt") # total_prompts = ['A photo of a toy', 'a toy', 'a photo of a doll', 'a doll', 'a cute doll', 'a cute toy', 'a cry baby doll', 'a cry baby toy', 'baby','cry']
     
 
 if __name__ == "__main__":

@@ -58,6 +58,10 @@ class ClipEmbeddingModel:
         """
 
         images = _resize_bicubic(images, self.input_image_size)
+        
+        # for idx, img in enumerate(images):
+        #     print(f"[DEBUG] Image {idx} - shape: {img.shape}, dtype: {img.dtype}, min: {np.min(img):.4f}, max: {np.max(img):.4f}")
+
         inputs = self.image_processor(
             images=images,
             do_normalize=True,

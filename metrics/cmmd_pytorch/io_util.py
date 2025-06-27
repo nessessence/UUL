@@ -59,6 +59,11 @@ class CMMDDataset(Dataset):
 
     def _read_image(self, path, size):
         im = Image.open(path)
+        
+        # my add to handle 4 channel images
+        if im.mode == "RGBA":
+            im = im.convert("RGB")
+        
         if size > 0:
             im = self._center_crop_and_resize(im, size)
         return np.asarray(im).astype(np.float32)

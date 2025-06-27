@@ -232,7 +232,10 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
             variance_type = "fixed_small"
         pipeline.scheduler.config.variance_type = variance_type
 
-    pipeline.scheduler = DDIMScheduler.from_config(pipeline.scheduler.config)
+    if args.sampler == "DDIM":
+        pipeline.scheduler = DDIMScheduler.from_config(pipeline.scheduler.config)
+    else:
+        print('apply DPM solver')
     pipeline.safety_checker = None
     pipeline.requires_safety_checker = False
     pipeline = pipeline.to(accelerator.device)
@@ -251,7 +254,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     for j,prompt in enumerate(args.validation_prompt):
         
         
-        skip_already_generated = True
+        skip_already_generated = False
         if save_image_path is not None:
             if apply_coco:
                 save_image_path_dir = osp.join(save_image_path,"coco", f"{args.cfg_scale:.2f}")
@@ -767,6 +770,7 @@ def parse_args(input_args=None):
     
     parser.add_argument("--learning_rate_ti",type=float,default=None,)
     parser.add_argument("--learning_rate_lora",type=float,default=None,)
+    parser.add_argument("--sampler",type=str,default="DDIM",)
 
     
     parser.add_argument(
@@ -840,7 +844,10 @@ class DreamBoothDataset(Dataset):
             raise ValueError("Instance images root doesn't exists.")
 
         # self.instance_images_path = list(Path(instance_data_root).iterdir())
-        self.instance_images_path = [p for p in Path(instance_data_root).iterdir() if p.is_file()]
+        # self.instance_images_path = [p for p in Path(instance_data_root).iterdir() if p.is_file()]
+        
+        IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".tiff"}
+        self.instance_images_path = [p for p in Path(instance_data_root).iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS]
 
         self.num_instance_images = len(self.instance_images_path)
         self.instance_prompt = instance_prompt
@@ -1683,7 +1690,7 @@ def main(args):
                     # Add the prior loss to the instance loss.
                     loss = loss + args.prior_loss_weight * prior_loss
                     
-                    print(f'loss: {loss} prior loss: {prior_loss}')
+                    # print(f'loss: {loss} prior loss: {prior_loss}')
                 else:
                     loss = F.mse_loss(model_pred.float(), target.float(), reduction="mean")
 
@@ -1913,4 +1920,5 @@ if __name__ == "__main__":
                 print(f'waiting for lora weight: {lora_weight_path}')
                 time.sleep(10)
     main(args)
+    
     
