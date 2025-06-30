@@ -5,156 +5,1126 @@ export pc_id="18_0"
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+                --load_lora_weight_path="data_root/logs/c.l64.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-2000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
-                --placeholder_token="v1" --initializer_token='person' \
+                --load_token_embedding_path="data_root/logs/c.l64.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-2000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
                 --cfg_scale 4.50
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+                --load_lora_weight_path="data_root/logs/c.l64.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-2000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
-                --placeholder_token="v1" --initializer_token='person' \
+                --load_token_embedding_path="data_root/logs/c.l64.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-2000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
                 --cfg_scale 6.00
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+                --load_lora_weight_path="data_root/logs/c.l64.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-2000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
-                --placeholder_token="v1" --initializer_token='person' \
+                --load_token_embedding_path="data_root/logs/c.l64.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-2000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
                 --cfg_scale 7.50
 
+
+
+
+                
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
-                --placeholder_token="v1" --initializer_token='person' \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
                 --cfg_scale 3.00
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
-                --placeholder_token="v1" --initializer_token='person' \
-                --cfg_scale 4.50
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9000" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
-                --placeholder_token="v1" --initializer_token='person' \
-                --cfg_scale 6.00
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9100" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
-                --placeholder_token="v1" --initializer_token='person' \
-                --cfg_scale 7.50
-
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
-                --gen_image_path="auto" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='person' \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9100" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
                 --cfg_scale 3.00
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9100" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='person' \
-                --cfg_scale 4.50
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9100" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9100" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='person' \
-                --cfg_scale 6.00
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9100" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
 
             accelerate launch train_dreambooth_lora.py \
                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                 --instance_data_dir="data_root/data/real_data/dummy" \
-                --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9200" \
                 --gen_image_path="auto" \
                 --output_dir="data_root/logs/gen" \
-                --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                 --run_note 'gen img' --wait_weight \
                 --num_validation_images 50 \
-                --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
-                --placeholder_token="v1" --initializer_token='person' \
-                --cfg_scale 7.50
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9200" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9200" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9200" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9200" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9200" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9300" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9300" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9300" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9300" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9300" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9300" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9400" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9400" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9400" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9400" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9400" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9400" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9500" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9500" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9500" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9500" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9500" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9500" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9600" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9600" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9600" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9600" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9600" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9600" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9700" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9700" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9700" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9700" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9700" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9700" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9800" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9800" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9800" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9800" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9800" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9800" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9900" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9900" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9900" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9900" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9900" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-9900" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-10000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-10000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-10000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-10000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 5.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-10000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/c.l16.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-4_f0.5_b4g4/checkpoint-10000" \
+                --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person' \
+                --cfg_scale 7.00
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-10,data_root/data/real_data/reese/reese-10,data_root/data/real_data/jooli/jooli-10,data_root/data/real_data/gout/gout-10,data_root/data/real_data/honer/honer-10 \
+    # --output_dir="data_root/logs/cs.l16.kvq_sceleb5g0N10-V_lr5e-4.ti5e-4_f0.5_b4g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=4 --gradient_accumulation_steps=4 \
+    # --lora_rank 16 --target_lora_modules to_k to_v to_q --target_lora_layers cross self \
+    # --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0N10 l16 ti' \
+    # --learning_rate_lora 5e-4 --learning_rate_ti 5e-4 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l16.kv_sceleb5g0U3-V_lr5e-5.ti5e-3_f0.5_b4g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=4 --gradient_accumulation_steps=4 \
+    # --lora_rank 16 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l16 ti' \
+    # --learning_rate_lora 5e-5 --learning_rate_ti 5e-2 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l16.kv_sceleb5g0U3-V_lr5e-4.ti5e-3_f0.5_b4g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=4 --gradient_accumulation_steps=4 \
+    # --lora_rank 16 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l16 ti' \
+    # --learning_rate_lora 5e-4 --learning_rate_ti 5e-3 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l4.kv_sceleb5g0U3-V_lr5e-4.ti5e-4_f0.5_b4g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=4 --gradient_accumulation_steps=4 \
+    # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l4 ti' \
+    # --learning_rate_lora 5e-4 --learning_rate_ti 5e-4 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+    #     accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-10,data_root/data/real_data/reese/reese-10,data_root/data/real_data/jooli/jooli-10,data_root/data/real_data/gout/gout-10,data_root/data/real_data/honer/honer-10 \
+    # --output_dir="data_root/logs/c.l16.kv_sceleb5g0N10-V_lr5e-4.ti5e-4_f0.5_b4g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=4 --gradient_accumulation_steps=4 \
+    # --lora_rank 16 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0N10 l16 ti' \
+    # --learning_rate_lora 5e-4 --learning_rate_ti 5e-4 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/c.l16.kv_sceleb5g0U3-V_lr1e-5.ti5e-3_f0.5_b4g4" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=4 --gradient_accumulation_steps=4 \
+#     --lora_rank 16 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+#     --run_note ' sceleb5g0U3 l16 ti' \
+#     --learning_rate_lora 1e-5 --learning_rate_ti 5e-3 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l16.kv_sceleb5g0U3-V_lr5e-4.ti5e-4_f0.5_b4g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=4 --gradient_accumulation_steps=4 \
+    # --lora_rank 16 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=6000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l16 ti' \
+    # --learning_rate_lora 5e-4 --learning_rate_ti 5e-4 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+# #     accelerate launch train_dreambooth_lora.py \
+# #     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+# #     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+# #     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+# #     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+# #     --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+# #     --run_note 'uul sceleb5g0N50 l4 ti' \
+# #     --learning_rate_lora 5e-5 --learning_rate_ti 5e-2 \
+# #     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+
+
+# #  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+# #             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+# #             MACE.num_gen_images=8 \
+# #             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000"
+# #  python training.py configs/custom/erase_sceleb_5.yaml \
+# #             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+# #             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2025 \
+# #             MACE.rank=1 \
+# #             MACE.num_gen_images=8 \
+# #             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+# #             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+# #             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000"
+            
+
+# #     accelerate launch train_dreambooth_lora.py \
+# #     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+# #     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+# #     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00.r1_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+# #     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+# #     --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 1 \
+# #     --run_note 'uul sceleb5g0N50 l4 ti' \
+# #     --learning_rate_lora 5e-5 --learning_rate_ti 5e-2 \
+# #     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# # ['rl4.reV.sceleb5g0U3.pr0.00.r1_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000']
+
+
+
+# #  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+# #             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+# #             MACE.num_gen_images=8 \
+# #             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000"
+# #  python training.py configs/custom/erase_sceleb_5.yaml \
+# #             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+# #             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2026 \
+# #             MACE.rank=1 \
+# #             MACE.num_gen_images=8 \
+# #             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+# #             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+# #             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+# #             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000"
+            
+
+
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00.r2_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 2 \
+#     --run_note 'uul sceleb5g0N50 l4 ti' \
+#     --learning_rate_lora 5e-5 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# ['rl4.reV.sceleb5g0U3.pr0.00.r2_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000']
+
+
+
+# ###
+#  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.num_gen_images=8 \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+#  python training.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+#             MACE.rank=1 \
+#             MACE.num_gen_images=8 \
+#             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+#             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+            
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+#     --run_note 'uul sceleb5g0N50 l4 ti' \
+#     --learning_rate_lora 1e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# ['rl4.reV.sceleb5g0U3.pr0.00_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000']
+
+
+
+
+#  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.num_gen_images=8 \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+#  python training.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2025 \
+#             MACE.rank=1 \
+#             MACE.num_gen_images=8 \
+#             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+#             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00.r1_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 1 \
+#     --run_note 'uul sceleb5g0N50 l4 ti' \
+#     --learning_rate_lora 1e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# ['rl4.reV.sceleb5g0U3.pr0.00.r1_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000']
+
+
+
+
+#  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.num_gen_images=8 \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+#  python training.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2026 \
+#             MACE.rank=1 \
+#             MACE.num_gen_images=8 \
+#             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+#             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+# ['ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000']
+
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00.r2_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 2 \
+#     --run_note 'uul sceleb5g0N50 l4 ti' \
+#     --learning_rate_lora 1e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# ['rl4.reV.sceleb5g0U3.pr0.00.r2_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr1e-4.ti5e-2_f0.5_b1g4.s10000']
+
+
+# ####
+#  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.num_gen_images=8 \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+#  python training.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+#             MACE.rank=1 \
+#             MACE.num_gen_images=8 \
+#             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+#             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+            
+# ['ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000']
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+#     --run_note 'uul sceleb5g0N50 l4 ti' \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# ['rl4.reV.sceleb5g0U3.pr0.00_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000']
+
+# #1
+#  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.num_gen_images=8 \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+#  python training.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2025 \
+#             MACE.rank=1 \
+#             MACE.num_gen_images=8 \
+#             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+#             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+            
+# ['ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000']
+
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00.r1_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 1 \
+#     --run_note 'uul sceleb5g0N50 l4 ti' \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# ['rl4.reV.sceleb5g0U3.pr0.00.r1_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r1_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000']
+
+# #2
+#  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.num_gen_images=8 \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+#  python training.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2026 \
+#             MACE.rank=1 \
+#             MACE.num_gen_images=8 \
+#             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+#             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4/checkpoint-10000"
+            
+# ['ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000']
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000/LoRA_fusion_model  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+#     --output_dir="data_root/logs/rl4.reV.sceleb5g0U3.pr0.00.r2_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000" \
+#     --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=250  --checkpointing_steps=50 --seed 2 \
+#     --run_note 'uul sceleb5g0N50 l4 ti' \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 5e-2 \
+#     --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+# ['rl4.reV.sceleb5g0U3.pr0.00.r2_ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50.r2_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-4.ti5e-2_f0.5_b1g4.s10000']
+
+#  python data_preparation.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.num_gen_images=8 \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000"
+#  python training.py configs/custom/erase_sceleb_5.yaml \
+#             exp_name="ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000" \
+#             MACE.learning_rate=1e-4 MACE.max_train_steps=50 \
+#             MACE.rank=1 \
+#             MACE.num_gen_images=8 \
+#             MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person','a person','a person','a person','a person']" \
+#             MACE.train_preserve_scale=1e-4 MACE.preserve_weight=5e-4 \
+#             MACE.input_data_dir="data_root/generated/mace/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.lora_weight_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000" \
+#             MACE.token_embedding_dir_path="data_root/logs/c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4/checkpoint-10000"
+            
+# ['ul1.prg1e-4d5e-4.lr1e-4.n8.G.sceleb5g0.person.s50_c.l4.kv_sceleb5g0N50-V_pr0.50_lr5e-5.ti5e-2_f0.5_b1g4.s10000']
+
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l4.kv_sceleb5g0U3-V_lr5e-4.ti5e-2_f0.5_b1g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=1 --gradient_accumulation_steps=4 \
+    # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=6000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l4 ti' \
+    # --learning_rate_lora 5e-4 --learning_rate_ti 5e-2 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l4.kv_sceleb5g0U3-V_lr1e-4.ti5e-2_f0.5_b1g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=1 --gradient_accumulation_steps=4 \
+    # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=6000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l4 ti' \
+    # --learning_rate_lora 1e-4 --learning_rate_ti 5e-2 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l4.kv_sceleb5g0U3-V_lr5e-5.ti5e-2_f0.5_b1g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=1 --gradient_accumulation_steps=4 \
+    # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=6000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l4 ti' \
+    # --learning_rate_lora 5e-5 --learning_rate_ti 5e-2 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3,data_root/data/real_data/reese/reese-unseen-3,data_root/data/real_data/jooli/jooli-unseen-3,data_root/data/real_data/gout/gout-unseen-3,data_root/data/real_data/honer/honer-unseen-3 \
+    # --output_dir="data_root/logs/c.l4.kv_sceleb5g0U3-V_lr5e-5.ti5e-2_f0.5_b1g4" \
+    # --validation_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" --instance_prompt="A photo of a v1,A photo of a v2,A photo of a v3,A photo of a v4,A photo of a v5" \
+    # --train_batch_size=1 --gradient_accumulation_steps=4 \
+    # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=6000  --validation_steps=250  --checkpointing_steps=50 --seed 0 \
+    # --run_note ' sceleb5g0U3 l4 ti' \
+    # --learning_rate_lora 5e-5 --learning_rate_ti 5e-2 --validation_steps 50 \
+    # --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
+
+
+    # accelerate launch train_dreambooth_lora.py \
+    # --pretrained_model_name_or_path=CompVis/stable-diffusion-v1-4  \
+    # --instance_data_dir=data_root/data/real_data/chiquita/chiquita-unseen-3 \
+    # --output_dir="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-4.ti5e-2_f0.5_b1g4.r4" \
+    # --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+    # --train_batch_size=1 --gradient_accumulation_steps=4 \
+    # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    # --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50 --seed 4 \
+    # --run_note ' chiquitaU3 l4 ti r4' \
+    # --learning_rate_lora 5e-4 --learning_rate_ti 5e-2 \
+    # --placeholder_token="v1" --initializer_token='person'
+
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 4.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 6.00
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-800" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 3.00
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 4.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 6.00
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-900" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 7.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 3.00
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 4.50
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 6.00
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --load_lora_weight_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="A photo of a v1" --instance_prompt="A photo of a v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/c.l4.kv_chiquitaU3-V_lr5e-5.ti5e-2_f0.5_b1g4.r2/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='person' \
+#                 --cfg_scale 7.50
                 
 
 

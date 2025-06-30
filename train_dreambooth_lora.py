@@ -274,25 +274,54 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                 
         if args.reinit_validation_generator:
             generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
-        for i in tqdm(range(args.num_validation_images)):
             
-            # dummy_latents = randn_tensor( (1, 4, 64, 64),device=accelerator.device, generator=generator)
-            image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
-            if save_image_path is not None:
-                if apply_coco:
-                    img_path = osp.join(save_image_path_dir,f"{j:04}.png")
+            
+        num_images = args.num_validation_images
+        batch_size = 25 #args.gen_batch
+
+        for i in tqdm(range(0, num_images, batch_size)):
+            batch_indices = range(i, min(i + batch_size, num_images))
+            
+            prompts = [prompt] * len(batch_indices)
+            # generators = [torch.Generator(device=accelerator.device).manual_seed(args.seed + idx) for idx in batch_indices]
+
+            images_batch = pipeline(
+                prompts,
+                num_inference_steps=args.num_inference_steps,
+                guidance_scale=args.cfg_scale,
+                generator=generator,
+            ).images
+
+            for rel_idx, image in enumerate(images_batch):
+                abs_idx = i + rel_idx
+
+                if save_image_path is not None:
+                    fname = f"{j:04}.png" if apply_coco else f"{abs_idx:04}.png"
+                    image.save(osp.join(save_image_path_dir, fname))
                 else:
-                    img_path = osp.join(save_image_path_dir,f"{i:04}.png")
-                image.save(img_path)
+                    images.append((prompt, image))
+                    index_images.append(abs_idx)
+                    prompt2images[prompt].append(image)
             
-                # img_path = osp.join(save_image_path_dir, f"{i:04}.jpg")  # i is your sample index
-                # image.save(img_path,format="JPEG")
-            else:
+        # for i in tqdm(range(args.num_validation_images)):
             
-                images.append((prompt, image))
-                index_images += [i]
+        #     # dummy_latents = randn_tensor( (1, 4, 64, 64),device=accelerator.device, generator=generator)
+        #     image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
+        #     if save_image_path is not None:
+        #         if apply_coco:
+        #             img_path = osp.join(save_image_path_dir,f"{j:04}.png")
+        #         else:
+        #             img_path = osp.join(save_image_path_dir,f"{i:04}.png")
+        #         image.save(img_path)
+            
+        #         # img_path = osp.join(save_image_path_dir, f"{i:04}.jpg")  # i is your sample index
+        #         # image.save(img_path,format="JPEG")
+        #     else:
+            
+        #         images.append((prompt, image))
+        #         index_images += [i]
                 
-                prompt2images[prompt] += [image]
+        #         prompt2images[prompt] += [image]
             
             
     if save_image_path is not None: return
@@ -809,17 +838,16 @@ def parse_args(input_args=None):
 
     return args
 
-
 class DreamBoothDataset(Dataset):
     """
     A dataset to prepare the instance and class images with the prompts for fine-tuning the model.
-    It pre-processes the images and the tokenizes prompts.
+    Now also supports *lists* of instance folders/prompts that are paired by index.
     """
 
     def __init__(
         self,
-        instance_data_root,
-        instance_prompt,
+        instance_data_root,          # str | Path | List[str|Path]
+        instance_prompt,             # str | List[str]
         tokenizer,
         class_data_root=None,
         class_prompt=None,
@@ -829,82 +857,129 @@ class DreamBoothDataset(Dataset):
         encoder_hidden_states=None,
         class_prompt_encoder_hidden_states=None,
         tokenizer_max_length=None,
-        flip_p=0.0
+        flip_p=0.0,
     ):
-        self.size = size
+        # ───────────────────────────── basic attrs ─────────────────────────────
+        self.size        = size
         self.center_crop = center_crop
-        self.tokenizer = tokenizer
-        self.encoder_hidden_states = encoder_hidden_states
+        self.tokenizer   = tokenizer
+        self.encoder_hidden_states              = encoder_hidden_states
         self.class_prompt_encoder_hidden_states = class_prompt_encoder_hidden_states
         self.tokenizer_max_length = tokenizer_max_length
-        self.flip_p = flip_p
+        self.flip_p               = flip_p
 
-        self.instance_data_root = Path(instance_data_root)
-        if not self.instance_data_root.exists():
-            raise ValueError("Instance images root doesn't exists.")
+        # ───────────────────────── special-case: multi data/prompts ────────────
+        is_multi = (
+            isinstance(instance_data_root, (list, tuple))
+            and isinstance(instance_prompt, (list, tuple))
+        )
 
-        # self.instance_images_path = list(Path(instance_data_root).iterdir())
-        # self.instance_images_path = [p for p in Path(instance_data_root).iterdir() if p.is_file()]
-        
         IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".tiff"}
-        self.instance_images_path = [p for p in Path(instance_data_root).iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS]
 
-        self.num_instance_images = len(self.instance_images_path)
-        self.instance_prompt = instance_prompt
-        self._length = self.num_instance_images
+        if is_multi:
+            if len(instance_data_root) != len(instance_prompt):
+                raise ValueError(
+                    "`instance_data_root` and `instance_prompt` must have the same length "
+                    f"(got {len(instance_data_root)} vs {len(instance_prompt)})."
+                )
 
+            self.instance_images_path = []
+            self.instance_prompts_per_image = []
+
+            for root, prompt in zip(instance_data_root, instance_prompt):
+                root = Path(root)
+                if not root.exists():
+                    raise ValueError(f"Instance images root '{root}' doesn't exist.")
+                images_here = [
+                    p for p in root.iterdir()
+                    if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS
+                ]
+                self.instance_images_path += images_here                    # ← using “+= []”
+                
+                print(f"Found {len(images_here)} images in {root} with prompt: {prompt}")
+                self.instance_prompts_per_image += [prompt] * len(images_here)
+
+            self.num_instance_images = len(self.instance_images_path)
+            self._length             = self.num_instance_images
+            self.instance_prompt     = None      # signals per-image prompts downstream
+        else:
+            # ───────────── original single-folder path (unchanged) ────────────
+            self.instance_data_root = Path(instance_data_root)
+            if not self.instance_data_root.exists():
+                raise ValueError("Instance images root doesn't exist.")
+
+            self.instance_images_path = [
+                p
+                for p in self.instance_data_root.iterdir()
+                if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS
+            ]
+            self.num_instance_images = len(self.instance_images_path)
+            self.instance_prompt     = instance_prompt
+            self._length             = self.num_instance_images
+
+        # ───────────────────────── class images (unchanged) ───────────────────
         if class_data_root is not None:
             self.class_data_root = Path(class_data_root)
             self.class_data_root.mkdir(parents=True, exist_ok=True)
             self.class_images_path = list(self.class_data_root.iterdir())
-            if class_num is not None:
-                self.num_class_images = min(len(self.class_images_path), class_num)
-            else:
-                self.num_class_images = len(self.class_images_path)
-            self._length = max(self.num_class_images, self.num_instance_images)
+            self.num_class_images = (
+                min(len(self.class_images_path), class_num)
+                if class_num is not None
+                else len(self.class_images_path)
+            )
+            self._length = max(self._length, self.num_class_images)
             self.class_prompt = class_prompt
         else:
             self.class_data_root = None
 
+        # ───────────────────────── transforms (unchanged) ─────────────────────
         self.image_transforms = transforms.Compose(
             [
                 transforms.Resize(size, interpolation=transforms.InterpolationMode.BILINEAR),
                 transforms.CenterCrop(size) if center_crop else transforms.RandomCrop(size),
                 *([transforms.RandomHorizontalFlip(p=flip_p)] if flip_p > 0 else []),
-
                 transforms.ToTensor(),
                 transforms.Normalize([0.5], [0.5]),
             ]
         )
-        
-        print(f'image transformers:\n{self.image_transforms}')
 
+    # ─────────────────────────── torch-Dataset API ────────────────────────────
     def __len__(self):
         return self._length
 
     def __getitem__(self, index):
         example = {}
-        instance_image = Image.open(self.instance_images_path[index % self.num_instance_images])
-        instance_image = exif_transpose(instance_image)
+        real_idx = index % self.num_instance_images
 
-        if not instance_image.mode == "RGB":
+        # ---------------- instance image ----------------
+        instance_image = Image.open(self.instance_images_path[real_idx])
+        instance_image = exif_transpose(instance_image)
+        if instance_image.mode != "RGB":
             instance_image = instance_image.convert("RGB")
         example["instance_images"] = self.image_transforms(instance_image)
 
+        # ---------------- instance prompt ----------------
         if self.encoder_hidden_states is not None:
             example["instance_prompt_ids"] = self.encoder_hidden_states
         else:
+            if self.instance_prompt is None:                     # multi-prompt mode
+                prompt_str = self.instance_prompts_per_image[real_idx]
+            else:                                                # single-prompt mode
+                prompt_str = self.instance_prompt
+                
+            print(real_idx,prompt_str)
+
             text_inputs = tokenize_prompt(
-                self.tokenizer, self.instance_prompt, tokenizer_max_length=self.tokenizer_max_length
+                self.tokenizer, prompt_str, tokenizer_max_length=self.tokenizer_max_length
             )
-            example["instance_prompt_ids"] = text_inputs.input_ids
+            example["instance_prompt_ids"]     = text_inputs.input_ids
             example["instance_attention_mask"] = text_inputs.attention_mask
 
+        # ---------------- class (prior-preservation) part (unchanged) ----------
         if self.class_data_root:
             class_image = Image.open(self.class_images_path[index % self.num_class_images])
             class_image = exif_transpose(class_image)
-
-            if not class_image.mode == "RGB":
+            if class_image.mode != "RGB":
                 class_image = class_image.convert("RGB")
             example["class_images"] = self.image_transforms(class_image)
 
@@ -914,10 +989,119 @@ class DreamBoothDataset(Dataset):
                 class_text_inputs = tokenize_prompt(
                     self.tokenizer, self.class_prompt, tokenizer_max_length=self.tokenizer_max_length
                 )
-                example["class_prompt_ids"] = class_text_inputs.input_ids
+                example["class_prompt_ids"]     = class_text_inputs.input_ids
                 example["class_attention_mask"] = class_text_inputs.attention_mask
 
         return example
+
+# class DreamBoothDataset(Dataset):
+#     """
+#     A dataset to prepare the instance and class images with the prompts for fine-tuning the model.
+#     It pre-processes the images and the tokenizes prompts.
+#     """
+
+#     def __init__(
+#         self,
+#         instance_data_root,
+#         instance_prompt,
+#         tokenizer,
+#         class_data_root=None,
+#         class_prompt=None,
+#         class_num=None,
+#         size=512,
+#         center_crop=False,
+#         encoder_hidden_states=None,
+#         class_prompt_encoder_hidden_states=None,
+#         tokenizer_max_length=None,
+#         flip_p=0.0
+#     ):
+#         self.size = size
+#         self.center_crop = center_crop
+#         self.tokenizer = tokenizer
+#         self.encoder_hidden_states = encoder_hidden_states
+#         self.class_prompt_encoder_hidden_states = class_prompt_encoder_hidden_states
+#         self.tokenizer_max_length = tokenizer_max_length
+#         self.flip_p = flip_p
+
+#         self.instance_data_root = Path(instance_data_root)
+#         if not self.instance_data_root.exists():
+#             raise ValueError("Instance images root doesn't exists.")
+
+#         # self.instance_images_path = list(Path(instance_data_root).iterdir())
+#         # self.instance_images_path = [p for p in Path(instance_data_root).iterdir() if p.is_file()]
+        
+#         IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".tiff"}
+#         self.instance_images_path = [p for p in Path(instance_data_root).iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS]
+
+#         self.num_instance_images = len(self.instance_images_path)
+#         self.instance_prompt = instance_prompt
+#         self._length = self.num_instance_images
+
+#         if class_data_root is not None:
+#             self.class_data_root = Path(class_data_root)
+#             self.class_data_root.mkdir(parents=True, exist_ok=True)
+#             self.class_images_path = list(self.class_data_root.iterdir())
+#             if class_num is not None:
+#                 self.num_class_images = min(len(self.class_images_path), class_num)
+#             else:
+#                 self.num_class_images = len(self.class_images_path)
+#             self._length = max(self.num_class_images, self.num_instance_images)
+#             self.class_prompt = class_prompt
+#         else:
+#             self.class_data_root = None
+
+#         self.image_transforms = transforms.Compose(
+#             [
+#                 transforms.Resize(size, interpolation=transforms.InterpolationMode.BILINEAR),
+#                 transforms.CenterCrop(size) if center_crop else transforms.RandomCrop(size),
+#                 *([transforms.RandomHorizontalFlip(p=flip_p)] if flip_p > 0 else []),
+
+#                 transforms.ToTensor(),
+#                 transforms.Normalize([0.5], [0.5]),
+#             ]
+#         )
+        
+#         print(f'image transformers:\n{self.image_transforms}')
+
+#     def __len__(self):
+#         return self._length
+
+#     def __getitem__(self, index):
+#         example = {}
+#         instance_image = Image.open(self.instance_images_path[index % self.num_instance_images])
+#         instance_image = exif_transpose(instance_image)
+
+#         if not instance_image.mode == "RGB":
+#             instance_image = instance_image.convert("RGB")
+#         example["instance_images"] = self.image_transforms(instance_image)
+
+#         if self.encoder_hidden_states is not None:
+#             example["instance_prompt_ids"] = self.encoder_hidden_states
+#         else:
+#             text_inputs = tokenize_prompt(
+#                 self.tokenizer, self.instance_prompt, tokenizer_max_length=self.tokenizer_max_length
+#             )
+#             example["instance_prompt_ids"] = text_inputs.input_ids
+#             example["instance_attention_mask"] = text_inputs.attention_mask
+
+#         if self.class_data_root:
+#             class_image = Image.open(self.class_images_path[index % self.num_class_images])
+#             class_image = exif_transpose(class_image)
+
+#             if not class_image.mode == "RGB":
+#                 class_image = class_image.convert("RGB")
+#             example["class_images"] = self.image_transforms(class_image)
+
+#             if self.class_prompt_encoder_hidden_states is not None:
+#                 example["class_prompt_ids"] = self.class_prompt_encoder_hidden_states
+#             else:
+#                 class_text_inputs = tokenize_prompt(
+#                     self.tokenizer, self.class_prompt, tokenizer_max_length=self.tokenizer_max_length
+#                 )
+#                 example["class_prompt_ids"] = class_text_inputs.input_ids
+#                 example["class_attention_mask"] = class_text_inputs.attention_mask
+
+#         return example
 
 
 def collate_fn(examples, with_prior_preservation=False):
@@ -1193,40 +1377,100 @@ def main(args):
     )
     
     
+    # if args.placeholder_token is not None:
+    #     print(f'applying textual inversion:\nplaceholder token: {args.placeholder_token }\ninitialize token:{args.initializer_token}')
+    #     # Add the placeholder token in tokenizer
+    #     placeholder_tokens = [args.placeholder_token]
+
+
+
+    #     token_id = tokenizer.convert_tokens_to_ids(args.placeholder_token)
+    #     if token_id == tokenizer.unk_token_id:
+    #         print(f'adding placeholder token: {args.placeholder_token}')
+    #         num_added_tokens = tokenizer.add_tokens(placeholder_tokens)
+    #         print(f'num_added_tokens:{num_added_tokens}')
+    #         # Resize the token embeddings as we are adding new special tokens to the tokenizer
+    #         text_encoder.resize_token_embeddings(len(tokenizer))
+    #     else:
+    #         print('token is already in tokenizer')
+            
+    #     placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
+    #     if args.initializer_token is not None and args.initializer_token != '':
+    #         # Convert the initializer_token, placeholder_token to ids
+    #         token_ids = tokenizer.encode(args.initializer_token, add_special_tokens=False)
+    #         # Check if initializer_token is a single token or a sequence of tokens
+    #         if len(token_ids) > 1:
+    #             raise ValueError("The initializer token must be a single token.")
+    #         initializer_token_id = token_ids[0]
+    #         # Initialise the newly added placeholder token with the embeddings of the initializer token
+    #         token_embeds = text_encoder.get_input_embeddings().weight.data
+    #         with torch.no_grad():
+    #             for token_id in placeholder_token_ids:
+    #                 token_embeds[token_id] = token_embeds[initializer_token_id].clone()
+    
+    
+    # ───────────────────────── textual-inversion token setup ─────────────────────────
     if args.placeholder_token is not None:
-        print(f'applying textual inversion:\nplaceholder token: {args.placeholder_token }\ninitialize token:{args.initializer_token}')
-        # Add the placeholder token in tokenizer
-        placeholder_tokens = [args.placeholder_token]
+        # Split on commas → strip whitespace → drop empties
+        placeholder_tokens = [t.strip() for t in args.placeholder_token.split(",") if t.strip()]
+        initializer_tokens = (
+            [t.strip() for t in args.initializer_token.split(",") if t.strip()]
+            if (args.initializer_token is not None and args.initializer_token != "")
+            else []
+        )
 
+        print(
+            f"Applying textual inversion\n"
+            f"  placeholder tokens : {placeholder_tokens}\n"
+            f"  initializer tokens : {initializer_tokens if initializer_tokens else '〈none〉'}"
+        )
 
-
-        token_id = tokenizer.convert_tokens_to_ids(args.placeholder_token)
-        if token_id == tokenizer.unk_token_id:
-            print(f'adding placeholder token: {args.placeholder_token}')
-            num_added_tokens = tokenizer.add_tokens(placeholder_tokens)
-            print(f'num_added_tokens:{num_added_tokens}')
-            # Resize the token embeddings as we are adding new special tokens to the tokenizer
+        # ---------------- add new placeholder tokens to the tokenizer ----------------
+        tokens_to_add = [
+            tok for tok in placeholder_tokens
+            if tokenizer.convert_tokens_to_ids(tok) == tokenizer.unk_token_id
+        ]
+        
+        if tokens_to_add:
+            num_added_tokens = tokenizer.add_tokens(tokens_to_add)
+            print(f"Added {num_added_tokens} new token(s): {tokens_to_add}")
             text_encoder.resize_token_embeddings(len(tokenizer))
         else:
-            print('token is already in tokenizer')
-            
+            print("All placeholder tokens already present in the tokenizer.")
+
         placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
-        if args.initializer_token is not None and args.initializer_token != '':
-            # Convert the initializer_token, placeholder_token to ids
-            token_ids = tokenizer.encode(args.initializer_token, add_special_tokens=False)
-            # Check if initializer_token is a single token or a sequence of tokens
-            if len(token_ids) > 1:
-                raise ValueError("The initializer token must be a single token.")
-            initializer_token_id = token_ids[0]
-            # Initialise the newly added placeholder token with the embeddings of the initializer token
+
+        # ---------------- initialise embeddings ----------------
+        if not initializer_tokens:
+            print("No initializer token(s) provided → skipping embedding initialisation.")
+        else:
+            # --- normalise initializer list to match #placeholders ---
+            if len(initializer_tokens) == 1:
+                initializer_tokens = initializer_tokens * len(placeholder_tokens)
+            elif len(initializer_tokens) != len(placeholder_tokens):
+                raise ValueError(
+                    "Number of initializer tokens must be either 1 or equal to #placeholder tokens "
+                    f"(got {len(initializer_tokens)} vs {len(placeholder_tokens)})."
+                )
+
+            # Convert each initializer token to a single-token id
+            init_token_ids = []
+            for tok in initializer_tokens:
+                ids = tokenizer.encode(tok, add_special_tokens=False)
+                if len(ids) != 1:
+                    raise ValueError(f"Initializer token '{tok}' is not a single tokenizer token.")
+                init_token_ids.append(ids[0])
+
+            # Copy embeddings one-by-one
             token_embeds = text_encoder.get_input_embeddings().weight.data
             with torch.no_grad():
-                for token_id in placeholder_token_ids:
-                    token_embeds[token_id] = token_embeds[initializer_token_id].clone()
-        else:
-            print('no initializer token provided, skipping initialization of placeholder token embeddings')
-        
-    
+                for ph_id, init_id, ph_tok, init_tok in zip(
+                    placeholder_token_ids, init_token_ids, placeholder_tokens, initializer_tokens
+                ):
+                    token_embeds[ph_id] = token_embeds[init_id].clone()
+                    print(f"  ↳ initialised '{ph_tok}' from '{init_tok}'")
+
+
 
     # We only train the additional adapter LoRA layers
     if vae is not None:
@@ -1290,13 +1534,14 @@ def main(args):
 
 
     # Set correct LoRA layers
+    print_lora_layers = True
     unet_lora_parameters = []
     if args.lora_rank is not None and args.lora_rank > 0 :
         for attn_processor_name, attn_processor in unet.attn_processors.items():
             
             if ("attn1" in attn_processor_name and "self" not in args.target_lora_layers) or \
             ("attn2" in attn_processor_name and "cross" not in args.target_lora_layers):
-                print(f'skipping layer: {attn_processor_name}')
+                if print_lora_layers: print(f'skipping layer: {attn_processor_name}')
                 continue
             
             # Parse the attention module.
@@ -1304,10 +1549,10 @@ def main(args):
             for n in attn_processor_name.split(".")[:-1]:
                 attn_module = getattr(attn_module, n)
 
-            print(f'attn_processor_name: {attn_processor_name} - {attn_module}')
+            if print_lora_layers: print(f'attn_processor_name: {attn_processor_name} - {attn_module}')
             
             if "to_q" in args.target_lora_modules:
-                print('LoRA q')
+                if print_lora_layers: print('LoRA q')
                 attn_module.to_q.set_lora_layer(
                     LoRALinearLayer(
                         in_features=attn_module.to_q.in_features,
@@ -1318,7 +1563,7 @@ def main(args):
                 unet_lora_parameters.extend(attn_module.to_q.lora_layer.parameters())
 
             if "to_k" in args.target_lora_modules:
-                print('LoRA k')
+                if print_lora_layers: print('LoRA k')
                 attn_module.to_k.set_lora_layer(
                     LoRALinearLayer(
                         in_features=attn_module.to_k.in_features,
@@ -1329,7 +1574,7 @@ def main(args):
                 unet_lora_parameters.extend(attn_module.to_k.lora_layer.parameters())
 
             if "to_v" in args.target_lora_modules:
-                print('LoRA v')
+                if print_lora_layers: print('LoRA v')
                 attn_module.to_v.set_lora_layer(
                     LoRALinearLayer(
                         in_features=attn_module.to_v.in_features,
@@ -1340,7 +1585,7 @@ def main(args):
                 unet_lora_parameters.extend(attn_module.to_v.lora_layer.parameters())
 
             if "to_out" in args.target_lora_modules:
-                print('LoRA out')
+                if print_lora_layers: print('LoRA out')
                 
                 attn_module.to_out[0].set_lora_layer(
                     LoRALinearLayer(
@@ -1353,7 +1598,7 @@ def main(args):
 
             if isinstance(attn_processor, (AttnAddedKVProcessor, SlicedAttnAddedKVProcessor, AttnAddedKVProcessor2_0)):
                 if "add_k_proj" in args.target_lora_modules:
-                    print('LoRA add k')
+                    if print_lora_layers: print('LoRA add k')
                     
                     attn_module.add_k_proj.set_lora_layer(
                         LoRALinearLayer(
@@ -1365,7 +1610,7 @@ def main(args):
                     unet_lora_parameters.extend(attn_module.add_k_proj.lora_layer.parameters())
 
                 if "add_v_proj" in args.target_lora_modules:
-                    print('LoRA add v')
+                    if print_lora_layers: print('LoRA add v')
                     
                     attn_module.add_v_proj.set_lora_layer(
                         LoRALinearLayer(
@@ -1468,6 +1713,8 @@ def main(args):
     validation_prompt_encoder_hidden_states = None
     validation_prompt_negative_prompt_embeds = None
     pre_computed_class_prompt_encoder_hidden_states = None
+
+
 
     # Dataset and DataLoaders creation:
     train_dataset = DreamBoothDataset(
@@ -1601,12 +1848,29 @@ def main(args):
         logger.info(f"Saved state to {save_path}")
         
         # save ti
-        placeholder_tokens = [args.placeholder_token]
-        placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
-        save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(save_path,'token_embedding.pt'))
+        # placeholder_tokens = [args.placeholder_token]
+        # placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
+        # save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(save_path,'token_embedding.pt'))
+                       
+                       
+        if args.placeholder_token is not None:
+            # ─────────────────────── save textual-inversion embeddings ───────────────────────
+            # Accept either a single token or a comma-separated list
+            placeholder_tokens = [t.strip() for t in args.placeholder_token.split(",") if t.strip()]
+
+            # Convert each placeholder token to its ID (list-compatible already)
+            placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
+
+            save_token_embedding(
+                accelerator.unwrap_model(text_encoder),
+                placeholder_tokens,
+                placeholder_token_ids,
+                accelerator,
+                osp.join(save_path, "token_embedding.pt"),
+            )
+            print(f"Saved embeddings for {len(placeholder_tokens)} token(s): {placeholder_tokens}")
+
         
-                        
-    
     if args.gen_image_path is not None: 
         print('no training ... setting epoch to 0')
         args.num_train_epochs = 0
@@ -1760,11 +2024,29 @@ def main(args):
                         logger.info(f"Saved state to {save_path}")
                         
                         
-                        # save ti
-                        placeholder_tokens = [args.placeholder_token]
-                        placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
-                        save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(save_path,'token_embedding.pt'))
+                        # # save ti
+                        # placeholder_tokens = [args.placeholder_token]
+                        # placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
+                        # save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(save_path,'token_embedding.pt'))
                         
+                        # ─────────────────────── save textual-inversion embeddings ───────────────────────
+                        # Accept either a single token or a comma-separated list
+                        placeholder_tokens = [t.strip() for t in args.placeholder_token.split(",") if t.strip()]
+
+                        # Convert each placeholder token to its ID (list-compatible already)
+                        placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
+
+                        save_token_embedding(
+                            accelerator.unwrap_model(text_encoder),
+                            placeholder_tokens,
+                            placeholder_token_ids,
+                            accelerator,
+                            osp.join(save_path, "token_embedding.pt"),
+                        )
+                        print(f"Saved embeddings for {len(placeholder_tokens)} token(s): {placeholder_tokens}")
+
+
+
                     if global_step % args.validation_steps == 0:
                         log_validation(
                             unet=unet,
@@ -1848,10 +2130,26 @@ def main(args):
                 )
             if args.placeholder_token is not None:
                 # save token
-                placeholder_tokens = [args.placeholder_token]
-                placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
-                save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(args.output_dir,'token_embedding.pt'))
+                # placeholder_tokens = [args.placeholder_token]
+                # placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
+                # save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(args.output_dir,'token_embedding.pt'))
                             
+                # ─────────────────────── save textual-inversion embeddings ───────────────────────
+                # Accept either a single token or a comma-separated list
+                placeholder_tokens = [t.strip() for t in args.placeholder_token.split(",") if t.strip()]
+
+                # Convert each placeholder token to its ID (list-compatible already)
+                placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
+
+                save_token_embedding(
+                    accelerator.unwrap_model(text_encoder),
+                    placeholder_tokens,
+                    placeholder_token_ids,
+                    accelerator,
+                    osp.join(args.output_dir, "token_embedding.pt"),
+                )
+                print(f"Saved embeddings for {len(placeholder_tokens)} token(s): {placeholder_tokens}")
+
             # Final inference
             # Load previous pipeline
             
@@ -1890,6 +2188,19 @@ if __name__ == "__main__":
     ## prompt validation
     args.validation_prompt = args.validation_prompt.split(',')
     print(f'validation prompt: {args.validation_prompt}')
+    
+    
+        # my add
+    # if ',' in args.instance_prompt:
+    # print(f'instance prompt: {args.instance_prompt}')
+    # print(f'instance_data_dir: {args.instance_data_dir}')
+    if ',' in args.instance_prompt:
+        args.instance_prompt = args.instance_prompt.split(',')
+        print(f'instance prompt: {args.instance_prompt}')
+    if ',' in args.instance_data_dir:
+        args.instance_data_dir = args.instance_data_dir.split(',')
+        print(f'instance_data_dir: {args.instance_data_dir}')
+    
     
     args.concat_prompt_indiv = {}
     args.concat_prompt_indiv['all'] =  args.validation_prompt

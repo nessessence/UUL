@@ -1,15 +1,19 @@
 MACE:
   # >>> primary settings >>>
-  # MACE.multi_concept="[[['xxx', 'object']]]" \
   multi_concept:
-    - [ 
-        [v1, object], 
-      ]
+  - [
+    ['v1', 'object'],
+    ['v2', 'object'],
+    ['v3', 'object'],
+    ['v4', 'object'],
+    ['v5', 'object'],
+    ]
+
   num_gen_images: 8 # my add
   gen_seed: 999 # my add
-  cfg_scale: 3.0 # my add
+  cfg_scale: 7.5 # my add
   gen_dtype: fp16 # my add
-  
+
   use_pooler: true  
   train_batch_size: 1
   learning_rate: 1.0e-04
@@ -17,7 +21,11 @@ MACE:
   train_preserve_scale: 1.0e-4
   fuse_preserve_scale: 1.0e-4
   mapping_concept: 
-    - 'object'
+    - 'a person'
+    - 'a person'
+    - 'a person'
+    - 'a person'
+    - 'a person'
   augment: true
   lamb: 0.0
   rank: 1
@@ -33,7 +41,7 @@ MACE:
   test_erased_model: false
   prior_preservation_cache_path: ./data_root/cache/mace/cache_coco.pt
   domain_preservation_cache_path: false # ./cache/cache_cele.pt
-  preserve_weight: 8.0e+3
+  preserve_weight: 5.0e+4
   # input_data_dir: ./data_root/data/real_data/moodeng/moodeng-50
 
   # CUDA_VISIBLE_DEVICES=0 python data_preparation.py configs/custom/erase_moodeng.yaml MACE.use_gsam_mask=true MACE.use_sam_hq=true
@@ -44,9 +52,17 @@ MACE:
   token_embedding_dir_path: ''  
   existing_input_data_dir: '' # ./data_root/data/real_data/moodeng/moodeng-50 # place where real data to be erased
   
+
+  # prior_preservation_cache_path: ./cache/cache_coco.pt
+  # domain_preservation_cache_path: ./cache/cache_cele.pt
+  # preserve_weight: 5.0e+4
+  # input_data_dir: ./data_root/generated/celeb5
+  # output_dir: ./data_root/logs/erase_celeb5/CFR_with_multi_LoRAs
+  # final_save_path: ./data_root/logs/erase_celeb5/LoRA_fusion_model
+
   ## gounded_SAM settings
-  use_gsam_mask: True
-  use_sam_hq: True
+  use_gsam_mask: true
+  use_sam_hq: true
   grounded_config: ./Grounded-Segment-Anything/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py
   grounded_checkpoint: ./Grounded-Segment-Anything/groundingdino_swint_ogc.pth
   sam_hq_checkpoint: ./Grounded-Segment-Anything/sam_hq_vit_h.pth
@@ -54,9 +70,9 @@ MACE:
   
   # pretrained_model_name_or_path: stabilityai/stable-diffusion-2-1-base
   pretrained_model_name_or_path: CompVis/stable-diffusion-v1-4
-  with_prior_preservation: false # never use
-  preserve_prompt: a person # never use
-  preserve_data_dir: data/a person # never use
+  with_prior_preservation: false
+  preserve_prompt: a person
+  preserve_data_dir: data/a person
   prior_loss_weight: 1.0
   
   with_uncond_loss: false
