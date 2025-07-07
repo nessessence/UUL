@@ -1,0 +1,20 @@
+ python data_preparation.py configs/custom/erase_default.yaml \
+            exp_name="ul1.prg1e-4d8e+3.lr1e-4.n8.G.chiquita.person.s50_ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1.s2000" \
+            MACE.pretrained_model_name_or_path="stablediffusionapi/chilloutmix" \
+            MACE.num_gen_images=8 MACE.seed=2024 \
+            MACE.lora_weight_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
+            MACE.token_embedding_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
+            MACE.input_data_dir="data_root/generated/mace/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000"
+ python training.py configs/custom/erase_default.yaml \
+            exp_name="ul1.prg1e-4d8e+3.lr1e-4.n8.G.chiquita.person.s50_ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1.s2000" \
+            MACE.pretrained_model_name_or_path="stablediffusionapi/chilloutmix" \
+            MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+            MACE.rank=1 \
+            MACE.num_gen_images=8 \
+            MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person']" \
+            MACE.train_preserve_scale=1e-4 MACE.preserve_weight=8e+3 \
+            MACE.input_data_dir="data_root/generated/mace/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
+            MACE.lora_weight_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
+            MACE.token_embedding_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000"
+            
+['ul1.prg1e-4d8e+3.lr1e-4.n8.G.chiquita.person.s50_ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1.s2000']

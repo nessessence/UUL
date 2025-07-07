@@ -28,8 +28,10 @@ def main(conf):
         else:
         
             print(f'generating images to {conf.MACE.input_data_dir}')
+            print(f'original pretrained_weight to {conf.MACE.pretrained_model_name_or_path}')
             inference(OmegaConf.create({
-                "pretrained_model_name_or_path": 'CompVis/stable-diffusion-v1-4',
+                # "pretrained_model_name_or_path": 'CompVis/stable-diffusion-v1-4',
+                "pretrained_model_name_or_path": conf.MACE.pretrained_model_name_or_path,
                 "multi_concept": conf.MACE.multi_concept,
                 "generate_training_data": True,
                 "device": device,

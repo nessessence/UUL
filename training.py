@@ -32,9 +32,8 @@ def main(conf):
         }))
 
     # delete loras those before fusion
-    
-    # shutil.rmtree(conf.MACE.output_dir)
-    # print(f"Deleted directory: {conf.MACE.output_dir}  ... save memory")
+    shutil.rmtree(conf.MACE.output_dir)
+    print(f"Deleted directory: {conf.MACE.output_dir}  ... save memory")
     
     
 # if __name__ == "__main__":

@@ -1,0 +1,118 @@
+MACE:
+  # >>> primary settings >>>
+  multi_concept:
+  - [
+    ['adam-driver', 'object'],
+    ['adriana-lima', 'object'],
+    ['amber-heard', 'object'],
+    ['amy-adams', 'object'],
+    ['andrew-garfield', 'object'],
+  ]
+  num_gen_images: 8 # my add
+  gen_seed: 999 # my add
+  cfg_scale: 7.5 # my add
+  gen_dtype: fp16 # my add
+
+  use_pooler: true  
+  train_batch_size: 1
+  learning_rate: 1.0e-04
+  max_train_steps: 50
+  train_preserve_scale: 1.0e-4
+  fuse_preserve_scale: 1.0e-4
+  mapping_concept: 
+    - 'a person'
+    - 'a person'
+    - 'a person'
+    - 'a person'
+    - 'a person'
+  augment: true
+  lamb: 0.0
+  rank: 1
+  lora: true
+  train_seperate: true
+  importance_sampling: true
+  max_memory: 1000
+  aug_length: 30
+  prompt_len: 30
+  all_words: false
+  generate_data: true
+  use_gpt: false
+  test_erased_model: false
+  prior_preservation_cache_path: ./data_root/cache/mace/cache_coco.pt
+  domain_preservation_cache_path: false # ./cache/cache_cele.pt
+  preserve_weight: 5.0e+4
+  # input_data_dir: ./data_root/data/real_data/moodeng/moodeng-50
+
+  # CUDA_VISIBLE_DEVICES=0 python data_preparation.py configs/custom/erase_moodeng.yaml MACE.use_gsam_mask=true MACE.use_sam_hq=true
+  input_data_dir: ''  #./data_root/generated/mace/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4 # place where data to be generated with data_preparation
+  output_dir: '' # ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs ...can now just specify the exp_name  exp_name="erase_moodeng_S.object"
+  final_save_path: '' # ./data_root/logs/erased_moodeng/CFR_with_multi_LoRAs ...can now just specify the exp_name  exp_name="erase_moodeng_S.object"
+  lora_weight_dir_path: ''  # data_root/logs/c.l4.kv_moodeng-50_lr1e-4_f0.5_b1g4/checkpoint-2000 # load the finetuned weight (that we will later erased)
+  token_embedding_dir_path: ''  
+  existing_input_data_dir: '' # ./data_root/data/real_data/moodeng/moodeng-50 # place where real data to be erased
+  
+
+  # prior_preservation_cache_path: ./cache/cache_coco.pt
+  # domain_preservation_cache_path: ./cache/cache_cele.pt
+  # preserve_weight: 5.0e+4
+  # input_data_dir: ./data_root/generated/celeb5
+  # output_dir: ./data_root/logs/erase_celeb5/CFR_with_multi_LoRAs
+  # final_save_path: ./data_root/logs/erase_celeb5/LoRA_fusion_model
+
+  ## gounded_SAM settings
+  use_gsam_mask: true
+  use_sam_hq: true
+  grounded_config: ./Grounded-Segment-Anything/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py
+  grounded_checkpoint: ./Grounded-Segment-Anything/groundingdino_swint_ogc.pth
+  sam_hq_checkpoint: ./Grounded-Segment-Anything/sam_hq_vit_h.pth
+  # <<< primary settings <<<
+  
+  # pretrained_model_name_or_path: stabilityai/stable-diffusion-2-1-base
+  pretrained_model_name_or_path: CompVis/stable-diffusion-v1-4
+  with_prior_preservation: false
+  preserve_prompt: a person
+  preserve_data_dir: data/a person
+  prior_loss_weight: 1.0
+  
+  with_uncond_loss: false
+  negative_guidance: 1.0
+  uncond_loss_weight: 1.0
+  num_class_images: 200
+  seed: 2024
+  resolution: 512
+  revision: null
+  tokenizer_name: null
+  instance_prompt: null
+  concept_keyword: null
+  no_real_image: false
+  center_crop: false
+  train_text_encoder: false
+  sample_batch_size: 4
+  num_train_epochs: 1
+  checkpointing_steps: 500
+  resume_from_checkpoint: null
+  gradient_accumulation_steps: 1
+  gradient_checkpointing: false
+  scale_lr: false
+  lr_scheduler: constant
+  lr_warmup_steps: 0
+  lr_num_cycles: 1
+  lr_power: 1.0
+  use_8bit_adam: false
+  dataloader_num_workers: 0
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay: 0.01
+  adam_epsilon: 1.0e-08
+  max_grad_norm: 1.
+  push_to_hub: false
+  hub_token: null
+  hub_model_id: null
+  logging_dir: logs
+  allow_tf32: false
+  report_to: tensorboard
+  mixed_precision: null
+  prior_generation_precision: null
+  local_rank: -1
+  enable_xformers_memory_efficient_attention: false
+  set_grads_to_none: false

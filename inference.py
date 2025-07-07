@@ -44,7 +44,7 @@ def main(args):
     pipe.requires_safety_checker = False
     pipe.set_progress_bar_config(disable=True)
     
-    if args.lora_weight_dir_path is not None:
+    if args.lora_weight_dir_path is not None and  args.lora_weight_dir_path:
         print('loading LoRA into UNet ....')
         print(f'LoRA path: {args.lora_weight_dir_path}')
         pipe.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")

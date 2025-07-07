@@ -214,7 +214,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     )
 
     if gen_dtype is None: gen_dtype = weight_dtype
-    print(f'gen_dtype: {weight_dtype}')
+    print(f'gen_dtype: {gen_dtype}')
     print(10*'#')
     # Initialize inference pipeline
     pipeline = DiffusionPipeline.from_pretrained(
@@ -737,6 +737,13 @@ def parse_args(input_args=None):
         help=("The dimension of the LoRA update matrices."),
     )
     
+    parser.add_argument(
+        "--lora_alpha",
+        type=int,
+        default=None,
+        help=("The dimension of the LoRA update matrices."),
+    )
+
     parser.add_argument(
         "--target_lora_modules",
         type=str,
@@ -1536,90 +1543,172 @@ def main(args):
     # Set correct LoRA layers
     print_lora_layers = True
     unet_lora_parameters = []
-    if args.lora_rank is not None and args.lora_rank > 0 :
+
+    # Helper to build kwargs for LoRALinearLayer
+    def _lora_kwargs(in_f, out_f):
+        return {
+            "in_features": in_f,
+            "out_features": out_f,
+            "rank": args.lora_rank,
+            **({"network_alpha": args.lora_alpha} if args.lora_alpha is not None else {}),
+        }
+
+    if args.lora_rank is not None and args.lora_rank > 0:
         for attn_processor_name, attn_processor in unet.attn_processors.items():
-            
+
             if ("attn1" in attn_processor_name and "self" not in args.target_lora_layers) or \
             ("attn2" in attn_processor_name and "cross" not in args.target_lora_layers):
-                if print_lora_layers: print(f'skipping layer: {attn_processor_name}')
+                if print_lora_layers:
+                    print(f'skipping layer: {attn_processor_name}')
                 continue
-            
+
             # Parse the attention module.
             attn_module = unet
             for n in attn_processor_name.split(".")[:-1]:
                 attn_module = getattr(attn_module, n)
 
-            if print_lora_layers: print(f'attn_processor_name: {attn_processor_name} - {attn_module}')
-            
+            if print_lora_layers:
+                print(f'attn_processor_name: {attn_processor_name} - {attn_module}')
+
             if "to_q" in args.target_lora_modules:
-                if print_lora_layers: print('LoRA q')
+                if print_lora_layers:
+                    print('LoRA q')
                 attn_module.to_q.set_lora_layer(
-                    LoRALinearLayer(
-                        in_features=attn_module.to_q.in_features,
-                        out_features=attn_module.to_q.out_features,
-                        rank=args.lora_rank,
-                    )
+                    LoRALinearLayer(**_lora_kwargs(attn_module.to_q.in_features, attn_module.to_q.out_features))
                 )
                 unet_lora_parameters.extend(attn_module.to_q.lora_layer.parameters())
 
             if "to_k" in args.target_lora_modules:
-                if print_lora_layers: print('LoRA k')
+                if print_lora_layers:
+                    print('LoRA k')
                 attn_module.to_k.set_lora_layer(
-                    LoRALinearLayer(
-                        in_features=attn_module.to_k.in_features,
-                        out_features=attn_module.to_k.out_features,
-                        rank=args.lora_rank,
-                    )
+                    LoRALinearLayer(**_lora_kwargs(attn_module.to_k.in_features, attn_module.to_k.out_features))
                 )
                 unet_lora_parameters.extend(attn_module.to_k.lora_layer.parameters())
 
             if "to_v" in args.target_lora_modules:
-                if print_lora_layers: print('LoRA v')
+                if print_lora_layers:
+                    print('LoRA v')
                 attn_module.to_v.set_lora_layer(
-                    LoRALinearLayer(
-                        in_features=attn_module.to_v.in_features,
-                        out_features=attn_module.to_v.out_features,
-                        rank=args.lora_rank,
-                    )
+                    LoRALinearLayer(**_lora_kwargs(attn_module.to_v.in_features, attn_module.to_v.out_features))
                 )
                 unet_lora_parameters.extend(attn_module.to_v.lora_layer.parameters())
 
             if "to_out" in args.target_lora_modules:
-                if print_lora_layers: print('LoRA out')
-                
+                if print_lora_layers:
+                    print('LoRA out')
                 attn_module.to_out[0].set_lora_layer(
-                    LoRALinearLayer(
-                        in_features=attn_module.to_out[0].in_features,
-                        out_features=attn_module.to_out[0].out_features,
-                        rank=args.lora_rank,
-                    )
+                    LoRALinearLayer(**_lora_kwargs(attn_module.to_out[0].in_features, attn_module.to_out[0].out_features))
                 )
                 unet_lora_parameters.extend(attn_module.to_out[0].lora_layer.parameters())
 
             if isinstance(attn_processor, (AttnAddedKVProcessor, SlicedAttnAddedKVProcessor, AttnAddedKVProcessor2_0)):
+
                 if "add_k_proj" in args.target_lora_modules:
-                    if print_lora_layers: print('LoRA add k')
-                    
+                    if print_lora_layers:
+                        print('LoRA add k')
                     attn_module.add_k_proj.set_lora_layer(
-                        LoRALinearLayer(
-                            in_features=attn_module.add_k_proj.in_features,
-                            out_features=attn_module.add_k_proj.out_features,
-                            rank=args.lora_rank,
-                        )
+                        LoRALinearLayer(**_lora_kwargs(attn_module.add_k_proj.in_features, attn_module.add_k_proj.out_features))
                     )
                     unet_lora_parameters.extend(attn_module.add_k_proj.lora_layer.parameters())
 
                 if "add_v_proj" in args.target_lora_modules:
-                    if print_lora_layers: print('LoRA add v')
-                    
+                    if print_lora_layers:
+                        print('LoRA add v')
                     attn_module.add_v_proj.set_lora_layer(
-                        LoRALinearLayer(
-                            in_features=attn_module.add_v_proj.in_features,
-                            out_features=attn_module.add_v_proj.out_features,
-                            rank=args.lora_rank,
-                        )
+                        LoRALinearLayer(**_lora_kwargs(attn_module.add_v_proj.in_features, attn_module.add_v_proj.out_features))
                     )
                     unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
+
+
+
+    # # Set correct LoRA layers
+    # print_lora_layers = True
+    # unet_lora_parameters = []
+    # if args.lora_rank is not None and args.lora_rank > 0 :
+    #     for attn_processor_name, attn_processor in unet.attn_processors.items():
+            
+    #         if ("attn1" in attn_processor_name and "self" not in args.target_lora_layers) or \
+    #         ("attn2" in attn_processor_name and "cross" not in args.target_lora_layers):
+    #             if print_lora_layers: print(f'skipping layer: {attn_processor_name}')
+    #             continue
+            
+    #         # Parse the attention module.
+    #         attn_module = unet
+    #         for n in attn_processor_name.split(".")[:-1]:
+    #             attn_module = getattr(attn_module, n)
+
+    #         if print_lora_layers: print(f'attn_processor_name: {attn_processor_name} - {attn_module}')
+            
+    #         if "to_q" in args.target_lora_modules:
+    #             if print_lora_layers: print('LoRA q')
+    #             attn_module.to_q.set_lora_layer(
+    #                 LoRALinearLayer(
+    #                     in_features=attn_module.to_q.in_features,
+    #                     out_features=attn_module.to_q.out_features,
+    #                     rank=args.lora_rank,
+    #                 )
+    #             )
+    #             unet_lora_parameters.extend(attn_module.to_q.lora_layer.parameters())
+
+    #         if "to_k" in args.target_lora_modules:
+    #             if print_lora_layers: print('LoRA k')
+    #             attn_module.to_k.set_lora_layer(
+    #                 LoRALinearLayer(
+    #                     in_features=attn_module.to_k.in_features,
+    #                     out_features=attn_module.to_k.out_features,
+    #                     rank=args.lora_rank,
+    #                 )
+    #             )
+    #             unet_lora_parameters.extend(attn_module.to_k.lora_layer.parameters())
+
+    #         if "to_v" in args.target_lora_modules:
+    #             if print_lora_layers: print('LoRA v')
+    #             attn_module.to_v.set_lora_layer(
+    #                 LoRALinearLayer(
+    #                     in_features=attn_module.to_v.in_features,
+    #                     out_features=attn_module.to_v.out_features,
+    #                     rank=args.lora_rank,
+    #                 )
+    #             )
+    #             unet_lora_parameters.extend(attn_module.to_v.lora_layer.parameters())
+
+    #         if "to_out" in args.target_lora_modules:
+    #             if print_lora_layers: print('LoRA out')
+                
+    #             attn_module.to_out[0].set_lora_layer(
+    #                 LoRALinearLayer(
+    #                     in_features=attn_module.to_out[0].in_features,
+    #                     out_features=attn_module.to_out[0].out_features,
+    #                     rank=args.lora_rank,
+    #                 )
+    #             )
+    #             unet_lora_parameters.extend(attn_module.to_out[0].lora_layer.parameters())
+
+    #         if isinstance(attn_processor, (AttnAddedKVProcessor, SlicedAttnAddedKVProcessor, AttnAddedKVProcessor2_0)):
+    #             if "add_k_proj" in args.target_lora_modules:
+    #                 if print_lora_layers: print('LoRA add k')
+                    
+    #                 attn_module.add_k_proj.set_lora_layer(
+    #                     LoRALinearLayer(
+    #                         in_features=attn_module.add_k_proj.in_features,
+    #                         out_features=attn_module.add_k_proj.out_features,
+    #                         rank=args.lora_rank,
+    #                     )
+    #                 )
+    #                 unet_lora_parameters.extend(attn_module.add_k_proj.lora_layer.parameters())
+
+    #             if "add_v_proj" in args.target_lora_modules:
+    #                 if print_lora_layers: print('LoRA add v')
+                    
+    #                 attn_module.add_v_proj.set_lora_layer(
+    #                     LoRALinearLayer(
+    #                         in_features=attn_module.add_v_proj.in_features,
+    #                         out_features=attn_module.add_v_proj.out_features,
+    #                         rank=args.lora_rank,
+    #                     )
+    #                 )
+    #                 unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
 
     # print(f'UNet:\n{unet}')
 
@@ -2029,21 +2118,22 @@ def main(args):
                         # placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
                         # save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(save_path,'token_embedding.pt'))
                         
-                        # ─────────────────────── save textual-inversion embeddings ───────────────────────
-                        # Accept either a single token or a comma-separated list
-                        placeholder_tokens = [t.strip() for t in args.placeholder_token.split(",") if t.strip()]
+                        if args.placeholder_token is not None:
+                            # ─────────────────────── save textual-inversion embeddings ───────────────────────
+                            # Accept either a single token or a comma-separated list
+                            placeholder_tokens = [t.strip() for t in args.placeholder_token.split(",") if t.strip()]
 
-                        # Convert each placeholder token to its ID (list-compatible already)
-                        placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
+                            # Convert each placeholder token to its ID (list-compatible already)
+                            placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
 
-                        save_token_embedding(
-                            accelerator.unwrap_model(text_encoder),
-                            placeholder_tokens,
-                            placeholder_token_ids,
-                            accelerator,
-                            osp.join(save_path, "token_embedding.pt"),
-                        )
-                        print(f"Saved embeddings for {len(placeholder_tokens)} token(s): {placeholder_tokens}")
+                            save_token_embedding(
+                                accelerator.unwrap_model(text_encoder),
+                                placeholder_tokens,
+                                placeholder_token_ids,
+                                accelerator,
+                                osp.join(save_path, "token_embedding.pt"),
+                            )
+                            print(f"Saved embeddings for {len(placeholder_tokens)} token(s): {placeholder_tokens}")
 
 
 
