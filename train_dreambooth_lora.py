@@ -52,6 +52,7 @@ from diffusers import (
     StableDiffusionPipeline,
     UNet2DConditionModel,
 )
+# https://github.com/huggingface/diffusers/blob/v0.22.0/src/diffusers/loaders.py
 from diffusers.loaders import (
     LoraLoaderMixin,
     text_encoder_lora_state_dict,
@@ -116,15 +117,15 @@ def save_lora(
         os.makedirs(output_dir, exist_ok=True)
 
     unet_lora_layers  = None if unet is None else unet_lora_state_dict(unet)
-    # te_lora_layers    = None if text_encoder is None else text_encoder_lora_state_dict(text_encoder)
-    te_lora_layers = None
+    te_lora_layers    = None if text_encoder is None else text_encoder_lora_state_dict(text_encoder)
+    # te_lora_layers = None
     if unet_lora_layers is None and te_lora_layers is None:
         raise ValueError("At least one of `unet` or `text_encoder` must be supplied.")
 
     LoraLoaderMixin.save_lora_weights(
         output_dir,
         unet_lora_layers=unet_lora_layers,
-        # text_encoder_lora_layers=te_lora_layers,
+        text_encoder_lora_layers=te_lora_layers,
     )
 
     
@@ -264,7 +265,10 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                         print('ending generation')
                         exit()
             else:
-                save_image_path_dir = osp.join(save_image_path,prompt, f"{args.cfg_scale:.2f}")
+                if args.negative_prompt is not None:
+                    save_image_path_dir = osp.join(save_image_path,f"{prompt}_neg", f"{args.cfg_scale:.2f}")
+                else:
+                    save_image_path_dir = osp.join(save_image_path,prompt, f"{args.cfg_scale:.2f}")
                 if skip_already_generated: 
                     if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= args.num_validation_images:  # TODO: should count only images
                         logger.info(f"Skipping {prompt} as  already exist in {save_image_path_dir} with {len(args.num_validation_images)} images")
@@ -285,12 +289,22 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
             prompts = [prompt] * len(batch_indices)
             # generators = [torch.Generator(device=accelerator.device).manual_seed(args.seed + idx) for idx in batch_indices]
 
-            images_batch = pipeline(
-                prompts,
-                num_inference_steps=args.num_inference_steps,
-                guidance_scale=args.cfg_scale,
-                generator=generator,
-            ).images
+            if args.negative_prompt is not None:
+                negative_prompts = [args.negative_prompt] * len(batch_indices)
+                images_batch = pipeline(
+                    prompts,
+                    num_inference_steps=args.num_inference_steps,
+                    guidance_scale=args.cfg_scale,
+                    negative_prompt=negative_prompts,
+                    generator=generator,
+                ).images
+            else:
+                images_batch = pipeline(
+                    prompts,
+                    num_inference_steps=args.num_inference_steps,
+                    guidance_scale=args.cfg_scale,
+                    generator=generator,
+                ).images
 
             for rel_idx, image in enumerate(images_batch):
                 abs_idx = i + rel_idx
@@ -491,6 +505,15 @@ def parse_args(input_args=None):
         default=None,
         help="A prompt that is used during validation to verify that the model is learning.",
     )
+    
+    
+    parser.add_argument(
+        "--negative_prompt",
+        type=str,
+        default=None,
+        help="A prompt that is used during validation to verify that the model is learning.",
+    )
+        
     parser.add_argument(
         "--num_validation_images",
         type=int,
@@ -806,6 +829,7 @@ def parse_args(input_args=None):
     
     parser.add_argument("--learning_rate_ti",type=float,default=None,)
     parser.add_argument("--learning_rate_lora",type=float,default=None,)
+    parser.add_argument("--learning_rate_lora_text_encoder",type=float,default=None,)
     parser.add_argument("--sampler",type=str,default="DDIM",)
 
     
@@ -1620,106 +1644,17 @@ def main(args):
                     )
                     unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
 
-
-
-    # # Set correct LoRA layers
-    # print_lora_layers = True
-    # unet_lora_parameters = []
-    # if args.lora_rank is not None and args.lora_rank > 0 :
-    #     for attn_processor_name, attn_processor in unet.attn_processors.items():
-            
-    #         if ("attn1" in attn_processor_name and "self" not in args.target_lora_layers) or \
-    #         ("attn2" in attn_processor_name and "cross" not in args.target_lora_layers):
-    #             if print_lora_layers: print(f'skipping layer: {attn_processor_name}')
-    #             continue
-            
-    #         # Parse the attention module.
-    #         attn_module = unet
-    #         for n in attn_processor_name.split(".")[:-1]:
-    #             attn_module = getattr(attn_module, n)
-
-    #         if print_lora_layers: print(f'attn_processor_name: {attn_processor_name} - {attn_module}')
-            
-    #         if "to_q" in args.target_lora_modules:
-    #             if print_lora_layers: print('LoRA q')
-    #             attn_module.to_q.set_lora_layer(
-    #                 LoRALinearLayer(
-    #                     in_features=attn_module.to_q.in_features,
-    #                     out_features=attn_module.to_q.out_features,
-    #                     rank=args.lora_rank,
-    #                 )
-    #             )
-    #             unet_lora_parameters.extend(attn_module.to_q.lora_layer.parameters())
-
-    #         if "to_k" in args.target_lora_modules:
-    #             if print_lora_layers: print('LoRA k')
-    #             attn_module.to_k.set_lora_layer(
-    #                 LoRALinearLayer(
-    #                     in_features=attn_module.to_k.in_features,
-    #                     out_features=attn_module.to_k.out_features,
-    #                     rank=args.lora_rank,
-    #                 )
-    #             )
-    #             unet_lora_parameters.extend(attn_module.to_k.lora_layer.parameters())
-
-    #         if "to_v" in args.target_lora_modules:
-    #             if print_lora_layers: print('LoRA v')
-    #             attn_module.to_v.set_lora_layer(
-    #                 LoRALinearLayer(
-    #                     in_features=attn_module.to_v.in_features,
-    #                     out_features=attn_module.to_v.out_features,
-    #                     rank=args.lora_rank,
-    #                 )
-    #             )
-    #             unet_lora_parameters.extend(attn_module.to_v.lora_layer.parameters())
-
-    #         if "to_out" in args.target_lora_modules:
-    #             if print_lora_layers: print('LoRA out')
-                
-    #             attn_module.to_out[0].set_lora_layer(
-    #                 LoRALinearLayer(
-    #                     in_features=attn_module.to_out[0].in_features,
-    #                     out_features=attn_module.to_out[0].out_features,
-    #                     rank=args.lora_rank,
-    #                 )
-    #             )
-    #             unet_lora_parameters.extend(attn_module.to_out[0].lora_layer.parameters())
-
-    #         if isinstance(attn_processor, (AttnAddedKVProcessor, SlicedAttnAddedKVProcessor, AttnAddedKVProcessor2_0)):
-    #             if "add_k_proj" in args.target_lora_modules:
-    #                 if print_lora_layers: print('LoRA add k')
-                    
-    #                 attn_module.add_k_proj.set_lora_layer(
-    #                     LoRALinearLayer(
-    #                         in_features=attn_module.add_k_proj.in_features,
-    #                         out_features=attn_module.add_k_proj.out_features,
-    #                         rank=args.lora_rank,
-    #                     )
-    #                 )
-    #                 unet_lora_parameters.extend(attn_module.add_k_proj.lora_layer.parameters())
-
-    #             if "add_v_proj" in args.target_lora_modules:
-    #                 if print_lora_layers: print('LoRA add v')
-                    
-    #                 attn_module.add_v_proj.set_lora_layer(
-    #                     LoRALinearLayer(
-    #                         in_features=attn_module.add_v_proj.in_features,
-    #                         out_features=attn_module.add_v_proj.out_features,
-    #                         rank=args.lora_rank,
-    #                     )
-    #                 )
-    #                 unet_lora_parameters.extend(attn_module.add_v_proj.lora_layer.parameters())
-
-    # print(f'UNet:\n{unet}')
-
-
     # The text encoder comes from 🤗 transformers, so we cannot directly modify it.
     # So, instead, we monkey-patch the forward calls of its attention-blocks.
     if args.train_text_encoder:
         # ensure that dtype is float32, even if rest of the model that isn't trained is loaded in fp16
         text_lora_parameters = LoraLoaderMixin._modify_text_encoder(text_encoder, dtype=torch.float32, rank=args.lora_rank)
 
-
+    # print(text_lora_parameters)
+    # print(text_lora_parameters[-1])
+    # print(type(text_lora_parameters))
+    
+    # print(text_encoder)
 
     accelerator.register_save_state_pre_hook(save_model_hook)
     accelerator.register_load_state_pre_hook(load_model_hook)
@@ -1743,18 +1678,32 @@ def main(args):
         print('using a separate lr for lora and ti')
         # LoRA parameters
         if args.lora_rank is not None and args.lora_rank > 0:
-            print("using lora as learnable parameters")
-            params_lora = list(
-                itertools.chain(unet_lora_parameters, text_lora_parameters)
-                if args.train_text_encoder else unet_lora_parameters
-            )
-            if args.learning_rate_lora is not None:
+            
+            if args.train_text_encoder and args.learning_rate_lora_text_encoder :
+                
+                print(f"unet_lr: {args.learning_rate_lora}, text_encoder_lr: {args.learning_rate_lora_text_encoder}")
                 params_to_optimize.append({
-                    "params": params_lora,
-                    "lr": args.learning_rate_lora
-                })
+                        "params": unet_lora_parameters,
+                        "lr": args.learning_rate_lora
+                    })
+                
+                params_to_optimize.append({
+                        "params": text_lora_parameters,
+                        "lr": args.learning_rate_lora_text_encoder
+                    })
             else:
-                params_to_optimize.append({"params": params_lora})
+                print("using lora as learnable parameters")
+                params_lora = list(
+                    itertools.chain(unet_lora_parameters, text_lora_parameters)
+                    if args.train_text_encoder else unet_lora_parameters
+                )
+                if args.learning_rate_lora is not None:
+                    params_to_optimize.append({
+                        "params": params_lora,
+                        "lr": args.learning_rate_lora
+                    })
+                else:
+                    params_to_optimize.append({"params": params_lora})
 
         # Token embeddings (TI)
         if args.placeholder_token is not None:
@@ -1931,7 +1880,7 @@ def main(args):
         # accelerator.save_state(save_path) # lora also saved here
         save_lora(
             unet=accelerator.unwrap_model(unet),
-            text_encoder=accelerator.unwrap_model(text_encoder),
+            text_encoder=accelerator.unwrap_model(text_encoder) if args.train_text_encoder else None,
             output_dir=os.path.join(save_path)
         )
         logger.info(f"Saved state to {save_path}")
@@ -1968,6 +1917,8 @@ def main(args):
         if args.train_text_encoder:
             text_encoder.train()
         for step, batch in enumerate(train_dataloader):
+            
+            # print(text_lora_parameters[-1].mean())
             with accelerator.accumulate(unet):
                 pixel_values = batch["pixel_values"].to(dtype=weight_dtype)
 
@@ -2106,23 +2057,16 @@ def main(args):
                         
                         save_lora(
                             unet=accelerator.unwrap_model(unet),
-                            text_encoder=accelerator.unwrap_model(text_encoder),
+                            text_encoder=accelerator.unwrap_model(text_encoder) if args.train_text_encoder else None,
                             output_dir=os.path.join(save_path)
                         )
                                 
                         logger.info(f"Saved state to {save_path}")
                         
-                        
-                        # # save ti
-                        # placeholder_tokens = [args.placeholder_token]
-                        # placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens) # also
-                        # save_token_embedding(accelerator.unwrap_model(text_encoder), placeholder_tokens, placeholder_token_ids, accelerator, osp.join(save_path,'token_embedding.pt'))
-                        
                         if args.placeholder_token is not None:
                             # ─────────────────────── save textual-inversion embeddings ───────────────────────
                             # Accept either a single token or a comma-separated list
                             placeholder_tokens = [t.strip() for t in args.placeholder_token.split(",") if t.strip()]
-
                             # Convert each placeholder token to its ID (list-compatible already)
                             placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
 
@@ -2161,13 +2105,12 @@ def main(args):
     accelerator.wait_for_everyone()
     if accelerator.is_main_process:
         
-        
+        # generation branch
         if args.gen_image_path is not None:
             del unet, text_encoder
             torch.cuda.empty_cache()
     
             print(f'entering image generation, save image to: {args.gen_image_path}')
-            
             # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
             pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype)
             if args.load_lora_weight_path is not None and args.lora_rank is not None and args.lora_rank > 0:
@@ -2179,7 +2122,6 @@ def main(args):
             if args.load_token_embedding_path is not None and args.placeholder_token is not None:
                 print('loading token embedding')
                 load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,'token_embedding.pt'))
-                
                 
             log_validation(
                 unet=pipeline.unet,

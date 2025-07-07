@@ -3,21 +3,675 @@ export pc_id="21_1"
 
 
 
-    accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=stablediffusionapi/chilloutmix  \
-    --instance_data_dir=data_root/data/real_data/honer/honer-10 \
-    --output_dir="data_root/logs/ch.c.l4.kv_honer10-V_pr1.00_lr5e-4.ti5e-4_b1g1" \
-    --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=1 \
-    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=3000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
-    --run_note ' honer10 l4 ti' \
-    --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-    --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person/6.00" \
-    --cfg_scale 6.0 \
-    --learning_rate_lora 5e-4 --learning_rate_ti 5e-4 \
-    --placeholder_token="v1" --initializer_token='person'
-['ch.c.l4.kv_honer10-V_pr1.00_lr5e-4.ti5e-4_b1g1']
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 3.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 4.50
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 6.00
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='stablediffusionapi/chilloutmix'  \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --load_lora_weight_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50
+Total scripts generated: 44
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=stablediffusionapi/chilloutmix  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-10 \
+#     --output_dir="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g4" \
+#     --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
+#     --lr_scheduler "linear" \
+#     --run_note ' chiquita10 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#     --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person/6.00" \
+#     --cfg_scale 6.0 \
+#     --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#     --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#     --placeholder_token="v1" --initializer_token='person'
+# ['ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g4']
+
+
+
+
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=stablediffusionapi/chilloutmix  \
+#     --instance_data_dir=data_root/data/real_data/chiquita/chiquita-10 \
+#     --output_dir="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_lr1e-4.ti5e-4_b1g4" \
+#     --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=4 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
+#     --run_note ' chiquita10 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#     --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person/6.00" \
+#     --cfg_scale 6.0 \
+#     --learning_rate_lora 1e-4 1e-5 --learning_rate_ti 5e-4 \
+#     --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#     --lr_scheduler "linear" \
+#     --placeholder_token="v1" --initializer_token='person'
+# ['ch.ct.l4.kv_chiquita10-V_pr1.00_lr1e-4.ti5e-4_b1g4']
+#     accelerate launch train_dreambooth_lora.py \
+#     --pretrained_model_name_or_path=stablediffusionapi/chilloutmix  \
+#     --instance_data_dir=data_root/data/real_data/honer/honer-10 \
+#     --output_dir="data_root/logs/ch.c.l4.kv_honer10-V_pr1.00_lr5e-4.ti5e-4_b1g1" \
+#     --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#     --train_batch_size=1 --gradient_accumulation_steps=1 \
+#     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#     --max_train_steps=3000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
+#     --run_note ' honer10 l4 ti' \
+#     --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#     --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person/6.00" \
+#     --cfg_scale 6.0 \
+#     --learning_rate_lora 5e-4 --learning_rate_ti 5e-4 \
+#     --placeholder_token="v1" --initializer_token='person'
+# ['ch.c.l4.kv_honer10-V_pr1.00_lr5e-4.ti5e-4_b1g1']
 #     accelerate launch train_dreambooth_lora.py \
 #     --pretrained_model_name_or_path=stablediffusionapi/chilloutmix  \
 #     --instance_data_dir=data_root/data/real_data/honer/honer-10 \

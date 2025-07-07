@@ -1,20 +1,18 @@
- python data_preparation.py configs/custom/erase_default.yaml \
-            exp_name="ul1.prg1e-4d8e+3.lr1e-4.n8.G.chiquita.person.s50_ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1.s2000" \
-            MACE.pretrained_model_name_or_path="stablediffusionapi/chilloutmix" \
-            MACE.num_gen_images=8 MACE.seed=2024 \
-            MACE.lora_weight_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
-            MACE.token_embedding_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
-            MACE.input_data_dir="data_root/generated/mace/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000"
- python training.py configs/custom/erase_default.yaml \
-            exp_name="ul1.prg1e-4d8e+3.lr1e-4.n8.G.chiquita.person.s50_ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1.s2000" \
-            MACE.pretrained_model_name_or_path="stablediffusionapi/chilloutmix" \
-            MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
-            MACE.rank=1 \
-            MACE.num_gen_images=8 \
-            MACE.domain_preservation_cache_path=data_root/cache/mace/cache_cele.pt MACE.mapping_concept="['a person']" \
-            MACE.train_preserve_scale=1e-4 MACE.preserve_weight=8e+3 \
-            MACE.input_data_dir="data_root/generated/mace/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
-            MACE.lora_weight_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000" \
-            MACE.token_embedding_dir_path="data_root/logs/ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1/checkpoint-2000"
-            
-['ul1.prg1e-4d8e+3.lr1e-4.n8.G.chiquita.person.s50_ch.c.l16.kv_chiquita50-V.r_pr1.00_lr5e-4.ti5e-4_b1g1.s2000']
+
+    accelerate launch train_dreambooth_lora.py \
+    --pretrained_model_name_or_path=stablediffusionapi/chilloutmix  \
+    --instance_data_dir=data_root/data/real_data/chiquita/chiquita-10 \
+    --output_dir="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1.r1" \
+    --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+    --train_batch_size=1 --gradient_accumulation_steps=1 \
+    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
+    --lr_scheduler "linear" \
+    --run_note ' chiquita10 l4 ti r1' \
+    --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+    --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person/6.00" \
+    --cfg_scale 6.0 \
+    --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+    --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+    --placeholder_token="v1" --initializer_token='person'
+
