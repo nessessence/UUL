@@ -1,0 +1,23 @@
+
+
+base_cfg = 7.5
+
+gen_img_paths = [
+    
+    f"data_root/generated/model/rlct4.reV.honer10.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_ul1.prg1e-4d8e+3.lr1e-4.n8.G.honer.person.s50_ch.c.l16.kv_honer50-V.r_pr1.00.neg_lr5e-4.ti5e-4_b1g4.s2000/checkpoint-{{}}/a photo of v1_neg/{base_cfg:.2f}",
+    # f"data_root/generated/model/rlct4.reV.honer10.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_ul1.prg1e-4d8e+3.lr1e-4.n8.G.honer.person.s50.r1_ch.c.l16.kv_honer50-V.r_pr1.00.neg_lr5e-4.ti5e-4_b1g4.s2000/checkpoint-{{}}/a photo of v1_neg/{base_cfg:.2f}",
+    # f"data_root/generated/model/rlct4.reV.honer10.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_ul1.prg1e-4d8e+3.lr1e-4.n8.G.honer.person.s50.r2_ch.c.l16.kv_honer50-V.r_pr1.00.neg_lr5e-4.ti5e-4_b1g4.s2000/checkpoint-{{}}/a photo of v1_neg/{base_cfg:.2f}",
+    
+    f"data_root/generated/model/ch.ct.l4.kv_honer10-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4/checkpoint-{{}}/a photo of v1_neg/{base_cfg:.2f}",
+    f"data_root/generated/model/ch.ct.l4.kv_honer10-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1/checkpoint-{{}}/a photo of v1_neg/{base_cfg:.2f}",
+    f"data_root/generated/model/ch.ct.l4.kv_honer10-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2/checkpoint-{{}}/a photo of v1_neg/{base_cfg:.2f}",
+
+]
+# change path of (generated folder / ref folder) --> may need to write a dedicated function
+ref_img_path = "data_root/data/real_data/honer/honer-50"
+steps = range(0,1001,100)
+labels = list(range(len(gen_img_paths)))
+
+all_scores = compute_distribution_score_multiexp(gen_img_paths, ref_img_path, steps, labels, device=device, n_max_gen_img=50, method='cmmd',use_precompute_features_if_exist=True,use_precompute_score_if_exist=True)
+all_scores = compute_distribution_score_multiexp(gen_img_paths, ref_img_path, steps, labels, device=device, n_max_gen_img=50, method='pr',use_precompute_features_if_exist=True,use_precompute_score_if_exist=True,clear_notebook_output=False,other_params={"neighborhood": 3})
+

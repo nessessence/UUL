@@ -73,6 +73,7 @@ import os.path as osp
 from collections import defaultdict
 from diffusers.utils.torch_utils import randn_tensor
 
+from safetensors.torch import load_file
 
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -251,72 +252,78 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
         args.num_validation_images = 1
     print('apply_coco:',apply_coco)
 
+    cfg_scales = [ float(c) for c in args.cfg_scale.split(',')]
+    # cfg_scales = [args.cfg_scale] if isinstance(args.cfg_scale, float) else args.cfg_scale
+
     images = []; index_images = []; prompt2images = defaultdict(list)
     for j,prompt in enumerate(args.validation_prompt):
         
         
-        skip_already_generated = False
-        if save_image_path is not None:
-            if apply_coco:
-                save_image_path_dir = osp.join(save_image_path,"coco", f"{args.cfg_scale:.2f}")
-                if skip_already_generated: 
-                    if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= len(args.validation_prompt):  # TODO: should count only images
-                        logger.info(f"Skipping COCO as already exist in {save_image_path_dir} with {len(args.validation_prompt)} images")
-                        print('ending generation')
-                        exit()
-            else:
+        for cfg in cfg_scales:
+            print(f'prompt: {prompt} cfg: {cfg:.2f} neg_prompt: {args.negative_prompt is not None }')
+            skip_already_generated = False
+            if save_image_path is not None:
+                if apply_coco:
+                    save_image_path_dir = osp.join(save_image_path,"coco", f"{cfg:.2f}")
+                    if skip_already_generated: 
+                        if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= len(args.validation_prompt):  # TODO: should count only images
+                            logger.info(f"Skipping COCO as already exist in {save_image_path_dir} with {len(args.validation_prompt)} images")
+                            print('ending generation')
+                            exit()
+                else:
+                    if args.negative_prompt is not None:
+                        save_image_path_dir = osp.join(save_image_path,f"{prompt}_neg", f"{cfg:.2f}")
+                    else:
+                        save_image_path_dir = osp.join(save_image_path,prompt, f"{cfg:.2f}")
+                    if skip_already_generated: 
+                        if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= args.num_validation_images:  # TODO: should count only images
+                            logger.info(f"Skipping {prompt} as  already exist in {save_image_path_dir} with {len(args.num_validation_images)} images")
+                            continue
+                os.makedirs(save_image_path_dir,exist_ok=True)
+                    
+                    
+            if args.reinit_validation_generator:
+                generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
+                
+                
+            num_images = args.num_validation_images
+            batch_size = 25 #args.gen_batch
+
+            for i in tqdm(range(0, num_images, batch_size)):
+                batch_indices = range(i, min(i + batch_size, num_images))
+                
+                prompts = [prompt] * len(batch_indices)
+                # generators = [torch.Generator(device=accelerator.device).manual_seed(args.seed + idx) for idx in batch_indices]
+
                 if args.negative_prompt is not None:
-                    save_image_path_dir = osp.join(save_image_path,f"{prompt}_neg", f"{args.cfg_scale:.2f}")
+                    negative_prompts = [args.negative_prompt] * len(batch_indices)
+                    images_batch = pipeline(
+                        prompts,
+                        num_inference_steps=args.num_inference_steps,
+                        guidance_scale=cfg,
+                        negative_prompt=negative_prompts,
+                        generator=generator,
+                    ).images
                 else:
-                    save_image_path_dir = osp.join(save_image_path,prompt, f"{args.cfg_scale:.2f}")
-                if skip_already_generated: 
-                    if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= args.num_validation_images:  # TODO: should count only images
-                        logger.info(f"Skipping {prompt} as  already exist in {save_image_path_dir} with {len(args.num_validation_images)} images")
-                        continue
-            os.makedirs(save_image_path_dir,exist_ok=True)
+                    images_batch = pipeline(
+                        prompts,
+                        num_inference_steps=args.num_inference_steps,
+                        guidance_scale=cfg,
+                        generator=generator,
+                    ).images
+
+                for rel_idx, image in enumerate(images_batch):
+                    abs_idx = i + rel_idx
+
+                    if save_image_path is not None:
+                        fname = f"{j:04}.png" if apply_coco else f"{abs_idx:04}.png"
+                        image.save(osp.join(save_image_path_dir, fname))
+                    else:
+                        img_prompt_tag = f'{prompt}_{cfg:.2f}'
+                        images.append((img_prompt_tag, image))
+                        index_images.append(abs_idx)
+                        prompt2images[img_prompt_tag].append(image)
                 
-                
-        if args.reinit_validation_generator:
-            generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
-            
-            
-        num_images = args.num_validation_images
-        batch_size = 25 #args.gen_batch
-
-        for i in tqdm(range(0, num_images, batch_size)):
-            batch_indices = range(i, min(i + batch_size, num_images))
-            
-            prompts = [prompt] * len(batch_indices)
-            # generators = [torch.Generator(device=accelerator.device).manual_seed(args.seed + idx) for idx in batch_indices]
-
-            if args.negative_prompt is not None:
-                negative_prompts = [args.negative_prompt] * len(batch_indices)
-                images_batch = pipeline(
-                    prompts,
-                    num_inference_steps=args.num_inference_steps,
-                    guidance_scale=args.cfg_scale,
-                    negative_prompt=negative_prompts,
-                    generator=generator,
-                ).images
-            else:
-                images_batch = pipeline(
-                    prompts,
-                    num_inference_steps=args.num_inference_steps,
-                    guidance_scale=args.cfg_scale,
-                    generator=generator,
-                ).images
-
-            for rel_idx, image in enumerate(images_batch):
-                abs_idx = i + rel_idx
-
-                if save_image_path is not None:
-                    fname = f"{j:04}.png" if apply_coco else f"{abs_idx:04}.png"
-                    image.save(osp.join(save_image_path_dir, fname))
-                else:
-                    images.append((prompt, image))
-                    index_images.append(abs_idx)
-                    prompt2images[prompt].append(image)
-            
         # for i in tqdm(range(args.num_validation_images)):
             
         #     # dummy_latents = randn_tensor( (1, 4, 64, 64),device=accelerator.device, generator=generator)
@@ -351,16 +358,17 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
             np_images = np.stack([np.asarray(img) for img in images])
             tracker.writer.add_images("validation", np_images, epoch, dataformats="NHWC")
         elif tracker.name == "wandb":
-            tracker.log(
-                    {
-                        f"{log_label}validation": [
-                            wandb.Image(resize_by_scale(image,scale=0.50), caption=f"{prompt} : {i}", file_type='jpg') for (i, (prompt, image)) in zip(index_images,images)
-                        ]
-                    }
-                )
-            
+            # tracker.log(
+            #         {
+            #             f"{log_label}validation": [
+            #                 wandb.Image(resize_by_scale(image,scale=0.50), caption=f"{prompt} : {i}", file_type='jpg') for (i, (prompt, image)) in zip(index_images,images)
+            #             ]
+            #         }
+            #     )
             ## concat image
-            concat_list = [prompt2images[prompt] for prompt in args.validation_prompt]
+            # concat_list = [prompt2images[prompt] for prompt in args.validation_prompt]
+            prompt_tags = list(prompt2images.keys())
+            concat_list = [prompt2images[prompt_tag] for prompt_tag in prompt_tags]
             concated_image = concatenate_images(concat_list )
             tracker.log(
                 {
@@ -812,17 +820,23 @@ def parse_args(input_args=None):
 
     parser.add_argument("--flip_p",type=float,default=0.5,)
     parser.add_argument("--num_inference_steps",type=int,default=50,)
-    parser.add_argument("--cfg_scale",type=float,default=3.0)
+    parser.add_argument("--cfg_scale",default=3.0)
 
     parser.add_argument( "--test_run",action="store_true")
     
     
     # for image generation only
     parser.add_argument( "--gen_image_path",type=str,default=None)
+    parser.add_argument( "--load__weight_path",type=str,default=None)
     parser.add_argument( "--load_lora_weight_path",type=str,default=None)
+    parser.add_argument( "--load_unet_weight_path",type=str,default=None) # many unlearned model, UCE, ESD, 
     parser.add_argument( "--load_token_embedding_path",type=str,default=None)
     parser.add_argument( "--gen_dtype",type=str,default="fp16")
     
+    
+    parser.add_argument( "--load_pretrained_lora_weight_path",type=str,default=None)
+    parser.add_argument( "--load_pretrained_token_embedding_path",type=str,default=None)
+
     
     
     parser.add_argument("--wait_weight",action="store_true",default=False,)
@@ -998,7 +1012,7 @@ class DreamBoothDataset(Dataset):
             else:                                                # single-prompt mode
                 prompt_str = self.instance_prompt
                 
-            print(real_idx,prompt_str)
+            # print(real_idx,prompt_str)
 
             text_inputs = tokenize_prompt(
                 self.tokenizer, prompt_str, tokenizer_max_length=self.tokenizer_max_length
@@ -1402,43 +1416,37 @@ def main(args):
         # IF does not have a VAE so let's just set it to None
         # We don't have to error out here
         vae = None
-
+        
+    if vae is not None:
+        print(f"VAE loaded from {args.pretrained_model_name_or_path}/vae")
+    else:
+        print(f"VAE not found in {args.pretrained_model_name_or_path}/vae, skipping VAE loading.")
+    # exit()
     unet = UNet2DConditionModel.from_pretrained(
         args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision
     )
     
     
-    # if args.placeholder_token is not None:
-    #     print(f'applying textual inversion:\nplaceholder token: {args.placeholder_token }\ninitialize token:{args.initializer_token}')
-    #     # Add the placeholder token in tokenizer
-    #     placeholder_tokens = [args.placeholder_token]
-
-
-
-    #     token_id = tokenizer.convert_tokens_to_ids(args.placeholder_token)
-    #     if token_id == tokenizer.unk_token_id:
-    #         print(f'adding placeholder token: {args.placeholder_token}')
-    #         num_added_tokens = tokenizer.add_tokens(placeholder_tokens)
-    #         print(f'num_added_tokens:{num_added_tokens}')
-    #         # Resize the token embeddings as we are adding new special tokens to the tokenizer
-    #         text_encoder.resize_token_embeddings(len(tokenizer))
-    #     else:
-    #         print('token is already in tokenizer')
-            
-    #     placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
-    #     if args.initializer_token is not None and args.initializer_token != '':
-    #         # Convert the initializer_token, placeholder_token to ids
-    #         token_ids = tokenizer.encode(args.initializer_token, add_special_tokens=False)
-    #         # Check if initializer_token is a single token or a sequence of tokens
-    #         if len(token_ids) > 1:
-    #             raise ValueError("The initializer token must be a single token.")
-    #         initializer_token_id = token_ids[0]
-    #         # Initialise the newly added placeholder token with the embeddings of the initializer token
-    #         token_embeds = text_encoder.get_input_embeddings().weight.data
-    #         with torch.no_grad():
-    #             for token_id in placeholder_token_ids:
-    #                 token_embeds[token_id] = token_embeds[initializer_token_id].clone()
+    if args.load_unet_weight_path is not None:
+        print(f'loading unet weights from {args.load_unet_weight_path}')
+        unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+        print('unet weights loaded')
     
+    
+    # load pretrained LoRA weights if provided
+    if args.load_pretrained_lora_weight_path is not None:
+        print('loading LoRA into UNet ....')
+        print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
+    
+        dummy_pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, unet=unet, text_encoder=text_encoder, vae=vae, revision=args.revision)
+        dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+
+        dummy_pipeline.fuse_lora()
+        
+        print('Fused LoRA  ....')
+            
+
+
     
     # ───────────────────────── textual-inversion token setup ─────────────────────────
     if args.placeholder_token is not None:
@@ -2113,16 +2121,42 @@ def main(args):
             print(f'entering image generation, save image to: {args.gen_image_path}')
             # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
             pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype)
+            
+            if args.load_pretrained_lora_weight_path is not None:
+                print('loading LoRA into UNet ....')
+                print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
+            
+                dummy_pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, unet=pipeline.unet, text_encoder=pipeline.text_encoder, vae=pipeline.vae, revision=args.revision)
+                dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+
+                dummy_pipeline.fuse_lora()
+                print('Fused LoRA  ....')
+                    
+            
+            if args.load_unet_weight_path is not None:
+                print('loading UNet weight from: ', args.load_unet_weight_path)
+                pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+                print('UNet weight loaded (for generation)')
+                
+                
+                pipeline.unet.eval()
+            else:
+                print('not loading UNet weight')            
+             
+            
             if args.load_lora_weight_path is not None and args.lora_rank is not None and args.lora_rank > 0:
                 # load attention processors
                 print(25*"#")
                 print('loading LoRA weight')
                 pipeline.load_lora_weights(args.load_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+                
+                print(f'generating images from: lora{args.load_lora_weight_path}')
+                
             else: print('not loading loRA weight')
             if args.load_token_embedding_path is not None and args.placeholder_token is not None:
                 print('loading token embedding')
                 load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,'token_embedding.pt'))
-                
+            
             log_validation(
                 unet=pipeline.unet,
                 text_encoder=pipeline.text_encoder,
@@ -2218,7 +2252,7 @@ if __name__ == "__main__":
     
     
     ## prompt validation
-    args.validation_prompt = args.validation_prompt.split(',')
+    args.validation_prompt = args.validation_prompt.split(';')
     print(f'validation prompt: {args.validation_prompt}')
     
     
@@ -2242,14 +2276,22 @@ if __name__ == "__main__":
     if args.gen_dtype == 'fp32': args.gen_dtype = torch.float32
     
     if args.load_lora_weight_path == '': args.load_lora_weight_path = None
-    
+    if args.load_unet_weight_path == '': args.load_unet_weight_path = None
+
     # hack for automatic gen_image_path
     if args.gen_image_path is not None and args.gen_image_path=='auto':
         # Get the last two components of the path
+        
+        # not much reliableq
+        if args.load_unet_weight_path is not None:
+            last_two = os.path.join(*args.load_unet_weight_path.strip("/").split("/")[-2:])
+        
+        
         if args.load_lora_weight_path is not None:
             last_two = os.path.join(*args.load_lora_weight_path.strip("/").split("/")[-2:])
         if args.load_token_embedding_path is not None:
             last_two = os.path.join(*args.load_token_embedding_path.strip("/").split("/")[-2:])
+
         # Build the gen_image_path
         args.gen_image_path = os.path.join("data_root/generated/model", last_two)
         os.makedirs(args.gen_image_path,exist_ok=True)
@@ -2262,6 +2304,15 @@ if __name__ == "__main__":
             while not osp.exists(lora_weight_path):
                 print(f'waiting for lora weight: {lora_weight_path}')
                 time.sleep(10)
+
+        if args.load_unet_weight_path and args.wait_weight:
+            unet_weight_path =  args.load_unet_weight_path
+            # if unet_weight_path does not exist, then wait (it is in training process) ... re-check every 10 seconds
+            while not osp.exists(unet_weight_path):
+                print(f'waiting for unet weight: {unet_weight_path}')
+                time.sleep(10)
+                
+
     main(args)
     
     

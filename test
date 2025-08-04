@@ -1,18 +1,55 @@
 
     accelerate launch train_dreambooth_lora.py \
-    --pretrained_model_name_or_path=stablediffusionapi/chilloutmix  \
-    --instance_data_dir=data_root/data/real_data/chiquita/chiquita-10 \
-    --output_dir="data_root/logs/ch.ct.l4.kv_chiquita10-V_pr1.00_ln.lr1e-4.ti5e-4_b1g1.r1" \
+    --pretrained_model_name_or_path="stablediffusionapi/chilloutmix"  \
+    --instance_data_dir="data_root/data/real_data/leowoodal/aligned/leowoodal-5-v0" \
+    --output_dir="data_root/logs/ch.ct.l4.kv_leowoodalA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
     --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-    --train_batch_size=1 --gradient_accumulation_steps=1 \
+    --train_batch_size=1 --gradient_accumulation_steps=4 \
     --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-    --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
+    --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
     --lr_scheduler "linear" \
-    --run_note ' chiquita10 l4 ti r1' \
+    --run_note ' leowoodalA5V0 l4 ti' \
     --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-    --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person/6.00" \
+    --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
+    --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
     --cfg_scale 6.0 \
     --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
     --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
     --placeholder_token="v1" --initializer_token='person'
 
+    accelerate launch train_dreambooth_lora.py \
+    --pretrained_model_name_or_path="stablediffusionapi/chilloutmix"  \
+    --instance_data_dir="data_root/data/real_data/leowoodal/aligned/leowoodal-5-v0" \
+    --output_dir="data_root/logs/ch.ct.l4.kv_leowoodalA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
+    --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+    --train_batch_size=1 --gradient_accumulation_steps=4 \
+    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
+    --lr_scheduler "linear" \
+    --run_note ' leowoodalA5V0 l4 ti r1' \
+    --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+    --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
+    --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+    --cfg_scale 6.0 \
+    --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+    --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+    --placeholder_token="v1" --initializer_token='person'
+
+    accelerate launch train_dreambooth_lora.py \
+    --pretrained_model_name_or_path="stablediffusionapi/chilloutmix"  \
+    --instance_data_dir="data_root/data/real_data/leowoodal/aligned/leowoodal-5-v0" \
+    --output_dir="data_root/logs/ch.ct.l4.kv_leowoodalA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
+    --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+    --train_batch_size=1 --gradient_accumulation_steps=4 \
+    --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+    --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
+    --lr_scheduler "linear" \
+    --run_note ' leowoodalA5V0 l4 ti r2' \
+    --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+    --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
+    --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+    --cfg_scale 6.0 \
+    --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+    --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+    --placeholder_token="v1" --initializer_token='person'
+['ch.ct.l4.kv_leowoodalA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'ch.ct.l4.kv_leowoodalA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'ch.ct.l4.kv_leowoodalA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']

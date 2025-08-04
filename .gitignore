@@ -9,3 +9,4 @@ Grounded-Segment-Anything/
 cache/
 wandb/
 data_root/cache/*.pt
+temp/

@@ -15,3 +15,18 @@ export pc_id="19_1"
         --placeholder_token="v1,v2,v3,v4,v5" --initializer_token='person,person,person,person,person'
 
   
+
+       accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r2_rv/LoRA_fusion_model'  \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --load_lora_weight_path="data_root/logs/rlct4.reV.rihanna5F0r2.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r2_rv/checkpoint-300" \
+            --gen_image_path="auto" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="cinematic photo, v1, 50mm photograph, half-length portrait, film, bokeh, professional, 4k, highly detailed" --instance_prompt="a photo of v1" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --load_token_embedding_path="data_root/logs/rlct4.reV.rihanna5F0r2.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r2_rv/checkpoint-300" \
+            --placeholder_token="v1" --initializer_token='person' \
+            --negative_prompt "monochrome, lowres, bad anatomy, worst quality, low quality, blurry" \
+            --cfg_scale 6.00,7.50
