@@ -1429,10 +1429,13 @@ def main(args):
     
     if args.load_unet_weight_path is not None:
         print(f'loading unet weights from {args.load_unet_weight_path}')
-        unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+        if '.safetensor' in args.load_unet_weight_path:
+            unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+        else:
+            unet.load_state_dict(torch.load(args.load_unet_weight_path), strict=False)
         print('unet weights loaded')
-    
-    
+
+
     # load pretrained LoRA weights if provided
     if args.load_pretrained_lora_weight_path is not None:
         print('loading LoRA into UNet ....')
@@ -1969,6 +1972,19 @@ def main(args):
                 else:
                     class_labels = None
 
+
+                # # Add this right before your failing unet call
+                # print("=== DEBUG INFO ===")
+                # print(f"noisy_model_input shape: {noisy_model_input.shape}")
+                # print(f"timesteps shape: {timesteps.shape}")
+                # print(f"encoder_hidden_states shape: {encoder_hidden_states.shape}")
+                # if class_labels is not None:
+                #     print(f"class_labels shape: {class_labels.shape}")
+                # print(f"UNet input channels: {unet.config.in_channels}")
+                # print(f"UNet sample size: {unet.config.sample_size}")
+                # print("==================")
+
+
                 # Predict the noise residual
                 model_pred = unet(
                     noisy_model_input, timesteps, encoder_hidden_states, class_labels=class_labels
@@ -2135,7 +2151,10 @@ def main(args):
             
             if args.load_unet_weight_path is not None:
                 print('loading UNet weight from: ', args.load_unet_weight_path)
-                pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+                if '.safetensor' in args.load_unet_weight_path:
+                    pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+                else:
+                    pipeline.unet.load_state_dict(torch.load(args.load_unet_weight_path), strict=False)
                 print('UNet weight loaded (for generation)')
                 
                 
@@ -2305,13 +2324,14 @@ if __name__ == "__main__":
                 print(f'waiting for lora weight: {lora_weight_path}')
                 time.sleep(10)
 
-        if args.load_unet_weight_path and args.wait_weight:
-            unet_weight_path =  args.load_unet_weight_path
-            # if unet_weight_path does not exist, then wait (it is in training process) ... re-check every 10 seconds
-            while not osp.exists(unet_weight_path):
-                print(f'waiting for unet weight: {unet_weight_path}')
-                time.sleep(10)
-                
+    args.wait_weight = True
+    if args.load_unet_weight_path and args.wait_weight:
+        unet_weight_path =  args.load_unet_weight_path
+        # if unet_weight_path does not exist, then wait (it is in training process) ... re-check every 10 seconds
+        while not osp.exists(unet_weight_path):
+            print(f'waiting for unet weight: {unet_weight_path}')
+            time.sleep(20)
+        time.sleep(50)
 
     main(args)
     

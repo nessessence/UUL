@@ -14,7 +14,7 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         # Sort naturally
         file_list = natsorted(file_list)
 
-        image_files = [f for f in file_list if f.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.webp'))]
+        image_files = [f for f in file_list if f.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.webp','.gif'))]
         if image_files:
             return self.generate_gallery(path, image_files)
 

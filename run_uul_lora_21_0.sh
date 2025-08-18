@@ -1,266 +1,3356 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="21_0"
 
+True False
+echo 'count:0 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 0 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-0" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-0" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:1 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:2 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:3 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:4 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:5 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 1000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:6 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 1200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:7 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 1400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:8 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 1600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:9 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 1800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-1800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:10 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 2000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:11 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 2200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:12 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 2400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:13 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 2600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:14 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 2800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-2800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:15 - rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4 3000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/ahathaway_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-3000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.ahathaway_sd1.4/checkpoint-3000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+True False
+echo 'count:16 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 0 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-0" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-0" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:17 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:18 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:19 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:20 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:21 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 1000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:22 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 1200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:23 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 1400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:24 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 1600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:25 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 1800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-1800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:26 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 2000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:27 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 2200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:28 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 2400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:29 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 2600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:30 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 2800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-2800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:31 - rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4 3000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/mcarey_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-3000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mcarey_sd1.4/checkpoint-3000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+True False
+echo 'count:32 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 0 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-0" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-0" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:33 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:34 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:35 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:36 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:37 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 1000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:38 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 1200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:39 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 1400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:40 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 1600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:41 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 1800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-1800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:42 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 2000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:43 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 2200 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2200" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2200" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:44 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 2400 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2400" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2400" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:45 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 2600 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2600" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2600" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:46 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 2800 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2800" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-2800" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+echo 'count:47 - rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4 3000 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="data_root/logs/uce/octavia_uce_sd.safetensors" \
+           --load_lora_weight_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-3000" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="auto" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --load_token_embedding_path="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.octavia_sd1.4/checkpoint-3000" \
+           --placeholder_token="v1" --initializer_token='person' \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+Total scripts generated: 48
 
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/asante/aligned/asante-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
-        --lr_scheduler "linear" \
-        --run_note ' asanteA5V0 l4 ti' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
+# echo 'count:4 '
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/asante/aligned/asante-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
-        --lr_scheduler "linear" \
-        --run_note ' asanteA5V0 l4 ti r1' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/uce/mrobbie_uce_sd.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/leowoodal/aligned/leowoodal-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.leowoodalA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.mrobbie_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=3000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul leowoodalA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count:5 '
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/asante/aligned/asante-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
-        --lr_scheduler "linear" \
-        --run_note ' asanteA5V0 l4 ti r2' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
-Total experiments for asante: 3
-['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/uce/morganf_uce_sd.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/starkey/aligned/starkey-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.starkeyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.morganf_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=3000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul starkeyA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/reese/aligned/reese-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
-        --lr_scheduler "linear" \
-        --run_note ' reeseA5V0 l4 ti' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
+            
+# echo 'count:10 '
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/reese/aligned/reese-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
-        --lr_scheduler "linear" \
-        --run_note ' reeseA5V0 l4 ti r1' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/uce/obama_uce_sd.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmadison/aligned/mmadison-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmadisonA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.obama_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=3000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul mmadisonA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count:11 '
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/reese/aligned/reese-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
-        --lr_scheduler "linear" \
-        --run_note ' reeseA5V0 l4 ti r2' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
-Total experiments for reese: 6
-['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/uce/rihanna_uce_sd.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/nicoparker/aligned/nicoparker-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.s3000_uce.rihanna_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=3000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul nicoparkerA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/nivola/aligned/nivola-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
-        --lr_scheduler "linear" \
-        --run_note ' nivolaA5V0 l4 ti' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/nivola/aligned/nivola-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
-        --lr_scheduler "linear" \
-        --run_note ' nivolaA5V0 l4 ti r1' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/nivola/aligned/nivola-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
-        --lr_scheduler "linear" \
-        --run_note ' nivolaA5V0 l4 ti r2' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
-Total experiments for nivola: 9
-['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/earle/aligned/earle-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
-        --lr_scheduler "linear" \
-        --run_note ' earleA5V0 l4 ti' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
+# sleep 8h
 
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/earle/aligned/earle-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
-        --lr_scheduler "linear" \
-        --run_note ' earleA5V0 l4 ti r1' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
-
-        accelerate launch train_dreambooth_lora.py \
-        --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-        --instance_data_dir="data_root/data/real_data/earle/aligned/earle-5-v0" \
-        --output_dir="data_root/logs/sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
-        --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-        --train_batch_size=1 --gradient_accumulation_steps=4 \
-        --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-        --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
-        --lr_scheduler "linear" \
-        --run_note ' earleA5V0 l4 ti r2' \
-        --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-        --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
-        --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-        --cfg_scale 6.0 \
-        --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-        --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-        --placeholder_token="v1" --initializer_token='person'
-Total experiments for earle: 12
-['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
-
+# echo 'count:0 - sd1.4 0 /'
 
 #         accelerate launch train_dreambooth_lora.py \
-#         --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_rv/LoRA_fusion_model  \
-#         --instance_data_dir=data_root/data/real_data/rihanna/aligned/rihanna-5-v0 \
-#         --output_dir="data_root/logs/rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_rv" \
-#         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-#         --train_batch_size=1 --gradient_accumulation_steps=4 \
-#         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
-#         --run_note 'uul rihannaA5V0 lNone ti' \
-#         --cfg_scale 6.0 \
-#         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-#         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-#         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
-#         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-#         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-#         --placeholder_token="v1" --initializer_token='person'
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.obama_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:1 - sd1.4 0 /'
 
 #         accelerate launch train_dreambooth_lora.py \
-#         --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r1_rv/LoRA_fusion_model  \
-#         --instance_data_dir=data_root/data/real_data/rihanna/aligned/rihanna-5-v0 \
-#         --output_dir="data_root/logs/rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r1_rv" \
-#         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-#         --train_batch_size=1 --gradient_accumulation_steps=4 \
-#         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
-#         --run_note 'uul rihannaA5V0 lNone ti' \
-#         --cfg_scale 6.0 \
-#         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-#         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
-#         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
-#         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
-#         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
-#         --placeholder_token="v1" --initializer_token='person'
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.rihanna_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:2 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.edsheeran_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:3 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.mrobbie_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:4 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.chemsworth_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:5 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.cevans_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:6 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.aadam_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:7 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.ahathaway_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:8 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.mcarey_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:9 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.octavia_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:10 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.morganf_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:11 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.drake_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# Total scripts generated: 12
+
+
+
+
+
+# echo 'count:0 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.obama_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:1 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.rihanna_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:2 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.edsheeran_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:3 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.mrobbie_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:4 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.chemsworth_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:5 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.cevans_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:6 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.aadam_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:7 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.ahathaway_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:8 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.mcarey_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:9 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.octavia_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:10 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.morganf_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:11 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/uce/drake_uce_sd.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/uce.drake_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" --instance_prompt="a photo of Barrack Obama,a photo of Rihanna,a photo of Ed Sheeran,a photo of Margot Robbie,a photo of Chris Hemsworth,a photo of Chris Evans,a photo of Anne Adam,a photo of Anne Hathaway,a photo of Mariah Carey,a photo of Octavia Spencer,a photo of Morgan Freeman,a photo of Drake" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# Total scripts generated: 12
+
+            # accelerate launch train_dreambooth_lora.py \
+            # --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model  \
+            # --instance_data_dir=data_root/data/real_data/reese/aligned/reese-5-v0 \
+            # --output_dir="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
+            # --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            # --train_batch_size=1 --gradient_accumulation_steps=4 \
+            # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            # --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            # --run_note 'uul reeseA5V0 lNone ti' \
+            # --cfg_scale 6.0 \
+            # --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            # --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            # --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
+            # --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            # --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            # --placeholder_token="v1" --initializer_token='person'
+
+            # echo 'count: 2'
+
+            # accelerate launch train_dreambooth_lora.py \
+            # --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model  \
+            # --instance_data_dir=data_root/data/real_data/asante/aligned/asante-5-v0 \
+            # --output_dir="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
+            # --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            # --train_batch_size=1 --gradient_accumulation_steps=4 \
+            # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            # --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            # --run_note 'uul asanteA5V0 lNone ti' \
+            # --cfg_scale 6.0 \
+            # --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            # --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            # --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
+            # --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            # --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            # --placeholder_token="v1" --initializer_token='person'
+
+# echo 'count:110 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 0 /'
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-0" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-0" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:111 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 100 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-100" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-100" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:112 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 200 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-200" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-200" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:113 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 300 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-300" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-300" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:114 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 400 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-400" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-400" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:115 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 500 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-500" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-500" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:116 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 600 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-600" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-600" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:117 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 700 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-700" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-700" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:118 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 800 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-800" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-800" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:119 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 900 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-900" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-900" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:120 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4 1000 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Barrack Obama/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-1000" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_stereo.obama_sd1.4/checkpoint-1000" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:121 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-0" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-0" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:122 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 100 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-100" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-100" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:123 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 200 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-200" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-200" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:124 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 300 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-300" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-300" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:125 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 400 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-400" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-400" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:126 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 500 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-500" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-500" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:127 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 600 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-600" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-600" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:128 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 700 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-700" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-700" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:129 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 800 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-800" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-800" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:130 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 900 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-900" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-900" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:131 - rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4 1000 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/stereo/Rihanna/final_reo_unet.pt" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-1000" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_stereo.rihanna_sd1.4/checkpoint-1000" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# Total scripts generated: 132
+
+# echo 'count:40 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4 700 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Rihanna-from-Rihanna-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-700" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-700" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:41 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4 800 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Rihanna-from-Rihanna-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-800" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-800" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:42 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4 900 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Rihanna-from-Rihanna-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-900" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-900" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:43 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4 1000 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Rihanna-from-Rihanna-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-1000" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.rihanna_sd1.4/checkpoint-1000" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:44 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-0" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-0" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:45 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 100 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-100" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-100" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:46 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 200 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-200" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-200" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:47 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 300 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-300" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-300" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:48 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 400 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-400" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-400" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:49 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 500 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-500" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-500" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:50 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 600 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-600" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-600" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:51 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 700 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-700" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-700" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:52 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 800 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-800" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-800" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:53 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 900 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-900" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-900" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:54 - rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4 1000 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-1000" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.mrobbie_sd1.4/checkpoint-1000" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# Total scripts generated: 55
+
+
+# count: 35
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/nicoparker/aligned/nicoparker-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --run_note 'uul nicoparkerA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+
+#             echo 'count:0 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-0" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-0" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:1 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 100 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-100" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-100" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:2 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 200 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-200" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-200" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:3 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 300 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-300" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-300" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:4 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 400 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-400" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-400" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:5 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 500 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-500" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-500" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:6 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 600 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-600" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-600" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:7 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 700 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-700" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-700" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:8 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 800 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-800" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-800" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:9 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 900 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-900" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-900" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# echo 'count:10 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4 1000 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Adam-from-Anne_Adam-esdu.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-1000" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.aadam_sd1.4/checkpoint-1000" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50
+# Total scripts generated: 11
+
+
+# echo 'count:21 '
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdu.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/aadam/aligned/aadam-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.mrobbie_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul aadamA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count:22 '
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/aadam/aligned/aadam-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.edsheeran_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+#             --run_note 'uul aadamA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count:23 '
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Andrew_Garfield-from-Andrew_Garfield-esdu.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/aadam/aligned/aadam-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-u.agarfield_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --run_note 'uul aadamA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count:24 '
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/aadam/aligned/aadam-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul aadamA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count:25 '
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Morgan_Freeman-from-Morgan_Freeman-esdu.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/aadam/aligned/aadam-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-u.morganf_sd1.4" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+#             --run_note 'uul aadamA5V0 lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+
+
+# echo octavia_30
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/30/img0/Octavia-Spencer-2019 (1).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/30/img1/08554.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/30/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/30/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_31
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/31/img0/Octavia-Spencer-2019 (1).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/31/img1/18758.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/31/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/31/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_32
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/32/img0/_Hidden_Figures__Screening_at_the_White_House_(NHQ201612150008)_(cropped).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/32/img1/52840.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/32/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/32/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_33
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/33/img0/_Hidden_Figures__Screening_at_the_White_House_(NHQ201612150008)_(cropped).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/33/img1/21663.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/33/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/33/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_34
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/34/img0/OS-TBT-Headshot-scaled-e1669063063542.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/34/img1/38801.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/34/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/34/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_35
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/35/img0/OS-TBT-Headshot-scaled-e1669063063542.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/35/img1/39927.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/35/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/35/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_36
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/36/img0/16007053831832.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/36/img1/48169.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/36/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/36/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_37
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/37/img0/OS-TBT-Headshot-scaled-e1669063063542.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/37/img1/51794.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/37/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/37/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_38
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/38/img0/octavia-spencer-1a7cf64f0ae54ed1b7350bb94638f163.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/38/img1/00202.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/38/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/38/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_39
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/39/img0/16007053831832.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/39/img1/26865.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/39/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/39/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_40
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/40/img0/OS-TBT-Headshot-scaled-e1669063063542.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/40/img1/13941.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/40/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/40/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_41
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/41/img0/Octavia-Spencer-2019 (1).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/41/img1/31370.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/41/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/41/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_42
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/42/img0/Octavia-Spencer-2019 (1).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/42/img1/28808.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/42/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/42/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_43
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/43/img0/16007053831832.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/43/img1/36291.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/43/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/43/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_44
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/44/img0/OS-TBT-Headshot-scaled-e1669063063542.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/44/img1/20132.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/44/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/44/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_45
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/45/img0/octavia-spencer-1a7cf64f0ae54ed1b7350bb94638f163.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/45/img1/17243.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/45/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/45/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_46
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/46/img0/octavia-spencer-1a7cf64f0ae54ed1b7350bb94638f163.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/46/img1/53619.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/46/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/46/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_47
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/47/img0/_Hidden_Figures__Screening_at_the_White_House_(NHQ201612150008)_(cropped).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/47/img1/28547.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/47/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/47/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_48
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/48/img0/OS-TBT-Headshot-scaled-e1669063063542.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/48/img1/29334.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/48/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/48/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo octavia_49
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/49/img0/16007053831832.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/49/img1/21184.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/49/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/octavia/49/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_30
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/30/img0/fd68b1621936-leo-woodall-jacket.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/30/img1/08554.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/30/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/30/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_31
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/31/img0/67a765fc76e7-leo-woodall-standing-in-front-of-palm-trees.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/31/img1/18758.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/31/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/31/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_32
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/32/img0/1265939_v9_aa.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/32/img1/52840.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/32/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/32/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_33
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/33/img0/67a765fc76e7-leo-woodall-standing-in-front-of-palm-trees.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/33/img1/21663.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/33/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/33/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_34
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/34/img0/17-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/34/img1/38801.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/34/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/34/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_35
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/35/img0/67a765fc76e7-leo-woodall-standing-in-front-of-palm-trees.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/35/img1/39927.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/35/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/35/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_36
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/36/img0/17-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/36/img1/48169.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/36/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/36/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_37
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/37/img0/anyone-else-think-leo-woodall-one-day-white-lotus-and-kit-v0-aanupwg56eic1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/37/img1/51794.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/37/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/37/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_38
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/38/img0/17-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/38/img1/00202.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/38/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/38/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_39
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/39/img0/fd68b1621936-leo-woodall-jacket.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/39/img1/26865.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/39/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/39/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_40
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/40/img0/anyone-else-think-leo-woodall-one-day-white-lotus-and-kit-v0-aanupwg56eic1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/40/img1/13941.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/40/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/40/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_41
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/41/img0/fd68b1621936-leo-woodall-jacket.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/41/img1/31370.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/41/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/41/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_42
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/42/img0/fd68b1621936-leo-woodall-jacket.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/42/img1/28808.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/42/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/42/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_43
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/43/img0/17-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/43/img1/36291.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/43/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/43/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_44
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/44/img0/anyone-else-think-leo-woodall-one-day-white-lotus-and-kit-v0-aanupwg56eic1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/44/img1/20132.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/44/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/44/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_45
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/45/img0/fd68b1621936-leo-woodall-jacket.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/45/img1/17243.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/45/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/45/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_46
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/46/img0/67a765fc76e7-leo-woodall-standing-in-front-of-palm-trees.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/46/img1/53619.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/46/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/46/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_47
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/47/img0/1265939_v9_aa.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/47/img1/28547.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/47/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/47/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_48
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/48/img0/fd68b1621936-leo-woodall-jacket.jpg.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/48/img1/29334.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/48/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/48/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo leowoodal_49
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/49/img0/anyone-else-think-leo-woodall-one-day-white-lotus-and-kit-v0-aanupwg56eic1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/49/img1/21184.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/49/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/leowoodal/49/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_30
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/30/img0/President_Barack_Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/30/img1/08554.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/30/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/30/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_31
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/31/img0/President_Barack_Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/31/img1/18758.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/31/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/31/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_32
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/32/img0/gettyimages-630104414.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/32/img1/52840.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/32/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/32/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_33
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/33/img0/gettyimages-630104414.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/33/img1/21663.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/33/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/33/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_34
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/34/img0/BarackObama2005portrait.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/34/img1/38801.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/34/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/34/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_35
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/35/img0/BarackObama2005portrait.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/35/img1/39927.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/35/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/35/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_36
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/36/img0/Barack-Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/36/img1/48169.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/36/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/36/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_37
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/37/img0/BarackObama2005portrait.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/37/img1/51794.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/37/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/37/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_38
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/38/img0/obama1019.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/38/img1/00202.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/38/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/38/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_39
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/39/img0/Barack-Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/39/img1/26865.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/39/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/39/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_40
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/40/img0/BarackObama2005portrait.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/40/img1/13941.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/40/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/40/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_41
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/41/img0/President_Barack_Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/41/img1/31370.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/41/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/41/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_42
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/42/img0/President_Barack_Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/42/img1/28808.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/42/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/42/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_43
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/43/img0/Barack-Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/43/img1/36291.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/43/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/43/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_44
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/44/img0/BarackObama2005portrait.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/44/img1/20132.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/44/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/44/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_45
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/45/img0/obama1019.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/45/img1/17243.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/45/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/45/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_46
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/46/img0/obama1019.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/46/img1/53619.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/46/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/46/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_47
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/47/img0/gettyimages-630104414.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/47/img1/28547.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/47/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/47/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_48
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/48/img0/BarackObama2005portrait.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/48/img1/29334.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/48/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/48/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo obama_49
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/49/img0/Barack-Obama.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/49/img1/21184.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/49/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/obama/49/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_30
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/30/img0/Ed-Sheeran-album-082423-tout-6eeab51960f64a3e8e8f43c01bdf94a8.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/30/img1/08554.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/30/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/30/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_31
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/31/img0/Ed-Sheeran-album-082423-tout-6eeab51960f64a3e8e8f43c01bdf94a8.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/31/img1/18758.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/31/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/31/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_32
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/32/img0/ed-sheeran-foundation-launch.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/32/img1/52840.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/32/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/32/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_33
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/33/img0/ed-sheeran-foundation-launch.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/33/img1/21663.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/33/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/33/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_34
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/34/img0/Ed-Sheeran-NYC-Premiere-Carpet-GettyImages-1487211121-H-2024.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/34/img1/38801.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/34/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/34/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_35
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/35/img0/Ed-Sheeran-NYC-Premiere-Carpet-GettyImages-1487211121-H-2024.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/35/img1/39927.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/35/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/35/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_36
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/36/img0/0007RWSCKFFTXAJV-C316.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/36/img1/48169.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/36/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/36/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_37
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/37/img0/Ed-Sheeran-NYC-Premiere-Carpet-GettyImages-1487211121-H-2024.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/37/img1/51794.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/37/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/37/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_38
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/38/img0/skynews-ed-sheeran-nbc_6280939.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/38/img1/00202.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/38/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/38/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_39
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/39/img0/0007RWSCKFFTXAJV-C316.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/39/img1/26865.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/39/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/39/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_40
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/40/img0/Ed-Sheeran-NYC-Premiere-Carpet-GettyImages-1487211121-H-2024.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/40/img1/13941.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/40/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/40/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_41
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/41/img0/Ed-Sheeran-album-082423-tout-6eeab51960f64a3e8e8f43c01bdf94a8.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/41/img1/31370.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/41/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/41/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_42
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/42/img0/Ed-Sheeran-album-082423-tout-6eeab51960f64a3e8e8f43c01bdf94a8.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/42/img1/28808.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/42/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/42/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_43
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/43/img0/0007RWSCKFFTXAJV-C316.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/43/img1/36291.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/43/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/43/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_44
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/44/img0/Ed-Sheeran-NYC-Premiere-Carpet-GettyImages-1487211121-H-2024.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/44/img1/20132.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/44/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/44/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_45
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/45/img0/skynews-ed-sheeran-nbc_6280939.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/45/img1/17243.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/45/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/45/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_46
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/46/img0/skynews-ed-sheeran-nbc_6280939.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/46/img1/53619.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/46/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/46/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_47
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/47/img0/ed-sheeran-foundation-launch.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/47/img1/28547.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/47/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/47/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_48
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/48/img0/Ed-Sheeran-NYC-Premiere-Carpet-GettyImages-1487211121-H-2024.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/48/img1/29334.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/48/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/48/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo edsheeran_49
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/49/img0/0007RWSCKFFTXAJV-C316.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/49/img1/21184.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/49/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/edsheeran/49/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_30
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/30/img0/Anne-Hathaway-hairstyle.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/30/img1/08554.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/30/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/30/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_31
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/31/img0/Anne-Hathaway-hairstyle.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/31/img1/18758.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/31/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/31/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_32
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/32/img0/Anne_Hathaway_at_The_Apprentice_in_NYC_03_(cropped2).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/32/img1/52840.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/32/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/32/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_33
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/33/img0/Anne_Hathaway_at_The_Apprentice_in_NYC_03_(cropped2).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/33/img1/21663.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/33/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/33/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_34
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/34/img0/Anne-Hathaway-SXSW-Conference.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/34/img1/38801.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/34/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/34/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_35
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/35/img0/Anne-Hathaway-SXSW-Conference.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/35/img1/39927.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/35/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/35/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_36
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/36/img0/Anne-Hathaway-Lead-f1479d3a98bb439d8f1ff9c1f2e8d648.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/36/img1/48169.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/36/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/36/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_37
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/37/img0/Anne-Hathaway-SXSW-Conference.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/37/img1/51794.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/37/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/37/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_38
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/38/img0/MV5BNzA0MWI3ZDgtMDVkZS00NTVhLTkwMzQtNmNlODk5MDYzMzFmXkEyXkFqcGc@._V1_.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/38/img1/00202.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/38/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/38/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_39
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/39/img0/Anne-Hathaway-Lead-f1479d3a98bb439d8f1ff9c1f2e8d648.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/39/img1/26865.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/39/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/39/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_40
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/40/img0/Anne-Hathaway-SXSW-Conference.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/40/img1/13941.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/40/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/40/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_41
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/41/img0/Anne-Hathaway-hairstyle.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/41/img1/31370.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/41/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/41/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_42
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/42/img0/Anne-Hathaway-hairstyle.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/42/img1/28808.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/42/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/42/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_43
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/43/img0/Anne-Hathaway-Lead-f1479d3a98bb439d8f1ff9c1f2e8d648.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/43/img1/36291.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/43/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/43/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_44
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/44/img0/Anne-Hathaway-SXSW-Conference.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/44/img1/20132.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/44/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/44/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_45
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/45/img0/MV5BNzA0MWI3ZDgtMDVkZS00NTVhLTkwMzQtNmNlODk5MDYzMzFmXkEyXkFqcGc@._V1_.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/45/img1/17243.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/45/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/45/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_46
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/46/img0/MV5BNzA0MWI3ZDgtMDVkZS00NTVhLTkwMzQtNmNlODk5MDYzMzFmXkEyXkFqcGc@._V1_.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/46/img1/53619.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/46/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/46/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_47
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/47/img0/Anne_Hathaway_at_The_Apprentice_in_NYC_03_(cropped2).png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/47/img1/28547.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/47/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/47/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_48
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/48/img0/Anne-Hathaway-SXSW-Conference.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/48/img1/29334.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/48/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/48/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo ahathaway_49
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/49/img0/Anne-Hathaway-Lead-f1479d3a98bb439d8f1ff9c1f2e8d648.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/49/img1/21184.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/49/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/ahathaway/49/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_30
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/30/img0/will-drew-starkey-play-nikolai-lantsov-is-shadow-and-bone-season-2-1639071292-view-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/30/img1/08554.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/30/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/30/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_31
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/31/img0/drew-starkey-glass-onion-scaled.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/31/img1/18758.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/31/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/31/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_32
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/32/img0/drew-starkey-hair-textured-blonde-crop-hairstyle-man-for-himself-hero.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/32/img1/52840.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/32/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/32/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_33
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/33/img0/drew-starkey-glass-onion-scaled.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/33/img1/21663.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/33/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/33/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_34
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/34/img0/1048516_v9_bc.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/34/img1/38801.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/34/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/34/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_35
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/35/img0/drew-starkey-glass-onion-scaled.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/35/img1/39927.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/35/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/35/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_36
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/36/img0/1048516_v9_bc.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/36/img1/48169.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/36/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/36/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_37
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/37/img0/gettyimages-2170061218.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/37/img1/51794.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/37/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/37/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_38
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/38/img0/1048516_v9_bc.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/38/img1/00202.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/38/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/38/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_39
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/39/img0/will-drew-starkey-play-nikolai-lantsov-is-shadow-and-bone-season-2-1639071292-view-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/39/img1/26865.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/39/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/39/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_40
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/40/img0/gettyimages-2170061218.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/40/img1/13941.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/40/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/40/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_41
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/41/img0/will-drew-starkey-play-nikolai-lantsov-is-shadow-and-bone-season-2-1639071292-view-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/41/img1/31370.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/41/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/41/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_42
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/42/img0/will-drew-starkey-play-nikolai-lantsov-is-shadow-and-bone-season-2-1639071292-view-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/42/img1/28808.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/42/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/42/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_43
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/43/img0/1048516_v9_bc.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/43/img1/36291.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/43/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/43/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_44
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/44/img0/gettyimages-2170061218.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/44/img1/20132.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/44/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/44/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_45
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/45/img0/will-drew-starkey-play-nikolai-lantsov-is-shadow-and-bone-season-2-1639071292-view-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/45/img1/17243.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/45/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/45/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_46
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/46/img0/drew-starkey-glass-onion-scaled.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/46/img1/53619.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/46/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/46/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_47
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/47/img0/drew-starkey-hair-textured-blonde-crop-hairstyle-man-for-himself-hero.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/47/img1/28547.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/47/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/47/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_48
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/48/img0/will-drew-starkey-play-nikolai-lantsov-is-shadow-and-bone-season-2-1639071292-view-1.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/48/img1/29334.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/48/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/48/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+# echo starkey_49
+
+#             python3 main.py --image_path_0 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/49/img0/gettyimages-2170061218.png" --image_path_1 "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/49/img1/21184.png" --output_path "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/49/morphed" \
+#                 --prompt_0 'a photo of a person' --prompt_1 'a photo of a person' \
+#                 --save_lora_dir "data_root/data/real_data/morph_ffhq/n30_v0_test/starkey/49/lora" \
+#                 --use_adain --use_reschedule --save_inter --num_frames 20
+            
+            
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/asante/aligned/asante-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' asanteA5V0 l4 ti' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/asante/aligned/asante-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' asanteA5V0 l4 ti r1' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/asante/aligned/asante-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' asanteA5V0 l4 ti r2' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+# # Total experiments for asante: 3
+# # ['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/reese/aligned/reese-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' reeseA5V0 l4 ti' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/reese/aligned/reese-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' reeseA5V0 l4 ti r1' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/reese/aligned/reese-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' reeseA5V0 l4 ti r2' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+# # Total experiments for reese: 6
+# # ['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/nivola/aligned/nivola-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' nivolaA5V0 l4 ti' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/nivola/aligned/nivola-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' nivolaA5V0 l4 ti r1' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/nivola/aligned/nivola-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' nivolaA5V0 l4 ti r2' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+# # Total experiments for nivola: 9
+# # ['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/earle/aligned/earle-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 0 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' earleA5V0 l4 ti' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/earle/aligned/earle-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 1 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' earleA5V0 l4 ti r1' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+# #         --instance_data_dir="data_root/data/real_data/earle/aligned/earle-5-v0" \
+# #         --output_dir="data_root/logs/sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50 --seed 2 \
+# #         --lr_scheduler "linear" \
+# #         --run_note ' earleA5V0 l4 ti r2' \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/6.00" \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --cfg_scale 6.0 \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+# # Total experiments for earle: 12
+# # ['sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_asanteA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_reeseA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_nivolaA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2', 'sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4', 'sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r1', 'sd14.ct.l4.kv_earleA5V0-V_pr1.00.neg_ln.lr1e-4.ti5e-4_b1g4.r2']
+
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_rv/LoRA_fusion_model  \
+# #         --instance_data_dir=data_root/data/real_data/rihanna/aligned/rihanna-5-v0 \
+# #         --output_dir="data_root/logs/rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_rv" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+# #         --run_note 'uul rihannaA5V0 lNone ti' \
+# #         --cfg_scale 6.0 \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
+
+# #         accelerate launch train_dreambooth_lora.py \
+# #         --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r1_rv/LoRA_fusion_model  \
+# #         --instance_data_dir=data_root/data/real_data/rihanna/aligned/rihanna-5-v0 \
+# #         --output_dir="data_root/logs/rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r1_rv" \
+# #         --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+# #         --train_batch_size=1 --gradient_accumulation_steps=4 \
+# #         --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+# #         --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+# #         --run_note 'uul rihannaA5V0 lNone ti' \
+# #         --cfg_scale 6.0 \
+# #         --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+# #         --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+# #         --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_chilloutmix/a photo of a person_neg/6.00" \
+# #         --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+# #         --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+# #         --placeholder_token="v1" --initializer_token='person'
 
 #         accelerate launch train_dreambooth_lora.py \
 #         --pretrained_model_name_or_path=data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50.r2_rv/LoRA_fusion_model  \
