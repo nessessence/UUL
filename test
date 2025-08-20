@@ -1,205 +1,181 @@
-echo 'count:0 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 0 /'
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-            --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-0" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="auto" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-0" \
-            --placeholder_token="v1" --initializer_token='person' \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-echo 'count:0 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 0 /'
+echo 'count:0 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-0" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-0" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:1 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 100 /'
+echo 'count:1 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-100" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-100" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:2 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 200 /'
+echo 'count:2 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-200" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-200" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:3 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 300 /'
+echo 'count:3 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-300" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-300" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:4 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 400 /'
+echo 'count:4 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-400" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-400" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:5 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 500 /'
+echo 'count:5 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-500" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-500" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:6 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 600 /'
+echo 'count:6 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-600" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-600" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:7 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 700 /'
+echo 'count:7 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-700" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-700" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:8 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 800 /'
+echo 'count:8 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-800" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-800" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:9 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 900 /'
+echo 'count:9 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-900" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-900" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-echo 'count:10 - rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4 1000 /'
+echo 'count:10 - sd14 0 /'
 
        accelerate launch train_dreambooth_lora.py \
-           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-           --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdu.safetensors" \
-           --load_lora_weight_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-1000" \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
            --instance_data_dir="data_root/data/real_data/dummy" \
-           --gen_image_path="auto" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
            --output_dir="data_root/logs/gen" \
-           --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
            --run_note 'gen img' --wait_weight \
            --num_validation_images 50 \
-           --load_token_embedding_path="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-u.edsheeran_sd1.4/checkpoint-1000" \
-           --placeholder_token="v1" --initializer_token='person' \
            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
            --cfg_scale 7.50
-Total scripts generated: 11
+echo 'count:11 - sd14 0 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Anne Adam;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+           --cfg_scale 7.50
+Total scripts generated: 12
