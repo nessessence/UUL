@@ -1,5 +1,6 @@
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=0
 
+python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Amy Adams' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'aadam_uce_sd' --save_dir '../data_root/logs/uce' 
 
 
 # python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Barrack Obama' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'obama_uce_sd' --save_dir '../data_root/logs/uce' 
@@ -16,12 +17,12 @@ export CUDA_VISIBLE_DEVICES=1
 # python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Drake' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'drake_uce_sd' --save_dir '../data_root/logs/uce' 
 
 
-python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Adam Driver' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'adriver_uce_sd' --save_dir '../data_root/logs/uce' 
-python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Andrew Garfield' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'agarfield_uce_sd' --save_dir '../data_root/logs/uce' 
-python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Angelina Jolie' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'ajolie_uce_sd' --save_dir '../data_root/logs/uce' 
-python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Amber Heard' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'amber_uce_sd' --save_dir '../data_root/logs/uce' 
-python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Oprah Winfrey' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'oprah_uce_sd' --save_dir '../data_root/logs/uce' 
-python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Idris Elba' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'idris_uce_sd' --save_dir '../data_root/logs/uce' 
+# python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Adam Driver' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'adriver_uce_sd' --save_dir '../data_root/logs/uce' 
+# python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Andrew Garfield' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'agarfield_uce_sd' --save_dir '../data_root/logs/uce' 
+# python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Angelina Jolie' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'ajolie_uce_sd' --save_dir '../data_root/logs/uce' 
+# python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Amber Heard' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'amber_uce_sd' --save_dir '../data_root/logs/uce' 
+# python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Oprah Winfrey' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'oprah_uce_sd' --save_dir '../data_root/logs/uce' 
+# python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Idris Elba' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'idris_uce_sd' --save_dir '../data_root/logs/uce' 
 
 
 
