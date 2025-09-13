@@ -287,7 +287,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                 
                 
             num_images = args.num_validation_images
-            batch_size = 25 #args.gen_batch
+            batch_size = args.gen_batch #args.gen_batch
 
             for i in tqdm(range(0, num_images, batch_size)):
                 batch_indices = range(i, min(i + batch_size, num_images))
@@ -816,6 +816,7 @@ def parse_args(input_args=None):
             " `args.validation_prompt` multiple times: `args.num_validation_images`."
         ),
     )
+    parser.add_argument("--gen_batch",type=int,default=25,)
 
 
     parser.add_argument("--flip_p",type=float,default=0.5,)
@@ -2330,7 +2331,7 @@ if __name__ == "__main__":
         # if unet_weight_path does not exist, then wait (it is in training process) ... re-check every 10 seconds
         while not osp.exists(unet_weight_path):
             print(f'waiting for unet weight: {unet_weight_path}')
-            time.sleep(20)
+            time.sleep(30)
         time.sleep(50)
 
     main(args)

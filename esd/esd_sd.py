@@ -62,8 +62,16 @@ if __name__ == '__main__':
     parser.add_argument('--negative_guidance', help='Negative guidance value', type=float, required=False, default=2)
     parser.add_argument('--save_path', help='Path to save model', type=str, default='esd-models/sd/')
     parser.add_argument('--device', help='cuda device to train on', type=str, required=False, default='cuda:0')
+    
+
+
+    parser.add_argument('--timestep_constraint', help='timestep constraint for diffusion model', type=str, required=False, default=None)
 
     args = parser.parse_args()
+    
+    
+
+
 
     erase_concept = args.erase_concept
     erase_concept_from = args.erase_from
@@ -91,6 +99,22 @@ if __name__ == '__main__':
     esd_param_names, esd_params = get_esd_trainable_parameters(esd_unet, train_method=train_method)
     optimizer = torch.optim.Adam(esd_params, lr=lr)
 
+
+    if args.timestep_constraint is not None:
+        args.lb_timestep_constraint, args.ub_timestep_constraint = map(int, args.timestep_constraint.split('-'))
+        print(f'timestep constraint: {args.lb_timestep_constraint}-{args.ub_timestep_constraint}')
+        constrainted_timesteps = torch.tensor([ t for t in pipe.scheduler.timesteps if t < args.ub_timestep_constraint and t > args.lb_timestep_constraint ]).to(args.device)
+        print(f"constrainted_timesteps: {constrainted_timesteps}")
+        print(f"{save_path}/esd-{erase_concept.replace(' ', '_')}-from-{erase_concept.replace(' ', '_')}-{train_method.replace('-','')}_T{args.timestep_constraint}.safetensors")
+        # t_scale = args.num_inference_steps/1000
+
+        # args.scaled_lb_timestep_constraint = int(t_scale*args.lb_timestep_constraint)
+        # args.scaled_ub_timestep_constraint = int(t_scale*args.ub_timestep_constraint)
+
+        # print(f'scaled timestep constraint: {args.scaled_lb_timestep_constraint}-{args.scaled_ub_timestep_constraint}')
+
+        
+        
     with torch.no_grad():
         # get prompt embeds
         erase_embeds, null_embeds = pipe.encode_prompt(prompt=erase_concept,
@@ -125,8 +149,24 @@ if __name__ == '__main__':
         optimizer.zero_grad()
         # get the noise predictions for erase concept
         pipe.unet = base_unet
-        run_till_timestep = random.randint(0, num_inference_steps-1)
-        run_till_timestep_scheduler = pipe.scheduler.timesteps[run_till_timestep]
+        
+        if args.timestep_constraint is not None:
+
+            run_till_timestep = random.randint(0, len(constrainted_timesteps)-1)
+            run_till_timestep_scheduler = constrainted_timesteps[run_till_timestep]
+            print(f"timestep: {run_till_timestep_scheduler}")
+            
+            # run_till_timestep_scheduler = pipe.scheduler.timesteps[run_till_timestep]
+            
+            # print(f"timestep: {run_till_timestep_scheduler}") 
+            # print(pipe.scheduler.timesteps) # reverse order : 981-1
+            # print(f'effective timestep: {pipe.scheduler.timesteps[args.scaled_lb_timestep_constraint]} - {pipe.scheduler.timesteps[args.scaled_ub_timestep_constraint-1]}')
+
+        else:
+            run_till_timestep = random.randint(0, num_inference_steps-1)
+            run_till_timestep_scheduler = pipe.scheduler.timesteps[run_till_timestep]
+            
+            
         seed = random.randint(0, 2**15)
         with torch.no_grad():
             xt = pipe(erase_concept if erase_concept_from is None else erase_concept_from,
@@ -200,5 +240,9 @@ if __name__ == '__main__':
         esd_param_dict[name] = param
     if erase_concept_from is None:
         erase_concept_from = erase_concept
-        
-    save_file(esd_param_dict, f"{save_path}/esd-{erase_concept.replace(' ', '_')}-from-{erase_concept_from.replace(' ', '_')}-{train_method.replace('-','')}.safetensors")
+    
+    
+    if args.timestep_constraint is not None:
+            save_file(esd_param_dict, f"{save_path}/esd-{erase_concept.replace(' ', '_')}-from-{erase_concept_from.replace(' ', '_')}-{train_method.replace('-','')}_T{args.timestep_constraint}.safetensors")
+    else:
+        save_file(esd_param_dict, f"{save_path}/esd-{erase_concept.replace(' ', '_')}-from-{erase_concept_from.replace(' ', '_')}-{train_method.replace('-','')}.safetensors")

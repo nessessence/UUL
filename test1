@@ -1,1717 +1,223 @@
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.obama.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.rihanna.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.edsheeran.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mrobbie.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.chemsworth.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.cevans.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.aadam.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.ahathaway.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.mcarey.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.octavia.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.morganf.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='data_root/logs/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14/LoRA_fusion_model'  \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --load_lora_weight_path="" \
-            --gen_image_path="data_root/generated/model/ul1.prg1e-4d8e+3.lr1e-4.n8.G.drake.person.s50_sd14" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50
-Total scripts generated: 132
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.obama_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/obama/aligned/obama-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.obamaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.obama_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul obamaA5V0 lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.edsheeran_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/asante/aligned/asante-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.edsheeran_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul asanteA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.obama_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/reese/aligned/reese-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.obama_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul reeseA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.rihanna_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/nivola/aligned/nivola-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.nivolaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.rihanna_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul nivolaA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.rihanna_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/earle/aligned/earle-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.rihanna_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul earleA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.mcarey_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/leowoodal/aligned/leowoodal-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.leowoodalA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mcarey_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul leowoodalA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.drake_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/starkey/aligned/starkey-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.starkeyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.drake_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul starkeyA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.cevans_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/apierre/aligned/apierre-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.apierreA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.cevans_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul apierreA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.mrobbie_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/skyhblack/aligned/skyhblack-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.skyhblackA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mrobbie_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul skyhblackA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.mcarey_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/sophiewilde/aligned/sophiewilde-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.sophiewildeA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mcarey_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul sophiewildeA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.morganf_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/edebiri/aligned/edebiri-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.morganf_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul edebiriA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.mrobbie_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/mmadison/aligned/mmadison-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.mmadisonA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mrobbie_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul mmadisonA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path=data_root/logs/mace.ahathaway_sd1.4/LoRA_fusion_model  \
+            --instance_data_dir=data_root/data/real_data/nicoparker/aligned/nicoparker-5-v0 \
+            --output_dir="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.ahathaway_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul nicoparkerA5V0 l1 ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+12
+['rlct4.reV.asanteA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.edsheeran_sd1.4', 'rlct4.reV.reeseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.obama_sd1.4', 'rlct4.reV.nivolaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.rihanna_sd1.4', 'rlct4.reV.earleA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.rihanna_sd1.4', 'rlct4.reV.leowoodalA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mcarey_sd1.4', 'rlct4.reV.starkeyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.drake_sd1.4', 'rlct4.reV.apierreA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.cevans_sd1.4', 'rlct4.reV.skyhblackA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mrobbie_sd1.4', 'rlct4.reV.sophiewildeA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mcarey_sd1.4', 'rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.morganf_sd1.4', 'rlct4.reV.mmadisonA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.mrobbie_sd1.4', 'rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_mace.ahathaway_sd1.4']

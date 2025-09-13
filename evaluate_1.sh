@@ -25,4 +25,4 @@ CUDA_VISIBLE_DEVICES=1 python ./metrics/evaluate_fid_score.py \
     --mode kid 
 
 
-    # CUDA_VISIBLE_DEVICES=0 python metrics/evaluate_fid.py --dir1 'path/to/generated/image/folder' --dir2 'path/to/coco/GT/folder'
+    # CUDA_VISIBLE_DEVICES=0 python megpztrics/evaluate_fid.py --dir1 'path/to/generated/image/folder' --dir2 'path/to/coco/GT/folder'

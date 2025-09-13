@@ -357,7 +357,7 @@ def search_thoroughly_enough(
     return final_model_path, saved_tokens, diffuser
 
 
-def robustly_erase_once(erase_concepts, train_method, iterations, compositional_guidance_scale, lr, save_path, diffuser, anchor_concepts_path):
+def robustly_erase_once(erase_concepts, train_method, iterations, compositional_guidance_scale, lr, save_path, diffuser, anchor_concepts_path, args=None):
     nsteps = 50
 
     with open(anchor_concepts_path, 'r') as f:
@@ -451,6 +451,7 @@ def robustly_erase_once(erase_concepts, train_method, iterations, compositional_
 
             torch.cuda.empty_cache()
         
+        # learnable
         with finetuner:
             negative_latents = diffuser.predict_noise(iteration, latents_steps[0], target_text_embeddings, guidance_scale=1)
 
@@ -462,17 +463,23 @@ def robustly_erase_once(erase_concepts, train_method, iterations, compositional_
         # Negative Concept
         neg_guidance_scales = []
         for _ in range(len(e_negatives_latents)):
-            neg_guidance_scales.append(-(float(compositional_guidance_scale)))
+            if args is not None and args.neg_guidance_scale is not None:
+                neg_guidance_scales.append(-(float(args.neg_guidance_scale)))
+            else:
+                neg_guidance_scales.append(-(float(compositional_guidance_scale)))
 
         # Anchor concepts
         pos_guidance_scales = []
         for _ in range(len(e_anchor_latents)):
-            pos_guidance_scales.append(float(compositional_guidance_scale))
+            if args is not None and args.pos_guidance_scale is not None:
+                pos_guidance_scales.append(float(args.pos_guidance_scale))
+            else:
+                pos_guidance_scales.append(float(compositional_guidance_scale))
 
         print(f"Using compositional guidance with APG : pos_guidance_scales {pos_guidance_scales} and neg_guidance_scales {neg_guidance_scales}")
 
-        combined_conditions = e_negatives_latents + e_anchor_latents
-        combined_guidance_scales = neg_guidance_scales + pos_guidance_scales
+        combined_conditions = e_negatives_latents + e_anchor_latents # list 
+        combined_guidance_scales = neg_guidance_scales + pos_guidance_scales # list
 
         # Using the negative guidance GT with the APG (https://arxiv.org/pdf/2410.02416) formulation with our modified compositional guidance
         compositional_guidance_estimate = normalized_compositional_guidance(combined_conditions, neutral_latents, combined_guidance_scales)
@@ -501,43 +508,53 @@ def robustly_erase_once(erase_concepts, train_method, iterations, compositional_
 
 def stereo(args):
     # Initialize the diffuser model on the specified device
-    diffuser = StableDiffuser(scheduler='DDIM').to(args.device)
+    
+    if args.load_ste is None:
+        diffuser = StableDiffuser(scheduler='DDIM').to(args.device)
 
-    ste_start_time = time.time()
-    print(f"---------------------------------- Starting Search Thoroughly Enough ----------------------------------")
-    # Stage 1: STE (Search Thoroughly Enough)
-    final_model_path, saved_tokens, diffuser = search_thoroughly_enough(
-        diffuser=diffuser,
-        initial_erase_concept=args.erase_concept,
-        initializer_token=args.initializer_token,
-        train_data_dir=args.train_data_dir,
-        train_method=args.train_method,
-        lr=args.ste_lr,
-        ti_lr=args.ci_lr,
-        negative_guidance=args.negative_guidance,
-        iterations=args.iterations,
-        n_iterations=args.n_iterations,
-        device=args.device,
-        ti_max_train_steps=args.ti_max_train_steps,
-        learnable_property=args.learnable_property,
-        output_dir=args.output_dir,
-        generic_prompt=args.generic_prompt,
-        center_crop=args.center_crop
-    )
-    ste_end_time = time.time()
-    print(f"---------------------------------- Search Thoroughly Enough complete. Time taken: {ste_end_time - ste_start_time} seconds ----------------------------------")
+        ste_start_time = time.time()
+        print(f"---------------------------------- Starting Search Thoroughly Enough ----------------------------------")
+        # Stage 1: STE (Search Thoroughly Enough)
+        final_model_path, saved_tokens, diffuser = search_thoroughly_enough(
+            diffuser=diffuser,
+            initial_erase_concept=args.erase_concept,
+            initializer_token=args.initializer_token,
+            train_data_dir=args.train_data_dir,
+            train_method=args.train_method,
+            lr=args.ste_lr,
+            ti_lr=args.ci_lr,
+            negative_guidance=args.negative_guidance,
+            iterations=args.iterations,
+            n_iterations=args.n_iterations,
+            device=args.device,
+            ti_max_train_steps=args.ti_max_train_steps,
+            learnable_property=args.learnable_property,
+            output_dir=args.output_dir,
+            generic_prompt=args.generic_prompt,
+            center_crop=args.center_crop
+        )
+        ste_end_time = time.time()
+        print(f"---------------------------------- Search Thoroughly Enough complete. Time taken: {ste_end_time - ste_start_time} seconds ----------------------------------")
 
-    print(f"STE model path: {final_model_path}")
-    print(f"Saved placeholder tokens: {saved_tokens}")
-    del diffuser
-    torch.cuda.empty_cache()
+        print(f"STE model path: {final_model_path}")
+        print(f"Saved placeholder tokens: {saved_tokens}")
+        del diffuser
+        torch.cuda.empty_cache()
+    else:
+        print("Skipping STE stage ...by Ness")
 
     # Stage 2: REO (Robustly Erase Once)
     print(f"---------------------------------- Starting Robustly Erase Once ----------------------------------")
     diffuser = StableDiffuser(scheduler='DDIM').to(args.device)
     diffuser_copy = StableDiffuser(scheduler='DDIM').to(args.device)
     final_unet_path = os.path.join(args.output_dir, "final_reo_unet.pt")
-    final_model_path = os.path.join(args.output_dir, "ste_stage_model.pt")
+    
+    # fix: load if exist - ness
+    if args.load_ste is not None:
+        final_model_path = args.load_ste
+        print(f"Loading STE model from {final_model_path}")
+    else:
+        final_model_path = os.path.join(args.output_dir, "ste_stage_model.pt")
 
     ckpt = torch.load(final_model_path)
     saved_tokens = ckpt['saved_tokens']
@@ -571,7 +588,8 @@ def stereo(args):
         lr=args.reo_lr,
         save_path=final_unet_path,
         diffuser=diffuser,
-        anchor_concepts_path=args.anchor_concept_path
+        anchor_concepts_path=args.anchor_concept_path,
+        args=args
     )
     reo_end_time = time.time()
     del diffuser, saved_tokens
