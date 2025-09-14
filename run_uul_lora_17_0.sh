@@ -2,6 +2,10 @@ export CUDA_VISIBLE_DEVICES=0
 export pc_id="17_0"
 
 
+
+
+
+"""
 echo 'count:130 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.50.octavia_sd1.4 900 /'
 
         accelerate launch train_dreambooth_lora.py \
@@ -29781,3 +29785,4 @@ Total scripts generated: 132
 #             --cfg_scale 7.50 --gen_batch 10
 # Total scripts generated: 132
 
+"""
