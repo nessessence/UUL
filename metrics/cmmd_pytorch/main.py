@@ -48,6 +48,7 @@ def compute_cmmd(
     batch_size=32,
     max_count=-1,
     use_precompute_features_if_exist=False,
+    model = None,
 ):
     """Calculates the CMMD distance between reference and eval image sets.
 
@@ -66,7 +67,10 @@ def compute_cmmd(
     if ref_dir and ref_embed_file:
         raise ValueError("`ref_dir` and `ref_embed_file` both cannot be set at the same time.")
 
-    embedding_model = embedding.ClipEmbeddingModel()
+    if model is None:
+        embedding_model = embedding.ClipEmbeddingModel()
+    else:
+        embedding_model = model
 
     def get_or_compute_embeddings(base_dir):
         # Find the first image in the folder using natural sort

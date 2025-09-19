@@ -36,12 +36,20 @@ def _resize_bicubic(images, size):
 class ClipEmbeddingModel:
     """CLIP image embedding calculator."""
 
-    def __init__(self):
+    def __init__(self, device=None):
         self.image_processor = CLIPImageProcessor.from_pretrained(_CLIP_MODEL_NAME)
 
         self._model = CLIPVisionModelWithProjection.from_pretrained(_CLIP_MODEL_NAME).eval()
-        if _CUDA_AVAILABLE:
-            self._model = self._model.cuda()
+        
+        if device is not None:
+            self._model = self._model.to(device)
+            self.device = device
+        else:
+            if _CUDA_AVAILABLE:
+                self._model = self._model.cuda()
+                self.device = 'cuda'
+            else:
+                self.device = 'cpu'
 
         self.input_image_size = self.image_processor.crop_size["height"]
 
@@ -70,8 +78,9 @@ class ClipEmbeddingModel:
             do_rescale=False,
             return_tensors="pt",
         )
-        if _CUDA_AVAILABLE:
-            inputs = {k: v.to("cuda") for k, v in inputs.items()}
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        # if _CUDA_AVAILABLE:
+        #     inputs = {k: v.to("cuda") for k, v in inputs.items()}
 
         image_embs = self._model(**inputs).image_embeds.cpu()
         image_embs /= torch.linalg.norm(image_embs, axis=-1, keepdims=True)
