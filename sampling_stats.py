@@ -96,13 +96,13 @@ def update_output_stats(noise_pred_erase, noise_pred_general, timestep,
 
 
 
-exp_option = 'compute_zt' # 'infer_zt'
-stored_z_t_path = None #"data_root/cache/compositional_latents/zt_nT50.n50.bs10.seed999_a photo of person.pt"
+exp_option = 'infer_zt' # 'infer_zt'
+stored_z_t_path = "data_root/cache/compositional_latents/zt_nT50.n50.bs10.seed999_a photo of person.pt"
 num_inference_steps = 50
 n_samples = 50
 
 
-device = 'cuda:1'
+device = 'cuda:3'
 torch_dtype = torch.bfloat16
 
 
@@ -135,15 +135,18 @@ pipe.scheduler.set_timesteps(num_inference_steps)
 seen_persons =['Barrack Obama','Rihanna','Ed Sheeran','Margot Robbie','Chris Hemsworth','Chris Evans','Amy Adams','Anne Hathaway','Mariah Carey','Octavia Spencer','Morgan Freeman','Drake']
 # erase_concept = 'a photo of Barrack Obama'
 # general_concept = "a photo of person"
-general_concepts = ["a photo of person", "a photo of cat"]
+general_concepts = ["a photo of person"]
 # for erase_concept in ['a photo of Barrack Obama','a photo of Rihanna', "a photo of Anne Hathaway",  "a photo of cat", "a photo of car", "a photo of tree"]:
 erase_concepts = [f'a photo of {name}' for name in seen_persons]
+# erase_concepts = [f'a photo of {name}' for name in ['cat','car','tree']]
 
 if exp_option == 'compute_zt':
     assert stored_z_t_path is  None, "Please NOT store z_t path"
     erase_concepts = len(general_concepts)*['dummy'] # only need to compute once for general concept
     print("Computing and storing z_t for general concept only:", general_concepts)
     
+elif exp_option == 'infer_zt':
+    general_concepts = len(erase_concepts)*general_concepts # need to infer for each erase concept
 
 for general_concept, erase_concept in zip(general_concepts, erase_concepts):
     

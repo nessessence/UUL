@@ -1,182 +1,229 @@
-['rlct4.reV.obamaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.obama_sd1.4', 'rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.rihanna_sd1.4', 'rlct4.reV.edsheeranA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.edsheeran_sd1.4', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.mrobbie_sd1.4', 'rlct4.reV.chemsworthA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.chemsworth_sd1.4', 'rlct4.reV.cevansA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.cevans_sd1.4', 'rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.aadam_sd1.4', 'rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.ahathaway_sd1.4', 'rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.mcarey_sd1.4', 'rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.octavia_sd1.4', 'rlct4.reV.morganfA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.morganf_sd1.4', 'rlct4.reV.drakeA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.PS0.25.BGeneral.drake_sd1.4']
-echo 'count:0 - sd1.4 0 /'
+echo 'count: 0'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Barrack_Obama-from-Barrack_Obama-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.obama_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Barrack_Obama-from-Barrack_Obama-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/obama/aligned/obama-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.obamaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.obama_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul obamaA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:1 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 1'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Rihanna-from-Rihanna-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.rihanna_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Rihanna-from-Rihanna-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/rihanna/aligned/rihanna-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.rihanna_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul rihannaA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:2 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 2'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.edsheeran_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/edsheeran/aligned/edsheeran-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.edsheeranA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.edsheeran_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul edsheeranA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:3 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 3'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.mrobbie_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.mrobbie_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul mrobbieA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:4 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 4'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Chris_Hemsworth-from-Chris_Hemsworth-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.chemsworth_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Chris_Hemsworth-from-Chris_Hemsworth-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/chemsworth/aligned/chemsworth-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.chemsworthA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.chemsworth_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul chemsworthA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:5 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 5'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Chris_Evans-from-Chris_Evans-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.cevans_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Chris_Evans-from-Chris_Evans-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/cevans/aligned/cevans-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.cevansA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.cevans_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul cevansA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:6 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 6'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Amy_Adams-from-Amy_Adams-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.aadam_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Amy_Adams-from-Amy_Adams-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/aadam/aligned/aadam-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.aadam_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul aadamA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:7 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 7'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Hathaway-from-Anne_Hathaway-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.ahathaway_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Anne_Hathaway-from-Anne_Hathaway-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ahathaway/aligned/ahathaway-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.ahathaway_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul ahathawayA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:8 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 8'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Mariah_Carey-from-Mariah_Carey-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.mcarey_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Mariah_Carey-from-Mariah_Carey-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mcarey/aligned/mcarey-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.mcarey_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul mcareyA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:9 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 9'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Octavia_Spencer-from-Octavia_Spencer-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.octavia_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Octavia_Spencer-from-Octavia_Spencer-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/octavia/aligned/octavia-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.octavia_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul octaviaA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:10 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 10'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Morgan_Freeman-from-Morgan_Freeman-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.morganf_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Morgan_Freeman-from-Morgan_Freeman-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/morganf/aligned/morganf-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.morganfA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.morganf_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul morganfA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:11 - sd1.4 0 /'
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 11'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Drake-from-Drake-esdx_PS0.25_BGeneral.safetensors" \
-            --load_lora_weight_path="" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="data_root/generated/model/esd-x.PS0.25.BGeneral.drake_sd1.4" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Drake-from-Drake-esdx_PS1.00.safetensors" \
+            --instance_data_dir="data_root/data/real_data/drake/aligned/drake-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.drakeA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.drake_sd1.4" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=50  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul drakeA5V0 lNone ti' \
+            --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-Total scripts generated: 12
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+['rlct4.reV.obamaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.obama_sd1.4', 'rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.rihanna_sd1.4', 'rlct4.reV.edsheeranA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.edsheeran_sd1.4', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.mrobbie_sd1.4', 'rlct4.reV.chemsworthA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.chemsworth_sd1.4', 'rlct4.reV.cevansA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.cevans_sd1.4', 'rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.aadam_sd1.4', 'rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.ahathaway_sd1.4', 'rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.mcarey_sd1.4', 'rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.octavia_sd1.4', 'rlct4.reV.morganfA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.morganf_sd1.4', 'rlct4.reV.drakeA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.PS1.00.drake_sd1.4']

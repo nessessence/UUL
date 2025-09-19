@@ -246,9 +246,13 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
     
     apply_coco = False
-    if args.validation_prompt[0] == 'coco':
+    if '*coco30k' in args.validation_prompt[0]:
         apply_coco = True
-        args.validation_prompt = torch.load("data_root/data/real_data/coco/coco_sampled1000.pt")['captions']
+
+        # expected: *coco30k.{n_sample}
+        n_sample = int(args.validation_prompt[0].split('.')[-1])
+        paired_prompt = torch.load("data_root/data/real_data/coco/id_caption_coco30k_seed99.pt")
+        args.validation_prompt = [caption_ for id_,caption_ in paired_prompt[:n_sample]]
         args.num_validation_images = 1
     print('apply_coco:',apply_coco)
 
@@ -261,10 +265,13 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
         
         for cfg in cfg_scales:
             print(f'prompt: {prompt} cfg: {cfg:.2f} neg_prompt: {args.negative_prompt is not None }')
+            
+            if apply_coco:
+                print(f'{j+1} / {n_sample}')
             skip_already_generated = False
             if save_image_path is not None:
                 if apply_coco:
-                    save_image_path_dir = osp.join(save_image_path,"coco", f"{cfg:.2f}")
+                    save_image_path_dir = osp.join(save_image_path,"coco30k", f"{cfg:.2f}")
                     if skip_already_generated: 
                         if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= len(args.validation_prompt):  # TODO: should count only images
                             logger.info(f"Skipping COCO as already exist in {save_image_path_dir} with {len(args.validation_prompt)} images")
@@ -846,6 +853,11 @@ def parse_args(input_args=None):
     parser.add_argument("--learning_rate_lora",type=float,default=None,)
     parser.add_argument("--learning_rate_lora_text_encoder",type=float,default=None,)
     parser.add_argument("--sampler",type=str,default="DDIM",)
+
+    # Hacked debt
+    parser.add_argument("--donot_reinit_validation_generator",action="store_true")
+
+
 
     
     parser.add_argument(
@@ -2267,10 +2279,14 @@ def main(args):
 if __name__ == "__main__":
     args = parse_args()
     args.pc_id = os.environ.get("pc_id")
-    
-    args.reinit_validation_generator = True
-    
-    
+
+
+    if args.donot_reinit_validation_generator:
+        args.reinit_validation_generator = False # used for COCO for example
+    else:
+        args.reinit_validation_generator = True # by default
+
+
     ## prompt validation
     args.validation_prompt = args.validation_prompt.split(';')
     print(f'validation prompt: {args.validation_prompt}')

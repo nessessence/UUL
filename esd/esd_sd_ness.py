@@ -6,7 +6,7 @@ from tqdm.auto import tqdm
 from safetensors.torch import save_file
 from diffusers import StableDiffusionPipeline, UNet2DConditionModel
 import argparse
-
+import numpy as np
 sys.path.append('.')
 from utils.sd_utils import esd_sd_call
 StableDiffusionPipeline.__call__ = esd_sd_call
@@ -69,6 +69,11 @@ if __name__ == '__main__':
     parser.add_argument('--base_concept', type=str, choices=['null','general','erased'], default='null', required=False)
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
 
+
+
+    parser.add_argument('--decompositional_timestep_sampler',  type=str,  choices=[None,'avg','indiv'], default=None)
+
+
     args = parser.parse_args()
     
     
@@ -120,8 +125,14 @@ if __name__ == '__main__':
 
         # print(f'scaled timestep constraint: {args.scaled_lb_timestep_constraint}-{args.scaled_ub_timestep_constraint}')
 
-        
-        
+    if args.decompositional_timestep_sampler is not None:
+        if args.decompositional_timestep_sampler == 'avg':
+            sampler_general_concept = 'a photo of person'
+            sampler_stats = torch.load(f'../data_root/cache/compositional_latents/minmax_inverse_cosine_AllPerson.{sampler_general_concept}_zt_nT50.n50.bs10.seed999_{sampler_general_concept}.pt')
+            print('Using avg decompositional timestep sampler')
+            
+        timesteps2num_inference_step = {t: i for i, t in enumerate(pipe.scheduler.timesteps.tolist())}
+
     with torch.no_grad():
         # get prompt embeds
         erase_embeds, null_embeds = pipe.encode_prompt(prompt=erase_concept,
@@ -170,21 +181,27 @@ if __name__ == '__main__':
         # get the noise predictions for erase concept
         pipe.unet = base_unet
         
-        if args.timestep_constraint is not None:
 
-            run_till_timestep = random.randint(0, len(constrainted_timesteps)-1)
-            run_till_timestep_scheduler = constrainted_timesteps[run_till_timestep]
-            print(f"timestep: {run_till_timestep_scheduler}")
+        if args.decompositional_timestep_sampler == 'avg':
+            timestep =  np.random.choice(sampler_stats['timesteps'], p=sampler_stats['probs'])
+            num_inference_step_ = timesteps2num_inference_step[timestep]
+            print(f"timestep: {timestep} - num_inference_step_: {num_inference_step_}")
+            timestep = torch.tensor(timestep).to(device)
+        elif args.timestep_constraint is not None:
+
+            num_inference_step_ = random.randint(0, len(constrainted_timesteps)-1)
+            timestep = constrainted_timesteps[num_inference_step_]
+            print(f"timestep: {timestep}")
             
-            # run_till_timestep_scheduler = pipe.scheduler.timesteps[run_till_timestep]
+            # timestep = pipe.scheduler.timesteps[run_till_timestep]
             
-            # print(f"timestep: {run_till_timestep_scheduler}") 
+            # print(f"timestep: {timestep}") 
             # print(pipe.scheduler.timesteps) # reverse order : 981-1
             # print(f'effective timestep: {pipe.scheduler.timesteps[args.scaled_lb_timestep_constraint]} - {pipe.scheduler.timesteps[args.scaled_ub_timestep_constraint-1]}')
 
         else:
-            run_till_timestep = random.randint(0, num_inference_steps-1)
-            run_till_timestep_scheduler = pipe.scheduler.timesteps[run_till_timestep]
+            num_inference_step_ = random.randint(0, num_inference_steps-1)
+            timestep = pipe.scheduler.timesteps[num_inference_step_] # [981, 961, 961, 941, 921, 901, 881, 861, 841, 821, 801, 781, 761, 741,721, 701, 681, 661, 641, 621, 601, 581, 561, 541, 521, 501, 481, 461,441, 421, 401, 381, 361, 341, 321, 301, 281, 261, 241, 221, 201, 181,161, 141, 121, 101,  81,  61,  41,  21,   1]
             
             
         seed = random.randint(0, 2**15)
@@ -193,11 +210,11 @@ if __name__ == '__main__':
         with torch.no_grad():
             # sample xt with Pe (reverse process)
             xt = pipe(erase_concept if erase_concept_from is None else erase_concept_from, 
-                      num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=run_till_timestep, generator=torch.Generator().manual_seed(seed), output_type='latent', height=height, width=width).images
+                      num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(seed), output_type='latent', height=height, width=width).images
 
             noise_pred_erase = pipe.unet(
                 xt,
-                run_till_timestep_scheduler,
+                timestep,
                 encoder_hidden_states=erase_embeds,
                 timestep_cond=timestep_cond,
                 cross_attention_kwargs=None,
@@ -208,7 +225,7 @@ if __name__ == '__main__':
             # get the noise predictions for null embeds
             noise_pred_base = pipe.unet(
                 xt,
-                run_till_timestep_scheduler,
+                timestep,
                 encoder_hidden_states=base_embeds,
                 timestep_cond=timestep_cond,
                 cross_attention_kwargs=None,
@@ -220,7 +237,7 @@ if __name__ == '__main__':
             if erase_concept_from is not None:
                 noise_pred_erase_from = pipe.unet(
                     xt,
-                    run_till_timestep_scheduler,
+                    timestep,
                     encoder_hidden_states=erase_from_embeds,
                     timestep_cond=timestep_cond,
                     cross_attention_kwargs=None,
@@ -234,7 +251,7 @@ if __name__ == '__main__':
         pipe.unet = esd_unet
         noise_pred_esd_model = pipe.unet(
             xt,
-            run_till_timestep_scheduler,
+            timestep,
             encoder_hidden_states=erase_embeds if erase_concept_from is None else erase_from_embeds,
             timestep_cond=timestep_cond,
             cross_attention_kwargs=None,
@@ -262,13 +279,13 @@ if __name__ == '__main__':
                 preservation_embeds = preservation_embeds.to(device)    
                 
                 xt_ps = pipe(preservation_concept, 
-                        num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=run_till_timestep, generator=torch.Generator().manual_seed(seed), output_type='latent', height=height, width=width).images
+                        num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(seed), output_type='latent', height=height, width=width).images
 
 
 
                 noise_pred_ps = pipe.unet(
                     xt_ps,
-                    run_till_timestep_scheduler,
+                    timestep,
                     encoder_hidden_states=preservation_embeds,
                     timestep_cond=timestep_cond,
                     cross_attention_kwargs=None,
@@ -278,7 +295,7 @@ if __name__ == '__main__':
 
                 # noise_pred_esd_base_ps = pipe.unet(
                 #     xt_ps,
-                #     run_till_timestep_scheduler,
+                #     timestep,
                 #     encoder_hidden_states=base_embeds,
                 #     timestep_cond=timestep_cond,
                 #     cross_attention_kwargs=None,
@@ -290,7 +307,7 @@ if __name__ == '__main__':
             pipe.unet = esd_unet
             noise_pred_ps_esd_model = pipe.unet(
                 xt_ps,
-                run_till_timestep_scheduler,
+                timestep,
                 encoder_hidden_states=preservation_embeds,
                 timestep_cond=timestep_cond,
                 cross_attention_kwargs=None,
@@ -308,7 +325,7 @@ if __name__ == '__main__':
         loss.backward()
         losses.append(loss.item())
         pbar.set_postfix(esd_loss=loss.item(),
-                         timestep=run_till_timestep,)
+                         timestep=num_inference_step_,)
         optimizer.step()
     
     esd_param_dict = {}
@@ -331,6 +348,12 @@ if __name__ == '__main__':
         
     if args.base_concept == 'general':
         base_file_name += f"_BGeneral"
+        
+    if args.decompositional_timestep_sampler is not None:
+        base_file_name += f"_dT{args.decompositional_timestep_sampler}"
+        
+    if args.iterations != 200:
+        base_file_name += f"_step{args.iterations}"
     
     save_file(esd_param_dict, f"{save_path}/{base_file_name}.safetensors")
 
