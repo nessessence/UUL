@@ -1,41 +1,626 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="15_3"
 
+echo 'count:0 - sd1.4 0 /'
 
-echo 'count:103 - rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4 400 /'
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="data_root/generated/model/original_pretrained_sd1.4" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of fluorescent lights;a photo of sandals;a photo of lotus pond;a photo of tea whisk;a photo of sled;a photo of japanese shrine;a photo of iron skillet;a photo of busy street stall;a photo of planet rings;a photo of fried tofu cubes" --instance_prompt="a photo of fluorescent lights;a photo of sandals;a photo of lotus pond;a photo of tea whisk;a photo of sled;a photo of japanese shrine;a photo of iron skillet;a photo of busy street stall;a photo of planet rings;a photo of fried tofu cubes" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 1
+
+echo 'count:0 - sd1.4 0 /'
+
+       accelerate launch train_dreambooth_lora.py \
+           --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+           --load_unet_weight_path="" \
+           --load_lora_weight_path="" \
+           --instance_data_dir="data_root/data/real_data/dummy" \
+           --gen_image_path="data_root/generated/model/original_pretrained_sd1.4" \
+           --output_dir="data_root/logs/gen" \
+           --validation_prompt="a photo of elephant head;a photo of om symbol;a photo of temple elephant;a photo of murti;a photo of Lakshmi;a photo of Krishna;a photo of Durga;a photo of camel;a photo of Ramayana scene" --instance_prompt="a photo of elephant head;a photo of om symbol;a photo of temple elephant;a photo of murti;a photo of Lakshmi;a photo of Krishna;a photo of Durga;a photo of camel;a photo of Ramayana scene" \
+           --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+           --run_note 'gen img' --wait_weight \
+           --num_validation_images 50 \
+           --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 1
+
+
+
+['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nordic_house_sd1.4']
+echo 'count:0 - house_sd1.4 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-nordic_house-from-nordic_house-esdx.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nordic_house_sd1.4" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of drum;a photo of rice terrace;a photo of simple kitchen;a photo of meadow;a photo of wooden porch;a photo of hay loft;a photo of pyramid;a photo of log fire;a photo of forest meadow;a photo of ancient tomb" --instance_prompt="a photo of drum;a photo of rice terrace;a photo of simple kitchen;a photo of meadow;a photo of wooden porch;a photo of hay loft;a photo of pyramid;a photo of log fire;a photo of forest meadow;a photo of ancient tomb" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 1
+['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nordic_house_sd1.4']
+
+
+echo 'count:0 - mouse_sd1.4 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-mickey_mouse-from-mickey_mouse-esdx.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.mickey_mouse_sd1.4" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Wonder Woman;a photo of Bart Simpson;a photo of Elmo;a photo of Donald Duck;a photo of Daisy Duck;a photo of Oswald the Lucky Rabbit;a photo of cartoon mouse;a photo of Winnie the Pooh" --instance_prompt="a photo of Wonder Woman;a photo of Bart Simpson;a photo of Elmo;a photo of Donald Duck;a photo of Daisy Duck;a photo of Oswald the Lucky Rabbit;a photo of cartoon mouse;a photo of Winnie the Pooh" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 1
+
+# ['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.mrobbie_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.mrobbie_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.mrobbie_sd1.4']
+# echo 'count:0 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx_nG1.00.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/esd-x.nG1.00.mrobbie_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of a blonde-haired woman with wavy hair;a photo of a woman with blue eyes and fair skin;a photo of a glamorous actress on the red carpet;a photo of a woman in pink outfit with stylish makeup;a photo of a close-up portrait of smiling woman with red lipstick;a photo of a fashionable woman in a designer evening gown;a photo of a young woman with sharp jawline and defined cheekbones;a photo of a woman with shoulder-length hair styled in soft curls;a photo of a actress posing for a magazine photoshoot;a photo of a confident woman in a tailored suit with elegant posture" --instance_prompt="a photo of a blonde-haired woman with wavy hair;a photo of a woman with blue eyes and fair skin;a photo of a glamorous actress on the red carpet;a photo of a woman in pink outfit with stylish makeup;a photo of a close-up portrait of smiling woman with red lipstick;a photo of a fashionable woman in a designer evening gown;a photo of a young woman with sharp jawline and defined cheekbones;a photo of a woman with shoulder-length hair styled in soft curls;a photo of a actress posing for a magazine photoshoot;a photo of a confident woman in a tailored suit with elegant posture" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50 --gen_batch 10
+# echo 'count:1 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/esd-x.mrobbie_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of a blonde-haired woman with wavy hair;a photo of a woman with blue eyes and fair skin;a photo of a glamorous actress on the red carpet;a photo of a woman in pink outfit with stylish makeup;a photo of a close-up portrait of smiling woman with red lipstick;a photo of a fashionable woman in a designer evening gown;a photo of a young woman with sharp jawline and defined cheekbones;a photo of a woman with shoulder-length hair styled in soft curls;a photo of a actress posing for a magazine photoshoot;a photo of a confident woman in a tailored suit with elegant posture" --instance_prompt="a photo of a blonde-haired woman with wavy hair;a photo of a woman with blue eyes and fair skin;a photo of a glamorous actress on the red carpet;a photo of a woman in pink outfit with stylish makeup;a photo of a close-up portrait of smiling woman with red lipstick;a photo of a fashionable woman in a designer evening gown;a photo of a young woman with sharp jawline and defined cheekbones;a photo of a woman with shoulder-length hair styled in soft curls;a photo of a actress posing for a magazine photoshoot;a photo of a confident woman in a tailored suit with elegant posture" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50 --gen_batch 10
+# echo 'count:2 - sd1.4 0 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx_nG3.00.safetensors" \
+#             --load_lora_weight_path="" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="data_root/generated/model/esd-x.nG3.00.mrobbie_sd1.4" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of a blonde-haired woman with wavy hair;a photo of a woman with blue eyes and fair skin;a photo of a glamorous actress on the red carpet;a photo of a woman in pink outfit with stylish makeup;a photo of a close-up portrait of smiling woman with red lipstick;a photo of a fashionable woman in a designer evening gown;a photo of a young woman with sharp jawline and defined cheekbones;a photo of a woman with shoulder-length hair styled in soft curls;a photo of a actress posing for a magazine photoshoot;a photo of a confident woman in a tailored suit with elegant posture" --instance_prompt="a photo of a blonde-haired woman with wavy hair;a photo of a woman with blue eyes and fair skin;a photo of a glamorous actress on the red carpet;a photo of a woman in pink outfit with stylish makeup;a photo of a close-up portrait of smiling woman with red lipstick;a photo of a fashionable woman in a designer evening gown;a photo of a young woman with sharp jawline and defined cheekbones;a photo of a woman with shoulder-length hair styled in soft curls;a photo of a actress posing for a magazine photoshoot;a photo of a confident woman in a tailored suit with elegant posture" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50 --gen_batch 10
+# Total scripts generated: 3
+
+
+['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.mrobbie_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.mrobbie_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.mrobbie_sd1.4']
+echo 'count:0 - sd1.4 0 /'
 
         accelerate launch train_dreambooth_lora.py \
             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Mariah_Carey-from-Mariah_Carey-esdx_BGeneral_step500.safetensors" \
-            --load_lora_weight_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-400" \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx_nG1.00.safetensors" \
+            --load_lora_weight_path="" \
             --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="auto" \
+            --gen_image_path="data_root/generated/model/esd-x.nG1.00.mrobbie_sd1.4" \
             --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --validation_prompt="a photo of a middle-aged african american man;a photo of a person with short cropped black hair;a photo of a man wearing formal business suit and tie;a photo of a charismatic public speaker at podium;a photo of a smiling man with warm facial expression;a photo of a tall, lean man with oval face shape;a photo of a politician standing in front of american flags;a photo of a leader in formal portrait photograph;a photo of a man walking outdoors in rolled-up sleeves;a photo of a figure engaged in conversation with diverse groups of people" --instance_prompt="a photo of a middle-aged african american man;a photo of a person with short cropped black hair;a photo of a man wearing formal business suit and tie;a photo of a charismatic public speaker at podium;a photo of a smiling man with warm facial expression;a photo of a tall, lean man with oval face shape;a photo of a politician standing in front of american flags;a photo of a leader in formal portrait photograph;a photo of a man walking outdoors in rolled-up sleeves;a photo of a figure engaged in conversation with diverse groups of people" \
             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
             --run_note 'gen img' --wait_weight \
             --num_validation_images 50 \
-            --load_token_embedding_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-400" \
-            --placeholder_token="v1" --initializer_token='person' \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
             --cfg_scale 7.50 --gen_batch 10
-echo 'count:104 - rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4 500 /'
+echo 'count:1 - sd1.4 0 /'
 
         accelerate launch train_dreambooth_lora.py \
             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Mariah_Carey-from-Mariah_Carey-esdx_BGeneral_step500.safetensors" \
-            --load_lora_weight_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-500" \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx.safetensors" \
+            --load_lora_weight_path="" \
             --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="auto" \
+            --gen_image_path="data_root/generated/model/esd-x.mrobbie_sd1.4" \
             --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --validation_prompt="a photo of a middle-aged african american man;a photo of a person with short cropped black hair;a photo of a man wearing formal business suit and tie;a photo of a charismatic public speaker at podium;a photo of a smiling man with warm facial expression;a photo of a tall, lean man with oval face shape;a photo of a politician standing in front of american flags;a photo of a leader in formal portrait photograph;a photo of a man walking outdoors in rolled-up sleeves;a photo of a figure engaged in conversation with diverse groups of people" --instance_prompt="a photo of a middle-aged african american man;a photo of a person with short cropped black hair;a photo of a man wearing formal business suit and tie;a photo of a charismatic public speaker at podium;a photo of a smiling man with warm facial expression;a photo of a tall, lean man with oval face shape;a photo of a politician standing in front of american flags;a photo of a leader in formal portrait photograph;a photo of a man walking outdoors in rolled-up sleeves;a photo of a figure engaged in conversation with diverse groups of people" \
             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
             --run_note 'gen img' --wait_weight \
             --num_validation_images 50 \
-            --load_token_embedding_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-500" \
-            --placeholder_token="v1" --initializer_token='person' \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
             --cfg_scale 7.50 --gen_batch 10
+echo 'count:2 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Margot_Robbie-from-Margot_Robbie-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.mrobbie_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a middle-aged african american man;a photo of a person with short cropped black hair;a photo of a man wearing formal business suit and tie;a photo of a charismatic public speaker at podium;a photo of a smiling man with warm facial expression;a photo of a tall, lean man with oval face shape;a photo of a politician standing in front of american flags;a photo of a leader in formal portrait photograph;a photo of a man walking outdoors in rolled-up sleeves;a photo of a figure engaged in conversation with diverse groups of people" --instance_prompt="a photo of a middle-aged african american man;a photo of a person with short cropped black hair;a photo of a man wearing formal business suit and tie;a photo of a charismatic public speaker at podium;a photo of a smiling man with warm facial expression;a photo of a tall, lean man with oval face shape;a photo of a politician standing in front of american flags;a photo of a leader in formal portrait photograph;a photo of a man walking outdoors in rolled-up sleeves;a photo of a figure engaged in conversation with diverse groups of people" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 3
+
+"""
+
+echo 'count:3 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-car-from-car-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.car_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:4 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-motorcycle-from-motorcycle-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.motorcycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:5 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-bicycle-from-bicycle-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.bicycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" --instance_prompt="a photo of Barrack Obama;a photo of Rihanna;a photo of Ed Sheeran;a photo of Margot Robbie;a photo of Chris Hemsworth;a photo of Chris Evans;a photo of Amy Adams;a photo of Anne Hathaway;a photo of Mariah Carey;a photo of Octavia Spencer;a photo of Morgan Freeman;a photo of Drake" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 6
+
+['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.cat_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.dog_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.horse_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.car_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.motorcycle_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.bicycle_sd1.4']
+echo 'count:0 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-cat-from-cat-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.cat_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" --instance_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:1 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-dog-from-dog-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.dog_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" --instance_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:2 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-horse-from-horse-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.horse_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" --instance_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:3 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-car-from-car-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.car_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" --instance_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:4 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-motorcycle-from-motorcycle-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.motorcycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" --instance_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:5 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-bicycle-from-bicycle-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.bicycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" --instance_prompt="a photo of a cow;a photo of a bus;a photo of a mountain;a photo of a river;a photo of a forest;a photo of a desert" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 6
+
+['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.cat_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.dog_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.horse_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.car_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.motorcycle_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.bicycle_sd1.4']
+echo 'count:0 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-cat-from-cat-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.cat_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:1 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-dog-from-dog-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.dog_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:2 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-horse-from-horse-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.horse_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:3 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-car-from-car-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.car_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:4 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-motorcycle-from-motorcycle-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.motorcycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:5 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-bicycle-from-bicycle-esdx.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.bicycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 6
+
+['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.cat_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.dog_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.horse_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.car_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.motorcycle_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.bicycle_sd1.4']
+echo 'count:0 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-cat-from-cat-esdx_nG1.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG1.00.cat_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:1 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-dog-from-dog-esdx_nG1.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG1.00.dog_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:2 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-horse-from-horse-esdx_nG1.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG1.00.horse_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:3 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-car-from-car-esdx_nG1.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG1.00.car_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:4 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-motorcycle-from-motorcycle-esdx_nG1.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG1.00.motorcycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:5 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-bicycle-from-bicycle-esdx_nG1.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG1.00.bicycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 6
+
+
+
+
+
+
+['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.cat_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.dog_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.horse_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.car_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.motorcycle_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG3.00.bicycle_sd1.4']
+echo 'count:0 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-cat-from-cat-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.cat_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:1 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-dog-from-dog-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.dog_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:2 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-horse-from-horse-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.horse_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:3 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-car-from-car-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.car_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:4 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-motorcycle-from-motorcycle-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.motorcycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+echo 'count:5 - sd1.4 0 /'
+
+        accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-bicycle-from-bicycle-esdx_nG3.00.safetensors" \
+            --load_lora_weight_path="" \
+            --instance_data_dir="data_root/data/real_data/dummy" \
+            --gen_image_path="data_root/generated/model/esd-x.nG3.00.bicycle_sd1.4" \
+            --output_dir="data_root/logs/gen" \
+            --validation_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" --instance_prompt="a photo of a black person;a photo of a white person;a photo of a asian person;a photo of a black man;a photo of a white man;a photo of a asian man;a photo of a asian woman;a photo of a white man;a photo of a white woman" \
+            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --run_note 'gen img' --wait_weight \
+            --num_validation_images 50 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 6
+
+# echo 'count:103 - rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4 400 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Mariah_Carey-from-Mariah_Carey-esdx_BGeneral_step500.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-400" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-400" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50 --gen_batch 10
+# echo 'count:104 - rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4 500 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Mariah_Carey-from-Mariah_Carey-esdx_BGeneral_step500.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-500" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4/checkpoint-500" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50 --gen_batch 10
 
 
 
@@ -2517,7 +3102,6 @@ echo 'count:104 - rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-
 
 
 
-"""
 echo 'count:0 '
 
             accelerate launch train_dreambooth_lora.py \

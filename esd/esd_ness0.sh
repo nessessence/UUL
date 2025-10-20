@@ -2,23 +2,64 @@
 export device="cuda:0"
 export CUDA_VISIBLE_DEVICES=0
 
+python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+['esd-cow-from-cow-esdx_nG1.00', 'esd-bus-from-bus-esdx_nG1.00', 'esd-mountain-from-mountain-esdx_nG1.00', 'esd-river-from-river-esdx_nG1.00', 'esd-forest-from-forest-esdx_nG1.00', 'esd-desert-from-desert-esdx_nG1.00']
 
 
 
-python esd_sd_ness.py --erase_concept 'Barrack Obama' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Ed Sheeran' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Amy Adams' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+['esd-cow-from-cow-esdx', 'esd-bus-from-bus-esdx', 'esd-mountain-from-mountain-esdx', 'esd-river-from-river-esdx', 'esd-forest-from-forest-esdx', 'esd-desert-from-desert-esdx']
 
-python esd_sd_ness.py --erase_concept 'Rihanna' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Chris Hemsworth' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Chris Evans' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Anne Hathaway' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Mariah Carey' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Octavia Spencer' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Morgan Freeman' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-python esd_sd_ness.py --erase_concept 'Drake' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
-['esd-Barrack_Obama-from-Barrack_Obama-esdx_BGeneral_step500', 'esd-Rihanna-from-Rihanna-esdx_BGeneral_step500', 'esd-Ed_Sheeran-from-Ed_Sheeran-esdx_BGeneral_step500', 'esd-Margot_Robbie-from-Margot_Robbie-esdx_BGeneral_step500', 'esd-Chris_Hemsworth-from-Chris_Hemsworth-esdx_BGeneral_step500', 'esd-Chris_Evans-from-Chris_Evans-esdx_BGeneral_step500', 'esd-Amy_Adams-from-Amy_Adams-esdx_BGeneral_step500', 'esd-Anne_Hathaway-from-Anne_Hathaway-esdx_BGeneral_step500', 'esd-Mariah_Carey-from-Mariah_Carey-esdx_BGeneral_step500', 'esd-Octavia_Spencer-from-Octavia_Spencer-esdx_BGeneral_step500', 'esd-Morgan_Freeman-from-Morgan_Freeman-esdx_BGeneral_step500', 'esd-Drake-from-Drake-esdx_BGeneral_step500']
+
+
+python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+['esd-cow-from-cow-esdx_nG3.00', 'esd-bus-from-bus-esdx_nG3.00', 'esd-mountain-from-mountain-esdx_nG3.00', 'esd-river-from-river-esdx_nG3.00', 'esd-forest-from-forest-esdx_nG3.00', 'esd-desert-from-desert-esdx_nG3.00']
+# python esd_sd_ness.py --erase_concept 'cat' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'dog' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'horse' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'car' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'motorcycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'bicycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# ['esd-cat-from-cat-esdx_nG3.00', 'esd-dog-from-dog-esdx_nG3.00', 'esd-horse-from-horse-esdx_nG3.00', 'esd-car-from-car-esdx_nG3.00', 'esd-motorcycle-from-motorcycle-esdx_nG3.00', 'esd-bicycle-from-bicycle-esdx_nG3.00']
+
+
+# python esd_sd_ness.py --erase_concept 'cat' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'dog' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'horse' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'car' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'motorcycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'bicycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# ['esd-cat-from-cat-esdx_nG1.00', 'esd-dog-from-dog-esdx_nG1.00', 'esd-horse-from-horse-esdx_nG1.00', 'esd-car-from-car-esdx_nG1.00', 'esd-motorcycle-from-motorcycle-esdx_nG1.00', 'esd-bicycle-from-bicycle-esdx_nG1.00']
+
+# python esd_sd_ness.py --erase_concept 'Barrack Obama' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Ed Sheeran' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Amy Adams' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+
+# python esd_sd_ness.py --erase_concept 'Rihanna' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Chris Hemsworth' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Chris Evans' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Anne Hathaway' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Mariah Carey' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Octavia Spencer' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Morgan Freeman' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# python esd_sd_ness.py --erase_concept 'Drake' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --iterations 500
+# ['esd-Barrack_Obama-from-Barrack_Obama-esdx_BGeneral_step500', 'esd-Rihanna-from-Rihanna-esdx_BGeneral_step500', 'esd-Ed_Sheeran-from-Ed_Sheeran-esdx_BGeneral_step500', 'esd-Margot_Robbie-from-Margot_Robbie-esdx_BGeneral_step500', 'esd-Chris_Hemsworth-from-Chris_Hemsworth-esdx_BGeneral_step500', 'esd-Chris_Evans-from-Chris_Evans-esdx_BGeneral_step500', 'esd-Amy_Adams-from-Amy_Adams-esdx_BGeneral_step500', 'esd-Anne_Hathaway-from-Anne_Hathaway-esdx_BGeneral_step500', 'esd-Mariah_Carey-from-Mariah_Carey-esdx_BGeneral_step500', 'esd-Octavia_Spencer-from-Octavia_Spencer-esdx_BGeneral_step500', 'esd-Morgan_Freeman-from-Morgan_Freeman-esdx_BGeneral_step500', 'esd-Drake-from-Drake-esdx_BGeneral_step500']
 
 
 
