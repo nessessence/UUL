@@ -1,127 +1,89 @@
 import os 
-import os.path as osp
-# os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
-
 import torch
-import random
-import numpy as np
-
-# seed = 123
-# rng = np.random.RandomState(seed=seed)
-
-    
 import sys
-# os.environ["PYTHONHASHSEED"] = str(123)s
+import random
 from tqdm.auto import tqdm
 from safetensors.torch import save_file
 from diffusers import StableDiffusionPipeline, UNet2DConditionModel
 import argparse
+import numpy as np
 sys.path.append('.')
 from utils.sd_utils import esd_sd_call
 StableDiffusionPipeline.__call__ = esd_sd_call
 
 
-from gradient_surgery import collect_param_grads,zero_param_grads,param_grad_stats,generalize_gradient_projection,inject_resolved_grads_by_name
-from gradient_surgery import do_grad_injection
-from diffusers import DDIMScheduler
+# from gradient_surgery import AttentionGradientHook,install_hook_on_learnables,check_hook_installation,generalize_gradient_projection
+from _gradient_surgery import (
+    AttentionGradientHook,
+    install_hook_on_learnables,
+    collect_grads_by_name_from_unet,
+    zero_cached_grads_in_unet,
+    inject_resolved_grads_by_name,
+    clear_hook_caches,
+    generalize_gradient_projection,
+)
 
+# def prepare_unet_for_surgery(unet):
+#     # Turn off gradient checkpointing and memory-efficient attention that can hide intermediates
+#     try:
+#         unet.disable_gradient_checkpointing()
+#     except Exception:
+#         pass
+#     # If you had enabled xformers / mem-efficient attention elsewhere, prefer SDPA path:
+#     try:
+#         unet.set_default_attn_processor()  # reset to stock AttnProcessor2_0 first
+#     except Exception:
+#         pass
 
-concept2shortname = {
-    "Margot Robbie": "mrobbie",
-}
+def prepare_unet_for_surgery(unet):
+    # 1) disable gradient checkpointing (it can re-create tensors and break retain_grad capture)
+    try:
+        unet.disable_gradient_checkpointing()
+    except Exception:
+        pass
 
-def resolve_model_name(args): #, training_step):
-    erase_concept = args.erase_concept
-    train_method = args.train_method
-    erase_concept_shortname = concept2shortname[erase_concept] if erase_concept in concept2shortname else erase_concept.replace(' ', '-')
-    # base_file_name = f"{train_method}.{erase_concept_shortname}"
+    # 2) prefer SDPA math kernels globally as a safety net
+    torch.backends.cuda.matmul.allow_tf32 = True  # optional perf
+    torch.backends.cudnn.allow_tf32 = True
+    torch.backends.cuda.sdp_kernel(enable_flash=False, enable_mem_efficient=False, enable_math=True)
 
+    # 3) if you had enabled xFormers somewhere, reset to stock
+    try:
+        unet.set_default_attn_processor()  # restores AttnProcessor2_0 path
+    except Exception:
+        pass
 
-    base_file_name = f"{train_method}"
-    if args.negative_guidance:
-        base_file_name += f".nG{args.negative_guidance:.2f}"
     
-    if not args.apply_gradient_projection and args.preservation_weight is not None and args.preservation_weight > 0:
-        base_file_name += '.'
-        if  args.preservation_train_set:
-            if args.preservation_train_set in ['00','01','02','03']:
-                base_file_name += f"pe{args.preservation_train_set}"
-            elif args.preservation_train_set == 'celeb':
-                base_file_name += f"cl"
-            elif args.preservation_train_set == 'coco':
-                base_file_name += f"cc"
-            base_file_name += '-'
-        
-        base_file_name += f"PS{args.preservation_weight:.2f}"
-        
-        
-    if args.apply_gradient_projection:
-            base_file_name += f"_GP"
-            base_file_name += '.g'
-            if args.gradient_projection_param_group == 'global' or args.gradient_projection_param_group == 'none':
-                base_file_name += f"G"
-            if args.gradient_projection_param_group == 'attn_head':
-                base_file_name += f"H"
-            if args.gradient_projection_param_group == 'layer':
-                base_file_name += f"L"
-            if args.gradient_projection_param_group == 'neuron':
-                base_file_name += f"N"
-                
-            base_file_name += '.p'
-            if args.gradient_projection_mode == 'hard':
-                base_file_name += f"H"
-            if args.gradient_projection_mode == 'soft':
-                base_file_name += f"S"
-                
-                
-            base_file_name += '.'
-            if  args.preservation_train_set:
-                if args.preservation_train_set in ['00','01','02','03']:
-                    base_file_name += f"pe{args.preservation_train_set}"
-                elif args.preservation_train_set == 'celeb':
-                    base_file_name += f"cl"
-                elif args.preservation_train_set == 'coco':
-                    base_file_name += f"cc"
-                base_file_name += '-'
-            base_file_name += f"PS{args.gradient_projection_preserve_scale:.2f}"
+@torch.no_grad()
+def _sanity_check_hook_flow(unet, hook_cls, verbose=True):
+    """
+    Checks that at least one hooked processor has a non-empty tensor in cache
+    and gets a non-zero gradient after a dummy backward.
+    """
+    # find one processor
+    one_name, one_proc = None, None
+    for name, proc in unet.attn_processors.items():
+        if isinstance(proc, hook_cls):
+            one_name, one_proc = name, proc
+            break
+    if one_proc is None:
+        if verbose: print("❌ No hook instances found on UNet.attn_processors.")
+        return False
 
+    # did forward populate cache?
+    if one_name not in one_proc.cache_by_name:
+        if verbose: print("⚠️ Hook cache empty. Did you run a forward that hits attention?")
+        return False
 
-    if args.timestep_constraint is not None:
-        base_file_name += f"_T{args.timestep_constraint}"
-        
-    if args.base_concept == 'general':
-        base_file_name += f"_BGeneral"
-        
-    if args.decompositional_timestep_sampler is not None:
-        base_file_name += f"_dT{args.decompositional_timestep_sampler}"
+    # print(one_name) # down_blocks.0.attentions.0.transformer_blocks.0.attn2.processor
+    t = one_proc.cache_by_name[one_name]
+    if t.grad is None or (t.grad.abs().sum().item() == 0):
+        if verbose: print("⚠️ Gradient at cached tensor is zero or None.")
+        return False
 
-    base_file_name += f"_U.{erase_concept_shortname}"
-    base_file_name += "_sd1.4"  
-    base_file_name += f"_r{args.seed}"
-    
-    
-    
-    return f"{base_file_name}"
+    if verbose: print("✅ Hook cache has non-zero grads. Flow looks good.")
+    return True
 
-
-def save_esd_model(esd_param_names, esd_params, args, training_step):
-    model_name = resolve_model_name(args)
-
-    save_model_path = osp.join(args.save_path, model_name, f'step{training_step}.safetensors')
-    os.makedirs(osp.dirname(save_model_path), exist_ok=True)
-
-    esd_param_dict = {}
-    for name, param in zip(esd_param_names, esd_params):
-        esd_param_dict[name] = param
-    save_file(esd_param_dict, save_model_path)
-    
-    print(f"ESD model saved at: {save_model_path}")
-    
-        
-        
-    
-
-        
 
 
 def load_sd_models(basemodel_id="CompVis/stable-diffusion-v1-4", torch_dtype=torch.bfloat16, device='cuda:0'):
@@ -170,7 +132,7 @@ if __name__ == '__main__':
     parser.add_argument('--guidance_scale', help='guidance scale to run inference for diffusion model', type=float, required=False, default=3)
     
     parser.add_argument('--train_method', help='Type of method (esd-x, esd-u, esd-a, esd-x-strict)', type=str, required=True)
-    parser.add_argument('--max_training_step', help='Number of max_training_step', type=int, default=200)
+    parser.add_argument('--iterations', help='Number of iterations', type=int, default=200)
     parser.add_argument('--lr', help='Learning rate', type=float, default=5e-5)
     parser.add_argument('--negative_guidance', help='Negative guidance value', type=float, required=False, default=2)
     parser.add_argument('--save_path', help='Path to save model', type=str, default='esd-models/sd/')
@@ -180,10 +142,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--timestep_constraint', help='timestep constraint for diffusion model', type=str, required=False, default=None)
     parser.add_argument('--base_concept', type=str, choices=['null','general','erased'], default='null', required=False)
-    
-    
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
-    parser.add_argument('--preservation_train_set', type=str,  default='celeb', choices=['celeb','coco'] + ['00','01','02','03'])
 
 
 
@@ -191,38 +150,12 @@ if __name__ == '__main__':
 
     parser.add_argument('--apply_gradient_projection',  action='store_true', default=False)
     parser.add_argument('--gradient_projection_mode', type=str, choices=['hard','soft','none'], default='hard')
-    parser.add_argument('--gradient_projection_param_group', type=str, choices=['global','attn_head','none','layer','neuron'], default='attn_head')
+    parser.add_argument('--gradient_projection_param_group', type=str, choices=['global','attn_head','none'], default='attn_head')
     parser.add_argument('--gradient_projection_preserve_scale', type=float,  default=1.0)
-    
-    
-    
-    parser.add_argument('--seed', type=int,  default=123)
-    parser.add_argument('--train_precision', type=str,  default='fp32', choices=['bfp16','fp32'])
-    parser.add_argument('--log_step', type=int,  default=50)
-    
-
 
     args = parser.parse_args()
     
     
-    
-    print(f'random seed: {args.seed}')
-    rng = np.random.RandomState(seed=args.seed)
-    random.seed(args.seed)
-    np.random.seed(args.seed)
-    torch.manual_seed(args.seed)
-    torch.cuda.manual_seed(args.seed)
-    torch.cuda.manual_seed_all(args.seed)
-    torch.backends.cudnn.deterministic = True # tested, does not increase training time
-    torch.backends.cudnn.benchmark = False
-    
-    
-    # torch.use_deterministic_algorithms(True, warn_only=True)
-    # torch.backends.cuda.matmul.allow_tf32 = False
-    # torch.backends.cudnn.allow_tf32 = False
-
-    
-
 
 
 
@@ -233,7 +166,7 @@ if __name__ == '__main__':
     guidance_scale = args.guidance_scale
     negative_guidance = args.negative_guidance
     train_method=args.train_method
-    max_training_step = args.max_training_step
+    iterations = args.iterations
     batchsize = 1
     # height=width=1024 # Fix to 1024 ?
     height=width=512 # I now fixed this to 512
@@ -241,48 +174,39 @@ if __name__ == '__main__':
     save_path = args.save_path
     os.makedirs(save_path, exist_ok=True)
     device = args.device
-    
-    
+    torch_dtype = torch.bfloat16 
     criteria = torch.nn.MSELoss()
-    # torch_dtype = torch.bfloat16
-    if args.train_precision == 'bfp16':
-        torch_dtype = torch.bfloat16
-    elif args.train_precision == 'fp32':
-        torch_dtype = torch.float32 # double training time compared to bfp16
-        
-        
-        
 
     pipe, base_unet, esd_unet = load_sd_models(basemodel_id="CompVis/stable-diffusion-v1-4", torch_dtype=torch_dtype, device=device)
     pipe.set_progress_bar_config(disable=True)
     pipe.scheduler.set_timesteps(num_inference_steps)
-    pipe.scheduler = DDIMScheduler.from_config(pipe.scheduler.config)
-    pipe.disable_xformers_memory_efficient_attention()
-
-    base_unet = base_unet.eval()
-    
 
     esd_param_names, esd_params = get_esd_trainable_parameters(esd_unet, train_method=train_method)
     optimizer = torch.optim.Adam(esd_params, lr=lr)
 
-    # print(esd_param_names)
+
+
 
 
 
 
     # my add
-    if args.preservation_train_set == 'celeb':
-        preservation_concepts =  torch.load('../data_root/cache/celeb/100celebrity.pt')
-        
-        
-    elif args.preservation_train_set == '00':
-        preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()]['train']['Strongly Associated']
-        print(f"preservation_concepts: {preservation_concepts}")
+    preservation_concepts =  torch.load('../data_root/cache/celeb/100celebrity.pt')
 
     if args.apply_gradient_projection:
-
+        # target_params = install_hook_on_learnables(esd_unet, AttentionGradientHook, learnable_param_names=esd_param_names)
+        # check_hook_installation(esd_unet, AttentionGradientHook)
+        
+        # After you have `unet` and (optionally) your learnable_param_names list:
+        
         unet = esd_unet  ## or pipe.unet, depending on your context
-        learnable_param_names, learnable_params = esd_param_names, esd_params
+        # prepare_unet_for_surgery(unet)
+        hooked_names = install_hook_on_learnables(
+            unet,
+            AttentionGradientHook,
+            learnable_param_names=esd_param_names  # or your filtered learnable list
+        )
+        print(f"[hook] installed on {len(hooked_names)} attention processors")
 
 
     if args.timestep_constraint is not None:
@@ -340,26 +264,22 @@ if __name__ == '__main__':
 
     
     
-    pbar = tqdm(range(max_training_step+1), desc='Training ESD')
+    pbar = tqdm(range(iterations), desc='Training ESD')
     losses = []
-    for training_step in pbar:
+    for iteration in pbar:
         optimizer.zero_grad()
-        
-        if training_step % args.log_step == 0:
-            save_esd_model(esd_param_names, esd_params, args, training_step)
-        
         # get the noise predictions for erase concept
         pipe.unet = base_unet
         
 
         if args.decompositional_timestep_sampler == 'avg':
-            timestep =  rng.choice(sampler_stats['timesteps'], p=sampler_stats['probs'])
+            timestep =  np.random.choice(sampler_stats['timesteps'], p=sampler_stats['probs'])
             num_inference_step_ = timesteps2num_inference_step[timestep]
             print(f"timestep: {timestep} - num_inference_step_: {num_inference_step_}")
             timestep = torch.tensor(timestep).to(device)
         elif args.timestep_constraint is not None:
 
-            num_inference_step_ = rng.randint(0, len(constrainted_timesteps)-1)
+            num_inference_step_ = random.randint(0, len(constrainted_timesteps)-1)
             timestep = constrainted_timesteps[num_inference_step_]
             print(f"timestep: {timestep}")
             
@@ -370,17 +290,17 @@ if __name__ == '__main__':
             # print(f'effective timestep: {pipe.scheduler.timesteps[args.scaled_lb_timestep_constraint]} - {pipe.scheduler.timesteps[args.scaled_ub_timestep_constraint-1]}')
 
         else:
-            num_inference_step_ = rng.randint(0, num_inference_steps-1)
+            num_inference_step_ = random.randint(0, num_inference_steps-1)
             timestep = pipe.scheduler.timesteps[num_inference_step_] # [981, 961, 961, 941, 921, 901, 881, 861, 841, 821, 801, 781, 761, 741,721, 701, 681, 661, 641, 621, 601, 581, 561, 541, 521, 501, 481, 461,441, 421, 401, 381, 361, 341, 321, 301, 281, 261, 241, 221, 201, 181,161, 141, 121, 101,  81,  61,  41,  21,   1]
             
             
-        forward_seed = rng.randint(0, 2**15)
+        seed = random.randint(0, 2**15)
         
         # pretrained prediction
         with torch.no_grad():
             # sample xt with Pe (reverse process)
             xt = pipe(erase_concept , 
-                      num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+                      num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(seed), output_type='latent', height=height, width=width).images
 
             noise_pred_erase = pipe.unet(
                 xt,
@@ -406,8 +326,8 @@ if __name__ == '__main__':
             noise_pred_erase_from = noise_pred_erase
                 
             if args.preservation_weight is not None and args.preservation_weight > 0:
-
-                preservation_concept = rng.choice(preservation_concepts).item()
+        
+                preservation_concept = random.choice(preservation_concepts)
                 print(f"preservation_concept: {preservation_concept}")
                 preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
                                                             device=device,
@@ -418,7 +338,7 @@ if __name__ == '__main__':
                 preservation_embeds = preservation_embeds.to(device)    
                                                             
                 xt_ps = pipe(preservation_concept, 
-                        num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+                        num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(seed), output_type='latent', height=height, width=width).images
                 noise_pred_ps = pipe.unet(
                     xt_ps,
                     timestep,
@@ -471,23 +391,68 @@ if __name__ == '__main__':
             preservation_loss = torch.tensor(0.0).to(device)
         
         
+        # preservation_loss = torch.tensor(0.0).to(device)
+        # if args.preservation_weight is not None and args.preservation_weight > 0:
+            
+        #     pipe.unet = base_unet
+        #     with torch.no_grad():
+        #         preservation_concept = random.choice(preservation_concepts)
+        #         print(f"preservation_concept: {preservation_concept}")
+        #         preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
+        #                                                     device=device,
+        #                                                     num_images_per_prompt=batchsize,
+        #                                                     do_classifier_free_guidance=True,
+        #                                                     negative_prompt='')
+
+        #         preservation_embeds = preservation_embeds.to(device)    
+                
+                
+
+                                                            
+        #         xt_ps = pipe(preservation_concept, 
+        #                 num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(seed), output_type='latent', height=height, width=width).images
+
+
+
+        #         noise_pred_ps = pipe.unet(
+        #             xt_ps,
+        #             timestep,
+        #             encoder_hidden_states=preservation_embeds,
+        #             timestep_cond=timestep_cond,
+        #             cross_attention_kwargs=None,
+        #             added_cond_kwargs=None,
+        #             return_dict=False,
+        #         )[0]
+                
+        #     pipe.unet = esd_unet
+        #     noise_pred_ps_esd_model = pipe.unet(
+        #         xt_ps,
+        #         timestep,
+        #         encoder_hidden_states=preservation_embeds,
+        #         timestep_cond=timestep_cond,
+        #         cross_attention_kwargs=None,
+        #         added_cond_kwargs=None,
+        #         return_dict=False,
+        #     )[0]
+                    
+        #     preservation_loss = criteria(noise_pred_ps_esd_model, noise_pred_ps)
+            
+            
+            
         optimizer.zero_grad(set_to_none=True)
 
-        if (not args.apply_gradient_projection):
+        if (not args.apply_gradient_projection) or (args.gradient_projection_mode == "none"):
             # ---- baseline (same as before) ----
-            
-            if args.preservation_weight :
-                total_loss = unlearn_loss + args.preservation_weight * preservation_loss
-            else:
-                total_loss = unlearn_loss
+            total_loss = unlearn_loss + args.preservation_weight * preservation_loss
             print(f"total_loss: {total_loss.item()}, "
                 f"unlearn_loss: {unlearn_loss.item()}, "
                 f"preservation_loss: {preservation_loss.item()}")
             total_loss.backward()
             optimizer.step()
+            clear_hook_caches(unet, AttentionGradientHook)
 
         else:
-            # print(unlearn_loss, preservation_loss)
+            print(unlearn_loss, preservation_loss)
             print('unlearn_loss:', unlearn_loss.item(), 'preservation_loss:', preservation_loss.item())
             # ---- gradient surgery: resolve conflicts by projecting UNLEARN ⟂ PRESERVE ----
             
@@ -498,45 +463,63 @@ if __name__ == '__main__':
             
             # A) backward A
             unlearn_loss.backward(retain_graph=True)
-            unlearn_param_grads = collect_param_grads(unet, learnable_param_names) 
+            grads_A = collect_grads_by_name_from_unet(unet, AttentionGradientHook,batch_slice= unlearn_slice ) # first half = unlearn
             
-            # for layer_name,grad in unlearn_param_grads.items():
-                # print("unlearn grad ", layer_name, grad.shape)
-            
-            
-            
-            zero_param_grads(unet, learnable_param_names, set_to_none=False)
+            any_nonzero_A = False
+            for name, proc in unet.attn_processors.items():
+                if isinstance(proc, AttentionGradientHook):
+                    t = proc.cache_by_name.get(name, None)    # (B*H,Q,Dh)
+                    if t is not None and t.grad is not None:
+                        # reshape to (B,H,Q,Dh) just to inspect slice_B
+                        Btot, H, Q, Dh = proc.meta_by_name[name]
+                        g_full = t.grad.view(Btot, H, Q, Dh)
+                        if g_full[unlearn_slice].abs().sum().item() > 0:
+                            any_nonzero_A = True
+                            break
+            print("[probe] nonzero attention grads for Unlearn slice? ", any_nonzero_A)
 
+            # print(grads_A) # 'down_blocks.0.attentions.0.transformer_blocks.0.attn2.processor': tensor([], device='cuda:3',size=(0, 8, 4096, 40)
+            zero_cached_grads_in_unet(unet, AttentionGradientHook)
+            # print(grads_A) # 'down_blocks.0.attentions.0.transformer_blocks.0.attn2.processor': tensor([], device='cuda:3',size=(0, 8, 4096, 40)
+
+            # B) backward B
             preservation_loss.backward(retain_graph=True)
-            preserve_param_grads = collect_param_grads(unet, learnable_param_names) 
+            # preservation_loss.backward() # no need to retain graph here
+            grads_B = collect_grads_by_name_from_unet(unet, AttentionGradientHook,batch_slice= preservation_slice ) # second half = preserve
             
+            any_nonzero_B = False
+            for name, proc in unet.attn_processors.items():
+                if isinstance(proc, AttentionGradientHook):
+                    t = proc.cache_by_name.get(name, None)    # (B*H,Q,Dh)
+                    if t is not None and t.grad is not None:
+                        # reshape to (B,H,Q,Dh) just to inspect slice_B
+                        Btot, H, Q, Dh = proc.meta_by_name[name]
+                        g_full = t.grad.view(Btot, H, Q, Dh)
+                        if g_full[preservation_slice].abs().sum().item() > 0:
+                            any_nonzero_B = True
+                            break
+            print("[probe] nonzero attention grads for Preserve slice? ", any_nonzero_B)
 
+            
             # C) resolve conflicts and add weighted preservation gradient
             param_group = args.gradient_projection_param_group
+            if param_group == "none":   # keep a sane default if 'none' was passed here
+                param_group = "attn_head"
 
-            # print('start resolving grads')
             resolved_grads = generalize_gradient_projection(
-                unlearn_param_grads, preserve_param_grads,
+                grads_A, grads_B,
                 param_group_type=param_group,                      # 'global' | 'attn_head'
                 projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
                 scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
             )
-            # print('finish resolving grads')
+            print('finish resolving grads')
 
             # D) inject and step
             unet.zero_grad(set_to_none=True)
-            
-            
-            
-            # before = snapshot_grads_by_name(unet)
-            # inject_resolved_grads_by_name(unet,resolved_grads) 
-            do_grad_injection(unet,resolved_grads,show_per_param=False)
-
+            inject_resolved_grads_by_name(unet, AttentionGradientHook, resolved_grads)
             optimizer.step()
+            clear_hook_caches(unet, AttentionGradientHook)
 
-
-        # save_esd_model(esd_param_names, esd_params, args, args.training_step)
-        
 
         # logging identical to before
         # losses.append((unlearn_loss + args.preservation_weight * preservation_loss).item())
@@ -560,97 +543,33 @@ if __name__ == '__main__':
 
 
     
-    # esd_param_dict = {}
-    # for name, param in zip(esd_param_names, esd_params):
-    #     esd_param_dict[name] = param
+    esd_param_dict = {}
+    for name, param in zip(esd_param_names, esd_params):
+        esd_param_dict[name] = param
+    if erase_concept_from is None:
+        erase_concept_from = erase_concept
     
     
+    base_file_name = f"esd-{erase_concept.replace(' ', '_')}-from-{erase_concept_from.replace(' ', '_')}-{train_method.replace('-','')}"
     
-    # Resolve naming
-    # erase_concept_from = erase_concept
-    # base_file_name = f"esd-{erase_concept.replace(' ', '_')}-from-{erase_concept_from.replace(' ', '_')}-{train_method.replace('-','')}"
+    if args.negative_guidance != 2:
+        base_file_name += f"_nG{args.negative_guidance:.2f}"
     
-    # esd-x.obama_sd1.4
-    # erase_concept_shortname = concept2shortname[erase_concept] if erase_concept in concept2shortname else erase_concept.replace(' ', '-')
-    # base_file_name = f"{train_method}.{erase_concept_shortname}"
-
-    # if args.negative_guidance != 2:
-    #     base_file_name += f"_nG{args.negative_guidance:.2f}"
+    if args.preservation_weight is not None and args.preservation_weight > 0:
+        base_file_name += f"_PS{args.preservation_weight:.2f}"
     
-    # if not args.gradient_projection_preserve_scale and args.preservation_weight is not None and args.preservation_weight > 0:
-    #     base_file_name += f"_PS{args.preservation_weight:.2f}"
+    if args.timestep_constraint is not None:
+        base_file_name += f"_T{args.timestep_constraint}"
         
+    if args.base_concept == 'general':
+        base_file_name += f"_BGeneral"
         
-    # if args.apply_gradient_projection:
-    #         base_file_name += f"_GP"
-            
-    #         base_file_name += '.g'
-    #         if args.gradient_projection_param_group == 'global' or args.gradient_projection_param_group == 'none':
-    #             base_file_name += f"G"
-    #         if args.gradient_projection_param_group == 'attn_head':
-    #             base_file_name += f"H"
-    #         if args.gradient_projection_param_group == 'layer':
-    #             base_file_name += f"L"
-    #         if args.gradient_projection_param_group != 'neuron':
-    #             base_file_name += f"N"
-                
-    #         base_file_name += '.p'
-    #         if args.gradient_projection_mode == 'hard':
-    #             base_file_name += f"H"
-    #         if args.gradient_projection_mode == 'soft':
-    #             base_file_name += f"S"
-
-    #         base_file_name += f".ps{args.gradient_projection_preserve_scale:.2f}"
-
-
-    # if args.timestep_constraint is not None:
-    #     base_file_name += f"_T{args.timestep_constraint}"
+    if args.decompositional_timestep_sampler is not None:
+        base_file_name += f"_dT{args.decompositional_timestep_sampler}"
         
-    # if args.base_concept == 'general':
-    #     base_file_name += f"_BGeneral"
-        
-    # if args.decompositional_timestep_sampler is not None:
-    #     base_file_name += f"_dT{args.decompositional_timestep_sampler}"
-        
-    # if args.max_training_step != 200:
-    #     base_file_name += f"_S{args.max_training_step}"
-        
-    # base_file_name += f"_sd1.4"
+    if args.iterations != 200:
+        base_file_name += f"_step{args.iterations}"
     
-    # save_file(esd_param_dict, f"{save_path}/{base_file_name}.safetensors")
+    save_file(esd_param_dict, f"{save_path}/{base_file_name}.safetensors")
 
 
-
-
-
-
-
-
-
-# def set_random(seed):
-#     rng = np.random.RandomState(seed=seed)
-#     return rng
-    # random.seed(seed)
-    # np.random.seed(seed)
-
-        
-    # torch.manual_seed(seed)
-    # torch.cuda.manual_seed(seed)
-    # torch.cuda.manual_seed_all(seed)
-
-    # torch.backends.cudnn.deterministic = True
-    # torch.backends.cudnn.benchmark = False
-
-
-    # torch.use_deterministic_algorithms(True, warn_only=True)
-    # torch.backends.cuda.matmul.allow_tf32 = False
-    # torch.backends.cudnn.allow_tf32 = False
-
-
-    # try:
-    #     torch.backends.cuda.sdp_kernel(enable_flash=False, enable_mem_efficient=False, enable_math=True)
-    # except Exception:
-    #     # older PyTorch
-    #     torch.backends.cuda.enable_flash_sdp(False)
-    #     torch.backends.cuda.enable_mem_efficient_sdp(False)
-    #     torch.backends.cuda.enable_math_sdp(True)

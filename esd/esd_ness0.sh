@@ -2,33 +2,36 @@
 export device="cuda:0"
 export CUDA_VISIBLE_DEVICES=0
 
-python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
-python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
-python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
-python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
-python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
-python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
-['esd-cow-from-cow-esdx_nG1.00', 'esd-bus-from-bus-esdx_nG1.00', 'esd-mountain-from-mountain-esdx_nG1.00', 'esd-river-from-river-esdx_nG1.00', 'esd-forest-from-forest-esdx_nG1.00', 'esd-desert-from-desert-esdx_nG1.00']
 
 
 
-python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
-python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
-python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
-python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
-python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
-python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
-['esd-cow-from-cow-esdx', 'esd-bus-from-bus-esdx', 'esd-mountain-from-mountain-esdx', 'esd-river-from-river-esdx', 'esd-forest-from-forest-esdx', 'esd-desert-from-desert-esdx']
+# python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 1.00
+# ['esd-cow-from-cow-esdx_nG1.00', 'esd-bus-from-bus-esdx_nG1.00', 'esd-mountain-from-mountain-esdx_nG1.00', 'esd-river-from-river-esdx_nG1.00', 'esd-forest-from-forest-esdx_nG1.00', 'esd-desert-from-desert-esdx_nG1.00']
 
 
 
-python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
-python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
-python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
-python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
-python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
-python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
-['esd-cow-from-cow-esdx_nG3.00', 'esd-bus-from-bus-esdx_nG3.00', 'esd-mountain-from-mountain-esdx_nG3.00', 'esd-river-from-river-esdx_nG3.00', 'esd-forest-from-forest-esdx_nG3.00', 'esd-desert-from-desert-esdx_nG3.00']
+# python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+# python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+# python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+# python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+# python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+# python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/' 
+# ['esd-cow-from-cow-esdx', 'esd-bus-from-bus-esdx', 'esd-mountain-from-mountain-esdx', 'esd-river-from-river-esdx', 'esd-forest-from-forest-esdx', 'esd-desert-from-desert-esdx']
+
+
+
+# python esd_sd_ness.py --erase_concept 'cow' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'bus' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'mountain' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'river' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'forest' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# python esd_sd_ness.py --erase_concept 'desert' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
+# ['esd-cow-from-cow-esdx_nG3.00', 'esd-bus-from-bus-esdx_nG3.00', 'esd-mountain-from-mountain-esdx_nG3.00', 'esd-river-from-river-esdx_nG3.00', 'esd-forest-from-forest-esdx_nG3.00', 'esd-desert-from-desert-esdx_nG3.00']
 # python esd_sd_ness.py --erase_concept 'cat' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
 # python esd_sd_ness.py --erase_concept 'dog' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00
 # python esd_sd_ness.py --erase_concept 'horse' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --negative_guidance 3.00

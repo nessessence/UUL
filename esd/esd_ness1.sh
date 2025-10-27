@@ -1,32 +1,84 @@
 
 export device="cuda:1"
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 0 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 1 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 2 --max_training_step 500 --preservation_train_set '00'
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 0 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 1 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 2 --max_training_step 500 --preservation_train_set '00'
+
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00  --seed 0 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00  --seed 1 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00  --seed 2 --max_training_step 500 --preservation_train_set '00'
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00  --seed 0 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00  --seed 1 --max_training_step 500 --preservation_train_set '00'
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00  --seed 2 --max_training_step 500 --preservation_train_set '00'
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 0 --max_training_step 500
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 0 --max_training_step 500
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 1 --max_training_step 500
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00   --seed 0 --max_training_step 500
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00   --seed 1 --max_training_step 500
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 3.00   --seed 2 --max_training_step 500
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/pg/' --device $device  --negative_guidance 2.00 --preservation_weight 1.00   --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00  --seed 2 --max_training_step 500
+
+
+
+# export CUBLAS_WORKSPACE_CONFIG=:4096:8
+
 # export CUDA_VISIBLE_DEVICES=1
 
+# python _esd_sd_surgery_attn.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00 --device $device
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --device $device
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00 --device $device
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'neuron' --gradient_projection_preserve_scale 1.00 --device $device
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 1.00 --device $device
 
 
-python esd_sd_ness.py --erase_concept 'cat' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'dog' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'horse' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'car' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'motorcycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'bicycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-['esd-cat-from-cat-esdx', 'esd-dog-from-dog-esdx', 'esd-horse-from-horse-esdx', 'esd-car-from-car-esdx', 'esd-motorcycle-from-motorcycle-esdx', 'esd-bicycle-from-bicycle-esdx']
+
+
+# python esd_sd_ness.py --erase_concept 'cat' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'dog' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'horse' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'car' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'motorcycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'bicycle' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# ['esd-cat-from-cat-esdx', 'esd-dog-from-dog-esdx', 'esd-horse-from-horse-esdx', 'esd-car-from-car-esdx', 'esd-motorcycle-from-motorcycle-esdx', 'esd-bicycle-from-bicycle-esdx']
 
 
 
-# python esd_sd_ness.py --erase_concept 'Barrack Obama' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Ed Sheeran' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Amy Adams' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Barrack Obama' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Ed Sheeran' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Amy Adams' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
 
-# python esd_sd_ness.py --erase_concept 'Rihanna' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Chris Hemsworth' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Chris Evans' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Anne Hathaway' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Mariah Carey' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Octavia Spencer' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Morgan Freeman' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
-# python esd_sd_ness.py --erase_concept 'Drake' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --iterations 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Rihanna' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Chris Hemsworth' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Chris Evans' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Anne Hathaway' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Mariah Carey' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Octavia Spencer' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Morgan Freeman' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
+# python esd_sd_ness.py --erase_concept 'Drake' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --base_concept general --decompositional_timestep_sampler 'avg' --max_training_step 500  --device $device
 # ['esd-Barrack_Obama-from-Barrack_Obama-esdx_BGeneral_dTavg_step500', 'esd-Rihanna-from-Rihanna-esdx_BGeneral_dTavg_step500', 'esd-Ed_Sheeran-from-Ed_Sheeran-esdx_BGeneral_dTavg_step500', 'esd-Margot_Robbie-from-Margot_Robbie-esdx_BGeneral_dTavg_step500', 'esd-Chris_Hemsworth-from-Chris_Hemsworth-esdx_BGeneral_dTavg_step500', 'esd-Chris_Evans-from-Chris_Evans-esdx_BGeneral_dTavg_step500', 'esd-Amy_Adams-from-Amy_Adams-esdx_BGeneral_dTavg_step500', 'esd-Anne_Hathaway-from-Anne_Hathaway-esdx_BGeneral_dTavg_step500', 'esd-Mariah_Carey-from-Mariah_Carey-esdx_BGeneral_dTavg_step500', 'esd-Octavia_Spencer-from-Octavia_Spencer-esdx_BGeneral_dTavg_step500', 'esd-Morgan_Freeman-from-Morgan_Freeman-esdx_BGeneral_dTavg_step500', 'esd-Drake-from-Drake-esdx_BGeneral_dTavg_step500']
 
 

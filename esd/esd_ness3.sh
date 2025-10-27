@@ -1,9 +1,17 @@
 
 export device="cuda:3"
-python esd_sd_ness.py --erase_concept 'persian cat' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'claude monet' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'mario' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
-python esd_sd_ness.py --erase_concept 'ganesha' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+
+python _esd_sd_surgery_attn.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00 --device $device
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --device $device
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00 --device $device
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4_/'  --preservation_weight 1.00 --base_concept general  --apply_gradient_projection --gradient_projection_mode 'hard' --gradient_projection_param_group 'global' --gradient_projection_preserve_scale 1.00 --device $device
+
+# python esd_sd_ness.py --erase_concept 'persian cat' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'claude monet' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'mario' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
+# python esd_sd_ness.py --erase_concept 'ganesha' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --device $device
 # python esd_sd_ness.py --erase_concept 'Barrack Obama' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --preservation_weight 1.00 --device $device
 # python esd_sd_ness.py --erase_concept 'Rihanna' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --preservation_weight 1.00 --device $device
 # python esd_sd_ness.py --erase_concept 'Ed Sheeran' --train_method 'esd-x' --save_path '../data_root/logs/esd/sd1.4/'  --preservation_weight 1.00 --device $device
