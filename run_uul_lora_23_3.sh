@@ -2,41 +2,56 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="23_3"
 
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2/step100.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2/step100" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Margot Robbie;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Margot Robbie;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10
+Total scripts generated: 2
 
-echo 'count:128 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4 700 /'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdx_BGeneral_step500.safetensors" \
-            --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-700" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="auto" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-700" \
-            --placeholder_token="v1" --initializer_token='person' \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
-echo 'count:129 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4 800 /'
 
-        accelerate launch train_dreambooth_lora.py \
-            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-            --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdx_BGeneral_step500.safetensors" \
-            --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-800" \
-            --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="auto" \
-            --output_dir="data_root/logs/gen" \
-            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
-            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --run_note 'gen img' --wait_weight \
-            --num_validation_images 50 \
-            --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-800" \
-            --placeholder_token="v1" --initializer_token='person' \
-            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
-            --cfg_scale 7.50 --gen_batch 10
+# echo 'count:128 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4 700 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdx_BGeneral_step500.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-700" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-700" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50 --gen_batch 10
+# echo 'count:129 - rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4 800 /'
+
+#         accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Ed_Sheeran-from-Ed_Sheeran-esdx_BGeneral_step500.safetensors" \
+#             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-800" \
+#             --instance_data_dir="data_root/data/real_data/dummy" \
+#             --gen_image_path="auto" \
+#             --output_dir="data_root/logs/gen" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#             --run_note 'gen img' --wait_weight \
+#             --num_validation_images 50 \
+#             --load_token_embedding_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.edsheeran_sd1.4/checkpoint-800" \
+#             --placeholder_token="v1" --initializer_token='person' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --cfg_scale 7.50 --gen_batch 10
 
 # echo 'count:101 - rlct4.reV.edebiriA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.BGeneral.s500.mcarey_sd1.4 200 /'
 #         accelerate launch train_dreambooth_lora.py \

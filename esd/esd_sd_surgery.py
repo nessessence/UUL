@@ -1,7 +1,7 @@
 import os 
 import os.path as osp
 # os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
-
+from collections import defaultdict
 import torch
 import random
 import numpy as np
@@ -23,11 +23,14 @@ StableDiffusionPipeline.__call__ = esd_sd_call
 
 from gradient_surgery import collect_param_grads,zero_param_grads,param_grad_stats,generalize_gradient_projection,inject_resolved_grads_by_name
 from gradient_surgery import do_grad_injection
+from gradient_surgery import generalize_gradient_projection_prob
 from diffusers import DDIMScheduler
 
 
 concept2shortname = {
     "Margot Robbie": "mrobbie",
+    "mickey mouse": "mmouse",
+    "pad thai": "padthai"
 }
 
 def resolve_model_name(args): #, training_step):
@@ -52,13 +55,19 @@ def resolve_model_name(args): #, training_step):
                 base_file_name += f"cc"
             base_file_name += '-'
         
-        base_file_name += f"PS{args.preservation_weight:.2f}"
+        
+        if args.preservation_weight_option == 'convex' and args.preservation_weight != 0.0:
+            base_file_name += f"cPS{args.preservation_weight:.2f}"
+        else:
+            base_file_name += f"PS{args.preservation_weight:.2f}"
         
         
     if args.apply_gradient_projection:
             base_file_name += f"_GP"
             base_file_name += '.g'
-            if args.gradient_projection_param_group == 'global' or args.gradient_projection_param_group == 'none':
+            if args.gradient_projection_param_group == 'base':
+                base_file_name += f"B"
+            if args.gradient_projection_param_group == 'global':
                 base_file_name += f"G"
             if args.gradient_projection_param_group == 'attn_head':
                 base_file_name += f"H"
@@ -73,6 +82,8 @@ def resolve_model_name(args): #, training_step):
             if args.gradient_projection_mode == 'soft':
                 base_file_name += f"S"
                 
+            if args.unlearn_proj_prob < 1.0:
+                base_file_name += f"-u{args.unlearn_proj_prob:.2f}"
                 
             base_file_name += '.'
             if  args.preservation_train_set:
@@ -83,7 +94,18 @@ def resolve_model_name(args): #, training_step):
                 elif args.preservation_train_set == 'coco':
                     base_file_name += f"cc"
                 base_file_name += '-'
-            base_file_name += f"PS{args.gradient_projection_preserve_scale:.2f}"
+
+            if args.gradient_projection_preserve_scale is not None :
+                
+                if args.preservation_weight_option == 'convex' and args.gradient_projection_preserve_scale != 0.0 :
+                    base_file_name += f"cPS{args.gradient_projection_preserve_scale:.2f}"
+                else:
+                    base_file_name += f"PS{args.gradient_projection_preserve_scale:.2f}"
+                
+
+                
+            # if args.preservation_weight is not None and args.preservation_weight > 0:
+            #     base_file_name += f"PS{args.preservation_weight:.2f}"
 
 
     if args.timestep_constraint is not None:
@@ -104,7 +126,7 @@ def resolve_model_name(args): #, training_step):
     return f"{base_file_name}"
 
 
-def save_esd_model(esd_param_names, esd_params, args, training_step):
+def save_esd_model(esd_param_names, esd_params, args, training_step, total_grad_stats=None):
     model_name = resolve_model_name(args)
 
     save_model_path = osp.join(args.save_path, model_name, f'step{training_step}.safetensors')
@@ -114,12 +136,18 @@ def save_esd_model(esd_param_names, esd_params, args, training_step):
     for name, param in zip(esd_param_names, esd_params):
         esd_param_dict[name] = param
     save_file(esd_param_dict, save_model_path)
-    
     print(f"ESD model saved at: {save_model_path}")
     
-        
-        
     
+    if total_grad_stats is not None and len(total_grad_stats) > 0:
+        grad_stats_path = osp.join(args.save_path, model_name, f'step{training_step}_grad_stats_{args.collect_gradient_statistics_option}.pt')
+        os.makedirs(osp.dirname(grad_stats_path), exist_ok=True)
+        torch.save(total_grad_stats, grad_stats_path)
+        print(f"Gradient statistics saved at: {grad_stats_path}")
+        
+        # reset
+        # total_grad_stats = defaultdict(list)
+
 
         
 
@@ -184,6 +212,7 @@ if __name__ == '__main__':
     
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
     parser.add_argument('--preservation_train_set', type=str,  default='celeb', choices=['celeb','coco'] + ['00','01','02','03'])
+    parser.add_argument('--preservation_weight_option', type=str,  default='additive', choices=['additive','convex'])
 
 
 
@@ -191,15 +220,20 @@ if __name__ == '__main__':
 
     parser.add_argument('--apply_gradient_projection',  action='store_true', default=False)
     parser.add_argument('--gradient_projection_mode', type=str, choices=['hard','soft','none'], default='hard')
-    parser.add_argument('--gradient_projection_param_group', type=str, choices=['global','attn_head','none','layer','neuron'], default='attn_head')
+    parser.add_argument('--gradient_projection_param_group', type=str, choices=['base','global','attn_head','layer','neuron'], default='attn_head')
     parser.add_argument('--gradient_projection_preserve_scale', type=float,  default=1.0)
     
     
     
     parser.add_argument('--seed', type=int,  default=123)
-    parser.add_argument('--train_precision', type=str,  default='fp32', choices=['bfp16','fp32'])
-    parser.add_argument('--log_step', type=int,  default=50)
+    parser.add_argument('--train_precision', type=str,  default='fp32', choices=['bf16','fp32'])
+    parser.add_argument('--log_step', type=int,  default=100)
     
+    
+    parser.add_argument('--unlearn_proj_prob', type=float,  default=1.00)
+
+    parser.add_argument('--collect_gradient_statistics_option', type=str,  default=None, choices=[None, 'none','static', 'dynamic'])
+
 
 
     args = parser.parse_args()
@@ -221,9 +255,18 @@ if __name__ == '__main__':
     # torch.backends.cuda.matmul.allow_tf32 = False
     # torch.backends.cudnn.allow_tf32 = False
 
-    
+    # if args.unlearn_proj_prob < 1.0:
+    proj_rng = torch.Generator(device=args.device) 
+    proj_rng.manual_seed(args.seed **2)
 
-
+    total_grad_stats = defaultdict(list)
+    if args.collect_gradient_statistics_option is not None and args.collect_gradient_statistics_option in ['dynamic','static']:
+        print(f"Only collecting gradient statistics: {args.collect_gradient_statistics_option}")
+        
+        
+        # total_grad_stats['cosine_similarities'] = []
+        # total_grad_stats['norms_A'] = []    
+        # total_grad_stats['norms_B'] = []    
 
 
     erase_concept = args.erase_concept
@@ -244,14 +287,12 @@ if __name__ == '__main__':
     
     
     criteria = torch.nn.MSELoss()
-    # torch_dtype = torch.bfloat16
-    if args.train_precision == 'bfp16':
+    # torch_dtype = torch.bfloat16 : will underflow, not stable
+    if args.train_precision == 'bf16':
         torch_dtype = torch.bfloat16
     elif args.train_precision == 'fp32':
-        torch_dtype = torch.float32 # double training time compared to bfp16
-        
-        
-        
+        torch_dtype = torch.float32 # double training time compared to bf16
+
 
     pipe, base_unet, esd_unet = load_sd_models(basemodel_id="CompVis/stable-diffusion-v1-4", torch_dtype=torch_dtype, device=device)
     pipe.set_progress_bar_config(disable=True)
@@ -266,8 +307,6 @@ if __name__ == '__main__':
     optimizer = torch.optim.Adam(esd_params, lr=lr)
 
     # print(esd_param_names)
-
-
 
 
     # my add
@@ -346,8 +385,11 @@ if __name__ == '__main__':
         optimizer.zero_grad()
         
         if training_step % args.log_step == 0:
-            save_esd_model(esd_param_names, esd_params, args, training_step)
-        
+            save_esd_model(esd_param_names, esd_params, args, training_step, total_grad_stats)
+
+            # reset
+            total_grad_stats = defaultdict(list)
+            
         # get the noise predictions for erase concept
         pipe.unet = base_unet
         
@@ -491,47 +533,79 @@ if __name__ == '__main__':
             print('unlearn_loss:', unlearn_loss.item(), 'preservation_loss:', preservation_loss.item())
             # ---- gradient surgery: resolve conflicts by projecting UNLEARN ⟂ PRESERVE ----
             
-            
+            # for layer_name,grad in unlearn_param_grads.items():
+            # print("unlearn grad ", layer_name, grad.shape)
             
             unlearn_slice = slice(0, (2*batchsize)//2)
             preservation_slice = slice((2*batchsize)//2, 2*batchsize)
             
-            # A) backward A
+            # A) backprop Unlearning Loss
             unlearn_loss.backward(retain_graph=True)
             unlearn_param_grads = collect_param_grads(unet, learnable_param_names) 
             
-            # for layer_name,grad in unlearn_param_grads.items():
-                # print("unlearn grad ", layer_name, grad.shape)
-            
-            
-            
+            # set zero grads before next backprop
+            # print(unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad)
             zero_param_grads(unet, learnable_param_names, set_to_none=False)
+            # print(unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad)
 
+            # B) backprop Preservation Loss
             preservation_loss.backward(retain_graph=True)
             preserve_param_grads = collect_param_grads(unet, learnable_param_names) 
             
+            # C) resolve conflicts (do projection and combine with preservation gradient)
+            
+            if args.unlearn_proj_prob < 1.0 or (args.collect_gradient_statistics_option is not None and args.collect_gradient_statistics_option in ['dynamic','static']):
+                
+                if args.collect_gradient_statistics_option is not None and args.collect_gradient_statistics_option in ['dynamic','static']:
+                    resolved_grads, grad_stats = generalize_gradient_projection_prob(
+                        unlearn_param_grads, preserve_param_grads,
+                        param_group_type=args.gradient_projection_param_group,                      # 'global' | 'attn_head'
+                        projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
+                        scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
+                        preservation_weight_option=args.preservation_weight_option,
+                        A_proj_prob=args.unlearn_proj_prob,
+                        rng=proj_rng,
+                        collect_statistics=True
+                    )
+                    
+                    for key in grad_stats:
+                        total_grad_stats[key] += [grad_stats[key].detach().cpu()]
 
-            # C) resolve conflicts and add weighted preservation gradient
-            param_group = args.gradient_projection_param_group
 
-            # print('start resolving grads')
-            resolved_grads = generalize_gradient_projection(
-                unlearn_param_grads, preserve_param_grads,
-                param_group_type=param_group,                      # 'global' | 'attn_head'
-                projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
-                scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
-            )
-            # print('finish resolving grads')
+                        print(f"total {key}: {len(total_grad_stats[key])}")
+                        
+                    total_grad_stats['timesteps'].append(timestep.detach().cpu().item())
+                    
+                else:
+                    resolved_grads = generalize_gradient_projection_prob(
+                        unlearn_param_grads, preserve_param_grads,
+                        param_group_type=args.gradient_projection_param_group,                      # 'global' | 'attn_head'
+                        projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
+                        scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
+                        preservation_weight_option=args.preservation_weight_option,
+                        A_proj_prob=args.unlearn_proj_prob,
+                        rng=proj_rng
+                    )
+
+            
+            else:
+                resolved_grads = generalize_gradient_projection(
+                    unlearn_param_grads, preserve_param_grads,
+                    param_group_type=args.gradient_projection_param_group,                      # 'global' | 'attn_head'
+                    projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
+                    scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
+                    preservation_weight_option=args.preservation_weight_option
+                )
 
             # D) inject and step
             unet.zero_grad(set_to_none=True)
             
+            # do not update if only collecting gradient statistics: static option
+            if args.collect_gradient_statistics_option is not None and args.collect_gradient_statistics_option == 'static': 
+                print("Skipping gradient injection/step since only collecting static gradient statistics.")
+                continue
             
-            
-            # before = snapshot_grads_by_name(unet)
-            # inject_resolved_grads_by_name(unet,resolved_grads) 
             do_grad_injection(unet,resolved_grads,show_per_param=False)
-
             optimizer.step()
 
 

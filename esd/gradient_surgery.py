@@ -29,11 +29,14 @@ def zero_param_grads(module, param_names=None, set_to_none=False):
     iterable = (param_names if param_names is not None else params.keys())
     for n in iterable:
         p = params.get(n)
+        # print(n)
         if p is None or p.grad is None:
+            # print('skipping ', n)
             continue
         if set_to_none:
             p.grad = None
         else:
+            # print('zeroing grad for param ', n)
             p.grad.zero_()
 
 @torch.no_grad()
@@ -56,7 +59,7 @@ def _is_o_bias(name: str) -> bool:
 
 # --- core: head-wise PCGrad on [nH, M] ---
 
-def _pcgrad_headwise(
+def _project_headwise(
     A_h: torch.Tensor,  # [nH, M]
     B_h: torch.Tensor,  # [nH, M]
     *,
@@ -64,15 +67,20 @@ def _pcgrad_headwise(
     rho_from_cos: Optional[Callable[[torch.Tensor], torch.Tensor]],
     rho_const: Optional[float],
     eps: float = 1e-12,
+    collect_statistics: bool = False
 ) -> torch.Tensor:
     dorig = A_h.dtype
     A = A_h.to(torch.float32)
     B = B_h.to(torch.float32)
 
+
+
+
     dot = (A * B).sum(dim=1)                               # [nH]
     cos = F.cosine_similarity(A, B, dim=1, eps=eps)        # [nH]
     nB2 = (B * B).sum(dim=1).clamp_min(eps)                # [nH]
     
+
     # print('cosine similarity per head ', cos)
 
     if projection_mode == "hard":
@@ -90,6 +98,7 @@ def _pcgrad_headwise(
     scale_h[conflict] = rho_h[conflict] * dot[conflict] / nB2[conflict]
 
     A_proj = (A - scale_h[:, None] * B).to(dorig)          # [nH, M]
+    
     return A_proj
 
 # --- main ---
@@ -104,10 +113,11 @@ def generalize_gradient_projection(
     rho: Optional[float] = None,
     rho_from_cos: Optional[Callable[[torch.Tensor], torch.Tensor]] = None,
     scale: float = 1.0, # gradient_projection_preserve_scale
+    preservation_weight_option: str = 'additive' # 'additive' | 'convex'
 ) -> Dict[str, torch.Tensor]:
     """
     Returns resolved grads after conflict handling.
-    - 'none'      → gA + scale*gB
+    - 'base'      → gA + scale*gB
     - 'global'    → single projection decision for all params
     - 'layer'     → per-parameter (flatten layer, 1 decision per param)
     - 'neuron'    → per-row vector for 2D weights; per-element for 1D biases
@@ -117,12 +127,20 @@ def generalize_gradient_projection(
     print(f"Applying gradient projection: param_group_type={param_group_type}, projection_mode={projection_mode}, scale={scale}")
 
     # No projection → simple combine
-    if projection_mode is None or str(projection_mode).lower() == "none":
+    if projection_mode is None or param_group_type == "base":
         for param_name in grads_A.keys() | grads_B.keys():
             gA, gB = grads_A.get(param_name), grads_B.get(param_name)
             if gA is None and gB is None:
                 continue
-            out[param_name] = gA if gB is None else (scale * gB if gA is None else gA + scale * gB)
+            
+            if gB is None:
+                out[param_name] = gA
+            else:
+                if preservation_weight_option == 'convex':
+                    out[param_name] = (1 - scale) * gA + scale * gB
+                else: # 'additive'
+                    out[param_name] = gA + scale * gB
+
         return out
 
     eps = 1e-12
@@ -168,7 +186,11 @@ def generalize_gradient_projection(
             if gA_t is None or gB_t is None:
                 continue
             g_pc = gA_t - scale_proj * gB_t
-            out[param_name] = g_pc + scale * gB_t
+            
+            if preservation_weight_option == 'convex':
+                out[param_name] = (1 - scale) * g_pc + scale * gB_t
+            else: # 'additive'
+                out[param_name] = g_pc + scale * gB_t
         return out
 
     # LAYER projection: one decision per parameter tensor (flatten)
@@ -199,7 +221,11 @@ def generalize_gradient_projection(
             scale_proj[conflict] = rho_val[conflict] * dot[conflict] / nB2[conflict]  # [1]
 
             Gpc = (A - scale_proj[:, None] * B).reshape(gA.shape).to(gA.dtype)
-            out[param_name] = Gpc + scale * gB
+            
+            if preservation_weight_option == 'convex':
+                out[param_name] = (1 - scale) * Gpc + scale * gB
+            else: # 'additive'
+                out[param_name] = Gpc + scale * gB
         return out
 
     # NEURON projection:
@@ -234,7 +260,10 @@ def generalize_gradient_projection(
                 scale_v[conflict] = rho_v[conflict] * dot[conflict] / nB2[conflict]  # [R]
 
                 Gpc = (A - scale_v[:, None] * B).to(gA.dtype)  # [R, C]
-                out[param_name] = Gpc + scale * gB
+                if preservation_weight_option == 'convex':
+                    out[param_name] = (1 - scale) * Gpc + scale * gB
+                else: # 'additive'
+                    out[param_name] = Gpc + scale * gB
                 continue
 
             if gA.dim() == 1:  # [L] → element-wise (length-1 vectors)
@@ -256,11 +285,17 @@ def generalize_gradient_projection(
                 scale_v[conflict] = rho_v[conflict] * dot[conflict] / nB2[conflict]  # [L]
 
                 Gpc = (A - scale_v[:, None] * B).squeeze(1).to(gA.dtype)            # [L]
-                out[param_name] = Gpc + scale * gB
+                if preservation_weight_option == 'convex':
+                    out[param_name] = (1 - scale) * Gpc + scale * gB
+                else: # 'additive'
+                    out[param_name] = Gpc + scale * gB
                 continue
 
             # fallback (e.g., unexpected dims)
-            out[param_name] = gA + scale * gB
+            if preservation_weight_option == 'convex':
+                out[param_name] = (1 - scale) * gA + scale * gB
+            else: # 'additive'
+                out[param_name] = gA + scale * gB
 
         return out
 
@@ -274,12 +309,19 @@ def generalize_gradient_projection(
 
             # skip to_out bias (shared across heads)
             if _is_o_bias(param_name):
-                out[param_name] = gA + scale * gB
+                
+                if preservation_weight_option == 'convex':
+                    out[param_name] = (1 - scale) * gA + scale * gB
+                else:
+                    out[param_name] = gA + scale * gB
                 continue
 
             # only handle 2D weights head-wise; fallback otherwise
             if gA.dim() != 2:
-                out[param_name] = gA + scale * gB
+                if preservation_weight_option == 'convex':
+                    out[param_name] = (1 - scale) * gA + scale * gB
+                else:
+                    out[param_name] = gA + scale * gB
                 continue
 
             R, C = gA.shape
@@ -291,7 +333,7 @@ def generalize_gradient_projection(
                 
                 # print('A_h shape ', A_h.shape, A_h.norm())
 
-                A_h_pc = _pcgrad_headwise(
+                A_h_pc = _project_headwise(
                     A_h, B_h,
                     projection_mode=projection_mode,
                     rho_from_cos=rho_from_cos,
@@ -302,7 +344,10 @@ def generalize_gradient_projection(
                 # print('A_h_pc shape after PCGrad', A_h_pc.shape, A_h_pc.norm())
 
                 Gpc = A_h_pc.view(N_HEADS, Dh, C).reshape(R, C)
-                out[param_name] = Gpc + scale * gB
+                if preservation_weight_option == 'convex':
+                    out[param_name] = (1 - scale) * Gpc + scale * gB
+                else: # 'additive'
+                    out[param_name] = Gpc + scale * gB
                 continue
 
             if _is_o_weight(param_name):
@@ -311,7 +356,7 @@ def generalize_gradient_projection(
                 A_h = gA.t().contiguous().view(N_HEADS, Dh * R)  # [nH, Dh*R]
                 B_h = gB.t().contiguous().view(N_HEADS, Dh * R)  # [nH, Dh*R]
 
-                A_h_pc = _pcgrad_headwise(
+                A_h_pc = _project_headwise(
                     A_h, B_h,
                     projection_mode=projection_mode,
                     rho_from_cos=rho_from_cos,
@@ -320,15 +365,340 @@ def generalize_gradient_projection(
                 )
                 # Back to [R, C]
                 Gpc = A_h_pc.view(N_HEADS, Dh, R).reshape(C, R).t().contiguous()
-                out[param_name] = Gpc + scale * gB
+                if preservation_weight_option == 'convex':
+                    out[param_name] = (1 - scale) * Gpc + scale * gB
+                else: # 'additive'
+                    out[param_name] = Gpc + scale * gB
                 continue
 
             # fallback
-            out[param_name] = gA + scale * gB
+            if preservation_weight_option == 'convex':
+                out[param_name] = (1 - scale) * gA + scale * gB
+            else: # 'additive'
+                out[param_name] = gA + scale * gB
 
         return out
 
     raise ValueError("param_group_type must be 'global' | 'layer' | 'neuron' | 'attn_head'")
+
+
+@torch.no_grad()
+def compute_stats(gA, gB):
+    norm_A = torch.norm(gA)
+    norm_B = torch.norm(gB)
+    dot = torch.dot(gA, gB)
+    cos = dot / (norm_A * norm_B + 1e-12)
+    return {'norm_A': norm_A, 'norm_B': norm_B, 'cosine_similarity': cos}
+
+
+
+@torch.no_grad()
+def generalize_gradient_projection_prob(
+    grads_A: Dict[str, torch.Tensor],
+    grads_B: Dict[str, torch.Tensor],
+    *,
+    param_group_type: str = "attn_head",       # "global" | "layer" | "neuron" | "attn_head" | "base"
+    projection_mode: Optional[str] = "hard",   # "hard" | "soft" | "none" | None
+    rho: Optional[float] = None,
+    rho_from_cos: Optional[Callable[[torch.Tensor], torch.Tensor]] = None,
+    scale: float = 1.0,
+    preservation_weight_option: str = 'additive',  # 'additive' | 'convex'
+    A_proj_prob: float = 1.0,                      # probability that A is projected onto B
+    rng: Optional[torch.Generator] = None,          # stateful RNG for reproducibility
+    collect_statistics: bool = False
+) -> Dict[str, torch.Tensor]:
+    """
+    Gradient combination with optional conflict projection.
+    - Randomly chooses projection direction per group using rng (if provided).
+    - Mixing rule is unchanged: additive -> A + scale*B ; convex -> (1-scale)A + scale*B.
+    """
+    if rng is None:
+        rng = torch.default_generator
+    if collect_statistics:
+        stats = {}
+        stats['cosine_similarities'] = []
+        stats['norms_A'] = []
+        stats['norms_B'] = []
+
+    out: Dict[str, torch.Tensor] = {}
+    print(f"Applying gradient projection: param_group_type={param_group_type}, projection_mode={projection_mode}, scale={scale}, A_proj_prob={A_proj_prob}")
+
+    # Base (no projection)
+    if projection_mode is None or param_group_type == "base":
+        for n in grads_A.keys() | grads_B.keys():
+            gA, gB = grads_A.get(n), grads_B.get(n)
+            if gA is None and gB is None:
+                continue
+            if gB is None:
+                out[n] = gA
+            else:
+                out[n] = (1 - scale) * gA + scale * gB if preservation_weight_option == 'convex' else gA + scale * gB
+                
+                
+            if collect_statistics:
+                output_stats = compute_stats(gA, gB)
+                stats['cosine_similarities'].append(output_stats['cosine_similarity'])
+                stats['norms_A'].append(output_stats['norm_A'])
+                stats['norms_B'].append(output_stats['norm_B'])
+        
+        if collect_statistics:
+            stats['cosine_similarities'] = torch.cat(stats['cosine_similarities'])
+            stats['norms_A'] = torch.cat(stats['norms_A'])
+            stats['norms_B'] = torch.cat(stats['norms_B'])
+            return out, stats
+
+        return out
+
+    eps = 1e-12
+
+    # ---------- GLOBAL ----------
+    if param_group_type == "global":
+        def _flatten(grads: Dict[str, torch.Tensor]) -> torch.Tensor:
+            vecs, device = [], None
+            for t in grads.values():
+                if t is None:
+                    continue
+                device = t.device
+                vecs.append(t.reshape(-1))
+            return torch.cat(vecs, dim=0) if vecs else torch.tensor([], device=device or "cpu")
+
+        gA_all = _flatten(grads_A)
+        gB_all = _flatten(grads_B)
+        if gA_all.numel() == 0 or gB_all.numel() == 0:
+            for n in grads_A.keys() | grads_B.keys():
+                gA, gB = grads_A.get(n), grads_B.get(n)
+                if gA is None and gB is None:
+                    continue
+                out[n] = gA if gB is None else gA + scale * gB
+            return out
+
+        dot = torch.dot(gA_all, gB_all)
+        norm_A = torch.norm(gA_all)
+        norm_B = torch.norm(gB_all)
+        cos = dot / (norm_A * norm_B + eps)
+        
+        print(f"grad dot: {float(dot):.6f}, cosine: {float(cos):.6f}")
+        print(f"norm_A: {float(norm_A):.6f}, norm_B: {float(norm_B):.6f}")
+        
+        
+        if collect_statistics:
+            stats['cosine_similarities'].append(cos)
+            stats['norms_A'].append(norm_A)
+            stats['norms_B'].append(norm_B)
+
+                
+        device = gA_all.device
+        A_projects = bool(torch.rand((), device=device, generator=rng) < A_proj_prob)
+
+        if cos < 0.0:
+            if projection_mode == "hard":
+                rho_val = 1.0
+            else:
+                rho_val = float(rho_from_cos(cos.view(1)).item()) if rho_from_cos else (1.0 if rho is None else float(rho))
+            if A_projects:
+                nB2 = torch.dot(gB_all, gB_all) + eps
+                scale_proj = rho_val * (dot / nB2)
+            else:
+                nA2 = torch.dot(gA_all, gA_all) + eps
+                scale_proj = rho_val * (dot / nA2)
+        else:
+            scale_proj = 0.0
+
+        for n, gA in grads_A.items():
+            gB = grads_B.get(n)
+            if gA is None or gB is None:
+                continue
+            if A_projects:
+                A_proj = gA - scale_proj * gB
+                out[n] = (1 - scale) * A_proj + scale * gB if preservation_weight_option == 'convex' else A_proj + scale * gB
+            else:
+                B_proj = gB - scale_proj * gA
+                out[n] = (1 - scale) * gA + scale * B_proj if preservation_weight_option == 'convex' else gA + scale * B_proj
+                
+        if collect_statistics:
+            stats['cosine_similarities'] = torch.stack(stats['cosine_similarities'])
+            stats['norms_A'] = torch.stack(stats['norms_A'])
+            stats['norms_B'] = torch.stack(stats['norms_B'])
+            return out, stats
+
+        return out
+
+    # ---------- LAYER ----------
+    if param_group_type == "layer":
+        for n in grads_A.keys():
+            gA, gB = grads_A[n], grads_B.get(n)
+            if gA is None or gB is None:
+                continue
+            device = gA.device
+            A_projects = bool(torch.rand((), device=device, generator=rng) < A_proj_prob)
+
+            A = gA.to(torch.float32).reshape(1, -1)
+            B = gB.to(torch.float32).reshape(1, -1)
+            dot = (A * B).sum(dim=1)
+            cos = F.cosine_similarity(A, B, dim=1, eps=eps)
+            if projection_mode == "hard":
+                rho_val = torch.ones_like(dot)
+            else:
+                rho_val = rho_from_cos(cos).clamp(0, 1) if rho_from_cos else torch.full_like(dot, 1.0 if rho is None else float(rho))
+            conflict = cos < 0
+
+            if A_projects:
+                nB2 = (B * B).sum(dim=1).clamp_min(eps)
+                scale_proj = torch.zeros_like(dot)
+                scale_proj[conflict] = rho_val[conflict] * dot[conflict] / nB2[conflict]
+                A_proj = (A - scale_proj[:, None] * B).reshape(gA.shape).to(gA.dtype)
+                out[n] = (1 - scale) * A_proj + scale * gB if preservation_weight_option == 'convex' else A_proj + scale * gB
+            else:
+                nA2 = (A * A).sum(dim=1).clamp_min(eps)
+                scale_proj = torch.zeros_like(dot)
+                scale_proj[conflict] = rho_val[conflict] * dot[conflict] / nA2[conflict]
+                B_proj = (B - scale_proj[:, None] * A).reshape(gB.shape).to(gB.dtype)
+                out[n] = (1 - scale) * gA + scale * B_proj if preservation_weight_option == 'convex' else gA + scale * B_proj
+        return out
+
+    # ---------- NEURON ----------
+    if param_group_type == "neuron":
+        for n in grads_A.keys():
+            gA, gB = grads_A[n], grads_B.get(n)
+            if gA is None or gB is None:
+                continue
+            device = gA.device
+
+            if gA.dim() == 2:
+                R, C = gA.shape
+                A, B = gA.to(torch.float32), gB.to(torch.float32)
+                dot = (A * B).sum(dim=1)
+                cos = F.cosine_similarity(A, B, dim=1, eps=eps)
+                rho_v = torch.ones_like(dot) if projection_mode == "hard" else \
+                         (rho_from_cos(cos).clamp(0, 1) if rho_from_cos else torch.full_like(dot, 1.0 if rho is None else float(rho)))
+                conflict = cos < 0
+                nB2, nA2 = (B * B).sum(dim=1).clamp_min(eps), (A * A).sum(dim=1).clamp_min(eps)
+                sAB, sBA = torch.zeros_like(dot), torch.zeros_like(dot)
+                sAB[conflict] = rho_v[conflict] * dot[conflict] / nB2[conflict]
+                sBA[conflict] = rho_v[conflict] * dot[conflict] / nA2[conflict]
+
+                A_proj = (A - sAB[:, None] * B).to(gA.dtype)
+                B_proj = (B - sBA[:, None] * A).to(gA.dtype)
+                mask = (torch.rand(R, device=device, generator=rng) < A_proj_prob)
+                A_new = torch.where(mask[:, None], A_proj, A)
+                B_new = torch.where(mask[:, None], B, B_proj)
+                out[n] = (1 - scale) * A_new + scale * B_new if preservation_weight_option == 'convex' else A_new + scale * B_new
+                continue
+
+            if gA.dim() == 1:
+                L = gA.shape[0]
+                A, B = gA.to(torch.float32).unsqueeze(1), gB.to(torch.float32).unsqueeze(1)
+                dot = (A * B).sum(dim=1)
+                cos = F.cosine_similarity(A, B, dim=1, eps=eps)
+                rho_v = torch.ones_like(dot) if projection_mode == "hard" else \
+                         (rho_from_cos(cos).clamp(0, 1) if rho_from_cos else torch.full_like(dot, 1.0 if rho is None else float(rho)))
+                conflict = cos < 0
+                nB2, nA2 = (B * B).sum(dim=1).clamp_min(eps), (A * A).sum(dim=1).clamp_min(eps)
+                sAB, sBA = torch.zeros_like(dot), torch.zeros_like(dot)
+                sAB[conflict] = rho_v[conflict] * dot[conflict] / nB2[conflict]
+                sBA[conflict] = rho_v[conflict] * dot[conflict] / nA2[conflict]
+                A_proj = (A - sAB[:, None] * B).squeeze(1).to(gA.dtype)
+                B_proj = (B - sBA[:, None] * A).squeeze(1).to(gA.dtype)
+                mask = (torch.rand(L, device=device, generator=rng) < A_proj_prob)
+                A_new = torch.where(mask, A_proj, gA)
+                B_new = torch.where(mask, gB, B_proj)
+                out[n] = (1 - scale) * A_new + scale * B_new if preservation_weight_option == 'convex' else A_new + scale * B_new
+                continue
+
+            out[n] = (1 - scale) * gA + scale * gB if preservation_weight_option == 'convex' else gA + scale * gB
+        return out
+
+    # ---------- ATTENTION HEAD ----------
+    if param_group_type == "attn_head":
+        for n in grads_A.keys():
+            gA, gB = grads_A[n], grads_B.get(n)
+            if gA is None or gB is None:
+                continue
+
+            if _is_o_bias(n):
+                out[n] = (1 - scale) * gA + scale * gB if preservation_weight_option == 'convex' else gA + scale * gB
+                continue
+            if gA.dim() != 2:
+                out[n] = (1 - scale) * gA + scale * gB if preservation_weight_option == 'convex' else gA + scale * gB
+                continue
+
+            device = gA.device
+            R, C = gA.shape
+
+            if _is_qkv_weight(n):
+                Dh = R // N_HEADS
+                A_h, B_h = gA.view(N_HEADS, Dh * C), gB.view(N_HEADS, Dh * C)
+                A_proj_h = _project_headwise(A_h, B_h, projection_mode=projection_mode,
+                                             rho_from_cos=rho_from_cos, rho_const=rho, eps=eps)
+                B_proj_h = _project_headwise(B_h, A_h, projection_mode=projection_mode,
+                                             rho_from_cos=rho_from_cos, rho_const=rho, eps=eps)
+                mask = (torch.rand(N_HEADS, device=device, generator=rng) < A_proj_prob)
+                
+                # print(f'number of A projected for {n}: {mask.sum().item()} out of {N_HEADS}')
+                
+                A_new_h = torch.where(mask[:, None], A_proj_h, A_h)
+                B_new_h = torch.where(mask[:, None], B_h, B_proj_h)
+                A_new = A_new_h.view(N_HEADS, Dh, C).reshape(R, C)
+                B_new = B_new_h.view(N_HEADS, Dh, C).reshape(R, C)
+                out[n] = (1 - scale) * A_new + scale * B_new if preservation_weight_option == 'convex' else A_new + scale * B_new
+                
+                
+                if collect_statistics:
+                    cos = F.cosine_similarity(A_h, B_h, dim=1, eps=eps)    
+                    norm_A = torch.norm(A_h, dim=1)
+                    norm_B = torch.norm(B_h, dim=1)
+                    stats['cosine_similarities'].append(cos)
+                    stats['norms_A'].append(norm_A)
+                    stats['norms_B'].append(norm_B)
+                    # print(f"cosine: {cos}")
+                    # print(f"norm_A: {norm_A}, norm_B: {norm_B}")
+                    
+
+                continue
+
+            if _is_o_weight(n):
+                Dh = C // N_HEADS
+                A_h = gA.t().contiguous().view(N_HEADS, Dh * R)
+                B_h = gB.t().contiguous().view(N_HEADS, Dh * R)
+                A_proj_h = _project_headwise(A_h, B_h, projection_mode=projection_mode,
+                                             rho_from_cos=rho_from_cos, rho_const=rho, eps=eps)
+                B_proj_h = _project_headwise(B_h, A_h, projection_mode=projection_mode,
+                                             rho_from_cos=rho_from_cos, rho_const=rho, eps=eps)
+                mask = (torch.rand(N_HEADS, device=device, generator=rng) < A_proj_prob)
+                
+                A_new_h = torch.where(mask[:, None], A_proj_h, A_h)
+                B_new_h = torch.where(mask[:, None], B_h, B_proj_h)
+                A_new = A_new_h.view(N_HEADS, Dh, R).reshape(C, R).t().contiguous()
+                B_new = B_new_h.view(N_HEADS, Dh, R).reshape(C, R).t().contiguous()
+                out[n] = (1 - scale) * A_new + scale * B_new if preservation_weight_option == 'convex' else A_new + scale * B_new
+                
+                
+                if collect_statistics:
+                    cos = F.cosine_similarity(A_h, B_h, dim=1, eps=eps)    
+                    norm_A = torch.norm(A_h, dim=1)
+                    norm_B = torch.norm(B_h, dim=1)
+                    stats['cosine_similarities'].append(cos)
+                    stats['norms_A'].append(norm_A)
+                    stats['norms_B'].append(norm_B)
+                    
+                    
+                    # print(f"cosine: {cos}")
+                    # print(f"norm_A: {norm_A}, norm_B: {norm_B}")
+                    
+                    
+                continue
+
+            out[n] = (1 - scale) * gA + scale * gB if preservation_weight_option == 'convex' else gA + scale * gB
+            
+        if collect_statistics:
+            stats['cosine_similarities'] = torch.stack(stats['cosine_similarities'])
+            stats['norms_A'] = torch.stack(stats['norms_A'])
+            stats['norms_B'] = torch.stack(stats['norms_B'])
+            return out, stats
+        return out
+
+    raise ValueError("param_group_type must be 'global' | 'layer' | 'neuron' | 'attn_head' | 'base'")
+
 
 
 @torch.no_grad()

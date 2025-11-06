@@ -1,5 +1,123 @@
 export CUDA_VISIBLE_DEVICES=2
-export pc_id="21_2"
+
+
+
+
+# sleep 3h
+            # accelerate launch train_dreambooth_lora.py \
+            #     --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            #     --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG3.00_GP.gG.pH.pe00-cPS0.50_U.ganesha_sd1.4_r0/step300.safetensors" \
+            #     --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r0_esd-x.nG3.00_GP.gG.pH.pe00-cPS0.50_U.ganesha_sd1.4_r0.uS300/checkpoint-300" \
+            #     --instance_data_dir="data_root/data/real_data/dummy" \
+            #     --gen_image_path="auto" \
+            #     --output_dir="data_root/logs/gen" \
+            #     --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            #     --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            #     --run_note 'gen img' --wait_weight \
+            #     --num_validation_images 50 \
+            #     --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r0_esd-x.nG3.00_GP.gG.pH.pe00-cPS0.50_U.ganesha_sd1.4_r0.uS300/checkpoint-300" \
+            #     --placeholder_token="v1" --initializer_token='object' \
+            #     --cfg_scale 7.50 --gen_batch 10
+
+
+
+# export pc_id="21_2"
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_U.ganesha_sd1.4_r1/step0.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG2.00_U.ganesha_sd1.4_r1.uS0/checkpoint-500" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG2.00_U.ganesha_sd1.4_r1.uS0/checkpoint-500" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10
+
+            # accelerate launch train_dreambooth_lora.py \
+            #     --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+            #     --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_U.ganesha_sd1.4_r0/step0.safetensors" \
+            #     --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r0_esd-x.nG2.00_U.ganesha_sd1.4_r0.uS0/checkpoint-400" \
+            #     --instance_data_dir="data_root/data/real_data/dummy" \
+            #     --gen_image_path="auto" \
+            #     --output_dir="data_root/logs/gen" \
+            #     --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            #     --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+            #     --run_note 'gen img' --wait_weight \
+            #     --num_validation_images 50 \
+            #     --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r0_esd-x.nG2.00_U.ganesha_sd1.4_r0.uS0/checkpoint-400" \
+            #     --placeholder_token="v1" --initializer_token='object' \
+            #     --cfg_scale 7.50 --gen_batch 10
+# echo 'count:19 - rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300 800 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-800" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-800" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10
+# echo 'count:20 - rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300 900 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-900" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-900" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10
+# echo 'count:21 - rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300 1000 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-1000" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10
+# Total scripts generated: 22
+
+
+
+# echo 'count:0 - GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS200 0 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step200.safetensors" \
+#                 --load_lora_weight_path="" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="data_root/generated/model/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step200" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of ganesha;a photo of Lakshmi;a photo of mandir;a photo of Krishna;a photo of sanskrit script;a photo of Hanuman;a photo of meditation;a photo of Buddha statue;a photo of rat;a photo of elephant ride;a photo of murti" --instance_prompt="a photo of ganesha;a photo of Lakshmi;a photo of mandir;a photo of Krishna;a photo of sanskrit script;a photo of Hanuman;a photo of meditation;a photo of Buddha statue;a photo of rat;a photo of elephant ride;a photo of murti" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --cfg_scale 7.50 --gen_batch 10
+
 
 
 
@@ -57,43 +175,43 @@ export pc_id="21_2"
 # Total scripts generated: 1
 
 
-echo 'count:0 - house_sd1.4 0 /'
+# echo 'count:0 - house_sd1.4 0 /'
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-nordic_house-from-nordic_house-esdx.safetensors" \
-                --load_lora_weight_path="" \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --gen_image_path="data_root/generated/model/esd-x.nordic_house_sd1.4" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="a photo of Viking hall;a photo of lake cabin;a photo of ice hut;a photo of northern lights;a photo of fjordside cabin;a photo of Viking ship;a photo of Nordic kitchenware;a photo of bamboo house;a photo of fishing cabin;a photo of mountain chalet" --instance_prompt="a photo of Viking hall;a photo of lake cabin;a photo of ice hut;a photo of northern lights;a photo of fjordside cabin;a photo of Viking ship;a photo of Nordic kitchenware;a photo of bamboo house;a photo of fishing cabin;a photo of mountain chalet" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --cfg_scale 7.50 --gen_batch 10
-Total scripts generated: 1
-
-
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-nordic_house-from-nordic_house-esdx.safetensors" \
+#                 --load_lora_weight_path="" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="data_root/generated/model/esd-x.nordic_house_sd1.4" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of Viking hall;a photo of lake cabin;a photo of ice hut;a photo of northern lights;a photo of fjordside cabin;a photo of Viking ship;a photo of Nordic kitchenware;a photo of bamboo house;a photo of fishing cabin;a photo of mountain chalet" --instance_prompt="a photo of Viking hall;a photo of lake cabin;a photo of ice hut;a photo of northern lights;a photo of fjordside cabin;a photo of Viking ship;a photo of Nordic kitchenware;a photo of bamboo house;a photo of fishing cabin;a photo of mountain chalet" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --cfg_scale 7.50 --gen_batch 10
+# Total scripts generated: 1
 
 
 
-### from 15_1
 
-echo 'count:0 - mouse_sd1.4 0 /'
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-mickey_mouse-from-mickey_mouse-esdx.safetensors" \
-                --load_lora_weight_path="" \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --gen_image_path="data_root/generated/model/esd-x.mickey_mouse_sd1.4" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="a photo of studio lights;a photo of black and white cartoon;a photo of Road Runner;a photo of Energizer Bunny;a photo of cartoon parade;a photo of storybook illustration;a photo of sunset beach;a photo of sandbox;a photo of poisoned apple" --instance_prompt="a photo of studio lights;a photo of black and white cartoon;a photo of Road Runner;a photo of Energizer Bunny;a photo of cartoon parade;a photo of storybook illustration;a photo of sunset beach;a photo of sandbox;a photo of poisoned apple" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --cfg_scale 7.50 --gen_batch 10
-Total scripts generated: 1
+# ### from 15_1
+
+# echo 'count:0 - mouse_sd1.4 0 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-mickey_mouse-from-mickey_mouse-esdx.safetensors" \
+#                 --load_lora_weight_path="" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="data_root/generated/model/esd-x.mickey_mouse_sd1.4" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of studio lights;a photo of black and white cartoon;a photo of Road Runner;a photo of Energizer Bunny;a photo of cartoon parade;a photo of storybook illustration;a photo of sunset beach;a photo of sandbox;a photo of poisoned apple" --instance_prompt="a photo of studio lights;a photo of black and white cartoon;a photo of Road Runner;a photo of Energizer Bunny;a photo of cartoon parade;a photo of storybook illustration;a photo of sunset beach;a photo of sandbox;a photo of poisoned apple" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --cfg_scale 7.50 --gen_batch 10
+# Total scripts generated: 1
 
 # ['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.ganesha_sd1.4']
 # echo 'count:0 - sd1.4 0 /'

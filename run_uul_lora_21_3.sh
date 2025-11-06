@@ -3,6 +3,77 @@ export pc_id="21_3"
 
 
 
+
+# sleep 4h
+# echo 'count:16 - rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300 500 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-500" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-500" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10
+# echo 'count:17 - rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300 600 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-600" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-600" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10
+# echo 'count:18 - rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300 700 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-700" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300/checkpoint-700" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10
+                
+
+# echo 'count:1 - GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2.uS300 0 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300.safetensors" \
+#                 --load_lora_weight_path="" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="data_root/generated/model/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.ganesha_sd1.4_r2/step300" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of ganesha;a photo of Lakshmi;a photo of mandir;a photo of Krishna;a photo of sanskrit script;a photo of Hanuman;a photo of meditation;a photo of Buddha statue;a photo of rat;a photo of elephant ride;a photo of murti" --instance_prompt="a photo of ganesha;a photo of Lakshmi;a photo of mandir;a photo of Krishna;a photo of sanskrit script;a photo of Hanuman;a photo of meditation;a photo of Buddha statue;a photo of rat;a photo of elephant ride;a photo of murti" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --cfg_scale 7.50 --gen_batch 10
+# Total scripts generated: 2
+
+
+
+# sleep 2h
 # echo 'count:0 - sd1.4 0 /'
 
 #        accelerate launch train_dreambooth_lora.py \
@@ -56,22 +127,22 @@ export pc_id="21_3"
 # Total scripts generated: 1
 
 
-['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nordic_house_sd1.4']
-echo 'count:0 - house_sd1.4 0 /'
+# ['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nordic_house_sd1.4']
+# echo 'count:0 - house_sd1.4 0 /'
 
-            accelerate launch train_dreambooth_lora.py \
-                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-nordic_house-from-nordic_house-esdx.safetensors" \
-                --load_lora_weight_path="" \
-                --instance_data_dir="data_root/data/real_data/dummy" \
-                --gen_image_path="data_root/generated/model/esd-x.nordic_house_sd1.4" \
-                --output_dir="data_root/logs/gen" \
-                --validation_prompt="a photo of Norwegian cottage;a photo of nordic horse;a photo of Nordic village;a photo of Alpine house;a photo of Nordic painting;a photo of nordic drum;a photo of Nordic path;a photo of Danish farmhouse;a photo of nordic festival;a photo of Scandinavian cabin" --instance_prompt="a photo of Norwegian cottage;a photo of nordic horse;a photo of Nordic village;a photo of Alpine house;a photo of Nordic painting;a photo of nordic drum;a photo of Nordic path;a photo of Danish farmhouse;a photo of nordic festival;a photo of Scandinavian cabin" \
-                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                --run_note 'gen img' --wait_weight \
-                --num_validation_images 50 \
-                --cfg_scale 7.50 --gen_batch 10
-Total scripts generated: 1
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-nordic_house-from-nordic_house-esdx.safetensors" \
+#                 --load_lora_weight_path="" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="data_root/generated/model/esd-x.nordic_house_sd1.4" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of Norwegian cottage;a photo of nordic horse;a photo of Nordic village;a photo of Alpine house;a photo of Nordic painting;a photo of nordic drum;a photo of Nordic path;a photo of Danish farmhouse;a photo of nordic festival;a photo of Scandinavian cabin" --instance_prompt="a photo of Norwegian cottage;a photo of nordic horse;a photo of Nordic village;a photo of Alpine house;a photo of Nordic painting;a photo of nordic drum;a photo of Nordic path;a photo of Danish farmhouse;a photo of nordic festival;a photo of Scandinavian cabin" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --cfg_scale 7.50 --gen_batch 10
+# Total scripts generated: 1
 
 
 """

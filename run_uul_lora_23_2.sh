@@ -4,6 +4,27 @@ export pc_id="23_2"
 
 
 
+base_exp_name: GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2.uS0', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2.uS100']
+echo 'count:0 - GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2.uS0 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2/step0.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG2.00_GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2/step0" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Margot Robbie;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Margot Robbie;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10
+echo 'count:1 - GP.gH.pH.pe00-PS0.00_U.mrobbie_sd1.4_r2.uS100 0 /'
+
+
+
+
 #             accelerate launch train_dreambooth_lora.py \
 #             --pretrained_model_name_or_path=data_root/logs/mace.obama_sd1.4/LoRA_fusion_model  \
 #             --instance_data_dir=data_root/data/real_data/obama/aligned/obama-5-v0 \

@@ -1589,7 +1589,7 @@ def main(args):
 
 
     # Set correct LoRA layers
-    print_lora_layers = True
+    print_lora_layers = False
     unet_lora_parameters = []
 
     # Helper to build kwargs for LoRALinearLayer
