@@ -2,6 +2,23 @@ export CUDA_VISIBLE_DEVICES=3
 export pc_id="21_3"
 
 
+  accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \
+  --output_dir="data_root/logs/noone" \
+  --validation_prompt="A photo of a moodeng" \
+  --instance_prompt="A photo of a moodeng" \
+  --learning_rate=1e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 512 \
+  --test_run \
+  --max_train_steps=10000000 --checkpointing_steps=100000000 --validation_steps=100000000 
+
+
+
+
+"""
+
 
 
 # sleep 4h
@@ -145,7 +162,6 @@ export pc_id="21_3"
 # Total scripts generated: 1
 
 
-"""
 
 ['rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.cow_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.bus_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.mountain_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.river_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.forest_sd1.4', 'rlct4.reV.dummy.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.nG1.00.desert_sd1.4']
 echo 'count:0 - sd1.4 0 /'
@@ -132192,15 +132208,3 @@ echo 'count:11 - sd1.4 0 /'
 """
 
 ###################
-  accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \
-  --output_dir="data_root/logs/noone" \
-  --validation_prompt="A photo of a moodeng" \
-  --instance_prompt="A photo of a moodeng" \
-  --learning_rate=1e-4 \
-  --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --lora_rank 512 \
-  --test_run \
-  --max_train_steps=10000000 --checkpointing_steps=100000000 --validation_steps=100000000 
-

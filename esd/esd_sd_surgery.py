@@ -25,8 +25,36 @@ from gradient_surgery import collect_param_grads,zero_param_grads,param_grad_sta
 from gradient_surgery import do_grad_injection
 from gradient_surgery import generalize_gradient_projection_prob
 from diffusers import DDIMScheduler
+import wandb 
 
 
+def _value_based_probs_divmax(timesteps: torch.Tensor, alpha: float, is_inverse=False) -> np.ndarray:
+    """
+    Compute bias directly from timestep values.
+    Normalize by dividing by max(t). This ensures scale invariance and simplicity.
+
+    We map lower timesteps → higher probability:
+        s = 1 - (t / t_max)
+        p ∝ s^alpha
+    """
+    t = torch.tensor(timesteps)
+    t_max = torch.max(t)
+    if t_max <= 0:
+        probs = torch.ones_like(t) / t.numel()
+        return probs.cpu().numpy()
+
+    if is_inverse:
+        s = t / t_max      # 0 at smallest (earliest), 1 at largest (latest)
+    else:
+        s = 1.0 - (t / t_max)     # 0 at largest (earliest), 1 at smallest (latest)
+    s = s.clamp(0.0, 1.0)
+    probs = torch.pow(s, alpha)
+    if torch.sum(probs) <= 0:
+        probs = torch.ones_like(probs)
+    probs = probs / probs.sum()
+    return probs.cpu().numpy()
+
+    
 concept2shortname = {
     "Margot Robbie": "mrobbie",
     "mickey mouse": "mmouse",
@@ -53,8 +81,11 @@ def resolve_model_name(args): #, training_step):
                 base_file_name += f"cl"
             elif args.preservation_train_set == 'coco':
                 base_file_name += f"cc"
+            if args.preservation_split != 'train':
+                base_file_name += f".{args.preservation_split.upper()}"
             base_file_name += '-'
-        
+
+                
         
         if args.preservation_weight_option == 'convex' and args.preservation_weight != 0.0:
             base_file_name += f"cPS{args.preservation_weight:.2f}"
@@ -93,6 +124,9 @@ def resolve_model_name(args): #, training_step):
                     base_file_name += f"cl"
                 elif args.preservation_train_set == 'coco':
                     base_file_name += f"cc"
+                    
+                if args.preservation_split != 'train':
+                    base_file_name += f".{args.preservation_split.upper()}"
                 base_file_name += '-'
 
             if args.gradient_projection_preserve_scale is not None :
@@ -107,9 +141,12 @@ def resolve_model_name(args): #, training_step):
             # if args.preservation_weight is not None and args.preservation_weight > 0:
             #     base_file_name += f"PS{args.preservation_weight:.2f}"
 
-
-    if args.timestep_constraint is not None:
-        base_file_name += f"_T{args.timestep_constraint}"
+    if args.timestep_sampler is not None:
+        if 'alpha' in args.timestep_sampler:
+           timestep_sampler = args.timestep_sampler.replace('alpha','a.')
+        base_file_name += f".TS{timestep_sampler}"
+    elif args.timestep_constraint is not None:
+        base_file_name += f".T{args.timestep_constraint}"
         
     if args.base_concept == 'general':
         base_file_name += f"_BGeneral"
@@ -118,8 +155,28 @@ def resolve_model_name(args): #, training_step):
         base_file_name += f"_dT{args.decompositional_timestep_sampler}"
 
     base_file_name += f"_U.{erase_concept_shortname}"
+    
+    
     base_file_name += "_sd1.4"  
+    base_file_name += f".{args.train_precision}"
+    
+    if args.lr != 5e-5:
+        base_file_name += f".lr{args.lr:.0e}"
+
+    if args.batch_size != 1:
+        base_file_name += f".bsn{args.batch_size}" # p just for note that still one preservation concept
+
+
+    if args.test_tag is not None:
+        base_file_name += f"_{args.test_tag}"
+      
+
+      
     base_file_name += f"_r{args.seed}"
+    
+
+
+    
     
     
     
@@ -205,12 +262,14 @@ if __name__ == '__main__':
     parser.add_argument('--device', help='cuda device to train on', type=str, required=False, default='cuda:0')
     
 
-
+    parser.add_argument('--timestep_sampler', help='timestep constraint for diffusion model', type=str, required=False, default=None)
     parser.add_argument('--timestep_constraint', help='timestep constraint for diffusion model', type=str, required=False, default=None)
     parser.add_argument('--base_concept', type=str, choices=['null','general','erased'], default='null', required=False)
     
     
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
+    parser.add_argument('--preservation_split', type=str,  default='train', choices=['train','test'] )
+    
     parser.add_argument('--preservation_train_set', type=str,  default='celeb', choices=['celeb','coco'] + ['00','01','02','03'])
     parser.add_argument('--preservation_weight_option', type=str,  default='additive', choices=['additive','convex'])
 
@@ -233,12 +292,27 @@ if __name__ == '__main__':
     parser.add_argument('--unlearn_proj_prob', type=float,  default=1.00)
 
     parser.add_argument('--collect_gradient_statistics_option', type=str,  default=None, choices=[None, 'none','static', 'dynamic'])
-
+    parser.add_argument('--test_tag', type=str,  default=None)
+    parser.add_argument('--report_to', type=str,  default='wandb') # wandb
+    parser.add_argument('--batch_size', type=int,  default=1) # wandb
 
 
     args = parser.parse_args()
     
     
+        # --- W&B init (added) ---
+    if args.report_to == 'wandb':
+        try:
+            project = 'ul_surgery'
+            wandb.init(
+                project=project,
+                name=resolve_model_name(args),
+                config=vars(args)
+            )
+        except Exception as _e:
+            print(f"[wandb] init failed: {_e}")
+    # --- end W&B init ---
+
     
     print(f'random seed: {args.seed}')
     rng = np.random.RandomState(seed=args.seed)
@@ -249,6 +323,9 @@ if __name__ == '__main__':
     torch.cuda.manual_seed_all(args.seed)
     torch.backends.cudnn.deterministic = True # tested, does not increase training time
     torch.backends.cudnn.benchmark = False
+    
+    
+    
     
     
     # torch.use_deterministic_algorithms(True, warn_only=True)
@@ -277,7 +354,7 @@ if __name__ == '__main__':
     negative_guidance = args.negative_guidance
     train_method=args.train_method
     max_training_step = args.max_training_step
-    batchsize = 1
+    batchsize = args.batch_size
     # height=width=1024 # Fix to 1024 ?
     height=width=512 # I now fixed this to 512
     lr = args.lr
@@ -315,8 +392,13 @@ if __name__ == '__main__':
         
         
     elif args.preservation_train_set == '00':
-        preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()]['train']['Strongly Associated']
+        preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()][args.preservation_split]['Strongly Associated']
+        if args.preservation_split == 'test':
+            print('WARNING: optimizing on test set for preservation concepts!')
+        
         print(f"preservation_concepts: {preservation_concepts}")
+        
+        
 
     if args.apply_gradient_projection:
 
@@ -393,8 +475,43 @@ if __name__ == '__main__':
         # get the noise predictions for erase concept
         pipe.unet = base_unet
         
+        timesteps_list = pipe.scheduler.timesteps.tolist()
+        timesteps2num_inference_step = {t: i for i, t in enumerate(pipe.scheduler.timesteps.tolist())}
+        
+        if getattr(args, 'timestep_sampler', None) is not None:
+            
+            if (args.timestep_sampler).startswith('ialpha'):
+                alpha = float(args.timestep_sampler.split('ialpha')[1])
+                print('applying i-alpha sampling')
+                N = len(timesteps_list)
+                probs = _value_based_probs_divmax(timesteps_list, alpha, is_inverse=True) # ((i+1)^alpha)/N.  ..... start with 999 -> so biased toward 0
+                idx_space = np.arange(N)
+                
+                sampled_idx = rng.choice(idx_space, p=probs)
+                timestep = timesteps_list[sampled_idx]
+                num_inference_step_ = timesteps2num_inference_step[timestep]
+                print(f"[timestep_sampler={args.timestep_sampler}] Ialpha={alpha:.4g} | timestep: {timestep} (idx={sampled_idx}) -> num_inference_step_: {num_inference_step_}")
+                timestep = torch.tensor(timestep, device=device)
 
-        if args.decompositional_timestep_sampler == 'avg':
+                
+                
+            elif (args.timestep_sampler).startswith('alpha'):
+                alpha = float(args.timestep_sampler.split('alpha')[1])
+                print('applying alpha sampling')
+
+                N = len(timesteps_list)
+                probs = _value_based_probs_divmax(timesteps_list, alpha) # ((i+1)^alpha)/N.  ..... start with 999 -> so biased toward 0
+                idx_space = np.arange(N)
+                
+                sampled_idx = rng.choice(idx_space, p=probs)
+                timestep = timesteps_list[sampled_idx]
+                num_inference_step_ = timesteps2num_inference_step[timestep]
+                print(f"[timestep_sampler={args.timestep_sampler}] alpha={alpha:.4g} | timestep: {timestep} (idx={sampled_idx}) -> num_inference_step_: {num_inference_step_}")
+                timestep = torch.tensor(timestep, device=device)
+
+
+
+        elif args.decompositional_timestep_sampler == 'avg':
             timestep =  rng.choice(sampler_stats['timesteps'], p=sampler_stats['probs'])
             num_inference_step_ = timesteps2num_inference_step[timestep]
             print(f"timestep: {timestep} - num_inference_step_: {num_inference_step_}")
@@ -457,6 +574,16 @@ if __name__ == '__main__':
                                                             do_classifier_free_guidance=True,
                                                             negative_prompt='')
 
+
+                # preservation_concept = rng.choice(preservation_concepts,batchsize)
+                # print(f"preservation_concept: {preservation_concept}")
+                # preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
+                #                                             device=device,
+                #                                             num_images_per_prompt=1,
+                #                                             do_classifier_free_guidance=True,
+                #                                             negative_prompt='')
+
+                                                            
                 preservation_embeds = preservation_embeds.to(device)    
                                                             
                 xt_ps = pipe(preservation_concept, 
@@ -476,16 +603,28 @@ if __name__ == '__main__':
                 
         pipe.unet = esd_unet
         if args.preservation_weight is not None and args.preservation_weight > 0:
+            # prompt=[erase_concept,preservation_concept]
             text_embeds, _ = pipe.encode_prompt(prompt=[erase_concept,preservation_concept],
                                                 device=device,
                                                 num_images_per_prompt=batchsize,
                                                 do_classifier_free_guidance=True,
                                                 negative_prompt=['',''])
             total_xt = torch.cat([xt, xt_ps], dim=0)
+            print("im here")
         else: 
             text_embeds = erase_embeds
             total_xt = xt
             
+        print(f"total_xt.shape: {total_xt.shape}")  # [2*bs, 4, 64, 64]
+        print("text_embeds.shape:", text_embeds.shape)  # [2*bs, 77, 768]
+        
+        # print(f"text_embeds0: {text_embeds[0,::].mean()}")
+        # print(f"text_embeds1: {text_embeds[1,::].mean()}")
+        # print(f"text_embeds2: {text_embeds[2,::].mean()}")
+        # print(f"text_embeds3: {text_embeds[3,::].mean()}")
+        # print(f"text_embeds4: {text_embeds[4,::].mean()}")
+        # print(f"text_embeds5: {text_embeds[5,::].mean()}")
+        
         # have to forward once
         total_noise_pred_esd_model = pipe.unet(
             total_xt,
@@ -498,17 +637,44 @@ if __name__ == '__main__':
         )[0]
         
         
+        print(f"total_noise_pred_esd_model.shape: {total_noise_pred_esd_model.shape}")  # [2, 4, 64, 64]
+        
+        
+        
+        ###
+        
+        
         # print(total_noise_pred_esd_model.shape)  # [2, 4, 64, 64]
         if args.preservation_weight is not None and args.preservation_weight > 0: 
             noise_pred_esd_model, noise_pred_ps_esd_model = total_noise_pred_esd_model.chunk(2, dim=0)
             # print(noise_pred_ps_esd_model)
             # print(noise_pred_esd_model.shape, noise_pred_ps_esd_model.shape) [1, 4, 64, 64]
+            
+            # change to float
+            # noise_pred_esd_model = noise_pred_esd_model.float()
+            # noise_pred_ps_esd_model = noise_pred_ps_esd_model.float()
+            # noise_pred_ps = noise_pred_ps.float()
+            # noise_pred_erase = noise_pred_erase.float()
+            # noise_pred_erase_from = noise_pred_erase_from.float()
+            
             unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (negative_guidance*(noise_pred_erase - noise_pred_base))) 
             preservation_loss = criteria(noise_pred_ps_esd_model, noise_pred_ps)
             
             
         else:
+            
+            
+            
+            
             noise_pred_esd_model = total_noise_pred_esd_model
+
+            # change to float 
+            noise_pred_erase = noise_pred_erase.float()
+            noise_pred_esd_model = noise_pred_esd_model.float()
+            noise_pred_erase_from = noise_pred_erase_from.float()
+            noise_pred_base = noise_pred_base.float()
+            
+            
             unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (negative_guidance*(noise_pred_erase - noise_pred_base))) 
             preservation_loss = torch.tensor(0.0).to(device)
         
@@ -518,10 +684,17 @@ if __name__ == '__main__':
         if (not args.apply_gradient_projection):
             # ---- baseline (same as before) ----
             
-            if args.preservation_weight :
-                total_loss = unlearn_loss + args.preservation_weight * preservation_loss
+            preservation_weight = args.preservation_weight if args.preservation_weight is not None else 0.0
+            if args.preservation_weight_option == 'convex':
+                total_loss = (1.0 - preservation_weight) * unlearn_loss + preservation_weight * preservation_loss
             else:
-                total_loss = unlearn_loss
+                total_loss = unlearn_loss + preservation_weight * preservation_loss
+
+            
+            # if args.preservation_weight :
+            #     total_loss = unlearn_loss + args.preservation_weight * preservation_loss
+            # else:
+            #     total_loss = unlearn_loss
             print(f"total_loss: {total_loss.item()}, "
                 f"unlearn_loss: {unlearn_loss.item()}, "
                 f"preservation_loss: {preservation_loss.item()}")
@@ -607,6 +780,29 @@ if __name__ == '__main__':
             
             do_grad_injection(unet,resolved_grads,show_per_param=False)
             optimizer.step()
+            
+            
+            # just for log purpose (not really optimizing this)
+            if args.preservation_weight_option == 'convex':
+                total_loss = (1.0 - args.preservation_weight) * unlearn_loss.detach() + rgs.preservation_weight * preservation_loss.detach()
+            else:
+                total_loss = unlearn_loss.detach() + rgs.preservation_weight * preservation_loss.detach()
+            
+
+
+        # --- W&B log (after step) ---
+        if args.report_to == 'wandb':
+            try:
+                wandb.log({
+                    "unlearning_loss": float(unlearn_loss.detach().item()),
+                    "preservation_loss": float(preservation_loss.detach().item()),
+                    "total_weighted_loss": float((total_loss).detach().item()) if args.preservation_weight is not None else float(unlearn_loss.detach().item()),
+                    "timestep": int(timestep.detach().cpu().item()),
+                    "training_step": int(training_step),
+                }, step=int(training_step))
+            except Exception as _e:
+                print(f"[wandb] log failed: {_e}")
+        # --- end W&B log ---
 
 
         # save_esd_model(esd_param_names, esd_params, args, args.training_step)

@@ -1,6 +1,7097 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="12_3"
 
+"""
+
+echo 'count:0 - sd1.4 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/original_pretrained_sd1.4_bf16" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of jeep;a photo of castle fortress;a photo of bunker;a photo of infantry;a photo of warship" --instance_prompt="a photo of jeep;a photo of castle fortress;a photo of bunker;a photo of infantry;a photo of warship" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+# echo 'count: 0'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# ['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500']
+# echo 'count:0 - GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 0 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" --instance_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# Total scripts generated: 1
+# echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 0 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-0" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-0" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 100 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-100" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-100" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 200 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-200" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-200" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 300 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-300" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-300" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 400 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-400" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-400" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 500 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-500" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-500" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 600 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-600" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-600" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 700 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-700" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-700" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 800 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-800" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-800" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 900 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-900" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-900" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500 1000 /'
+
+#             accelerate launch train_dreambooth_lora.py \
+#                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                 --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0/step500.safetensors" \
+#                 --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-1000" \
+#                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                 --gen_image_path="auto" \
+#                 --output_dir="data_root/logs/gen" \
+#                 --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                 --run_note 'gen img' --wait_weight \
+#                 --num_validation_images 50 \
+#                 --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32.lr1e-05_r0.uS500/checkpoint-1000" \
+#                 --placeholder_token="v1" --initializer_token='object' \
+#                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# Total scripts generated: 11
+
+
+
+
+echo 'count:0 - GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32.lr5e-04_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32.lr5e-04_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32.lr5e-04_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" --instance_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60.TSia.1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60.TSia.1.00_U.mmouse_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60.TSia.1.00_U.mmouse_sd1.4.fp32_r0.uS300']
+echo 'count:0 - GP.gH.pH-u0.50.pe00-cPS0.60.TSia.1.00_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60.TSia.1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60.TSia.1.00_U.mmouse_sd1.4.fp32_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" --instance_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+
+
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/padthai/aligned/padthai-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+['rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300']
+echo 'count:0 - GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of thai sweets;a photo of coconut soup;a photo of Thai kitchen apron;a photo of Thai street kitchen sign;a photo of Thai food menu;a photo of pineapple fried rice;a photo of mango sticky rice;a photo of Thai sausage;a photo of sushi;a photo of boat noodles" --instance_prompt="a photo of thai sweets;a photo of coconut soup;a photo of Thai kitchen apron;a photo of Thai street kitchen sign;a photo of Thai food menu;a photo of pineapple fried rice;a photo of mango sticky rice;a photo of Thai sausage;a photo of sushi;a photo of boat noodles" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+
+
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r2.uS300']
+echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:11 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:12 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:13 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:14 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:15 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:16 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:17 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:18 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:19 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:20 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:21 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:22 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+
+
+['rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.60_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r2.uS300']
+
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r2.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r2.uS300']
+
+
+
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00.TEST-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20.TEST_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500']
+echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0/step500.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40.TSa.1.00_U.mmouse_sd1.4.fp32_r0.uS500/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+
+['rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-PS0.00_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:11 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:12 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:13 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:14 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:15 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:16 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:17 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:18 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:19 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:20 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:21 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.30_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:22 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:23 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:24 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:25 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:26 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:27 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:28 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:29 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:30 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:31 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:32 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.60_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:33 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:34 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:35 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:36 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:37 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:38 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:39 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:40 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:41 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:42 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:43 - rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gG.pH-u0.50.pe00-cPS0.90_U.padthai_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 44
+
+echo 'count:18 - rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:19 - rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:20 - rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:21 - rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.tankA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.tank_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.10_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.10_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.30_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.30_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.50_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.50_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 4'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.10_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.30_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.50_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.fp32_r0.uS300']
+
+
+
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 4'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.fp32_r0.uS300']
+
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:11 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:12 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:13 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:14 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:15 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:16 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:17 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:18 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:19 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:20 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:21 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 22
+
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+
+
+# echo 'count: 3'
+
+            # accelerate launch train_dreambooth_lora.py \
+            # --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            # --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+            # --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            # --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300" \
+            # --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            # --train_batch_size=1 --gradient_accumulation_steps=4 \
+            # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+            # --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            # --run_note 'uul dummy lNone ti' \
+            # --cfg_scale 6.0 \
+            # --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            # --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            # --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            # --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            # --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            # --placeholder_token="v1" --initializer_token='object'
+
+
+            # echo 'count: 3'
+
+            # accelerate launch train_dreambooth_lora.py \
+            # --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            # --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-P0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+            # --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            # --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-P0.60_U.mmouse_sd1.4.fp32_r0.uS300" \
+            # --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            # --train_batch_size=1 --gradient_accumulation_steps=4 \
+            # --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+            # --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            # --run_note 'uul dummy lNone ti' \
+            # --cfg_scale 6.0 \
+            # --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            # --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            # --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            # --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            # --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            # --placeholder_token="v1" --initializer_token='object'
+
+
+
+# echo 'count: 4'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# echo 'count: 5'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# ['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300']
+
+
+
+
+# echo 'count: 3'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.bf32_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.bf32_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# echo 'count: 4'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.bf32_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.bf32_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# echo 'count: 5'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.bf32_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.bf32_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'no' \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# ['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00_U.mmouse_sd1.4.bf32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.20_U.mmouse_sd1.4.bf32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.40_U.mmouse_sd1.4.bf32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.bf32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.bf32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.bf32_r0.uS300']
+
+
+
+# echo 'count: 3'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision fp32 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# echo 'count: 4'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision fp32 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# echo 'count: 5'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision fp32 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='object'
+# ['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00_U.mmouse_sd1.4.bf16_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.20_U.mmouse_sd1.4.bf16_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.40_U.mmouse_sd1.4.bf16_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.60_U.mmouse_sd1.4.bf16_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS0.80_U.mmouse_sd1.4.bf16_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.fp32.r0_esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.bf16_r0.uS300']
+
+
+
+
+echo 'count:2 - GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" --instance_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+['rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.10_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.30_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.50_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.70_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.80_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.90_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS1.00_U.padthai_sd1.4.bf16_r0.uS300']
+echo 'count:0 - sd1.4 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/original_pretrained_sd1.4_bf16" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of thai sweets;a photo of coconut soup;a photo of Thai kitchen apron;a photo of Thai street kitchen sign;a photo of Thai food menu;a photo of pineapple fried rice;a photo of mango sticky rice;a photo of Thai sausage;a photo of sushi;a photo of boat noodles" --instance_prompt="a photo of thai sweets;a photo of coconut soup;a photo of Thai kitchen apron;a photo of Thai street kitchen sign;a photo of Thai food menu;a photo of pineapple fried rice;a photo of mango sticky rice;a photo of Thai sausage;a photo of sushi;a photo of boat noodles" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+
+
+['rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.10_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.30_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.50_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.70_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.80_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.90_U.padthai_sd1.4.bf16_r0.uS300', 'rlct4.reV.padthaiA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS1.00_U.padthai_sd1.4.bf16_r0.uS300']
+echo 'count:0 - sd1.4 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/original_pretrained_sd1.4_bf16" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of thai sweets;a photo of coconut soup;a photo of Thai kitchen apron;a photo of Thai street kitchen sign;a photo of Thai food menu;a photo of pineapple fried rice;a photo of mango sticky rice;a photo of Thai sausage;a photo of sushi;a photo of boat noodles" --instance_prompt="a photo of thai sweets;a photo of coconut soup;a photo of Thai kitchen apron;a photo of Thai street kitchen sign;a photo of Thai food menu;a photo of pineapple fried rice;a photo of mango sticky rice;a photo of Thai sausage;a photo of sushi;a photo of boat noodles" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+
+
+echo 'count:9 - U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" --instance_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" --instance_prompt="a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+
+
+
+['rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300', 'rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300']
+echo 'count:0 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:11 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:12 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:13 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:14 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:15 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:16 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:17 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:18 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:19 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:20 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:21 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:22 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:23 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:24 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:25 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:26 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:27 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:28 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:29 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:30 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:31 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:32 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:33 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:34 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:35 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:36 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:37 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:38 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:39 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:40 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:41 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:42 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:43 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:44 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:45 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:46 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:47 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:48 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:49 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:50 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:51 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:52 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:53 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:54 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:55 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:56 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:57 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:58 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:59 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:60 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:61 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:62 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:63 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:64 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:65 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:66 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:67 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:68 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:69 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:70 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:71 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:72 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:73 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:74 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:75 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:76 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:77 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:78 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:79 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:80 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:81 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:82 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:83 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:84 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:85 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:86 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:87 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:88 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:89 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:90 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:91 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:92 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:93 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:94 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:95 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:96 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:97 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:98 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:99 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:100 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:101 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:102 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:103 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:104 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:105 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:106 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:107 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:108 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:109 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:110 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:111 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:112 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:113 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:114 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:115 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:116 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:117 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 700 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-700" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:118 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 800 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-800" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:119 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 900 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-900" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:120 - rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300 1000 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mmouseA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mmouse_sd1.4.fp32_r0.uS300/checkpoint-1000" \
+                --placeholder_token="v1" --initializer_token='object' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 121
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 4'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 5'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 6'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 7'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 8'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 9'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 10'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.ganesha_sd1.4.bf16_r2/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.ganesha_sd1.4.bf16_r2.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+['rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.ganesha_sd1.4.bf16_r2.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r2_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.ganesha_sd1.4.bf16_r2.uS300']
+
+echo 'count:22 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-0" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-0" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:23 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300 100 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-100" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-100" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:24 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300 200 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-200" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-200" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:25 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300 300 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-300" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-300" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:26 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300 400 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-400" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-400" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:27 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300 500 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-500" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-500" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:28 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300 600 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+                --load_lora_weight_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-600" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="auto" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --load_token_embedding_path="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300/checkpoint-600" \
+                --placeholder_token="v1" --initializer_token='person' \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+echo 'count:5 - GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r0.uS300 0 /'
+
+            accelerate launch train_dreambooth_lora.py \
+                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+                --load_lora_weight_path="" \
+                --instance_data_dir="data_root/data/real_data/dummy" \
+                --gen_image_path="data_root/generated/model/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r0/step300" \
+                --output_dir="data_root/logs/gen" \
+                --validation_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" --instance_prompt="a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman" \
+                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                --run_note 'gen img' --wait_weight \
+                --num_validation_images 50 \
+                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 11
+
+
+
+
+
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 4'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 5'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 6'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 7'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 8'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 9'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 10'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1.uS300']
+
+
+echo 'count: 6'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 7'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 8'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 9'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+echo 'count: 10'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1.uS300']
+
+
+
+# echo 'count: 0'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 1'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 2'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 3'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 4'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 5'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 6'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 7'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 8'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 9'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# echo 'count: 10'
+
+#             accelerate launch train_dreambooth_lora.py \
+#             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+#             --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r0/step300.safetensors" \
+#             --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+#             --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r0.uS300" \
+#             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+#             --train_batch_size=1 --gradient_accumulation_steps=4 \
+#             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+#             --run_note 'uul dummy lNone ti' \
+#             --cfg_scale 6.0 --gen_dtype 'bf16' \
+#             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+#             --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+#             --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+#             --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+#             --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+#             --placeholder_token="v1" --initializer_token='person'
+# ['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r0.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r0_esd-x.nG3.00.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r0.uS300']
+
+
+
+
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.10_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.10_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.20_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.20_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.30_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.30_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 4'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.40_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.40_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 5'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.50_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.50_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 6'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.60_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.60_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 7'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.70_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.70_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 8'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.80_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.80_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 9'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS0.90_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.90_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+echo 'count: 10'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00.pe00-cPS1.00_U.ganesha_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/ganesha/aligned/ganesha-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS1.00_U.ganesha_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision bf16 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of object" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of object/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='object'
+['rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.10_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.20_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.30_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.40_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.50_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.60_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.70_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.80_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS0.90_U.ganesha_sd1.4.bf16_r1.uS300', 'rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.bf16.r1_esd-x.nG3.00.pe00-cPS1.00_U.ganesha_sd1.4.bf16_r1.uS300']
+
+base_exp_name: GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --mixed_precision="bf16" \
+            --placeholder_token="v1" --initializer_token='person'
+
+
+base_exp_name: GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 0'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 1'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 2'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 3'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 4'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 5'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 6'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 7'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 8'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 9'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+base_exp_name: GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1
+echo 'count: 10'
+
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/pg_bf16/esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1/step300.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mrobbie/aligned/mrobbie-5-v0" \
+            --output_dir="data_root/logs/rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1.uS300" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
+            --with_prior_preservation --prior_loss_weight=1.0 --num_class_images 200 \
+            --class_prompt="a photo of a person" --class_data_dir="data_root/generated/model/original_pretrained_sd1.4/a photo of a person_neg/7.50" \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='person'
+['rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.10_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.30_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.70_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.90_U.mrobbie_sd1.4.bf16_r1.uS300', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS1.00_U.mrobbie_sd1.4.bf16_r1.uS300']
+
+
 base_exp_name: GP.gG.pH-u0.50.pe00-PS0.00_U.mrobbie_sd1.4_r1
 echo 'count: 0'
 
@@ -12,7 +7103,7 @@ echo 'count: 0'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -32,7 +7123,7 @@ echo 'count: 1'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -52,7 +7143,7 @@ echo 'count: 2'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -72,7 +7163,7 @@ echo 'count: 3'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -92,7 +7183,7 @@ echo 'count: 4'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -112,7 +7203,7 @@ echo 'count: 5'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -132,7 +7223,7 @@ echo 'count: 6'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -152,7 +7243,7 @@ echo 'count: 7'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -172,7 +7263,7 @@ echo 'count: 8'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -192,7 +7283,7 @@ echo 'count: 9'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -212,7 +7303,7 @@ echo 'count: 10'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 1 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2315,7 +9406,6 @@ echo 'count:120 - rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r1_esd-
                 --cfg_scale 7.50 --gen_batch 10
 Total scripts generated: 121
 
-"""
 1
 base_exp_name: GP.gG.pH-u0.50.pe00-cPS0.40_U.mrobbie_sd1.4_r0
 base_exp_name: GP.gG.pH-u0.50.pe00-cPS0.50_U.mrobbie_sd1.4_r0
@@ -2424,7 +9514,7 @@ Total scripts generated: 4
 #             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
 #             --train_batch_size=1 --gradient_accumulation_steps=4 \
 #             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#             --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
 #             --run_note 'uul dummy lNone ti' \
 #             --cfg_scale 6.0 \
 #             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2444,7 +9534,7 @@ echo 'count: 1'
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --train_batch_size=1 --gradient_accumulation_steps=4 \
             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-            --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
             --run_note 'uul dummy lNone ti' \
             --cfg_scale 6.0 \
             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2464,7 +9554,7 @@ base_exp_name: GP.gG.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4_r2
 #             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
 #             --train_batch_size=1 --gradient_accumulation_steps=4 \
 #             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#             --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
 #             --run_note 'uul dummy lNone ti' \
 #             --cfg_scale 6.0 \
 #             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2484,7 +9574,7 @@ base_exp_name: GP.gG.pH-u0.50.pe00-cPS0.20_U.mrobbie_sd1.4_r2
 #             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
 #             --train_batch_size=1 --gradient_accumulation_steps=4 \
 #             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#             --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
 #             --run_note 'uul dummy lNone ti' \
 #             --cfg_scale 6.0 \
 #             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2591,7 +9681,7 @@ Total scripts generated: 44
 #             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
 #             --train_batch_size=1 --gradient_accumulation_steps=4 \
 #             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#             --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
 #             --run_note 'uul dummy lNone ti' \
 #             --cfg_scale 6.0 \
 #             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2611,7 +9701,7 @@ Total scripts generated: 44
 #             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
 #             --train_batch_size=1 --gradient_accumulation_steps=4 \
 #             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#             --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
 #             --run_note 'uul dummy lNone ti' \
 #             --cfg_scale 6.0 \
 #             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2631,7 +9721,7 @@ Total scripts generated: 44
 #             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
 #             --train_batch_size=1 --gradient_accumulation_steps=4 \
 #             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#             --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
 #             --run_note 'uul dummy lNone ti' \
 #             --cfg_scale 6.0 \
 #             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \
@@ -2651,7 +9741,7 @@ Total scripts generated: 44
 #             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
 #             --train_batch_size=1 --gradient_accumulation_steps=4 \
 #             --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross \
-#             --max_train_steps=1000  --validation_steps=250  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
+#             --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 2 \
 #             --run_note 'uul dummy lNone ti' \
 #             --cfg_scale 6.0 \
 #             --negative_prompt "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality." \

@@ -203,13 +203,15 @@ def load_token_embedding(text_encoder, tokenizer, weight_path):
     
     
     
+    
+    
     # learned_embeds_dict = {}
     # for i, ph_id in enumerate(placeholder_token_id):
     #     learned_embeds = accelerator.unwrap_model(text_encoder).get_input_embeddings().weight[ph_id]
     #     learned_embeds_dict[placeholder_token[i]] = learned_embeds.detach().cpu()
     # torch.save(learned_embeds_dict, save_path)
     
-    
+@torch.no_grad()
 def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype, epoch, log_label=None,save_image_path=None,gen_dtype=None):
     logger.info(
         f"Running validation... \n Generating {args.num_validation_images} images with prompt: {args.validation_prompt}"
@@ -217,8 +219,11 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
 
     if gen_dtype is None: gen_dtype = weight_dtype
     print(f'gen_dtype: {gen_dtype}')
-    print(10*'#')
+    # print(unet)
+    # print(10*'#')
     # Initialize inference pipeline
+    # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path,tokenizer=tokenizer, revision=args.revision, torch_dtype=args.gen_dtype)
+    
     pipeline = DiffusionPipeline.from_pretrained(
         args.pretrained_model_name_or_path,
         unet=accelerator.unwrap_model(unet).to(dtype=gen_dtype),
@@ -227,7 +232,22 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
         revision=args.revision,
         torch_dtype=gen_dtype,
     )
+    
+    # print(unet)
+    # print(10*'#')
+    # print(unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.dtype) #bfloat16
+    # print(10*'#')
+    # pipeline = DiffusionPipeline.from_pretrained(
+    #     args.pretrained_model_name_or_path,
+    #     unet=unet,
+    #     text_encoder=text_encoder,
+    #     tokenizer=tokenizer,
+    #     revision=args.revision,
+    #     torch_dtype=gen_dtype,
+    # )
 
+    
+    # pipeline.unet.eval()
     if "variance_type" in pipeline.scheduler.config:
         variance_type = pipeline.scheduler.config.variance_type
         if variance_type in ["learned", "learned_range"]:
@@ -241,6 +261,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     pipeline.safety_checker = None
     pipeline.requires_safety_checker = False
     pipeline = pipeline.to(accelerator.device)
+    # pipeline = pipeline.to(accelerator.device, dtype=gen_dtype)
     pipeline.set_progress_bar_config(disable=True)
 
     generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
@@ -1258,6 +1279,83 @@ def main(args):
         log_with=args.report_to,
         project_config=accelerator_project_config,
     )
+    
+    # # For mixed precision training we cast all non-trainable weights (vae, non-lora text_encoder and non-lora unet) to half-precision
+    # # as these weights are only used for inference, keeping weights in full precision is not required.
+    weight_dtype = torch.float32
+    if accelerator.mixed_precision == "fp16":
+        weight_dtype = torch.float16
+    elif accelerator.mixed_precision == "bf16":
+        weight_dtype = torch.bfloat16
+    print(f'weight dtype: {weight_dtype}')
+    
+    
+    fast_track = False
+    if args.gen_image_path is not None and fast_track:
+        print('entering fastrack generation')
+        torch.cuda.empty_cache()
+
+        print(f'entering image generation, save image to: {args.gen_image_path}')
+        # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
+        pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype)
+
+        if args.load_pretrained_lora_weight_path is not None:
+            print('loading LoRA into UNet ....')
+            print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
+        
+            dummy_pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, unet=pipeline.unet, text_encoder=pipeline.text_encoder, vae=pipeline.vae, revision=args.revision)
+            dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+
+            dummy_pipeline.fuse_lora()
+            print('Fused LoRA  ....')
+                
+        
+        if args.load_unet_weight_path is not None:
+            print('loading UNet weight from: ', args.load_unet_weight_path)
+            if '.safetensor' in args.load_unet_weight_path:
+                pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+            else:
+                pipeline.unet.load_state_dict(torch.load(args.load_unet_weight_path), strict=False)
+            print('UNet weight loaded (for generation)')
+            
+            
+            pipeline.unet.eval()
+        else:
+            print('not loading UNet weight')            
+            
+        
+        if args.load_lora_weight_path is not None and args.lora_rank is not None and args.lora_rank > 0:
+            # load attention processors
+            print(25*"#")
+            print('loading LoRA weight')
+            pipeline.load_lora_weights(args.load_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+            
+            print(f'generating images from: lora{args.load_lora_weight_path}')
+            
+        else: print('not loading loRA weight')
+        if args.load_token_embedding_path is not None and args.placeholder_token is not None:
+            print('loading token embedding')
+            load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,'token_embedding.pt'))
+        
+        log_validation(
+            unet=pipeline.unet,
+            text_encoder=pipeline.text_encoder,
+            tokenizer=pipeline.tokenizer,
+            args=args,
+            accelerator=accelerator,
+            weight_dtype=weight_dtype,
+            gen_dtype=args.gen_dtype,
+            epoch=0,
+            log_label='image generation',
+            save_image_path = args.gen_image_path)
+        
+        exit()
+                    
+                    
+    
+    
+    
+    
 
 
     # create custom saving & loading hooks so that `accelerator.save_state(...)` serializes in a nice format
@@ -1435,8 +1533,13 @@ def main(args):
     else:
         print(f"VAE not found in {args.pretrained_model_name_or_path}/vae, skipping VAE loading.")
     # exit()
+    
+    # unet = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype).unet
+    
+    
+    
     unet = UNet2DConditionModel.from_pretrained(
-        args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision
+        args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision,
     )
     
     
@@ -1542,13 +1645,14 @@ def main(args):
         text_encoder.requires_grad_(False)
         
     
-    # For mixed precision training we cast all non-trainable weights (vae, non-lora text_encoder and non-lora unet) to half-precision
-    # as these weights are only used for inference, keeping weights in full precision is not required.
-    weight_dtype = torch.float32
-    if accelerator.mixed_precision == "fp16":
-        weight_dtype = torch.float16
-    elif accelerator.mixed_precision == "bf16":
-        weight_dtype = torch.bfloat16
+    # # For mixed precision training we cast all non-trainable weights (vae, non-lora text_encoder and non-lora unet) to half-precision
+    # # as these weights are only used for inference, keeping weights in full precision is not required.
+    # weight_dtype = torch.float32
+    # if accelerator.mixed_precision == "fp16":
+    #     weight_dtype = torch.float16
+    # elif accelerator.mixed_precision == "bf16":
+    #     weight_dtype = torch.bfloat16
+    # print(f'weight dtype: {weight_dtype}')
 
     # Move unet, vae and text_encoder to device and cast to weight_dtype
     unet.to(accelerator.device, dtype=weight_dtype)
@@ -1673,6 +1777,7 @@ def main(args):
     if args.train_text_encoder:
         # ensure that dtype is float32, even if rest of the model that isn't trained is loaded in fp16
         text_lora_parameters = LoraLoaderMixin._modify_text_encoder(text_encoder, dtype=torch.float32, rank=args.lora_rank)
+        # text_lora_parameters = LoraLoaderMixin._modify_text_encoder(text_encoder, dtype=weight_dtype, rank=args.lora_rank)
 
     # print(text_lora_parameters)
     # print(text_lora_parameters[-1])
@@ -1751,6 +1856,7 @@ def main(args):
                 if args.train_text_encoder
                 else unet_lora_parameters
             )
+            print(f"unet_lora_parameters dtype: {next(iter(unet_lora_parameters)).dtype}")
         # TI
         params_ti = []
         if args.placeholder_token is not None:
@@ -2150,7 +2256,7 @@ def main(args):
             print(f'entering image generation, save image to: {args.gen_image_path}')
             # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
             pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype)
-            
+    
             if args.load_pretrained_lora_weight_path is not None:
                 print('loading LoRA into UNet ....')
                 print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
@@ -2202,7 +2308,8 @@ def main(args):
                 save_image_path = args.gen_image_path)
                         
                         
-                
+                                                
+                        
         else:
             unet = accelerator.unwrap_model(unet)
             unet = unet.to(torch.float32)
@@ -2261,15 +2368,16 @@ def main(args):
                 load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.output_dir,'token_embedding.pt'))
             
 
-            log_validation(
-                unet=pipeline.unet,
-                text_encoder=pipeline.text_encoder,
-                tokenizer=pipeline.tokenizer,
-                args=args,
-                accelerator=accelerator,
-                weight_dtype=weight_dtype,
-                epoch=epoch,
-                log_label='final')
+            # log_validation(
+            #     unet=pipeline.unet,
+            #     text_encoder=pipeline.text_encoder,
+            #     tokenizer=pipeline.tokenizer,
+            #     args=args,
+            #     accelerator=accelerator,
+            #     weight_dtype=weight_dtype,
+            #     gen_dtype=args.gen_dtype,
+            #     epoch=epoch,
+            #     log_label='final')
                         
                         
 
@@ -2310,6 +2418,7 @@ if __name__ == "__main__":
     
     if args.gen_dtype == 'fp16': args.gen_dtype = torch.float16
     if args.gen_dtype == 'fp32': args.gen_dtype = torch.float32
+    if args.gen_dtype == 'bf16': args.gen_dtype = torch.bfloat16
     
     if args.load_lora_weight_path == '': args.load_lora_weight_path = None
     if args.load_unet_weight_path == '': args.load_unet_weight_path = None
