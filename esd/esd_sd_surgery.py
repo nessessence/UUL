@@ -71,6 +71,15 @@ def resolve_model_name(args): #, training_step):
     base_file_name = f"{train_method}"
     if args.negative_guidance:
         base_file_name += f".nG{args.negative_guidance:.2f}"
+        
+    if args.base_concept == 'general':
+        base_file_name += f".bG" # base general
+    
+    if args.erase_from is not None:
+        if args.erase_from == 'uncond':
+            base_file_name += f".fU" # erase from uncond
+        elif args.erase_from == 'object':
+            base_file_name += f".fO" # erase from object    
     
     if not args.apply_gradient_projection and args.preservation_weight is not None and args.preservation_weight > 0:
         base_file_name += '.'
@@ -148,8 +157,7 @@ def resolve_model_name(args): #, training_step):
     elif args.timestep_constraint is not None:
         base_file_name += f".T{args.timestep_constraint}"
         
-    if args.base_concept == 'general':
-        base_file_name += f"_BGeneral"
+
         
     if args.decompositional_timestep_sampler is not None:
         base_file_name += f"_dT{args.decompositional_timestep_sampler}"
@@ -164,7 +172,7 @@ def resolve_model_name(args): #, training_step):
         base_file_name += f".lr{args.lr:.0e}"
 
     if args.batch_size != 1:
-        base_file_name += f".bsn{args.batch_size}" # p just for note that still one preservation concept
+        base_file_name += f".bs{args.batch_size}" # n just for note that still one preservation concept
 
 
     if args.test_tag is not None:
@@ -229,6 +237,13 @@ def get_esd_trainable_parameters(esd_unet, train_method='esd-x'):
                     esd_param_names.append(name+'.'+n)
                     esd_params.append(p)
                     
+                    
+            if train_method == 'esd-xs' and ( 'attn2' in name or 'attn1' in name ):
+                for n, p in module.named_parameters():
+                    esd_param_names.append(name+'.'+n)
+                    esd_params.append(p)
+                    
+                    
             if train_method == 'esd-u' and ('attn2' not in name):
                 for n, p in module.named_parameters():
                     esd_param_names.append(name+'.'+n)
@@ -250,7 +265,7 @@ if __name__ == '__main__':
                     prog = 'TrainESD for SDv1.4',
                     description = 'Finetuning stable-diffusion to erase the concepts')
     parser.add_argument('--erase_concept', help='concept to erase', type=str, required=True)
-    parser.add_argument('--erase_from', help='target concept to erase from', type=str, required=False, default = None)
+    # parser.add_argument('--erase_from', help='target concept to erase from', type=str, required=False, default = None)
     parser.add_argument('--num_inference_steps', help='number of inference steps for diffusion model', type=int, required=False, default=50)
     parser.add_argument('--guidance_scale', help='guidance scale to run inference for diffusion model', type=float, required=False, default=3)
     
@@ -266,6 +281,7 @@ if __name__ == '__main__':
     parser.add_argument('--timestep_constraint', help='timestep constraint for diffusion model', type=str, required=False, default=None)
     parser.add_argument('--base_concept', type=str, choices=['null','general','erased'], default='null', required=False)
     
+    parser.add_argument('--erase_from', type=str, choices=[None,'uncond','object'], default=None, required=False)
     
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
     parser.add_argument('--preservation_split', type=str,  default='train', choices=['train','test'] )
@@ -295,6 +311,8 @@ if __name__ == '__main__':
     parser.add_argument('--test_tag', type=str,  default=None)
     parser.add_argument('--report_to', type=str,  default='wandb') # wandb
     parser.add_argument('--batch_size', type=int,  default=1) # wandb
+    
+    
 
 
     args = parser.parse_args()
@@ -354,7 +372,7 @@ if __name__ == '__main__':
     negative_guidance = args.negative_guidance
     train_method=args.train_method
     max_training_step = args.max_training_step
-    batchsize = args.batch_size
+    batch_size = args.batch_size
     # height=width=1024 # Fix to 1024 ?
     height=width=512 # I now fixed this to 512
     lr = args.lr
@@ -382,6 +400,7 @@ if __name__ == '__main__':
 
     esd_param_names, esd_params = get_esd_trainable_parameters(esd_unet, train_method=train_method)
     optimizer = torch.optim.Adam(esd_params, lr=lr)
+    # optimizer = torch.optim.AdamW(esd_params, lr=lr)
 
     # print(esd_param_names)
 
@@ -431,7 +450,7 @@ if __name__ == '__main__':
         # get prompt embeds
         erase_embeds, null_embeds = pipe.encode_prompt(prompt=erase_concept,
                                                        device=device,
-                                                       num_images_per_prompt=batchsize,
+                                                       num_images_per_prompt=batch_size,
                                                        do_classifier_free_guidance=True,
                                                        negative_prompt='')
                                                  
@@ -445,15 +464,26 @@ if __name__ == '__main__':
             # fix a photo of (?)
             general_embeds, _ = pipe.encode_prompt(prompt="Person",
                                                         device=device,
-                                                        num_images_per_prompt=batchsize,
+                                                        num_images_per_prompt=batch_size,
                                                         do_classifier_free_guidance=True,
                                                         negative_prompt='')
             base_embeds = general_embeds.to(device)
+            
+        # revise later
+        if args.erase_from == 'object':
+            object_embeds, _ = pipe.encode_prompt(prompt="object",
+                                                    device=device,
+                                                    num_images_per_prompt=batch_size,
+                                                    do_classifier_free_guidance=True,
+                                                    negative_prompt='')
+            object_embeds = object_embeds.to(device)
+                
+                
         
         
         timestep_cond = None 
         if pipe.unet.config.time_cond_proj_dim is not None:
-            guidance_scale_tensor = torch.tensor(guidance_scale - 1).repeat(batchsize)
+            guidance_scale_tensor = torch.tensor(guidance_scale - 1).repeat(batch_size)
             timestep_cond = pipe.get_guidance_scale_embedding(
                 guidance_scale_tensor, embedding_dim=pipe.unet.config.time_cond_proj_dim
             ).to(device=device, dtype=torch_dtype)
@@ -539,7 +569,7 @@ if __name__ == '__main__':
         with torch.no_grad():
             # sample xt with Pe (reverse process)
             xt = pipe(erase_concept , 
-                      num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+                      num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
 
             noise_pred_erase = pipe.unet(
                 xt,
@@ -561,42 +591,78 @@ if __name__ == '__main__':
                 added_cond_kwargs=None,
                 return_dict=False,
             )[0]
-   
-            noise_pred_erase_from = noise_pred_erase
-                
-            if args.preservation_weight is not None and args.preservation_weight > 0:
 
-                preservation_concept = rng.choice(preservation_concepts).item()
-                print(f"preservation_concept: {preservation_concept}")
-                preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
-                                                            device=device,
-                                                            num_images_per_prompt=batchsize,
-                                                            do_classifier_free_guidance=True,
-                                                            negative_prompt='')
+            if args.erase_from == 'uncond':
+                noise_pred_erase_from = noise_pred_base
 
 
-                # preservation_concept = rng.choice(preservation_concepts,batchsize)
-                # print(f"preservation_concept: {preservation_concept}")
-                # preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
-                #                                             device=device,
-                #                                             num_images_per_prompt=1,
-                #                                             do_classifier_free_guidance=True,
-                #                                             negative_prompt='')
-
-                                                            
-                preservation_embeds = preservation_embeds.to(device)    
-                                                            
-                xt_ps = pipe(preservation_concept, 
-                        num_images_per_prompt=batchsize, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
-                noise_pred_ps = pipe.unet(
-                    xt_ps,
+            elif args.erase_from == 'object':
+                noise_pred_erase_from = pipe.unet(
+                    xt,
                     timestep,
-                    encoder_hidden_states=preservation_embeds,
+                    encoder_hidden_states=object_embeds,
                     timestep_cond=timestep_cond,
                     cross_attention_kwargs=None,
                     added_cond_kwargs=None,
                     return_dict=False,
                 )[0]
+                
+                
+            else:
+                noise_pred_erase_from = noise_pred_erase
+                
+            if args.preservation_weight is not None and args.preservation_weight > 0:
+                
+                
+                if batch_size == 1:
+                    preservation_concept = rng.choice(preservation_concepts).item()
+                    print(f"preservation_concept: {preservation_concept}")
+                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
+                                                                device=device,
+                                                                num_images_per_prompt=batch_size,
+                                                                do_classifier_free_guidance=True,
+                                                                negative_prompt='')
+
+
+                                                                
+                    preservation_embeds = preservation_embeds.to(device)    
+                                                                
+                    xt_ps = pipe(preservation_concept, 
+                            num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+                    noise_pred_ps = pipe.unet(
+                        xt_ps,
+                        timestep,
+                        encoder_hidden_states=preservation_embeds,
+                        timestep_cond=timestep_cond,
+                        cross_attention_kwargs=None,
+                        added_cond_kwargs=None,
+                        return_dict=False,
+                    )[0]
+                
+                    # will use this if it work
+                elif batch_size > 1:
+                    preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=False).tolist()
+                    print(f"preservation_concept: {preservation_concept}")
+                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
+                                                                device=device,
+                                                                num_images_per_prompt=1, # fix to 1 now
+                                                                do_classifier_free_guidance=True,
+                                                                negative_prompt=['']*batch_size)
+                        
+                        
+                    xt_ps = pipe(preservation_concept, 
+                            num_images_per_prompt=1, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+                    noise_pred_ps = pipe.unet(
+                        xt_ps,
+                        timestep,
+                        encoder_hidden_states=preservation_embeds,
+                        timestep_cond=timestep_cond,
+                        cross_attention_kwargs=None,
+                        added_cond_kwargs=None,
+                        return_dict=False,
+                    )[0]
+                
+                ###
                 
 
         # gradient !!!
@@ -604,19 +670,25 @@ if __name__ == '__main__':
         pipe.unet = esd_unet
         if args.preservation_weight is not None and args.preservation_weight > 0:
             # prompt=[erase_concept,preservation_concept]
-            text_embeds, _ = pipe.encode_prompt(prompt=[erase_concept,preservation_concept],
+            
+            if batch_size == 1:
+                mix_prompts = [erase_concept, preservation_concept]
+            elif batch_size > 1:
+                assert len(preservation_concept) == batch_size
+                mix_prompts = batch_size*[erase_concept] + preservation_concept
+            
+            text_embeds, _ = pipe.encode_prompt(prompt=mix_prompts,
                                                 device=device,
-                                                num_images_per_prompt=batchsize,
+                                                num_images_per_prompt=1,
                                                 do_classifier_free_guidance=True,
-                                                negative_prompt=['',''])
+                                                negative_prompt=['']* (2*batch_size))
             total_xt = torch.cat([xt, xt_ps], dim=0)
-            print("im here")
         else: 
             text_embeds = erase_embeds
             total_xt = xt
             
-        print(f"total_xt.shape: {total_xt.shape}")  # [2*bs, 4, 64, 64]
-        print("text_embeds.shape:", text_embeds.shape)  # [2*bs, 77, 768]
+        # print(f"total_xt.shape: {total_xt.shape}")  # [2*bs, 4, 64, 64]
+        # print("text_embeds.shape:", text_embeds.shape)  # [2*bs, 77, 768]
         
         # print(f"text_embeds0: {text_embeds[0,::].mean()}")
         # print(f"text_embeds1: {text_embeds[1,::].mean()}")
@@ -637,7 +709,7 @@ if __name__ == '__main__':
         )[0]
         
         
-        print(f"total_noise_pred_esd_model.shape: {total_noise_pred_esd_model.shape}")  # [2, 4, 64, 64]
+        # print(f"total_noise_pred_esd_model.shape: {total_noise_pred_esd_model.shape}")  # [2, 4, 64, 64]
         
         
         
@@ -709,17 +781,19 @@ if __name__ == '__main__':
             # for layer_name,grad in unlearn_param_grads.items():
             # print("unlearn grad ", layer_name, grad.shape)
             
-            unlearn_slice = slice(0, (2*batchsize)//2)
-            preservation_slice = slice((2*batchsize)//2, 2*batchsize)
+            unlearn_slice = slice(0, (2*batch_size)//2)
+            preservation_slice = slice((2*batch_size)//2, 2*batch_size)
+            
+            print(f"before unlearn loss {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
             
             # A) backprop Unlearning Loss
             unlearn_loss.backward(retain_graph=True)
             unlearn_param_grads = collect_param_grads(unet, learnable_param_names) 
             
             # set zero grads before next backprop
-            # print(unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad)
+            # print(f"before zero {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
             zero_param_grads(unet, learnable_param_names, set_to_none=False)
-            # print(unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad)
+            # print(f"after zero {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
 
             # B) backprop Preservation Loss
             preservation_loss.backward(retain_graph=True)
@@ -779,14 +853,18 @@ if __name__ == '__main__':
                 continue
             
             do_grad_injection(unet,resolved_grads,show_per_param=False)
+            print(f"after injection{unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
+            
             optimizer.step()
             
             
+            
             # just for log purpose (not really optimizing this)
+            preservation_weight = args.gradient_projection_preserve_scale
             if args.preservation_weight_option == 'convex':
-                total_loss = (1.0 - args.preservation_weight) * unlearn_loss.detach() + rgs.preservation_weight * preservation_loss.detach()
+                total_loss = (1.0 - preservation_weight) * unlearn_loss.detach() + preservation_weight * preservation_loss.detach()
             else:
-                total_loss = unlearn_loss.detach() + rgs.preservation_weight * preservation_loss.detach()
+                total_loss = unlearn_loss.detach() + preservation_weight * preservation_loss.detach()
             
 
 
