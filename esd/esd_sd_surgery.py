@@ -8,7 +8,11 @@ import numpy as np
 
 # seed = 123
 # rng = np.random.RandomState(seed=seed)
-
+erase2general_concept = {"Margot Robbie": "person",
+                            "mickey mouse": "cartoon character",
+                            "pad thai": "food dish"
+                            }
+             
     
 import sys
 # os.environ["PYTHONHASHSEED"] = str(123)s
@@ -25,6 +29,8 @@ from gradient_surgery import collect_param_grads,zero_param_grads,param_grad_sta
 from gradient_surgery import do_grad_injection
 from gradient_surgery import generalize_gradient_projection_prob
 from diffusers import DDIMScheduler
+from diffusers import DDPMScheduler
+
 import wandb 
 
 
@@ -72,6 +78,22 @@ def resolve_model_name(args): #, training_step):
     if args.negative_guidance:
         base_file_name += f".nG{args.negative_guidance:.2f}"
         
+        
+    if args.extra_forward_prob is not None and args.extra_forward_prob > 0 and args.forward_general:
+        base_file_name += f".FWg" # extra forward prob
+        if args.forward_preserve:
+            base_file_name += f"p" # extra forward preserve
+        
+        base_file_name += f"{args.extra_forward_prob:.2f}"
+        
+
+        if args.extra_forward_negative_guidance is  not None:
+            if args.extra_forward_negative_guidance == 0.0:
+                base_file_name += ".zg"
+            
+    
+    
+    
     if args.base_concept == 'general':
         base_file_name += f".bG" # base general
     
@@ -80,7 +102,15 @@ def resolve_model_name(args): #, training_step):
             base_file_name += f".fU" # erase from uncond
         elif args.erase_from == 'object':
             base_file_name += f".fO" # erase from object    
-    
+            
+        elif args.erase_from == 'general':
+            base_file_name += f".fG" # erase from general    
+        
+        elif args.erase_from == 'forward':
+            base_file_name += f".fF" # erase from forward
+            
+            
+
     if not args.apply_gradient_projection and args.preservation_weight is not None and args.preservation_weight > 0:
         base_file_name += '.'
         if  args.preservation_train_set:
@@ -281,7 +311,7 @@ if __name__ == '__main__':
     parser.add_argument('--timestep_constraint', help='timestep constraint for diffusion model', type=str, required=False, default=None)
     parser.add_argument('--base_concept', type=str, choices=['null','general','erased'], default='null', required=False)
     
-    parser.add_argument('--erase_from', type=str, choices=[None,'uncond','object'], default=None, required=False)
+    parser.add_argument('--erase_from', type=str, choices=[None,'uncond','object','general','forward'], default=None, required=False)
     
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
     parser.add_argument('--preservation_split', type=str,  default='train', choices=['train','test'] )
@@ -311,6 +341,13 @@ if __name__ == '__main__':
     parser.add_argument('--test_tag', type=str,  default=None)
     parser.add_argument('--report_to', type=str,  default='wandb') # wandb
     parser.add_argument('--batch_size', type=int,  default=1) # wandb
+    
+    
+    parser.add_argument('--extra_forward_prob', type=float, default=None) # wandb
+    parser.add_argument('--forward_general',action='store_true', default=False) # wandb
+    parser.add_argument('--forward_preserve',action='store_true', default=False) # wandb
+    parser.add_argument('--extra_forward_negative_guidance', type=float, default=None) # wandb
+    
     
     
 
@@ -343,7 +380,9 @@ if __name__ == '__main__':
     torch.backends.cudnn.benchmark = False
     
     
-    
+    if args.extra_forward_prob is not None and args.extra_forward_prob > 0:
+        extra_forward_rng = np.random.RandomState(seed=args.seed + 123)
+        
     
     
     # torch.use_deterministic_algorithms(True, warn_only=True)
@@ -393,12 +432,30 @@ if __name__ == '__main__':
     pipe.set_progress_bar_config(disable=True)
     pipe.scheduler.set_timesteps(num_inference_steps)
     pipe.scheduler = DDIMScheduler.from_config(pipe.scheduler.config)
-    pipe.disable_xformers_memory_efficient_attention()
+    
+    
+    # pipe.scheduler.set_timesteps(100)
+    # pipe.scheduler = DDPMScheduler.from_config(pipe.scheduler.config)
+    # pipe.disable_xformers_memory_efficient_attention()
 
-    base_unet = base_unet.eval()
+    # base_unet = base_unet.eval()
     
 
+    # esd_param_names, esd_params = get_esd_trainable_parameters(esd_unet, train_method=train_method)
+
+    # Freeze all params in esd_unet first
+    esd_unet.requires_grad_(False)
+
+    # Now select which ones to train
     esd_param_names, esd_params = get_esd_trainable_parameters(esd_unet, train_method=train_method)
+
+    # Make sure selected ones are trainable
+    for p in esd_params:
+        p.requires_grad_(True)
+    
+    
+    
+    
     optimizer = torch.optim.Adam(esd_params, lr=lr)
     # optimizer = torch.optim.AdamW(esd_params, lr=lr)
 
@@ -412,6 +469,14 @@ if __name__ == '__main__':
         
     elif args.preservation_train_set == '00':
         preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()][args.preservation_split]['Strongly Associated']
+        
+        
+        if args.preservation_split == 'train':
+            print('fixing overlap')
+            test_preservation_concepts = torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()]['test']['Strongly Associated']
+            preservation_concepts = [c for c in preservation_concepts if c not in test_preservation_concepts]
+            
+        
         if args.preservation_split == 'test':
             print('WARNING: optimizing on test set for preservation concepts!')
         
@@ -462,7 +527,8 @@ if __name__ == '__main__':
             base_embeds = null_embeds
         elif args.base_concept == 'general':
             # fix a photo of (?)
-            general_embeds, _ = pipe.encode_prompt(prompt="Person",
+            general_concept = erase2general_concept[erase_concept]
+            general_embeds, _ = pipe.encode_prompt(prompt=general_concept,
                                                         device=device,
                                                         num_images_per_prompt=batch_size,
                                                         do_classifier_free_guidance=True,
@@ -477,7 +543,26 @@ if __name__ == '__main__':
                                                     do_classifier_free_guidance=True,
                                                     negative_prompt='')
             object_embeds = object_embeds.to(device)
-                
+            
+            
+        elif args.erase_from == 'general':
+            general_concept = erase2general_concept[erase_concept]
+            print(f"erase_from general concept: {general_concept}")
+            general_embeds, _ = pipe.encode_prompt(prompt=general_concept,
+                                                    device=device,
+                                                    num_images_per_prompt=batch_size,
+                                                    do_classifier_free_guidance=True,
+                                                    negative_prompt='')
+            general_embeds = general_embeds.to(device)
+            
+        # elif args.erase_from == 'forward':
+        #     if args.forward_preserve:
+        #         preserve_embeds,_ = pipe.encode_prompt(prompt=preserve_concepts,
+        #                                             device=device,
+        #                                             num_images_per_prompt=batch_size,
+        #                                             do_classifier_free_guidance=True,
+        #                                             negative_prompt='')
+        #         preserve2embed = { p: e for p, e in zip(preserve_concepts, preserve_embeds)}
                 
         
         
@@ -568,8 +653,30 @@ if __name__ == '__main__':
         # pretrained prediction
         with torch.no_grad():
             # sample xt with Pe (reverse process)
-            xt = pipe(erase_concept , 
-                      num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+            
+            
+            apply_extra_forward = False
+            if args.extra_forward_prob is not None and args.extra_forward_prob > 0 and extra_forward_rng.rand() < args.extra_forward_prob:
+                apply_extra_forward = True
+                
+                forward_concepts = []
+                if args.forward_general:
+                    forward_concepts += [erase2general_concept[erase_concept]]
+                if args.forward_preserve:
+                    forward_concepts += preservation_concepts
+                    
+                forward_concept = extra_forward_rng.choice(forward_concepts).item()
+                    
+                print(f"forward concepts: {forward_concept}, apply_extra_forward: {apply_extra_forward}")
+            
+                xt = pipe(forward_concept , 
+                    num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+
+
+            
+            else:
+                xt = pipe(erase_concept , 
+                        num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
 
             noise_pred_erase = pipe.unet(
                 xt,
@@ -594,13 +701,47 @@ if __name__ == '__main__':
 
             if args.erase_from == 'uncond':
                 noise_pred_erase_from = noise_pred_base
-
+         
+         
+            elif args.erase_from == 'general':
+                noise_pred_erase_from = pipe.unet(
+                    xt,
+                    timestep,
+                    encoder_hidden_states=general_embeds,
+                    timestep_cond=timestep_cond,
+                    cross_attention_kwargs=None,
+                    added_cond_kwargs=None,
+                    return_dict=False,
+                )[0]
+                
 
             elif args.erase_from == 'object':
                 noise_pred_erase_from = pipe.unet(
                     xt,
                     timestep,
                     encoder_hidden_states=object_embeds,
+                    timestep_cond=timestep_cond,
+                    cross_attention_kwargs=None,
+                    added_cond_kwargs=None,
+                    return_dict=False,
+                )[0]
+                
+                
+            elif args.erase_from == 'forward' and apply_extra_forward:
+                print(f'erase from forward concept: {forward_concept}')
+                
+                forward_embeds, _ = pipe.encode_prompt(prompt=forward_concept,
+                                                device=device,
+                                                num_images_per_prompt=batch_size,
+                                                do_classifier_free_guidance=True,
+                                                negative_prompt='') 
+
+
+
+                noise_pred_erase_from = pipe.unet(
+                    xt,
+                    timestep,
+                    encoder_hidden_states=forward_embeds,
                     timestep_cond=timestep_cond,
                     cross_attention_kwargs=None,
                     added_cond_kwargs=None,
@@ -713,8 +854,14 @@ if __name__ == '__main__':
         
         
         
-        ###
-        
+        ### specifial negative guidance for extra forward
+        if args.extra_forward_negative_guidance is not None and apply_extra_forward:
+            ng = args.extra_forward_negative_guidance
+            print(f'negative guidance: {ng}')
+        else:
+            ng = negative_guidance
+                
+                
         
         # print(total_noise_pred_esd_model.shape)  # [2, 4, 64, 64]
         if args.preservation_weight is not None and args.preservation_weight > 0: 
@@ -723,13 +870,15 @@ if __name__ == '__main__':
             # print(noise_pred_esd_model.shape, noise_pred_ps_esd_model.shape) [1, 4, 64, 64]
             
             # change to float
-            # noise_pred_esd_model = noise_pred_esd_model.float()
-            # noise_pred_ps_esd_model = noise_pred_ps_esd_model.float()
-            # noise_pred_ps = noise_pred_ps.float()
-            # noise_pred_erase = noise_pred_erase.float()
-            # noise_pred_erase_from = noise_pred_erase_from.float()
+            noise_pred_esd_model = noise_pred_esd_model.float()
+            noise_pred_ps_esd_model = noise_pred_ps_esd_model.float()
+            noise_pred_ps = noise_pred_ps.float()
+            noise_pred_erase = noise_pred_erase.float()
+            noise_pred_erase_from = noise_pred_erase_from.float()
+
             
-            unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (negative_guidance*(noise_pred_erase - noise_pred_base))) 
+            
+            unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
             preservation_loss = criteria(noise_pred_ps_esd_model, noise_pred_ps)
             
             
@@ -747,7 +896,7 @@ if __name__ == '__main__':
             noise_pred_base = noise_pred_base.float()
             
             
-            unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (negative_guidance*(noise_pred_erase - noise_pred_base))) 
+            unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
             preservation_loss = torch.tensor(0.0).to(device)
         
         
@@ -771,11 +920,25 @@ if __name__ == '__main__':
                 f"unlearn_loss: {unlearn_loss.item()}, "
                 f"preservation_loss: {preservation_loss.item()}")
             total_loss.backward()
+            
+            # max_grad_norm = 1.0
+            # torch.nn.utils.clip_grad_norm_(esd_unet.parameters(), max_grad_norm)
+
+
+
+            # total_norm = torch.nn.utils.clip_grad_norm_(
+            #     # (p for p in esd_params.parameters() if p.grad is not None),
+            #     (p for p in esd_params if p.grad is not None),
+            #     max_norm=float('inf')   # <-- no clipping, just measure
+            # )
+            # print(f"[step {training_step}] grad_norm = {total_norm.item():.4f}")
+
+
             optimizer.step()
 
         else:
             # print(unlearn_loss, preservation_loss)
-            print('unlearn_loss:', unlearn_loss.item(), 'preservation_loss:', preservation_loss.item())
+            # print('unlearn_loss:', unlearn_loss.item(), 'preservation_loss:', preservation_loss.item())
             # ---- gradient surgery: resolve conflicts by projecting UNLEARN ⟂ PRESERVE ----
             
             # for layer_name,grad in unlearn_param_grads.items():
@@ -784,7 +947,7 @@ if __name__ == '__main__':
             unlearn_slice = slice(0, (2*batch_size)//2)
             preservation_slice = slice((2*batch_size)//2, 2*batch_size)
             
-            print(f"before unlearn loss {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
+            # print(f"before unlearn loss {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
             
             # A) backprop Unlearning Loss
             unlearn_loss.backward(retain_graph=True)
@@ -853,7 +1016,7 @@ if __name__ == '__main__':
                 continue
             
             do_grad_injection(unet,resolved_grads,show_per_param=False)
-            print(f"after injection{unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
+            # print(f"after injection{unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
             
             optimizer.step()
             

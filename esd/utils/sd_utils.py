@@ -277,6 +277,13 @@ def esd_sd_call(
     else:
         do_denormalize = [not has_nsfw for has_nsfw in has_nsfw_concept]
     image = self.image_processor.postprocess(image, output_type=output_type, do_denormalize=do_denormalize)
+    
+    
+    # print(f" mse( image, latents): { ((image - latents)**2).mean()} ") # 0.0 
+    # print(f" max abs diff( image, latents): { (image - latents).abs().max()}") # 0.0 
+    # print(f"image shape: {image.shape}") # [4, 4, 64, 64]
+    # [4, 4, 128, 128] if they are using 1024
+    
 
     # Offload all models
     self.maybe_free_model_hooks()

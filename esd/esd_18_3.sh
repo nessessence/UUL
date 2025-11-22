@@ -1,9 +1,79 @@
 export device="cuda:3"
 
+python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --extra_forward_prob 1.00 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 1.00 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.80 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 1.00 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --extra_forward_negative_guidance 0.00  --base_concept 'general'  --batch_size 4 --seed 0 --test_tag 'vis' 
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --extra_forward_negative_guidance 0.00  --base_concept 'general'  --batch_size 4 --seed 0 --test_tag 'vis' 
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.40 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --extra_forward_negative_guidance 0.00  --base_concept 'general'  --batch_size 4 --seed 0 --test_tag 'vis' 
+
+
+# python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --apply_gradient_projection --gradient_projection_mode 'hard'  --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 0.80 --preservation_train_set '00' --preservation_weight 1.00 --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+#  'esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.padthai_sd1.4.bf16.bs4_r0'
+
+
+# python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.60 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.80 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+# ['esd-x.nG3.00.FWgp0.50.zg.fU.pe00-cPS0.20_U.padthai_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.FWgp0.50.zg.fU.pe00-cPS0.60_U.padthai_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.FWgp0.50.zg.fU.pe00-cPS0.80_U.padthai_sd1.4.bf16.bs4_r0']
+
+
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.60 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+# ['esd-x.nG3.00.FWgp0.50.zg.fU.pe00-cPS0.60_U.mmouse_sd1.4.bf16.bs4_r0']
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.60 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --apply_gradient_projection --gradient_projection_mode 'hard'  --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 0.60 --preservation_train_set '00' --preservation_weight 1.00 --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --erase_from 'uncond'  --batch_size 4 --seed 0
+# ['esd-x.nG3.00.FWgp0.50.fU_GP.gH.pH-u0.50.pe00-cPS0.60_U.mrobbie_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.FWgp0.50.fU_GP.gH.pH-u0.50.pe00-cPS0.60_U.mmouse_sd1.4.bf16.bs4_r0']
+
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --apply_gradient_projection --gradient_projection_mode 'hard'  --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 0.80 --preservation_train_set '00' --preservation_weight 1.00 --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# ['esd-x.nG3.00_GP.gH.pH-u0.50.pe00-cPS0.80_U.mmouse_sd1.4.bf16.bs4_r0']
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 1e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --erase_from 'uncond'  --batch_size 1 --seed 0
+# ['esd-x.nG3.00.FWgp0.50.fU_U.mrobbie_sd1.4.fp32.lr1e-05_r0', 'esd-x.nG3.00.FWgp0.50.fU_U.mmouse_sd1.4.fp32.lr1e-05_r0']
+
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 1e-4 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.95 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 1 --seed 0
+# ['esd-x.nG3.00.pe00-cPS0.95_U.mrobbie_sd1.4.fp32.lr1e-04_r0', 'esd-x.nG3.00.pe00-cPS0.95_U.mmouse_sd1.4.fp32.lr1e-04_r0']
+
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --batch_size 1 --seed 1
+# ['esd-x.nG3.00_U.mrobbie_sd1.4.fp32_r1', 'esd-x.nG3.00_U.mmouse_sd1.4.fp32_r1']
+
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 1e-4 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --erase_from 'uncond'  --batch_size 1 --seed 0
+# ['esd-x.nG3.00.FWgp0.50.fU_U.mrobbie_sd1.4.fp32.lr1e-04_r0', 'esd-x.nG3.00.FWgp0.50.fU_U.mmouse_sd1.4.fp32.lr1e-04_r0']
+
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --erase_from 'uncond'  --batch_size 1 --seed 0
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --erase_from 'uncond'  --batch_size 1 --seed 0
+# python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --erase_from 'uncond'  --batch_size 1 --seed 0
+
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --extra_forward_prob 0.50 --forward_general  --extra_forward_negative_guidance 0.00  --erase_from 'general'  --batch_size 1 --seed 0
+# ['esd-x.nG3.00.FWg0.50.zg.fG_U.mrobbie_sd1.4.fp32_r0']
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --apply_gradient_projection --gradient_projection_mode 'hard'  --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 0.80 --preservation_train_set '00' --preservation_weight 1.00 --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --apply_gradient_projection --gradient_projection_mode 'hard'  --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 0.80 --preservation_train_set '00' --preservation_weight 1.00 --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --apply_gradient_projection --gradient_projection_mode 'hard'  --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 0.80 --preservation_train_set '00' --preservation_weight 1.00 --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+
+
+
+
 # python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 1 --seed 0
 # python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 1 --seed 0
-python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 1 --seed 0
-['esd-x.nG3.00.pe00-cPS0.20_U.mrobbie_sd1.4.fp32_r0', 'esd-x.nG3.00.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0', 'esd-x.nG3.00.pe00-cPS0.20_U.padthai_sd1.4.fp32_r0']
+# python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/pg_bf16/' --max_training_step 2000 --log_step 250 --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --batch_size 1 --seed 0
+# ['esd-x.nG3.00.pe00-cPS0.20_U.mrobbie_sd1.4.fp32_r0', 'esd-x.nG3.00.pe00-cPS0.20_U.mmouse_sd1.4.fp32_r0', 'esd-x.nG3.00.pe00-cPS0.20_U.padthai_sd1.4.fp32_r0']
 
 
 # python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x' --lr 5e-5 --save_path '../data_root/logs/esd/test/' --max_training_step 2000  --device $device  --train_precision 'fp32'  --negative_guidance 3.00 --apply_gradient_projection --gradient_projection_mode 'hard'  --gradient_projection_param_group 'attn_head' --gradient_projection_preserve_scale 0.95 --preservation_train_set '00' --preservation_weight 1.00 --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --erase_from 'object'  --batch_size 1 --seed 0

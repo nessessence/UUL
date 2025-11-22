@@ -1,7 +1,21 @@
 export CUDA_VISIBLE_DEVICES=1
 export pc_id="21_1"
 
+  accelerate launch train_dreambooth_lora.py \
+  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \
+  --output_dir="data_root/logs/noone" \
+  --validation_prompt="A photo of a moodeng" \
+  --instance_prompt="A photo of a moodeng" \
+  --learning_rate=1e-4 \
+  --train_batch_size=1 --gradient_accumulation_steps=4 \
+  --lora_rank 512 \
+  --test_run \
+  --max_train_steps=10000000 --checkpointing_steps=100000000 --validation_steps=100000000 
 
+
+
+"""
 # echo 'count:20 - rlct4.reV.ganeshaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.nG3.00.pe00-cPS0.90_U.ganesha_sd1.4_r2.uS300 900 /'
 
 #             accelerate launch train_dreambooth_lora.py \
@@ -110029,16 +110043,4 @@ export pc_id="21_1"
 #   --lora_rank 512 \
 #   --test_run \
 #   --max_train_steps=10000000 --checkpointing_steps=50000000 --validation_steps=100000000
-
-  accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \
-  --output_dir="data_root/logs/noone" \
-  --validation_prompt="A photo of a moodeng" \
-  --instance_prompt="A photo of a moodeng" \
-  --learning_rate=1e-4 \
-  --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --lora_rank 512 \
-  --test_run \
-  --max_train_steps=10000000 --checkpointing_steps=100000000 --validation_steps=100000000 
-
+"""
