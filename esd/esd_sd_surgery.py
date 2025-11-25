@@ -5,6 +5,7 @@ from collections import defaultdict
 import torch
 import random
 import numpy as np
+from safetensors.torch import load_file
 
 # seed = 123
 # rng = np.random.RandomState(seed=seed)
@@ -80,7 +81,15 @@ def resolve_model_name(args): #, training_step):
         
         
     if args.extra_forward_prob is not None and args.extra_forward_prob > 0 and args.forward_general:
-        base_file_name += f".FWg" # extra forward prob
+        
+        if args.use_indiv_extra_forward:
+            base_file_name += f".iFW" # indiv extra forward prob
+        else:
+            base_file_name += f".FW" # extra forward prob
+        
+        if args.forward_general:
+            base_file_name += f"g" # extra forward general
+        
         if args.forward_preserve:
             base_file_name += f"p" # extra forward preserve
         
@@ -333,6 +342,7 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int,  default=123)
     parser.add_argument('--train_precision', type=str,  default='fp32', choices=['bf16','fp32'])
     parser.add_argument('--log_step', type=int,  default=100)
+    parser.add_argument('--special_log_step', type=str,  default=None) # split by ','
     
     
     parser.add_argument('--unlearn_proj_prob', type=float,  default=1.00)
@@ -344,15 +354,21 @@ if __name__ == '__main__':
     
     
     parser.add_argument('--extra_forward_prob', type=float, default=None) # wandb
+    parser.add_argument('--use_indiv_extra_forward',action='store_true', default=False) # wandb
     parser.add_argument('--forward_general',action='store_true', default=False) # wandb
     parser.add_argument('--forward_preserve',action='store_true', default=False) # wandb
     parser.add_argument('--extra_forward_negative_guidance', type=float, default=None) # wandb
     
     
+    parser.add_argument( "--load_unet_weight_path",type=str,default=None) # many unlearned model, UCE, ESD, 
     
 
 
     args = parser.parse_args()
+    
+    if args.special_log_step is not None:
+        args.special_log_step = [int(e) for e in args.special_log_step.split(',')]
+        print(f'special log step: {args.special_log_step}')
     
     
         # --- W&B init (added) ---
@@ -380,7 +396,7 @@ if __name__ == '__main__':
     torch.backends.cudnn.benchmark = False
     
     
-    if args.extra_forward_prob is not None and args.extra_forward_prob > 0:
+    if (args.extra_forward_prob is not None and args.extra_forward_prob) > 0 :
         extra_forward_rng = np.random.RandomState(seed=args.seed + 123)
         
     
@@ -432,6 +448,11 @@ if __name__ == '__main__':
     pipe.set_progress_bar_config(disable=True)
     pipe.scheduler.set_timesteps(num_inference_steps)
     pipe.scheduler = DDIMScheduler.from_config(pipe.scheduler.config)
+    
+    
+    if args.load_unet_weight_path is not None:
+        print('loading UNet weight from: ', args.load_unet_weight_path)
+        esd_unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
     
     
     # pipe.scheduler.set_timesteps(100)
@@ -581,7 +602,7 @@ if __name__ == '__main__':
     for training_step in pbar:
         optimizer.zero_grad()
         
-        if training_step % args.log_step == 0:
+        if training_step % args.log_step == 0 or (args.special_log_step is not None and training_step in args.special_log_step):
             save_esd_model(esd_param_names, esd_params, args, training_step, total_grad_stats)
 
             # reset
@@ -656,16 +677,48 @@ if __name__ == '__main__':
             
             
             apply_extra_forward = False
-            if args.extra_forward_prob is not None and args.extra_forward_prob > 0 and extra_forward_rng.rand() < args.extra_forward_prob:
+            apply_indiv_extra_forward = None
+            
+            if args.use_indiv_extra_forward and args.extra_forward_prob is not None and args.extra_forward_prob > 0:
+                apply_indiv_extra_forward = extra_forward_rng.rand(args.batch_size) > args.extra_forward_prob
+
+                all_forward_concepts = []
+                if args.forward_general:
+                    all_forward_concepts.append(erase2general_concept[erase_concept])
+                if args.forward_preserve:
+                    all_forward_concepts += preservation_concepts
+
+
+                forward_concepts = np.array(
+                    extra_forward_rng.choice(all_forward_concepts, size=args.batch_size),
+                    dtype=object
+                )
+
+                forward_concepts[~apply_indiv_extra_forward] = erase_concept
+                forward_concepts = forward_concepts.tolist()
+                                
+                                
+                print(f"forward concepts: {forward_concepts}, apply_indiv_extra_forward: {apply_indiv_extra_forward}")
+
+                        
+                # batch_size now = 1
+                xt = pipe(forward_concepts , 
+                    num_images_per_prompt=1, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+
+
+            
+            
+            
+            elif args.extra_forward_prob is not None and args.extra_forward_prob > 0 and extra_forward_rng.rand() < args.extra_forward_prob:
                 apply_extra_forward = True
                 
-                forward_concepts = []
+                all_forward_concepts = []
                 if args.forward_general:
-                    forward_concepts += [erase2general_concept[erase_concept]]
+                    all_forward_concepts += [erase2general_concept[erase_concept]]
                 if args.forward_preserve:
-                    forward_concepts += preservation_concepts
+                    all_forward_concepts += preservation_concepts
                     
-                forward_concept = extra_forward_rng.choice(forward_concepts).item()
+                forward_concept = extra_forward_rng.choice(all_forward_concepts).item()
                     
                 print(f"forward concepts: {forward_concept}, apply_extra_forward: {apply_extra_forward}")
             
@@ -855,13 +908,26 @@ if __name__ == '__main__':
         
         
         ### specifial negative guidance for extra forward
-        if args.extra_forward_negative_guidance is not None and apply_extra_forward:
+        
+        if apply_indiv_extra_forward is not None:
+            ng = args.batch_size*[negative_guidance]
+            for i in range(args.batch_size):
+                if apply_indiv_extra_forward[i]:
+                    ng[i] = args.extra_forward_negative_guidance
+            ng = torch.tensor(ng) 
+            ng = ng.view(-1, 1, 1, 1).to(device)
+            # print(f'negative guidance: {ng}')
+
+        
+        elif args.extra_forward_negative_guidance is not None and apply_extra_forward:
             ng = args.extra_forward_negative_guidance
             print(f'negative guidance: {ng}')
         else:
             ng = negative_guidance
                 
-                
+        # ng = torch.tensor(args.batch_size*[ng]) 
+        # ng = ng.view(-1, 1, 1, 1).to(device)
+        # print(f'ng.shape: {ng.shape}')
         
         # print(total_noise_pred_esd_model.shape)  # [2, 4, 64, 64]
         if args.preservation_weight is not None and args.preservation_weight > 0: 
@@ -899,6 +965,8 @@ if __name__ == '__main__':
             unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
             preservation_loss = torch.tensor(0.0).to(device)
         
+        
+        # print(f"noise_pred_esd_model.shape: {noise_pred_esd_model.shape}") # [bs, 4, 64, 64]
         
         optimizer.zero_grad(set_to_none=True)
 

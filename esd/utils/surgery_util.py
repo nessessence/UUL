@@ -112,6 +112,66 @@ else:
     XLA_AVAILABLE = False
 
 
+def parse_generation_phase_parameter(
+    phase_string: str,
+    orginal_pretrained_weight,
+    unlearned_weight,
+):
+    """
+    Parse a compact string spec into a generation_phase_parameter list.
+
+    Example:
+        "$PT.500.a photo of person-UL.0.a photo Margot Robbie"
+        ->
+        [
+            {"timestep": 500, "unet_weights": orginal_pretrained_weight, "prompt": "a photo of person"},
+            {"timestep": 0, "unet_weights": unlearned_weight, "prompt": "a photo Margot Robbie"},
+        ]
+    """
+    if phase_string is None:
+        raise ValueError("phase_string must be a non-empty string.")
+
+    token_to_weight = {"PT": orginal_pretrained_weight, "UL": unlearned_weight}
+
+    cleaned = phase_string.split("*Ph.")[-1]
+    if not cleaned:
+        raise ValueError("phase_string must be a non-empty string.")
+
+    segments = [seg for seg in cleaned.split("-") if seg]
+    if not segments:
+        raise ValueError("phase_string did not contain any segments to parse.")
+
+    phases = []
+    simplified_phases = []
+    for seg in segments:
+        parts = seg.split(".", 2)
+        if len(parts) != 3:
+            raise ValueError(f"Segment '{seg}' is malformed. Expected format TOKEN.TIMESTEP.PROMPT.")
+
+        token, timestep_str, prompt = parts
+        if token not in token_to_weight:
+            raise ValueError(f"Unknown weight token '{token}'. Expected one of {list(token_to_weight.keys())}.")
+
+        try:
+            timestep = int(timestep_str)
+        except Exception as exc:
+            raise ValueError(f"Could not parse timestep '{timestep_str}' as int.") from exc
+
+        phases.append(
+            {"timestep": timestep, "unet_weights": token_to_weight[token], "prompt": prompt.strip()}
+        )
+
+        simplified_phases.append(
+            {
+                "timestep": timestep,
+                "unet_weights": "orginal_pretrained_weight" if token == "PT" else "unlearned_weight",
+                "prompt": prompt.strip(),
+            }
+        )
+
+    return phases, simplified_phases
+
+
 @torch.no_grad()
 def custom_call(
     self,
@@ -142,6 +202,7 @@ def custom_call(
     run_till_timestep=None,
     start_latents=None,
     save_every_step_latents: bool = False,
+    generation_phase_parameter: Optional[List[Dict[str, Any]]] = None,
     **kwargs,
 ):
     r"""
@@ -233,23 +294,74 @@ def custom_call(
         self.cross_attention_kwargs.get("scale", None) if self.cross_attention_kwargs is not None else None
     )
 
-    prompt_embeds, negative_prompt_embeds = self.encode_prompt(
-        prompt,
-        device,
-        num_images_per_prompt,
-        self.do_classifier_free_guidance,
-        negative_prompt,
-        prompt_embeds=prompt_embeds,
-        negative_prompt_embeds=negative_prompt_embeds,
-        lora_scale=lora_scale,
-        clip_skip=self.clip_skip,
-    )
+    phase_settings = None
+    phase_prompt_embeds = None
+    negative_prompt_embeds = negative_prompt_embeds
 
-    # For classifier free guidance, we need to do two forward passes.
-    # Here we concatenate the unconditional and text embeddings into a single batch
-    # to avoid doing two forward passes
-    if self.do_classifier_free_guidance:
-        prompt_embeds = torch.cat([negative_prompt_embeds, prompt_embeds])
+    if generation_phase_parameter:
+        if prompt_embeds is not None:
+            raise ValueError("generation_phase_parameter does not support passing precomputed prompt_embeds.")
+
+        if not isinstance(generation_phase_parameter, (list, tuple)):
+            raise ValueError("generation_phase_parameter must be a list of dictionaries describing each phase.")
+
+        phase_settings = []
+        for idx, phase in enumerate(generation_phase_parameter):
+            if not isinstance(phase, dict):
+                raise ValueError("Each entry in generation_phase_parameter must be a dictionary.")
+            if "timestep" not in phase:
+                raise ValueError("Each generation_phase_parameter entry must include a 'timestep' key.")
+            phase_settings.append(
+                {
+                    "timestep": phase["timestep"],
+                    "unet_weights": phase.get("unet_weights"),
+                    "prompt": phase.get("prompt", prompt),
+                }
+            )
+
+        # Sort descending since diffusion timesteps typically count down (e.g., 999 -> 0).
+        phase_settings = sorted(phase_settings, key=lambda p: p["timestep"], reverse=True)
+        phase_prompt_embeds = []
+        for phase in phase_settings:
+            phase_prompt = phase["prompt"]
+            if phase_prompt is None:
+                raise ValueError(
+                    "A prompt must be provided either directly or inside each generation_phase_parameter entry."
+                )
+                
+            print(phase_prompt)
+            current_prompt_embeds, current_negative_prompt_embeds = self.encode_prompt(
+                [phase_prompt]*len(prompt),
+                # phase_prompt,
+                device,
+                num_images_per_prompt,
+                self.do_classifier_free_guidance,
+                negative_prompt,
+                prompt_embeds=None,
+                negative_prompt_embeds=None,
+                lora_scale=lora_scale,
+                clip_skip=self.clip_skip,
+            )
+            phase_prompt_embeds.append(current_prompt_embeds)
+            if negative_prompt_embeds is None:
+                negative_prompt_embeds = current_negative_prompt_embeds
+    else:
+        prompt_embeds, negative_prompt_embeds = self.encode_prompt(
+            prompt,
+            device,
+            num_images_per_prompt,
+            self.do_classifier_free_guidance,
+            negative_prompt,
+            prompt_embeds=prompt_embeds,
+            negative_prompt_embeds=negative_prompt_embeds,
+            lora_scale=lora_scale,
+            clip_skip=self.clip_skip,
+        )
+
+    def _combine_prompt_embeds(pos_prompt_embeds: torch.Tensor) -> torch.Tensor:
+        if self.do_classifier_free_guidance:
+            return torch.cat([negative_prompt_embeds, pos_prompt_embeds])
+        return pos_prompt_embeds
 
     if ip_adapter_image is not None or ip_adapter_image_embeds is not None:
         image_embeds = self.prepare_ip_adapter_image_embeds(
@@ -264,6 +376,34 @@ def custom_call(
     timesteps, num_inference_steps = retrieve_timesteps(
         self.scheduler, num_inference_steps, device, timesteps, sigmas
     )
+    timesteps = timesteps[run_from_timestep: run_till_timestep]
+
+    # Establish the initial phase (if any) based on the first timestep and load the corresponding assets.
+    phase_index = None
+    if phase_settings is not None and len(phase_settings) > 0:
+        def _get_phase_index(timestep_value):
+            ts_val = timestep_value.item() if hasattr(timestep_value, "item") else timestep_value
+            for idx, phase in enumerate(phase_settings):
+                if ts_val >= phase["timestep"]:
+                    return idx
+            return len(phase_settings) - 1
+
+        def _apply_phase(idx: int):
+            nonlocal prompt_embeds, phase_index
+            phase_index = idx
+            phase = phase_settings[idx]
+            if phase.get("unet_weights") is not None:
+                self.unet.load_state_dict(phase["unet_weights"], strict=False)
+            phase_prompt = phase_prompt_embeds[idx]
+            prompt_embeds = _combine_prompt_embeds(phase_prompt)
+
+        initial_idx = _get_phase_index(timesteps[0])
+        _apply_phase(initial_idx)
+    else:
+        # For classifier free guidance, we need to do two forward passes.
+        # Here we concatenate the unconditional and text embeddings into a single batch
+        # to avoid doing two forward passes
+        prompt_embeds = _combine_prompt_embeds(prompt_embeds)
 
     # 5. Prepare latent variables
     num_channels_latents = self.unet.config.in_channels
@@ -297,7 +437,6 @@ def custom_call(
         ).to(device=device, dtype=latents.dtype)
 
     # 7. Denoising loop
-    timesteps = timesteps[run_from_timestep: run_till_timestep]
     if start_latents is not None:
         latents = start_latents
     saved_latents = [] if save_every_step_latents else None
@@ -308,7 +447,14 @@ def custom_call(
         for i, t in enumerate(timesteps):
             # if self.interrupt:
             #     continue
-            print('hey')
+            
+            
+            print(f"Step {i+1}/{len(timesteps)}; Timestep: {t}")
+            if phase_settings is not None:
+                current_phase_idx = _get_phase_index(t)
+                print(f" Current Phase Index: {current_phase_idx}, Applied Phase Index: {phase_index}")
+                if current_phase_idx != phase_index:
+                    _apply_phase(current_phase_idx)
             # expand the latents if we are doing classifier free guidance
             latent_model_input = torch.cat([latents] * 2) if self.do_classifier_free_guidance else latents
             latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
@@ -401,4 +547,3 @@ def custom_call(
     output.step_timesteps = saved_timesteps
     output.timesteps = timesteps
     return output
-

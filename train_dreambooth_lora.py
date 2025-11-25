@@ -75,7 +75,7 @@ from diffusers.utils.torch_utils import randn_tensor
 
 from safetensors.torch import load_file
 
-from esd.utils.surgery_util import custom_call
+from esd.utils.surgery_util import custom_call,parse_generation_phase_parameter
 
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -214,7 +214,7 @@ def load_token_embedding(text_encoder, tokenizer, weight_path):
     # torch.save(learned_embeds_dict, save_path)
     
 @torch.no_grad()
-def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype, epoch, log_label=None,save_image_path=None,gen_dtype=None):
+def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype, epoch, log_label=None,save_image_path=None,gen_dtype=None, original_pretrained_weights=None, unlearned_weights=None):
     
     
     
@@ -305,7 +305,10 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                             print('ending generation')
                             exit()
                 else:
-                    if args.negative_prompt is not None:
+                    if args.use_custom_pipeline and prompt.startswith('*Ph.'):
+                        save_image_path_dir = osp.join(save_image_path,f"{prompt.split('*Ph.')[-1]}", f"{cfg:.2f}")
+                        
+                    elif args.negative_prompt is not None:
                         save_image_path_dir = osp.join(save_image_path,f"{prompt}_neg", f"{cfg:.2f}")
                     else:
                         save_image_path_dir = osp.join(save_image_path,prompt, f"{cfg:.2f}")
@@ -328,8 +331,23 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                 
                 prompts = [prompt] * len(batch_indices)
                 # generators = [torch.Generator(device=accelerator.device).manual_seed(args.seed + idx) for idx in batch_indices]
+                if args.use_custom_pipeline and prompt.startswith('*Ph.'):
+                    # custom generation phase parameters
+                    assert original_pretrained_weights is not None and unlearned_weights is not None
+                    generation_phase_parameter,simplified_phase_parameter = parse_generation_phase_parameter(prompt,  orginal_pretrained_weight=original_pretrained_weights,unlearned_weight=unlearned_weights)
+                    print(f'custom generation phase parameters: {simplified_phase_parameter}')
+                    images_batch = pipeline(
+                        [""]* len(batch_indices), # dummy
+                        num_inference_steps=args.num_inference_steps,
+                        guidance_scale=cfg,
+                        generator=generator,
+                        generation_phase_parameter=generation_phase_parameter,
+                    ).images
+                    
+                
+                
 
-                if args.negative_prompt is not None:
+                elif args.negative_prompt is not None:
                     negative_prompts = [args.negative_prompt] * len(batch_indices)
                     images_batch = pipeline(
                         prompts,
@@ -2267,7 +2285,10 @@ def main(args):
             print(f'entering image generation, save image to: {args.gen_image_path}')
             # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
             pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype)
-    
+            
+            
+            original_pretrained_weights =  copy.deepcopy(pipeline.unet.state_dict()) if args.use_generation_phases else None
+            
             if args.load_pretrained_lora_weight_path is not None:
                 print('loading LoRA into UNet ....')
                 print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
@@ -2282,7 +2303,13 @@ def main(args):
             if args.load_unet_weight_path is not None:
                 print('loading UNet weight from: ', args.load_unet_weight_path)
                 if '.safetensor' in args.load_unet_weight_path:
+                    
+                    
+                    
                     pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+                    unlearned_weights =  copy.deepcopy(pipeline.unet.state_dict()) if args.use_generation_phases else None
+                    
+                    unlearned_weights = load_file(args.load_unet_weight_path)
                 else:
                     pipeline.unet.load_state_dict(torch.load(args.load_unet_weight_path), strict=False)
                 print('UNet weight loaded (for generation)')
@@ -2306,17 +2333,38 @@ def main(args):
                 print('loading token embedding')
                 load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,'token_embedding.pt'))
             
-            log_validation(
-                unet=pipeline.unet,
-                text_encoder=pipeline.text_encoder,
-                tokenizer=pipeline.tokenizer,
-                args=args,
-                accelerator=accelerator,
-                weight_dtype=weight_dtype,
-                gen_dtype=args.gen_dtype,
-                epoch=0,
-                log_label='image generation',
-                save_image_path = args.gen_image_path)
+            
+            if args.use_generation_phases:
+                
+                log_validation(
+                    unet=pipeline.unet,
+                    text_encoder=pipeline.text_encoder,
+                    tokenizer=pipeline.tokenizer,
+                    args=args,
+                    accelerator=accelerator,
+                    weight_dtype=weight_dtype,
+                    gen_dtype=args.gen_dtype,
+                    epoch=0,
+                    log_label='image generation',
+                    save_image_path = args.gen_image_path,
+                    original_pretrained_weights=original_pretrained_weights,
+                    unlearned_weights=unlearned_weights,
+                    )
+            
+            
+            else:
+                log_validation(
+                    unet=pipeline.unet,
+                    text_encoder=pipeline.text_encoder,
+                    tokenizer=pipeline.tokenizer,
+                    args=args,
+                    accelerator=accelerator,
+                    weight_dtype=weight_dtype,
+                    gen_dtype=args.gen_dtype,
+                    epoch=0,
+                    log_label='image generation',
+                    save_image_path = args.gen_image_path,
+                    )
                         
                         
                                                 
@@ -2421,6 +2469,12 @@ if __name__ == "__main__":
     if ',' in args.instance_data_dir:
         args.instance_data_dir = args.instance_data_dir.split(',')
         print(f'instance_data_dir: {args.instance_data_dir}')
+        
+    if args.instance_prompt[:4] == '*Ph.':
+        args.use_generation_phases = True
+        print('using generation phases for instance prompt')
+    else:
+        args.use_generation_phases = False
     
     
     args.concat_prompt_indiv = {}

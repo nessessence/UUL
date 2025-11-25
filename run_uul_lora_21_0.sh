@@ -1,18 +1,11 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="21_0"
 
-  accelerate launch train_dreambooth_lora.py \
-  --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
-  --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \
-  --output_dir="data_root/logs/noone" \
-  --validation_prompt="A photo of a moodeng" \
-  --instance_prompt="A photo of a moodeng" \
-  --learning_rate=1e-4 \
-  --train_batch_size=1 --gradient_accumulation_steps=4 \
-  --lora_rank 512 \
-  --test_run \
-  --max_train_steps=10000000 --checkpointing_steps=100000000 --validation_steps=100000000 
-
+python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.40 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 1.00  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.40 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 1.00  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'pad thai' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 20 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --preservation_weight 0.40 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 1.00  --extra_forward_prob 0.50 --forward_general  --forward_preserve  --extra_forward_negative_guidance 0.00  --erase_from 'uncond'  --batch_size 4 --seed 0
+['esd-x.nG3.00.FWgp0.50.zg.fU.pe00-cPS0.40_U.mrobbie_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.FWgp0.50.zg.fU.pe00-cPS0.40_U.mmouse_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.FWgp0.50.zg.fU.pe00-cPS0.40_U.padthai_sd1.4.bf16.bs4_r0']
+Total experiments: 3
 
 
 """
