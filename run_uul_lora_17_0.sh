@@ -3,8 +3,235 @@ export pc_id="17_0"
 
 
 
-
+            accelerate launch train_dreambooth_lora.py \
+            --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+            --instance_data_dir="data_root/data/real_data/mmouse/aligned/mmouse-5-v0" \
+            --output_dir="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500" \
+            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+            --train_batch_size=1 --gradient_accumulation_steps=4 \
+            --lora_rank 4 --target_lora_modules to_k to_v --target_lora_layers cross --mixed_precision 'bf16' \
+            --max_train_steps=1000  --validation_steps=1001  --checkpointing_steps=50  --lr_scheduler "linear"  --seed 0 \
+            --run_note 'uul dummy lNone ti' \
+            --cfg_scale 6.0 \
+            --learning_rate_lora 1e-4 --learning_rate_ti 5e-4 \
+            --train_text_encoder --learning_rate_lora_text_encoder 1e-5 \
+            --placeholder_token="v1" --initializer_token='random'
+echo 'count:0 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-0" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-0" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 100
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-100" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-100" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 200
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-200" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-200" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 300
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-300" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-300" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 400
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-400" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-400" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 500
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-500" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-500" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:6 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 600
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-600" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-600" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:7 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 700
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-700" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-700" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:8 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 800
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-800" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-800" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:9 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 900
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-900" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-900" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:10 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500 1000
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-1000" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="auto" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.FWgp0.50.zg.fU_GP.gH.pH-u0.50.pe00-cPS0.20_U.mmouse_sd1.4.bf16.bs4_r0.uS500/checkpoint-1000" \
+                            --placeholder_token="v1" --initializer_token='' \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+$$$$
 """
+
+preserve_pretrained
+echo 'count:0 - sd1.4 0 /'
+
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/model/original_pretrained_sd1.4_bf16" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of smartphone screen;a photo of satellite dish;a photo of toolbox;a photo of shipping container;a photo of forest waterfall" --instance_prompt="a photo of smartphone screen;a photo of satellite dish;a photo of toolbox;a photo of shipping container;a photo of forest waterfall" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+
+
+preserve_pretrained
+echo 'count:0 - sd1.4 0 /'
+
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/model/original_pretrained_sd1.4_bf16" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of basketball hoop;a photo of wind farm;a photo of clapperboard;a photo of laptop computer;a photo of glacier cave" --instance_prompt="a photo of basketball hoop;a photo of wind farm;a photo of clapperboard;a photo of laptop computer;a photo of glacier cave" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+
+
 
 ['rlct4.reV.obamaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.obama_sd1.4', 'rlct4.reV.rihannaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.rihanna_sd1.4', 'rlct4.reV.edsheeranA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.edsheeran_sd1.4', 'rlct4.reV.mrobbieA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.mrobbie_sd1.4', 'rlct4.reV.chemsworthA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.chemsworth_sd1.4', 'rlct4.reV.cevansA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.cevans_sd1.4', 'rlct4.reV.aadamA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.aadam_sd1.4', 'rlct4.reV.ahathawayA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.ahathaway_sd1.4', 'rlct4.reV.mcareyA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.mcarey_sd1.4', 'rlct4.reV.octaviaA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.octavia_sd1.4', 'rlct4.reV.morganfA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.morganf_sd1.4', 'rlct4.reV.drakeA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4_esd-x.drake_sd1.4']
 echo 'count:0 - sd1.4 0 /'

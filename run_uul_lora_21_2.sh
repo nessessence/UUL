@@ -1,6 +1,6 @@
 export CUDA_VISIBLE_DEVICES=2
 
-
+sleep 2h
   accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
   --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \

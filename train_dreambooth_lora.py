@@ -310,6 +310,10 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                         
                     elif args.negative_prompt is not None:
                         save_image_path_dir = osp.join(save_image_path,f"{prompt}_neg", f"{cfg:.2f}")
+                        
+                    elif prompt == '':
+                        save_image_path_dir = osp.join(save_image_path,f"uncond", f"{cfg:.2f}")
+                        
                     else:
                         save_image_path_dir = osp.join(save_image_path,prompt, f"{cfg:.2f}")
                     if skip_already_generated: 
@@ -1319,7 +1323,7 @@ def main(args):
     print(f'weight dtype: {weight_dtype}')
     
     
-    fast_track = False
+    fast_track = True
     if args.gen_image_path is not None and fast_track:
         print('entering fastrack generation')
         torch.cuda.empty_cache()
@@ -1627,6 +1631,7 @@ def main(args):
 
         placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
 
+
         # ---------------- initialise embeddings ----------------
         if not initializer_tokens:
             print("No initializer token(s) provided → skipping embedding initialisation.")
@@ -1639,24 +1644,103 @@ def main(args):
                     "Number of initializer tokens must be either 1 or equal to #placeholder tokens "
                     f"(got {len(initializer_tokens)} vs {len(placeholder_tokens)})."
                 )
-
             # Convert each initializer token to a single-token id
             init_token_ids = []
             for tok in initializer_tokens:
-                ids = tokenizer.encode(tok, add_special_tokens=False)
-                if len(ids) != 1:
-                    raise ValueError(f"Initializer token '{tok}' is not a single tokenizer token.")
-                init_token_ids.append(ids[0])
+                # Handle special "uncond" keyword for unconditional (empty) prompt
+                if tok.lower() == "uncond":
+                    # Use EOS token (what fills unconditional prompts in CFG)
+                    eos_token_id = tokenizer.eos_token_id
+                    if eos_token_id is None:
+                        # Fallback: encode empty string WITH special tokens and use second token (EOS)
+                        ids = tokenizer.encode("", add_special_tokens=True)
+                        if len(ids) > 1:
+                            eos_token_id = ids[1]  # Second token is EOS
+                        elif len(ids) == 1:
+                            eos_token_id = ids[0]  # Fallback to first token if only one
+                        else:
+                            print(f"Warning: Could not determine EOS token, skipping initialization")
+                            init_token_ids.append(None)
+                            continue
+                    init_token_ids.append(eos_token_id)
+                    print(f"  Using EOS token (ID: {eos_token_id}) for 'uncond' initialization")
+                elif tok.lower() == "random":
+                    # Mark for random initialization
+                    init_token_ids.append("random")
+                    print(f"  Will use random initialization for this token")
+                else:
+                    ids = tokenizer.encode(tok, add_special_tokens=False)
+                    if len(ids) != 1:
+                        raise ValueError(f"Initializer token '{tok}' is not a single tokenizer token.")
+                    init_token_ids.append(ids[0])
 
             # Copy embeddings one-by-one
             token_embeds = text_encoder.get_input_embeddings().weight.data
+            
+            # Calculate actual embedding std for random initialization
+            clip_embedding_std = token_embeds.std().item()
+            print(f"Measured CLIP embedding std: {clip_embedding_std:.4f}")
+            
             with torch.no_grad():
                 for ph_id, init_id, ph_tok, init_tok in zip(
                     placeholder_token_ids, init_token_ids, placeholder_tokens, initializer_tokens
                 ):
-                    token_embeds[ph_id] = token_embeds[init_id].clone()
-                    print(f"  ↳ initialised '{ph_tok}' from '{init_tok}'")
+                    if init_id is None:
+                        continue
+                    elif init_id == "random":
+                        # Random initialization with measured CLIP std
+                        embedding_dim = token_embeds.shape[1]
+                        generator = torch.Generator(device=token_embeds.device).manual_seed(args.seed)
+                        token_embeds[ph_id] = torch.randn(embedding_dim, generator=generator, device=token_embeds.device) * clip_embedding_std
+                        print(f"  ↳ randomly initialized '{ph_tok}' with std={clip_embedding_std:.4f} (seed={args.seed})")
+                    else:
+                        token_embeds[ph_id] = token_embeds[init_id].clone()
+                        print(f"  ↳ initialised '{ph_tok}' from '{init_tok}' (token ID: {init_id})")
 
+        # # ---------------- initialise embeddings ----------------
+        # if not initializer_tokens:
+        #     print("No initializer token(s) provided → skipping embedding initialisation.")
+        # else:
+        #     # --- normalise initializer list to match #placeholders ---
+        #     if len(initializer_tokens) == 1:
+        #         initializer_tokens = initializer_tokens * len(placeholder_tokens)
+        #     elif len(initializer_tokens) != len(placeholder_tokens):
+        #         raise ValueError(
+        #             "Number of initializer tokens must be either 1 or equal to #placeholder tokens "
+        #             f"(got {len(initializer_tokens)} vs {len(placeholder_tokens)})."
+        #         )
+
+        #     # Convert each initializer token to a single-token id
+        #     init_token_ids = []
+        #     for tok in initializer_tokens:
+        #         # Handle special "uncond" keyword for unconditional (empty) prompt
+        #         if tok.lower() == "uncond":
+        #             # Encode empty string to get unconditional token
+        #             ids = tokenizer.encode("", add_special_tokens=False)
+        #             if len(ids) == 0:
+        #                 # If empty string produces no tokens, use padding token or skip
+        #                 print(f"Warning: 'uncond' produced no tokens, skipping initialization for this token")
+        #                 init_token_ids.append(None)
+        #                 continue
+        #             init_token_ids.append(ids[0])
+        #         else:
+        #             ids = tokenizer.encode(tok, add_special_tokens=False)
+        #             if len(ids) != 1:
+        #                 raise ValueError(f"Initializer token '{tok}' is not a single tokenizer token.")
+        #             init_token_ids.append(ids[0])
+
+        #     # Copy embeddings one-by-one
+        #     token_embeds = text_encoder.get_input_embeddings().weight.data
+        #     with torch.no_grad():
+        #         for ph_id, init_id, ph_tok, init_tok in zip(
+        #             placeholder_token_ids, init_token_ids, placeholder_tokens, initializer_tokens
+        #         ):
+        #             if init_id is None:
+        #                 continue
+        #             token_embeds[ph_id] = token_embeds[init_id].clone()
+        #             print(f"  ↳ initialised '{ph_tok}' from '{init_tok}'")
+
+     
 
 
     # We only train the additional adapter LoRA layers

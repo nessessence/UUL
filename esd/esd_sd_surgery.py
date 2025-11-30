@@ -7,14 +7,24 @@ import random
 import numpy as np
 from safetensors.torch import load_file
 
+concept2shortname = {
+    "Margot Robbie": "mrobbie",
+    "mickey mouse": "mmouse",
+    "pad thai": "padthai",
+    "Barack Obama": "obama",
+    "Donald Trump": "dtrump"
+
+}
+
+
 # seed = 123
 # rng = np.random.RandomState(seed=seed)
 erase2general_concept = {"Margot Robbie": "person",
                             "mickey mouse": "cartoon character",
-                            "pad thai": "food dish"
+                            "pad thai": "food dish",
+                            "Barack Obama": "person",
+                            "Donald Trump": "person"
                             }
-             
-    
 import sys
 # os.environ["PYTHONHASHSEED"] = str(123)s
 from tqdm.auto import tqdm
@@ -62,11 +72,7 @@ def _value_based_probs_divmax(timesteps: torch.Tensor, alpha: float, is_inverse=
     return probs.cpu().numpy()
 
     
-concept2shortname = {
-    "Margot Robbie": "mrobbie",
-    "mickey mouse": "mmouse",
-    "pad thai": "padthai"
-}
+
 
 def resolve_model_name(args): #, training_step):
     erase_concept = args.erase_concept
@@ -489,12 +495,14 @@ if __name__ == '__main__':
         
         
     elif args.preservation_train_set == '00':
-        preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()][args.preservation_split]['Strongly Associated']
+        
+        preserve_cate = 'Unassociated'
+        preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()][args.preservation_split][preserve_cate]
         
         
         if args.preservation_split == 'train':
             print('fixing overlap')
-            test_preservation_concepts = torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()]['test']['Strongly Associated']
+            test_preservation_concepts = torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()]['test'][preserve_cate]
             preservation_concepts = [c for c in preservation_concepts if c not in test_preservation_concepts]
             
         

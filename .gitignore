@@ -10,3 +10,5 @@ cache/
 wandb/
 data_root/cache/*.pt
 temp/
+DUO/train/outputs
+DUO/train/outputs_testcustom
