@@ -1,4 +1,11 @@
 export CUDA_VISIBLE_DEVICES=1
 
+
+python generate_images.py  --prompt "A photo of Margot Robbie" --output_dir "../data_root/generated/stereo/A photo of Margot Robbie/"  --num_images 500 
+python generate_images.py  --prompt "A photo of mickey mouse" --output_dir "../data_root/generated/stereo/A photo of mickey mouse/"  --num_images 500 
+
+
+
+
 # python generate_images.py  --prompt "A photo of Amy Adams" --output_dir "../data_root/generated/stereo/A photo of Amy Adams/"  --num_images 500 
-python -W ignore train.py --erase_concept 'Amy Adams' --train_method noxattn --train_data_dir "../data_root/generated/stereo/A photo of Amy Adams/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/Amy Adams" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/A photo of Amy Adams/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/person_anchor_prompts.json
+# python -W ignore train.py --erase_concept 'Amy Adams' --train_method noxattn --train_data_dir "../data_root/generated/stereo/A photo of Amy Adams/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/Amy Adams" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/A photo of Amy Adams/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/person_anchor_prompts.json

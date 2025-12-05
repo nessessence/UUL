@@ -111,7 +111,8 @@ custom_concepts = [
     "pad thai",
     "Barack Obama",
     "Donald Trump",
-    "persian cat"
+    "persian cat",
+    "grumpy cat"
 ]
 
 erase2general_concept = {"Margot Robbie": "person",
@@ -119,7 +120,8 @@ erase2general_concept = {"Margot Robbie": "person",
                             "pad thai": "food dish",
                             "Barack Obama": "person",
                             "Donald Trump": "person",
-                            "persian cat": "cat"
+                            "persian cat": "cat",
+                            "grumpy cat": "cat"
                             }
 
                             

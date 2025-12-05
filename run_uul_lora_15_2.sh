@@ -1,6 +1,42 @@
 export CUDA_VISIBLE_DEVICES=2
 export pc_id="15_2"
+sleep 35m
+# total experiments: 1
+# preserve
+# echo 'count:0 - U.mrobbie_sd1.4.bf16.bs4_r0.uS500 0 /'
 
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="" \
+#                             --load_lora_weight_path="data_root/logs/duo/duo-s_U.mrobbie_sd1.4.bf16.bs4_r0/checkpoint-500" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/duo-s_U.mrobbie_sd1.4.bf16.bs4_r0/step500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Margot Robbie;a photo of person;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman;a photo of Harley Quinn;a photo of Margot Robbie on a horse;a photo of Margot Robbie in a movie scene" --instance_prompt="a photo of Margot Robbie;a photo of person;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman;a photo of Harley Quinn;a photo of Margot Robbie on a horse;a photo of Margot Robbie in a movie scene" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# Total scripts generated: 1
+preserve
+echo 'count:0 - U.mrobbie_sd1.4.bf16.bs4_r0.uS1000 0 /'
+
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="data_root/logs/duo/duo-s_U.mrobbie_sd1.4.bf16.bs4_r0/checkpoint-1000" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/duo-s_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Margot Robbie;a photo of person;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman;a photo of Harley Quinn;a photo of Margot Robbie on a horse;a photo of Margot Robbie in a movie scene" --instance_prompt="a photo of Margot Robbie;a photo of person;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman;a photo of Harley Quinn;a photo of Margot Robbie on a horse;a photo of Margot Robbie in a movie scene" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+Total generation scripts injected: 2
+
+"""
                         accelerate launch train_dreambooth_lora.py \
                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step400.safetensors" \
@@ -28,3 +64,5 @@ export pc_id="15_2"
                         #     --run_note 'gen img' --wait_weight \
                         #     --num_validation_images 50 \
                         #     --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+                        
+"""

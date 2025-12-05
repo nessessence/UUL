@@ -12,8 +12,12 @@ concept2shortname = {
     "mickey mouse": "mmouse",
     "pad thai": "padthai",
     "Barack Obama": "obama",
-    "Donald Trump": "dtrump"
-
+    "Donald Trump": "dtrump",
+    "persian cat": "percat",
+    "grumpy cat": "gpcat",
+    
+    "English Springer": "espring",
+    "Elon Musk": "elon",
 }
 
 
@@ -23,7 +27,12 @@ erase2general_concept = {"Margot Robbie": "person",
                             "mickey mouse": "cartoon character",
                             "pad thai": "food dish",
                             "Barack Obama": "person",
-                            "Donald Trump": "person"
+                            "Donald Trump": "person",
+                            "persian cat": "cat",
+                            "grumpy cat": "cat",
+                            "English Springer": "dog",
+                            "Elon Musk": "person"
+
                             }
 import sys
 # os.environ["PYTHONHASHSEED"] = str(123)s
@@ -281,7 +290,13 @@ def get_esd_trainable_parameters(esd_unet, train_method='esd-x'):
                 for n, p in module.named_parameters():
                     esd_param_names.append(name+'.'+n)
                     esd_params.append(p)
+              
+            if train_method == 'esd-s' and 'attn1' in name:
+                for n, p in module.named_parameters():
+                    esd_param_names.append(name+'.'+n)
+                    esd_params.append(p)
                     
+                          
                     
             if train_method == 'esd-xs' and ( 'attn2' in name or 'attn1' in name ):
                 for n, p in module.named_parameters():
@@ -496,13 +511,16 @@ if __name__ == '__main__':
         
     elif args.preservation_train_set == '00':
         
-        preserve_cate = 'Unassociated'
-        preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()][args.preservation_split][preserve_cate]
+        preserve_cate = 'Strongly Associated'
+        if args.erase_concept.lower() == 'barack obama':
+            preserve_cate = 'Moderately Associated'
+            # for now (Strongely Associated has too few concepts)
+        preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v2_r123.pth')[args.erase_concept.lower()][args.preservation_split][preserve_cate]
         
         
         if args.preservation_split == 'train':
             print('fixing overlap')
-            test_preservation_concepts = torch.load('../data_root/data/preservation_concepts/all_pe_v1_r123.pth')[args.erase_concept.lower()]['test'][preserve_cate]
+            test_preservation_concepts = torch.load('../data_root/data/preservation_concepts/all_pe_v2_r123.pth')[args.erase_concept.lower()]['test'][preserve_cate]
             preservation_concepts = [c for c in preservation_concepts if c not in test_preservation_concepts]
             
         
@@ -843,6 +861,7 @@ if __name__ == '__main__':
                 
                     # will use this if it work
                 elif batch_size > 1:
+                    # print(preservation_concepts)
                     preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=False).tolist()
                     print(f"preservation_concept: {preservation_concept}")
                     preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,

@@ -86,6 +86,25 @@ check_min_version("0.22.0")
 logger = get_logger(__name__)
 
 
+def convert_lora_weight(lora_pretrained_weight):
+    
+    # sign for different version
+    if 'lora_A' in list(lora_pretrained_weight.keys())[0]:
+        lora_pretrained_weight_ = {}
+        print('detected NEW LoRA weight format, converting ....')
+        for k,v in lora_pretrained_weight.items():
+            assert 'unet' in k
+            new_param_name = k.replace('unet','unet.unet')
+            new_param_name = new_param_name.replace('lora_A','lora.down')
+            new_param_name = new_param_name.replace('lora_B','lora.up')
+            lora_pretrained_weight_[new_param_name] = v.clone()
+        
+            
+    else:
+        lora_pretrained_weight_ = lora_pretrained_weight
+    return lora_pretrained_weight_
+
+            
 def count_images_in_dir(directory, extensions=None):
     if extensions is None:
         extensions = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".tiff"}
@@ -1332,12 +1351,18 @@ def main(args):
         # pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=weight_dtype)
         pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, revision=args.revision, torch_dtype=args.gen_dtype)
 
-        if args.load_pretrained_lora_weight_path is not None:
+        if args.load_pretrained_lora_weight_path is not None and args.load_pretrained_lora_weight_path:
             print('loading LoRA into UNet ....')
             print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
         
             dummy_pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, unet=pipeline.unet, text_encoder=pipeline.text_encoder, vae=pipeline.vae, revision=args.revision)
-            dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+            
+            lora_pretrained_weight_ = load_file(osp.join(args.load_pretrained_lora_weight_path, "pytorch_lora_weights.safetensors"))
+            lora_pretrained_weight = convert_lora_weight(lora_pretrained_weight_)
+            pipeline.load_lora_weights(lora_pretrained_weight)
+            
+            
+            # dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
 
             dummy_pipeline.fuse_lora()
             print('Fused LoRA  ....')
@@ -1361,7 +1386,13 @@ def main(args):
             # load attention processors
             print(25*"#")
             print('loading LoRA weight')
-            pipeline.load_lora_weights(args.load_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+            
+            lora_pretrained_weight_ = load_file(osp.join(args.load_lora_weight_path, "pytorch_lora_weights.safetensors"))
+            lora_pretrained_weight = convert_lora_weight(lora_pretrained_weight_)
+            pipeline.load_lora_weights(lora_pretrained_weight)
+        
+        
+            # pipeline.load_lora_weights(args.load_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
             
             print(f'generating images from: lora{args.load_lora_weight_path}')
             
@@ -1586,12 +1617,18 @@ def main(args):
 
 
     # load pretrained LoRA weights if provided
-    if args.load_pretrained_lora_weight_path is not None:
+    if args.load_pretrained_lora_weight_path is not None and args.load_pretrained_lora_weight_path:
         print('loading LoRA into UNet ....')
         print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
     
         dummy_pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, unet=unet, text_encoder=text_encoder, vae=vae, revision=args.revision)
-        dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+        
+
+        lora_pretrained_weight_ = load_file(osp.join(args.load_pretrained_lora_weight_path, "pytorch_lora_weights.safetensors"))
+        lora_pretrained_weight = convert_lora_weight(lora_pretrained_weight_)
+        # print('loaded LoRA weights')
+        dummy_pipeline.load_lora_weights(lora_pretrained_weight)
+        # dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
 
         dummy_pipeline.fuse_lora()
         
@@ -2373,12 +2410,18 @@ def main(args):
             
             original_pretrained_weights =  copy.deepcopy(pipeline.unet.state_dict()) if args.use_generation_phases else None
             
-            if args.load_pretrained_lora_weight_path is not None:
+            if args.load_pretrained_lora_weight_path is not None and args.load_pretrained_lora_weight_path:
                 print('loading LoRA into UNet ....')
                 print(f'LoRA path: {args.load_pretrained_lora_weight_path}')
             
                 dummy_pipeline = DiffusionPipeline.from_pretrained(args.pretrained_model_name_or_path, unet=pipeline.unet, text_encoder=pipeline.text_encoder, vae=pipeline.vae, revision=args.revision)
-                dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+                
+                lora_pretrained_weight_ = load_file(osp.join(args.load_pretrained_lora_weight_path, "pytorch_lora_weights.safetensors"))
+                lora_pretrained_weight = convert_lora_weight(lora_pretrained_weight_)
+                pipeline.load_lora_weights(lora_pretrained_weight)
+            
+            
+                # dummy_pipeline.load_lora_weights(args.load_pretrained_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
 
                 dummy_pipeline.fuse_lora()
                 print('Fused LoRA  ....')
@@ -2408,7 +2451,13 @@ def main(args):
                 # load attention processors
                 print(25*"#")
                 print('loading LoRA weight')
-                pipeline.load_lora_weights(args.load_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
+                
+                lora_pretrained_weight_ = load_file(osp.join(args.load_lora_weight_path, "pytorch_lora_weights.safetensors"))
+                lora_pretrained_weight = convert_lora_weight(lora_pretrained_weight_)
+                pipeline.load_lora_weights(lora_pretrained_weight)
+
+                
+                # pipeline.load_lora_weights(args.load_lora_weight_path, weight_name="pytorch_lora_weights.safetensors")
                 
                 print(f'generating images from: lora{args.load_lora_weight_path}')
                 

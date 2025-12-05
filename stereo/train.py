@@ -32,10 +32,11 @@ if __name__ == "__main__":
     parser.add_argument("--center_crop", type=bool, required=False, help="Center crop the images during training", default=False)
     parser.add_argument("--num_of_adv_concepts", type=int, required=False, help="Number of adversarial concepts to use in REO", default=4)
 
-    # my add
+    # my add (can ignore this)
     parser.add_argument("--load_ste", type=str,default=None, help="Path to the STE model to load")
     parser.add_argument("--pos_guidance_scale", type=float, default=None, help="Learning rate for erasing in robustly erase once stage")
     parser.add_argument("--neg_guidance_scale", type=float, default=None, help="Learning rate for erasing in robustly erase once stage")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
 
 
 
@@ -43,7 +44,7 @@ if __name__ == "__main__":
     os.makedirs(args.output_dir, exist_ok=True)
 
     # Set the random seed for reproducibility
-    seed = 42
+    seed = args.seed
     np.random.seed(seed)      # For numpy
     random.seed(seed)         # For the random module
     torch.manual_seed(seed)   # For PyTorch

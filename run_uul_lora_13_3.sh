@@ -1,6 +1,165 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="13_3"
 
+
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Margot Robbie;a photo of persian cat;a photo of mickey mouse" --instance_prompt="a photo of Margot Robbie;a photo of persian cat;a photo of mickey mouse" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+$$$$
+"""
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG2.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG2.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG2.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG2.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.dtrump_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.fU_U.dtrump_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" --instance_prompt="a photo of Donald Trump;a photo of person;a photo of Joe Biden;a photo of candidate;a photo of Bernie Sanders;a photo of White House;a photo of Republican;a photo of Melania Trump;a photo of Barack Obama;a photo of politician;a photo of Mitch McConnell;a photo of Xi Jinping;a photo of the 45th president of the united states;a photo of the 45th president of the united states in disneyland;a photo of Donald Trump in disneyland;a photo of Donald Trump in a style of cartoon" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of persian cat;a photo of cat;a photo of Bengal cat;a photo of Maine Coon cat;a photo of purebred feline;a photo of relaxed cat;a photo of gentle purring cat;a photo of tortoiseshell cat;a photo of domestic feline;a photo of Burmese cat;a photo of feral cat;a photo of calico cat;a photo of white persian cat;a photo of persian man;a photo of dog;a photo of cat" --instance_prompt="a photo of persian cat;a photo of cat;a photo of Bengal cat;a photo of Maine Coon cat;a photo of purebred feline;a photo of relaxed cat;a photo of gentle purring cat;a photo of tortoiseshell cat;a photo of domestic feline;a photo of Burmese cat;a photo of feral cat;a photo of calico cat;a photo of white persian cat;a photo of persian man;a photo of dog;a photo of cat" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.mrobbie_sd1.4.bf16.bs4_r0.uS1000 0 /'
+
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="" \
+#                             --load_lora_weight_path="data_root/logs/duo/duo-s_U.mrobbie_sd1.4.bf16.bs4_r0/checkpoint-1000" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/duo-s_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Margot Robbie;a photo of person;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman;a photo of Harley Quinn;a photo of Margot Robbie on a horse;a photo of Margot Robbie in a movie scene" --instance_prompt="a photo of Margot Robbie;a photo of person;a photo of Jennifer Lawrence;a photo of Reese Witherspoon;a photo of Jessica Chastain;a photo of Gal Gadot;a photo of Brad Pitt;a photo of Kristen Stewart;a photo of Anne Hathaway;a photo of Leonardo DiCaprio;a photo of Meryl Streep;a photo of Nicole Kidman;a photo of Harley Quinn;a photo of Margot Robbie on a horse;a photo of Margot Robbie in a movie scene" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# Total scripts generated: 1
+# Total generation scripts injected: 
+
             accelerate launch train_dreambooth_lora.py \
             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
             --load_unet_weight_path="data_root/logs/esd/study/esd-x.fU_U.mmouse_sd1.4.bf16.bs4_r0/step300.safetensors" \
@@ -3056,4 +3215,4 @@ echo 'count:10 - rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00
                             --load_token_embedding_path="data_root/logs/rlct4.reR.mmouseA5V0.ln.lr1e-4.ti5e-4.b1g4.bf16.r0_esd-x.nG3.00.fU_U.mmouse_sd1.4.bf16.bs4_r0.uS1500/checkpoint-1000" \
                             --placeholder_token="v1" --initializer_token='' \
                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
+"""

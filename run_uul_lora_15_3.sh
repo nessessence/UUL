@@ -1,5 +1,40 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="15_3"
+
+total experiments: 1
+preserve
+echo 'count:0 - U.mmouse_sd1.4.bf16.bs4_r0.uS500 0 /'
+
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="data_root/logs/duo/duo-s_U.mmouse_sd1.4.bf16.bs4_r0/checkpoint-500" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/duo-s_U.mmouse_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of mickey mouse;a photo of cartoon character;a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie;a photo of mickey mouse in disneyland;a photo of mouse in a style of cartoon;a photo of cartoon mouse character;a photo of mouse in disney style;a photo of mouse" --instance_prompt="a photo of mickey mouse;a photo of cartoon character;a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie;a photo of mickey mouse in disneyland;a photo of mouse in a style of cartoon;a photo of cartoon mouse character;a photo of mouse in disney style;a photo of mouse" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+preserve
+echo 'count:0 - U.mmouse_sd1.4.bf16.bs4_r0.uS1000 0 /'
+
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="data_root/logs/duo/duo-s_U.mmouse_sd1.4.bf16.bs4_r0/checkpoint-1000" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/duo-s_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of mickey mouse;a photo of cartoon character;a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie;a photo of mickey mouse in disneyland;a photo of mouse in a style of cartoon;a photo of cartoon mouse character;a photo of mouse in disney style;a photo of mouse" --instance_prompt="a photo of mickey mouse;a photo of cartoon character;a photo of Disney comic;a photo of Daisy Duck;a photo of Looney Tunes;a photo of Tweety Bird;a photo of Snoopy;a photo of Tweety Bird;a photo of Lion King;a photo of Minions;a photo of Bugs Bunny;a photo of Minnie;a photo of mickey mouse in disneyland;a photo of mouse in a style of cartoon;a photo of cartoon mouse character;a photo of mouse in disney style;a photo of mouse" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+Total scripts generated: 1
+Total generation scripts injected: 2
 $$$$
 """
 

@@ -400,6 +400,14 @@ def parse_args(input_args=None):
     )
     parser.add_argument("--offset_noise", type=float, default=0.0)
 
+
+    # my add
+    parser.add_argument(
+        "--base_loss_weight", default=1.0, type=float, help="the first term (p+) -> one that preserve"
+    )
+    parser.add_argument("--custom_ourloss_lambda", type=float, default=None, help="Additional prior preservation regularization loss")
+
+
     if input_args is not None:
         args = parser.parse_args(input_args)
     else:
@@ -826,6 +834,10 @@ def main(args):
     # rescale learning rate
     args.learning_rate = args.base_lr * (100 / args.dcoloss_beta)
     args.ourloss_lambda = args.base_lambda * (args.dcoloss_beta / 100)
+    # my add
+    if args.custom_ourloss_lambda is not None:
+        args.ourloss_lambda = args.custom_ourloss_lambda
+        print(f'Custom ourloss_lambda set to: {args.ourloss_lambda}')
 
     # Enable TF32 for faster training on Ampere GPUs,
     # cf https://pytorch.org/docs/stable/notes/cuda.html#tensorfloat-32-tf32-on-ampere-devices
@@ -1234,6 +1246,11 @@ def main(args):
                             loss_pred = loss_pred.detach()
                         if args.no_grad == "descent":
                             loss_base = loss_base.detach()
+                            
+                        # my add
+                        if args.base_loss_weight is not None and  args.base_loss_weight != 1.00:
+                            loss_base = loss_base * args.base_loss_weight
+                            print(f'new base loss: {loss_base}')
 
                         diff = loss_base - loss_pred
                         inside_term = -1 * args.dcoloss_beta * diff
