@@ -398,7 +398,11 @@ def parse_args(input_args=None):
         default=32,
         help=("The dimension of the LoRA update matrices."),
     )
+    
+    parser.add_argument("--train_method", type=str, default=None, help="duo-s, duo-x, duo-xs")
+    
     parser.add_argument("--offset_noise", type=float, default=0.0)
+    
 
 
     # my add
@@ -710,10 +714,25 @@ def main(args):
     # Load LoRA #
     #############
     # now we will add new LoRA weights to the attention layers
-    if args.no_cross_attn:
-        target_modules = ["attn1.to_k", "attn1.to_q", "attn1.to_v", "attn1.to_out.0"]
+    
+    # my add
+    if args.train_method is not None:
+        if args.train_method == 'duo-s':
+            target_modules = ["attn1.to_k", "attn1.to_q", "attn1.to_v", "attn1.to_out.0"]
+        elif args.train_method == 'duo-x':
+            target_modules = ["attn2.to_k", "attn2.to_q", "attn2.to_v", "attn2.to_out.0"]
+        elif args.train_method == 'duo-xs':
+            target_modules = ["to_k", "to_q", "to_v", "to_out.0"]
+            
+        print(f'Using custom train_method: {args.train_method}, target_modules: {target_modules}')
+            
+            
+    
     else:
-        target_modules = ["to_k", "to_q", "to_v", "to_out.0"]
+        if args.no_cross_attn:
+            target_modules = ["attn1.to_k", "attn1.to_q", "attn1.to_v", "attn1.to_out.0"]
+        else:
+            target_modules = ["to_k", "to_q", "to_v", "to_out.0"]
 
     unet_lora_config = LoraConfig(
         r=args.rank,
