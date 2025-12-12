@@ -1123,8 +1123,8 @@ def main(args):
         unet.train()
         for step, batch in enumerate(train_dataloader):
             with accelerator.accumulate(unet):
-                prompts = batch["prompts"] # erased
-                base_prompts = batch["base_prompts"] # target mapping (generic) naked->dressed
+                prompts = batch["prompts"] # target erased concept (Obama)
+                base_prompts = batch["base_prompts"] # target mapping (generic) naked->dressed (Person)
                 null_prompts = ["" for _ in prompts]
 
                 if args.cfg_train:
@@ -1145,8 +1145,8 @@ def main(args):
                 else:
                     assert False, "we freeze text encoder for unlearning"
 
-                pixel_values = batch["pixel_values"].to(dtype=vae.dtype)
-                base_pixel_values = batch["base_pixel_values"].to(dtype=vae.dtype)
+                pixel_values = batch["pixel_values"].to(dtype=vae.dtype) # obama images
+                base_pixel_values = batch["base_pixel_values"].to(dtype=vae.dtype) # person images
                 pixel_values = torch.cat([pixel_values, base_pixel_values], dim=0) # concat
 
                 with torch.no_grad():

@@ -112,7 +112,15 @@ custom_concepts = [
     "Barack Obama",
     "Donald Trump",
     "persian cat",
-    "grumpy cat"
+    "grumpy cat",
+    
+    "ganesha",
+    "tank"  ,
+    "a painting in the style of Van Gogh",
+    "a painting in the style of Claude Monet",
+    "naked person",
+    
+
 ]
 
 erase2general_concept = {"Margot Robbie": "person",
@@ -121,7 +129,13 @@ erase2general_concept = {"Margot Robbie": "person",
                             "Barack Obama": "person",
                             "Donald Trump": "person",
                             "persian cat": "cat",
-                            "grumpy cat": "cat"
+                            "grumpy cat": "cat",
+                            
+                            "ganesha": "statue",
+                            "tank": "car",
+                            "a painting in the style of Van Gogh": "a painting in the style of artist",
+                            "a painting in the style of Claude Monet": "a painting in the style of artist",
+                            "naked person": "person"
                             }
 
                             

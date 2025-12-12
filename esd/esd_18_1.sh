@@ -1,6 +1,26 @@
 export device="cuda:1"
 
-python esd_sd_surgery.py --erase_concept 'Elon Musk' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
+
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+
+
+# python esd_sd_surgery.py --erase_concept 'ganesha' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 0.95 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
+# ['esd-x.bG.fG.pe00-cPS0.95_U.ganesha_sd1.4.bf16.bs4_r0']
+# Total experiments: 1
+
+# python esd_sd_surgery.py --erase_concept 'ganesha' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'ganesha' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 0.80 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'ganesha' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 0.20 --preservation_train_set '00' --preservation_weight_option 'convex'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
+
+
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Van Gogh' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
+
+# python esd_sd_surgery.py --erase_concept 'mickey mouse' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,50,100,150,200,250,300,350,400,450'  --apply_poison  --batch_size 4 --seed 0 --load_unet_weight_path '../data_root/logs/esd/study/esd-x.bG.fG_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors'
+# ['esd-x.bG.fG.PNS_U.mmouse_sd1.4.bf16.bs4_r0']
+# Total experiments: 1
+
+
+# python esd_sd_surgery.py --erase_concept 'Elon Musk' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
 
 
 

@@ -2,6 +2,11 @@
 export device="cuda:0"
 export CUDA_VISIBLE_DEVICES=0
 
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Van Gogh' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
 
 # python esd_sd_surgery.py --erase_concept 'persian cat' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --erase_from 'uncond'  --special_log_step '0,25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475'  --batch_size 4 --seed 0
 # ['esd-x.fU_U.percat_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.fU_U.percat_sd1.4.bf16.bs4_r0', 'esd-x.nG2.00.fU_U.percat_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.fU_U.percat_sd1.4.bf16.bs4_r0']
