@@ -1,91 +1,263 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="13_3"
-echo 'count:0 - U.vgogh_sd1.4.bf16.bs4_r0.uS500 0
-'
-                        accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step500.safetensors" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step500" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-echo 'count:0 - U.vgogh_sd1.4.bf16.bs4_r0.uS1000 0
-'
-                        accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step1000.safetensors" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step1000" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-echo 'count:0 - U.vgogh_sd1.4.bf16.bs4_r0.uS1500 0
-'
-                        accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step1500.safetensors" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step1500" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-echo 'count:0 - U.vgogh_sd1.4.bf16.bs4_r0.uS2000 0
-'
-                        accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step2000.safetensors" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step2000" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-echo 'count:0 - U.vgogh_sd1.4.bf16.bs4_r0.uS2500 0
-'
-                        accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step2500.safetensors" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step2500" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-echo 'count:0 - U.vgogh_sd1.4.bf16.bs4_r0.uS3000 0
-'
-                        accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step3000.safetensors" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG.pe00-cPS0.80_U.vgogh_sd1.4.bf16.bs4_r0/step3000" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of artist;a painting in the style of Edvard Munch;a painting in the style of Hans Hofmann;a painting in the style of Gustav Klimt;a photo of a tempera panel painting;a painting in the style of James Whistler;a painting in the style of Diego Rivera;a painting in the style of Lyonel Feininger;a painting in the style of Mary Cassatt;a painting in the style of Giorgio de Chirico;a painting in the style of Thomas Gainsborough;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a photo of a starry night painting;a photo of a sunflower painting" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
 $$$$
 """
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS1500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step1500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS2000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step2000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS2500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step2500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS3000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x_U.macbook_sd1.4.bf16.bs4_r0/step3000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS1500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step1500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS2000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step2000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS2500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step2500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS3000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0/step3000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS1500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step1500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS2000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step2000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS2500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step2500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.macbook_sd1.4.bf16.bs4_r0.uS3000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0/step3000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of macbook;a photo of laptop;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+
 
             accelerate launch train_dreambooth_lora.py \
             --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \

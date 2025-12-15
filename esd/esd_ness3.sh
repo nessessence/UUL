@@ -1,8 +1,23 @@
 
 export device="cuda:3"
 
-python esd_sd_surgery.py --erase_concept 'mackerel tabby cat' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
-python esd_sd_surgery.py --erase_concept 'mackerel tabby cat' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+['esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.bG.fG_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bG.fG_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bG.fG_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.bG.fG_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bG.fG_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bG.fG_U.macbook_sd1.4.bf16.bs4_r0']
+Total experiments: 9
+
+
+
+# python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'neighbor'  --erase_from 'neighbor'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'neighbor'  --erase_from 'neighbor'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'neighbor'  --erase_from 'neighbor'  --batch_size 4 --seed 0
+# ['esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x.bN.fN_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bN.fN_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bN.fN_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x.bN.fN_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bN.fN_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bN.fN_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x.bN.fN_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bN.fN_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bN.fN_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.bN.fN_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bN.fN_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bN.fN_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.bN.fN_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00.bN.fN_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00.bN.fN_U.macbook_sd1.4.bf16.bs4_r0']
+# Total experiments: 18
+
+
+# python esd_sd_surgery.py --erase_concept 'mackerel tabby cat' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'mackerel tabby cat' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
 
 
 

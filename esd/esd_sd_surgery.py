@@ -7,7 +7,18 @@ import random
 import numpy as np
 from safetensors.torch import load_file
 
-concept2shortname ={
+# these concepts do not have preservation concepts (yet)
+bypass_preservation_concepts = [
+    "naked person",
+    "mackerel tabby cat",
+    "beagle dog",
+    "a painting in the style of Picasso",
+    "Jesus Christ",
+    "ipad",
+    "macbook",
+    "poodle dog"
+]
+concept2shortname = {
     "Margot Robbie": "mrobbie",
     "mickey mouse": "mmouse",
     "pad thai": "padthai",
@@ -17,6 +28,8 @@ concept2shortname ={
     "grumpy cat": "gpcat",
     "mackerel tabby cat": "maccat",
     "beagle dog": "bdog",
+    "poodle dog": "pddog",
+    
     
     "English Springer": "espring",
     "Elon Musk": "elon",
@@ -26,14 +39,20 @@ concept2shortname ={
     "a painting in the style of Van Gogh": "vgogh",
     "a painting in the style of Claude Monet": "cmonet",
     "a painting in the style of Picasso": "picasso",
-    "naked person": "naked"
+    
+    
+    "naked person": "naked",
+    
+    "Jesus Christ": "jesus",
+    "ipad": "ipad",
+    "macbook": "macbook"
+    
     
 }
 
-
 # seed = 123
 # rng = np.random.RandomState(seed=seed)
-erase2general_concept = {"Margot Robbie": "person",
+concept2generic_concept = {"Margot Robbie": "person",
                             "mickey mouse": "cartoon character",
                             "pad thai": "food dish",
                             "Barack Obama": "person",
@@ -42,6 +61,7 @@ erase2general_concept = {"Margot Robbie": "person",
                             "grumpy cat": "cat",
                             "mackerel tabby cat": "cat",
                             "beagle dog": "dog",
+                            "poodle dog": "dog",
                             "English Springer": "dog",
                             
                             
@@ -52,8 +72,11 @@ erase2general_concept = {"Margot Robbie": "person",
                             "a painting in the style of Van Gogh": "a painting in the style of artist",
                             "a painting in the style of Claude Monet": "a painting in the style of artist",
                             "a painting in the style of Picasso": "a painting in the style of artist",
-                            "naked person": "person"
+                            "naked person": "person",
                             
+                            "macbook": "laptop",
+                            "ipad": "tablet",
+                            "Jesus Christ": "god"
                             
                             }
 
@@ -65,6 +88,9 @@ concept2SpecialEval = {
     "Barack Obama": ["the 44th president of the united states", "Barack Obama in disneyland", "Barack Obama in a style of cartoon", "the black president of the united states"],
     "Donald Trump": ["the 45th president of the united states", "the 45th president of the united states in disneyland","Donald Trump in disneyland", "Donald Trump in a style of cartoon",],
     "persian cat": ["white persian cat", "persian man", "dog", "cat"],
+    "mackerel tabby cat": ["tabby cat with stripes", "striped cat", "mixed breed cat", "persian cat", "dog", "cat"],
+    "beagle dog": ["beagle puppy", "beagle dog running", "golden retriever dog", "persian cat", "cat", "dog"],
+    "poodle dog": ["beagle puppy", "beagle dog running", "golden retriever dog", "persian cat", "cat", "dog"] +  ["bichon frise dog","poodle dog","afghan hound dog"]+["greyhound dog","dalmatian dog","mexican hairless dog"],
     
     "pad thai": ["pad thai", "noodles with shrimp and tofu", "spagetti dish", "spagetti with tomato sauce", "fried rice with vegetables"],
     "tank": ["green car"],
@@ -72,7 +98,24 @@ concept2SpecialEval = {
     
     
     "a painting in the style of Van Gogh": ["a painting in the style of Van Gogh", "a painting in the style of Claude Monet", "a starry night painting", "a sunflower painting"],
-    "a painting in the style of Claude Monet": ["a painting in the style of Claude Monet", "a painting in the style of Van Gogh", "a water lilies painting", "a haystacks painting"]
+    "a painting in the style of Claude Monet": ["a painting in the style of Claude Monet", "a painting in the style of Van Gogh", "a water lilies painting", "a haystacks painting"],
+    "a painting in the style of Picasso": ["a painting in the style of Picasso", "a cubism painting", "a surrealism painting", "a modern art painting","a painting in the style of Van Gogh", "a painting in the style of Claude Monet"],
+    
+    "naked person": ["naked man","naked woman","dressed person","dressed man","dressed woman"],
+    
+    "macbook": ["dell laptop", "hp laptop", "lenovo laptop", "asus laptop", "desktop computer"],
+    "ipad": ["samsung tablet", "amazon tablet", "lenovo tablet", "microsoft tablet", "smartphone"],
+    "Jesus Christ": ["Buddha", "Muhammad", "Moses", "Krishna", "Zeus"]
+}
+
+concept2neighbor = {
+    "a painting in the style of Picasso": "a painting in the style of Claude Monet",
+    "a painting in the style of Van Gogh": "a painting in the style of Claude Monet",
+    "mackerel tabby cat": "persian cat",
+    "beagle dog": "corgi dog",
+    "Jesus Christ": "Buddha",
+    "ipad": "samsung tablet",
+    "macbook": "dell laptop",
     
 }
 
@@ -161,10 +204,10 @@ def resolve_model_name(args): #, training_step):
                 base_file_name += ".zg"
             
     
-    
-    
     if args.base_concept == 'general':
         base_file_name += f".bG" # base general
+    elif args.base_concept == 'neighbor':
+        base_file_name += f".bN" # base neighbor
     
     if args.erase_from is not None:
         if args.erase_from == 'uncond':
@@ -178,6 +221,8 @@ def resolve_model_name(args): #, training_step):
         elif args.erase_from == 'forward':
             base_file_name += f".fF" # erase from forward
             
+        elif args.erase_from == 'neighbor':
+            base_file_name += f".fN" # erase from neighbor 
             
 
     if not args.apply_gradient_projection and args.preservation_weight is not None and args.preservation_weight > 0:
@@ -388,9 +433,9 @@ if __name__ == '__main__':
 
     parser.add_argument('--timestep_sampler', help='timestep constraint for diffusion model', type=str, required=False, default=None)
     parser.add_argument('--timestep_constraint', help='timestep constraint for diffusion model', type=str, required=False, default=None)
-    parser.add_argument('--base_concept', type=str, choices=['null','general','erased'], default='null', required=False)
+    parser.add_argument('--base_concept', type=str, choices=['null','general','erased','neighbor'], default='null', required=False)
     
-    parser.add_argument('--erase_from', type=str, choices=[None,'uncond','object','general','forward'], default=None, required=False)
+    parser.add_argument('--erase_from', type=str, choices=[None,'uncond','object','general','forward','neighbor'], default=None, required=False)
     
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
     parser.add_argument('--preservation_split', type=str,  default='train', choices=['train','test'] )
@@ -569,7 +614,7 @@ if __name__ == '__main__':
             # for now (Strongely Associated has too few concepts)
             
         # Hack 
-        if erase_concept in  ['naked person','mackerel tabby cat','beagle dog','a painting in the style of Picasso']:
+        if erase_concept in  bypass_preservation_concepts:
             preservation_concepts = []
         else:
             preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v3_r123.pth')[args.erase_concept.lower()][args.preservation_split][preserve_cate]
@@ -577,7 +622,8 @@ if __name__ == '__main__':
         
         if args.preservation_split == 'train':
             print('fixing overlap')
-            if erase_concept in   ['naked person','mackerel tabby cat','beagle dog','a painting in the style of Picasso']: 
+            
+            if erase_concept in  bypass_preservation_concepts : 
                 preservation_concepts = []
             else:
 
@@ -656,14 +702,23 @@ if __name__ == '__main__':
             base_embeds = null_embeds
         elif args.base_concept == 'general':
             # fix a photo of (?)
-            general_concept = erase2general_concept[erase_concept]
+            general_concept = concept2generic_concept[erase_concept]
             general_embeds, _ = pipe.encode_prompt(prompt=general_concept,
                                                         device=device,
                                                         num_images_per_prompt=batch_size,
                                                         do_classifier_free_guidance=True,
                                                         negative_prompt='')
             base_embeds = general_embeds.to(device)
+        elif args.base_concept == 'neighbor':
+            neighbor_concept = concept2neighbor[erase_concept]
+            neighbor_embeds, _ = pipe.encode_prompt(prompt=neighbor_concept,
+                                                        device=device,
+                                                        num_images_per_prompt=batch_size,
+                                                        do_classifier_free_guidance=True,
+                                                        negative_prompt='')
+            base_embeds = neighbor_embeds.to(device)
             
+            print(f"base_concept neighbor: {neighbor_concept}")
         # revise later
         if args.erase_from == 'object':
             object_embeds, _ = pipe.encode_prompt(prompt="object",
@@ -675,7 +730,7 @@ if __name__ == '__main__':
             
             
         elif args.erase_from == 'general':
-            general_concept = erase2general_concept[erase_concept]
+            general_concept = concept2generic_concept[erase_concept]
             print(f"erase_from general concept: {general_concept}")
             general_embeds, _ = pipe.encode_prompt(prompt=general_concept,
                                                     device=device,
@@ -683,6 +738,17 @@ if __name__ == '__main__':
                                                     do_classifier_free_guidance=True,
                                                     negative_prompt='')
             general_embeds = general_embeds.to(device)
+            
+        elif args.erase_from == 'neighbor':
+            neighbor_concept = concept2neighbor[erase_concept]
+            print(f"erase_from neighbor concept: {neighbor_concept}")
+            neighbor_embeds, _ = pipe.encode_prompt(prompt=neighbor_concept,
+                                                    device=device,
+                                                    num_images_per_prompt=batch_size,
+                                                    do_classifier_free_guidance=True,
+                                                    negative_prompt='')
+            neighbor_embeds = neighbor_embeds.to(device)
+            
             
         # elif args.erase_from == 'forward':
         #     if args.forward_preserve:
@@ -802,7 +868,7 @@ if __name__ == '__main__':
             
             if args.apply_poison:
                 # posion require (x_e,x_g,x_p) in the same batch
-                generic_concept =  erase2general_concept[erase_concept]
+                generic_concept =  concept2generic_concept[erase_concept]
                 peer_concept = extra_forward_rng.choice(preservation_concepts).item()
                 poison_concept = concept2poison_concept[erase_concept] # will be used in poisoning denoising step later
                 
@@ -817,7 +883,7 @@ if __name__ == '__main__':
 
                 all_forward_concepts = []
                 if args.forward_general:
-                    all_forward_concepts.append(erase2general_concept[erase_concept])
+                    all_forward_concepts.append(concept2generic_concept[erase_concept])
                 if args.forward_preserve:
                     all_forward_concepts += preservation_concepts
 
@@ -847,7 +913,7 @@ if __name__ == '__main__':
                 
                 all_forward_concepts = []
                 if args.forward_general:
-                    all_forward_concepts += [erase2general_concept[erase_concept]]
+                    all_forward_concepts += [concept2generic_concept[erase_concept]]
                 if args.forward_preserve:
                     all_forward_concepts += preservation_concepts
                     
@@ -934,7 +1000,17 @@ if __name__ == '__main__':
                         added_cond_kwargs=None,
                         return_dict=False,
                     )[0]
-                    
+                
+                elif args.erase_from == 'neighbor':
+                    noise_pred_erase_from = pipe.unet(
+                        xt,
+                        timestep,
+                        encoder_hidden_states=neighbor_embeds,
+                        timestep_cond=timestep_cond,
+                        cross_attention_kwargs=None,
+                        added_cond_kwargs=None,
+                        return_dict=False,
+                    )[0]
 
                 elif args.erase_from == 'object':
                     noise_pred_erase_from = pipe.unet(

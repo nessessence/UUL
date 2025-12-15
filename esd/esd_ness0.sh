@@ -1,10 +1,22 @@
 
 export device="cuda:0"
 export CUDA_VISIBLE_DEVICES=0
+python esd_sd_surgery.py --erase_concept 'poodle dog' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'poodle dog' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'poodle dog' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1500 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+['esd-x_U.pddog_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.pddog_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.pddog_sd1.4.bf16.bs4_r0']
+Total experiments: 3
 
-python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
-python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
-python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'Jesus Christ' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'neighbor'  --erase_from 'neighbor'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'Jesus Christ' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'neighbor'  --erase_from 'neighbor'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'Jesus Christ' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'neighbor'  --erase_from 'neighbor'  --batch_size 4 --seed 0
+
+
+
+
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
 
 # python esd_sd_surgery.py --erase_concept 'a painting in the style of Van Gogh' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,100,200,300,400'  --batch_size 4 --seed 0
 

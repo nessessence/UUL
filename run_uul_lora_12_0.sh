@@ -1,61 +1,693 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="12_0"
+# ["Buddha", "Muhammad", "Moses", "Krishna", "Zeus"]
+
+# ["greyhound dog","dalmatian dog","mexican hairless dog"]
+# "Morgan Freeman","Christ Hemsworth"
+                      accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of greyhound dog;a photo of dalmatian dog;a photo of mexican hairless dog" --instance_prompt="a photo of greyhound dog;a photo of dalmatian dog;a photo of mexican hairless dog" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weigh\t \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
 
 
+
+                      accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a photo of Morgan Freeman;a photo of Christ Hemsworth" --instance_prompt="a photo of Morgan Freeman;a photo of Christ Hemsworth" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weigh\t \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+
+
+
+
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of bichon frise dog;a photo of poodle dog;a photo of afghan hound dog" --instance_prompt="a photo of bichon frise dog;a photo of poodle dog;a photo of afghan hound dog" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weigh\t \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+
+
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of golden retriever dog" --instance_prompt="a photo of golden retriever dog" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+
+
+
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+
+
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS1000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS1500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS2000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS2500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS3000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step3000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS1000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS1500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS2000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS2500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS3000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG1.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step3000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS1000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS1500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step1500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS2000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS2500 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step2500" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - U.jesus_sd1.4.bf16.bs4_r0.uS3000 0
+# '
+#                         accelerate launch train_dreambooth_lora.py \
+#                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+#                             --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+#                             --load_lora_weight_path="" \
+#                             --instance_data_dir="data_root/data/real_data/dummy" \
+#                             --gen_image_path="data_root/generated/study/esd-x.nG3.00.bG.fG_U.jesus_sd1.4.bf16.bs4_r0/step3000" \
+#                             --output_dir="data_root/logs/gen" \
+#                             --validation_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" --instance_prompt="a photo of Jesus Christ;a photo of god;a photo of Buddha;a photo of Muhammad;a photo of Moses;a photo of Krishna;a photo of Zeus" \
+#                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                             --run_note 'gen img' --wait_weight \
+#                             --num_validation_images 50 \
+#                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+$$$$
+"""
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS500 0
+'
                         accelerate launch train_dreambooth_lora.py \
                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="" \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step500.safetensors" \
                             --load_lora_weight_path="" \
                             --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                            --gen_image_path="data_root/generated/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step500" \
                             --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a photo of cartoon character" --instance_prompt="a photo of cartoon character" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS1500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS2000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS2500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS3000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step3000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS1500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS2000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS2500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS3000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG1.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step3000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS1000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS1500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step1500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS2000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS2500 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2500.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step2500" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
+                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                            --run_note 'gen img' --wait_weight \
+                            --num_validation_images 50 \
+                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - U.picasso_sd1.4.bf16.bs4_r0.uS3000 0
+'
+                        accelerate launch train_dreambooth_lora.py \
+                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                            --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step3000.safetensors" \
+                            --load_lora_weight_path="" \
+                            --instance_data_dir="data_root/data/real_data/dummy" \
+                            --gen_image_path="data_root/generated/study/esd-x.nG3.00.bN.fN_U.picasso_sd1.4.bf16.bs4_r0/step3000" \
+                            --output_dir="data_root/logs/gen" \
+                            --validation_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" --instance_prompt="a painting in the style of Picasso;a painting in the style of artist;a painting in the style of Picasso;a photo of a cubism painting;a photo of a surrealism painting;a photo of a modern art painting;a painting in the style of Van Gogh;a painting in the style of Claude Monet" \
                             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                             --run_note 'gen img' --wait_weight \
                             --num_validation_images 50 \
                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 
 
-                      accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a photo of tablet;a photo of laptop" --instance_prompt="a photo of tablet;a photo of laptop" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of corgi dog" --instance_prompt="a photo of corgi dog" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
 
 
-                      accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a photo of ipad;a photo of macbook" --instance_prompt="a photo of ipad;a photo of macbook" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of lenovo laptop" --instance_prompt="a photo of lenovo laptop" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
 
 
-                      accelerate launch train_dreambooth_lora.py \
-                            --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                            --load_unet_weight_path="" \
-                            --load_lora_weight_path="" \
-                            --instance_data_dir="data_root/data/real_data/dummy" \
-                            --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
-                            --output_dir="data_root/logs/gen" \
-                            --validation_prompt="a photo of samsung tablet;a photo of acer notebook" --instance_prompt="a photo of samsung tablet;a photo of acer notebook" \
-                            --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                            --run_note 'gen img' --wait_weight \
-                            --num_validation_images 50 \
-                            --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of acer laptop;a photo of dell laptop" --instance_prompt="a photo of acer laptop;a photo of dell laptop" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+
+                    #     accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of cartoon character" --instance_prompt="a photo of cartoon character" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of tablet;a photo of laptop" --instance_prompt="a photo of tablet;a photo of laptop" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of ipad;a photo of macbook" --instance_prompt="a photo of ipad;a photo of macbook" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
+
+
+                    #   accelerate launch train_dreambooth_lora.py \
+                    #         --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    #         --load_unet_weight_path="" \
+                    #         --load_lora_weight_path="" \
+                    #         --instance_data_dir="data_root/data/real_data/dummy" \
+                    #         --gen_image_path="data_root/generated/study/original_pretrained_sd1.4_bf16" \
+                    #         --output_dir="data_root/logs/gen" \
+                    #         --validation_prompt="a photo of samsung tablet;a photo of acer notebook" --instance_prompt="a photo of samsung tablet;a photo of acer notebook" \
+                    #         --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    #         --run_note 'gen img' --wait_weight \
+                    #         --num_validation_images 50 \
+                    #         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16"
                         # accelerate launch train_dreambooth_lora.py \
                         #     --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
                         #     --load_unet_weight_path="" \
@@ -370,8 +1002,7 @@ export pc_id="12_0"
 #                             --run_note 'gen img' --wait_weight \
 #                             --num_validation_images 50 \
 #                             --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-"""
+
 
                         accelerate launch train_dreambooth_lora.py \
                             --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
