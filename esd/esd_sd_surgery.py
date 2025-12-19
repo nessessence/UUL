@@ -7,6 +7,7 @@ import random
 import numpy as np
 from safetensors.torch import load_file
 
+
 # these concepts do not have preservation concepts (yet)
 bypass_preservation_concepts = [
     "naked person",
@@ -141,6 +142,94 @@ from diffusers import DDIMScheduler
 from diffusers import DDPMScheduler
 
 import wandb 
+
+
+
+import torch
+import torch.nn.functional as F
+
+def _flatten_per_sample(x: torch.Tensor) -> torch.Tensor:
+    """
+    Reshape UNet output from [B, C, H, W] (or [B, ...]) to [B, D].
+     #  # [B, 4,64,64] -> [B, 4*64*64] 
+    """
+    return x.reshape(x.shape[0], -1)
+
+def angular_exclusion_loss(E_u: torch.Tensor, E_e: torch.Tensor, alpha: float) -> torch.Tensor:
+    """
+    Angular Exclusion Loss for UNet outputs.
+
+    Input shapes:
+        E_u, E_e: [B, 4, 64, 64]  (UNet outputs)
+
+    Math:
+        L_excl(E_u, E_e; alpha)
+        = [ max( cos_sim(E_u, E_e) - alpha , 0 ) ]^2
+
+    where cos_sim is computed per-sample after flattening:
+        cos_sim(E_u, E_e) = cosine_similarity(vec(E_u), vec(E_e))
+
+    Constraint enforced:
+        cos_sim(E_u, E_e) <= alpha
+    """
+    u = _flatten_per_sample(E_u)
+    e = _flatten_per_sample(E_e)
+
+    cos = F.cosine_similarity(u, e, dim=-1)              # [B]
+    loss = torch.clamp(cos - alpha, min=0.0) ** 2        # [B]
+    return loss.mean()
+
+
+def angular_inclusion_loss(E_u: torch.Tensor, E_g: torch.Tensor, beta: float) -> torch.Tensor:
+    """
+    Angular Inclusion Loss for UNet outputs.
+
+    Input shapes:
+        E_u, E_g: [B, 4, 64, 64]  (UNet outputs)
+
+    Math:
+        L_incl(E_u, E_g; beta)
+        = [ max( beta - cos_sim(E_u, E_g) , 0 ) ]^2
+
+    where cos_sim is computed per-sample after flattening:
+        cos_sim(E_u, E_g) = cosine_similarity(vec(E_u), vec(E_g))
+
+    Constraint enforced:
+        cos_sim(E_u, E_g) >= beta
+    """
+    u = _flatten_per_sample(E_u)
+    g = _flatten_per_sample(E_g)
+
+    cos = F.cosine_similarity(u, g, dim=-1)              # [B]
+    loss = torch.clamp(beta - cos, min=0.0) ** 2         # [B]
+    return loss.mean()
+
+
+def angular_exclusion_inclusion_loss(
+    E_u: torch.Tensor,
+    E_e: torch.Tensor,
+    E_g: torch.Tensor,
+    alpha: float,
+    beta: float,
+    w_excl: float = 1.0,
+    w_incl: float = 1.0,
+) -> torch.Tensor:
+    """
+    Angular Exclusion–Inclusion Loss (AEIL) for UNet outputs.
+
+    Input shapes:
+        E_u, E_e, E_g: [B, 4, 64, 64]
+
+    Math:
+        L_AEIL
+        = w_excl * L_excl(E_u, E_e; alpha)
+        + w_incl * L_incl(E_u, E_g; beta)
+    """
+    L_excl = angular_exclusion_loss(E_u, E_e, alpha)
+    L_incl = angular_inclusion_loss(E_u, E_g, beta)
+    return w_excl * L_excl + w_incl * L_incl
+
+
 
 
 def _value_based_probs_divmax(timesteps: torch.Tensor, alpha: float, is_inverse=False) -> np.ndarray:
@@ -480,6 +569,12 @@ if __name__ == '__main__':
 
 
     parser.add_argument( "--apply_poison",action='store_true') # many unlearned model, UCE, ESD, 
+    
+    
+    parser.add_argument("--apply_aeil", action='store_true')
+    parser.add_argument("--ang_excl_threshold",type=float, default=0.0)
+    parser.add_argument("--ang_incl_threshold",type=float, default=0.0) 
+    
 
 
     args = parser.parse_args()
