@@ -1,10 +1,69 @@
 export device="cuda:3"
 
-python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
-python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
-python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
-['esd-x_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0']
-Total experiments: 18
+python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+['esd-x-kv.nG1.00_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x-kv.nG1.00_U.picasso_sd1.4.bf16.bs4_r0']
+Total experiments: 2
+
+
+python esd_sd_surgery.py --erase_concept 'beagle dog' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Barack Obama' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+['esd-x-kv.nG1.00_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x-kv.nG1.00_U.obama_sd1.4.bf16.bs4_r0']
+Total experiments: 2
+
+
+# python esd_sd_surgery.py --erase_concept 'ipad' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 0.75 --ang_incl_margin 0.75 --batch_size 4 --seed 0
+# ['esd-x-kv.bG.fG.T750-1000_0.10AtE0.25I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AtE0.50I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AtE0.75I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0']
+# Total experiments: 3
+# python esd_sd_surgery.py --erase_concept 'ipad' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 0.75 --ang_incl_margin 0.50 --batch_size 4 --seed 0
+# ['esd-x-kv.bG.fG.T750-1000_0.10AtE0.25I0.50-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AtE0.50I0.50-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AtE0.75I0.50-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0']
+# Total experiments: 3
+
+# python esd_sd_surgery.py --erase_concept 'ipad' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 0.12 --ang_incl_margin 0.75 --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'ipad' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 0.12 --ang_incl_margin 0.50 --batch_size 4 --seed 0
+# ['esd-x-kv.bG.fG.T750-1000_0.10AtE0.12I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AtE0.12I0.50-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0']
+# Total experiments: 2
+
+
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 1.00 --ang_incl_margin 0.75 --sim_param_group 'token'  --batch_size 4 --seed 0
+
+# python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 1.00 --ang_incl_margin 0.75 --sim_param_group 'attn_head'  --batch_size 4 --seed 0
+# ['esd-x-kv.bG.fG.T750-1000_0.10AhE0.75I0.75-N1.00G1.00_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AhE0.50I0.75-N1.00G1.00_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AhE0.25I0.75-N1.00G1.00_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AhE1.00I0.75-N1.00G1.00_U.macbook_sd1.4.bf16.bs4_r0']
+# Total experiments: 4
+
+# python esd_sd_surgery.py --erase_concept 'ipad' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 1.00 --ang_incl_margin 0.75 --sim_param_group 'attn_head'  --batch_size 4 --seed 0
+# ['esd-x-kv.bG.fG.T750-1000_0.10AhE0.75I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AhE0.50I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AhE0.25I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AhE1.00I0.75-N1.00G1.00_U.ipad_sd1.4.bf16.bs4_r0']
+# Total experiments: 4
+# python esd_sd_surgery.py --erase_concept 'Barack Obama' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+# ['esd-x-kv.nG1.00.bG.fG_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.nG1.00.bG.fG_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x-kv.nG1.00.bG.fG_U.obama_sd1.4.bf16.bs4_r0']
+# Total experiments: 3
+# python esd_sd_surgery.py --erase_concept 'Barack Obama' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --batch_size 4 --seed 0
+# ['esd-x-kv.nG1.00.bG.fG.T750-1000_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.nG1.00.bG.fG.T750-1000_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x-kv.nG1.00.bG.fG.T750-1000_U.obama_sd1.4.bf16.bs4_r0']
+# Total experiments: 3
+# python esd_sd_surgery.py --erase_concept 'Barack Obama' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 0.50 --ang_incl_margin 0.70 --batch_size 4 --seed 0 --ang_norm_loss_weight 0.00
+# ['esd-x-kv.bG.fG.T750-1000_0.10AtE0.50I0.70-N1.00G1.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AtE0.50I0.70-N1.00G1.00_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_0.10AtE0.50I0.70-N1.00G1.00_U.obama_sd1.4.bf16.bs4_r0']
+# Total experiments: 3
+
+
+
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500'  --batch_size 4 --seed 0 --timestep_constraint 750-1000
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500'  --batch_size 4 --seed 0 --timestep_constraint 950-1000
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --special_log_step '0,50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500'  --batch_size 4 --seed 0
+
+
+# ['esd-x-kv.bG.fG_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG_U.obama_sd1.4.bf16.bs4_r0']
+# Total experiments: 3
+
+
+# python esd_sd_surgery.py --erase_concept 'Barack Obama' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 0.50 --ang_incl_margin 0.70 --batch_size 4 --seed 0 --generic_loss_weight 0.00
+
+
+
+# python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'macbook' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# ['esd-x_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.maccat_sd1.4.bf16.bs4_r0', 'esd-x_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.bdog_sd1.4.bf16.bs4_r0', 'esd-x_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.jesus_sd1.4.bf16.bs4_r0', 'esd-x_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.ipad_sd1.4.bf16.bs4_r0', 'esd-x_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00_U.macbook_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00_U.macbook_sd1.4.bf16.bs4_r0']
+# Total experiments: 18
 
 
 # python esd_sd_surgery.py --erase_concept 'beagle dog' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 3000 --log_step 250 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'neighbor'  --erase_from 'neighbor'  --batch_size 4 --seed 0

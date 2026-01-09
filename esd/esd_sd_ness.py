@@ -117,7 +117,7 @@ if __name__ == '__main__':
         print(f'timestep constraint: {args.lb_timestep_constraint}-{args.ub_timestep_constraint}')
         constrainted_timesteps = torch.tensor([ t for t in pipe.scheduler.timesteps if t < args.ub_timestep_constraint and t > args.lb_timestep_constraint ]).to(args.device)
         print(f"constrainted_timesteps: {constrainted_timesteps}")
-        print(f"{save_path}/esd-{erase_concept.replace(' ', '_')}-from-{erase_concept.replace(' ', '_')}-{train_method.replace('-','')}_T{args.timestep_constraint}.safetensors")
+        # print(f"{save_path}/esd-{erase_concept.replace(' ', '_')}-from-{erase_concept.replace(' ', '_')}-{train_method.replace('-','')}_T{args.timestep_constraint}.safetensors")
         # t_scale = args.num_inference_steps/1000
 
         # args.scaled_lb_timestep_constraint = int(t_scale*args.lb_timestep_constraint)
