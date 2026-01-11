@@ -9,6 +9,23 @@ from safetensors.torch import load_file
 
 
 # these concepts do not have preservation concepts (yet)
+
+Celeb_Prelim_List = ["Margot Robbie", "Anne Hathaway", "Amy Adams", "Emma Stone", "Amber Heard",
+                     "David Beckham", "Chris Hemsworth", "Elon Musk", "Adam Driver", "Andrew Garfield",
+                     "Barack Obama", "Morgan Freeman", "Chris Rock", "Will Smith", "Idris Elba",
+                     "Rihanna", "Oprah Winfrey", "Zendaya", "Nicki Minaj",  "Octavia Spencer"
+                    ]
+
+Artistic_Prelim_List = [
+    "a painting in the style of Van Gogh",
+    "a painting in the style of Claude Monet",
+    "a painting in the style of Picasso",
+    "a painting in the style of Jackson Pollock",
+    "a painting in the style of Salvador Dalí"
+]
+
+
+
 bypass_preservation_concepts = [
     "naked person",
     "mackerel tabby cat",
@@ -19,11 +36,35 @@ bypass_preservation_concepts = [
     "macbook",
     "poodle dog"
 ]
+bypass_preservation_concepts += Celeb_Prelim_List
+bypass_preservation_concepts += Artistic_Prelim_List
+
 concept2shortname = {
     "Margot Robbie": "mrobbie",
+    "David Beckham": "beckham",
+    "Barack Obama": "obama",
+    "Rihanna": "rihanna",
+    
+    
+    "Chris Hemsworth": "chemsworth",
+    "Adam Driver": "adriver",
+    "Andrew Garfield": "agarfield",
+    "Anne Hathaway": "ahathaway",
+    "Amy Adams": "aadam",
+    "Emma Stone": "estone",
+    "Amber Heard": "aheard",
+    "Morgan Freeman": "mfreeman",
+    "Chris Rock": "crock",
+    "Will Smith": "willsmith",
+    "Idris Elba": "ielba",
+    "Oprah Winfrey": "owinfrey",
+    "Elon Musk": "elon",
+    "zendaya": "zendaya",
+    "Nicki Minaj": "nminaj",
+    "Octavia Spencer": "ospencer",
+            
     "mickey mouse": "mmouse",
     "pad thai": "padthai",
-    "Barack Obama": "obama",
     "Donald Trump": "dtrump",
     "persian cat": "percat",
     "grumpy cat": "gpcat",
@@ -31,16 +72,15 @@ concept2shortname = {
     "beagle dog": "bdog",
     "poodle dog": "pddog",
     
-    
     "English Springer": "espring",
-    "Elon Musk": "elon",
     
     "ganesha": "ganesha",
     "tank": "tank",
     "a painting in the style of Van Gogh": "vgogh",
     "a painting in the style of Claude Monet": "cmonet",
     "a painting in the style of Picasso": "picasso",
-    
+    "a painting in the style of Jackson Pollock": "pollock",
+    "a painting in the style of Salvador Dalí": "dali",
     
     "naked person": "naked",
     
@@ -48,15 +88,14 @@ concept2shortname = {
     "ipad": "ipad",
     "macbook": "macbook"
     
-    
 }
 
 # seed = 123
 # rng = np.random.RandomState(seed=seed)
-concept2generic_concept = {"Margot Robbie": "person",
+
+concept2generic_concept = {
                             "mickey mouse": "cartoon character",
                             "pad thai": "food dish",
-                            "Barack Obama": "person",
                             "Donald Trump": "person",
                             "persian cat": "cat",
                             "grumpy cat": "cat",
@@ -66,23 +105,46 @@ concept2generic_concept = {"Margot Robbie": "person",
                             "English Springer": "dog",
                             
                             
-                            "Elon Musk": "person",
                             "ganesha": "statue",
                             "tank": "car",
                             
                             "a painting in the style of Van Gogh": "a painting in the style of artist",
                             "a painting in the style of Claude Monet": "a painting in the style of artist",
                             "a painting in the style of Picasso": "a painting in the style of artist",
+                            "a painting in the style of Jackson Pollock": "a painting in the style of artist",
+                            "a painting in the style of Salvador Dalí": "a painting in the style of artist",
                             "naked person": "person",
                             
                             "macbook": "laptop",
                             "ipad": "tablet",
-                            "Jesus Christ": "god"
+                            "Jesus Christ": "god",
+                            
+                            
+                            
+                            "Margot Robbie": "person",
+                            "David Beckham": "person",
+                            "Barack Obama": "person",
+                            "Rihanna": "person",
+    
+                            "Chris Hemsworth": "person",
+                            "Adam Driver": "person",
+                            "Andrew Garfield": "person",
+                            "Anne Hathaway": "person",
+                            "Amy Adams": "person",
+                            "Emma Stone": "person",
+                            "Amber Heard": "person",
+                            "Morgan Freeman": "person",
+                            "Chris Rock": "person",
+                            "Will Smith": "person",
+                            "Idris Elba": "person",
+                            "Oprah Winfrey": "person",
+                            "Elon Musk": "person",
+                            "zendaya": "person",
+                            "Nicki Minaj": "person",
+                            "Octavia Spencer": "person",
+                            
                             
                             }
-
-
-
 concept2SpecialEval = {
     "Margot Robbie": ["Harley Quinn", "Margot Robbie on a horse", "Margot Robbie in a movie scene"],
     "mickey mouse": ["mickey mouse in disneyland", "mouse in a style of cartoon", "cartoon mouse character", "mouse in disney style", "mouse"],

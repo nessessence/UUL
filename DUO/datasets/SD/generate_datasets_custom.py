@@ -13,16 +13,16 @@ from diffusers import DDIMScheduler, DDIMInverseScheduler
 import numpy as np
 from tqdm import tqdm
 from PIL import Image
-from nudenet import NudeDetector
+# from nudenet import NudeDetector
 
 
 
-def is_nsfw(img):
-    nude_dict = nude_detector.detect(np.array(img))
-    for item in nude_dict:
-        if item["class"] in nudenet_labels:
-            return True
-    return False
+# def is_nsfw(img):
+#     nude_dict = nude_detector.detect(np.array(img))
+#     for item in nude_dict:
+#         if item["class"] in nudenet_labels:
+#             return True
+#     return False
 
 
 
@@ -51,7 +51,7 @@ pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
 base_pipe.safety_checker = None
 pipe.safety_checker = None
 
-nude_detector = NudeDetector()
+# nude_detector = NudeDetector()
 
 
 
@@ -107,9 +107,12 @@ exp_dict = {
 ### CUSTOM CONCEPTS ###
 custom_concepts = [
     "Margot Robbie",
+    "David Beckham",
+    "Rihanna",
+    "Barack Obama",
+    
     "mickey mouse",
     "pad thai",
-    "Barack Obama",
     "Donald Trump",
     "persian cat",
     "grumpy cat",
@@ -118,16 +121,21 @@ custom_concepts = [
     "tank"  ,
     "a painting in the style of Van Gogh",
     "a painting in the style of Claude Monet",
+    "a painting in the style of Picasso",
+    "a painting in the style of Jackson Pollock",
     "naked person",
     
 
 ]
 
 erase2general_concept = {"Margot Robbie": "person",
-                            "mickey mouse": "cartoon character",
-                            "pad thai": "food dish",
+                            "David Beckham": "person",
+                            "Rihanna": "person",
                             "Barack Obama": "person",
                             "Donald Trump": "person",
+                            
+                            "mickey mouse": "cartoon character",
+                            "pad thai": "food dish",
                             "persian cat": "cat",
                             "grumpy cat": "cat",
                             
@@ -135,6 +143,8 @@ erase2general_concept = {"Margot Robbie": "person",
                             "tank": "car",
                             "a painting in the style of Van Gogh": "a painting in the style of artist",
                             "a painting in the style of Claude Monet": "a painting in the style of artist",
+                            "a painting in the style of Picasso": "a painting in the style of artist",
+                            "a painting in the style of Jackson Pollock": "a painting in the style of artist",
                             "naked person": "person"
                             }
 
