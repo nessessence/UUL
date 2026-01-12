@@ -2,7 +2,6 @@ export CUDA_VISIBLE_DEVICES=0
 export pc_id="21_0"
 
 
-sleep 10h
   accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
   --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \
@@ -23,7 +22,7 @@ sleep 10h
             --load_unet_weight_path="data_root/logs/esd/sd1.4/esd-Octavia_Spencer-from-Octavia_Spencer-esdx_BGeneral_dTavg_step500.safetensors" \
             --load_lora_weight_path="data_root/logs/rlct4.reV.nicoparkerA5V0.ln.lr1e-4.ti5e-4.pr1.00.neg.b1g4.r2_esd-x.BGeneral.dTavg.s500.octavia_sd1.4/checkpoint-300" \
             --instance_data_dir="data_root/data/real_data/dummy" \
-            --gen_image_path="auto" \
+            --gen_image_path="auto" s\
             --output_dir="data_root/logs/gen" \
             --validation_prompt="a photo of v1" --instance_prompt="a photo of v1" \
             --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \

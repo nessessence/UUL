@@ -41,6 +41,7 @@ from diffusers.optimization import get_scheduler
 from diffusers.utils import check_min_version, is_wandb_available
 from diffusers.utils.import_utils import is_xformers_available
 import torch.nn as nn
+from safetensors.torch import load_file
 
 if is_wandb_available():
     import wandb
@@ -144,6 +145,8 @@ def log_validation(text_encoder, tokenizer, unet, vae, args, accelerator, weight
     return images
 
 
+
+    
 def save_progress(text_encoder, placeholder_token_ids, accelerator, args, save_path):
     logger.info("Saving embeddings")
     learned_embeds = (
@@ -723,8 +726,10 @@ def main():
     unet = UNet2DConditionModel.from_pretrained(
         args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision
     )
-
-    if args.esd_checkpoint != "":
+    
+    if '.safetensor' in args.esd_checkpoint:
+        unet.load_state_dict(load_file(args.esd_checkpoint), strict=False)
+    elif args.esd_checkpoint != "":
         unet.load_state_dict(torch.load(args.esd_checkpoint))
 
     # Add the placeholder token in tokenizer
@@ -1038,7 +1043,8 @@ def main():
             )
             pipeline.save_pretrained(args.output_dir)
         # Save the newly trained embeddings
-        save_path = os.path.join(args.output_dir, "learned_embeds.bin")
+        # save_path = os.path.join(args.output_dir, "learned_embeds.bin")
+        save_path = os.path.join(args.output_dir, "token_embedding.pt") # my add
         save_progress(text_encoder, placeholder_token_ids, accelerator, args, save_path)
 
         if args.push_to_hub:

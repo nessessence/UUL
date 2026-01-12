@@ -2,8 +2,16 @@
 export device="cuda:0"
 export CUDA_VISIBLE_DEVICES=0
 
-python esd_sd_surgery.py --erase_concept 'a painting in the style of Van Gogh' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 2.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
-python esd_sd_surgery.py --erase_concept 'a painting in the style of Van Gogh' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Barack Obama' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'David Beckham' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Rihanna' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+['esd-x-kv.bG.fG_U.mrobbie_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG_U.obama_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG_U.beckham_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG_U.rihanna_sd1.4.bf16.bs4_r0']
+Total experiments: 4
+
+
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Van Gogh' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 2.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Van Gogh' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
 
 
 # python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 50 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --aei_loss_weight 0.10 --ang_excl_margin 0.80 --ang_incl_margin 0.80 --sim_param_group 'attn_head'  --batch_size 4 --seed 0

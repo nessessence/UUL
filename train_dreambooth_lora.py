@@ -340,6 +340,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                             logger.info(f"Skipping {prompt} as  already exist in {save_image_path_dir} with {len(args.num_validation_images)} images")
                             continue
                 os.makedirs(save_image_path_dir,exist_ok=True)
+                print("save_image_path_dir:",save_image_path_dir)
                     
                     
             if args.reinit_validation_generator:

@@ -13,4 +13,6 @@ temp/
 DUO/train/outputs
 DUO/train/outputs_testcustom
 concept_ablation
-metrics/gcd/examples/resourcesmetrics/gcd/examples/backup_resources/face_recognition/*.pkl
+metrics/gcd/examples/resources
+metrics/gcd/examples/backup_resources
+metrics/gcd/examples/resources
