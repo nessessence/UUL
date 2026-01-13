@@ -333,6 +333,10 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                     elif prompt == '':
                         save_image_path_dir = osp.join(save_image_path,f"uncond", f"{cfg:.2f}")
                         
+                    # cce step tag
+                    elif 'v0' in prompt and args.load_token_embedding_step is not None:
+                        save_image_path_dir = osp.join(save_image_path,f"{prompt}-{args.load_token_embedding_step}", f"{cfg:.2f}")
+                        
                     else:
                         save_image_path_dir = osp.join(save_image_path,prompt, f"{cfg:.2f}")
                     if skip_already_generated: 
@@ -907,7 +911,11 @@ def parse_args(input_args=None):
     parser.add_argument( "--load__weight_path",type=str,default=None)
     parser.add_argument( "--load_lora_weight_path",type=str,default=None)
     parser.add_argument( "--load_unet_weight_path",type=str,default=None) # many unlearned model, UCE, ESD, 
+    
     parser.add_argument( "--load_token_embedding_path",type=str,default=None)
+    parser.add_argument( "--load_token_embedding_step",type=int,default=None)
+    
+    
     parser.add_argument( "--gen_dtype",type=str,default="fp16")
     
     
@@ -1400,7 +1408,9 @@ def main(args):
         else: print('not loading loRA weight')
         if args.load_token_embedding_path is not None and args.placeholder_token is not None:
             print('loading token embedding')
-            load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,'token_embedding.pt'))
+            file_name = f'token_embedding-{args.load_token_embedding_step}.pt' if args.load_token_embedding_step is not None else 'token_embedding.pt'
+            print(f'loading token embedding from: {osp.join(args.load_token_embedding_path,file_name)}')
+            load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,file_name))
         
         log_validation(
             unet=pipeline.unet,
@@ -2464,8 +2474,9 @@ def main(args):
                 
             else: print('not loading loRA weight')
             if args.load_token_embedding_path is not None and args.placeholder_token is not None:
-                print('loading token embedding')
-                load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,'token_embedding.pt'))
+                file_name = f'token_embedding-{args.load_token_embedding_step}.pt' if args.load_token_embedding_step is not None else 'token_embedding.pt'
+                print(f'loading token embedding from: {osp.join(args.load_token_embedding_path,file_name)}')
+                load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,file_name))
             
             
             if args.use_generation_phases:
