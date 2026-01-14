@@ -1,5 +1,35 @@
 export CUDA_VISIBLE_DEVICES=2
 export pc_id="13_2"
+echo 'count:0 - esd-x-kv.bG.fG_0.10AhE0.40I0.80-N1.00G1.00_U.beckham_sd1.4.bf16.bs4 0
+'
+                accelerate launch train_dreambooth_lora.py \
+                    --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG_0.10AhE0.40I0.80-N1.00G1.00_U.beckham_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                    --load_lora_weight_path="" \
+                    --instance_data_dir="data_root/data/real_data/dummy" \
+                    --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG_0.10AhE0.40I0.80-N1.00G1.00_U.beckham_sd1.4.bf16.bs4_r0/step1000" \
+                    --output_dir="data_root/logs/gen" \
+                    --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                    --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    --run_note 'gen img' --wait_weight \
+                    --num_validation_images 100 \
+                    --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG_0.10AhE0.20I0.80-N1.00G1.00_U.beckham_sd1.4.bf16.bs4 0
+'
+                accelerate launch train_dreambooth_lora.py \
+                    --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                    --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG_0.10AhE0.20I0.80-N1.00G1.00_U.beckham_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                    --load_lora_weight_path="" \
+                    --instance_data_dir="data_root/data/real_data/dummy" \
+                    --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG_0.10AhE0.20I0.80-N1.00G1.00_U.beckham_sd1.4.bf16.bs4_r0/step1000" \
+                    --output_dir="data_root/logs/gen" \
+                    --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                    --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                    --run_note 'gen img' --wait_weight \
+                    --num_validation_images 100 \
+                    --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+$$$$
+"""
 echo 'count:0 - esd-x.nG3.00_U.mrobbie_sd1.4.bf16.bs4 0
 '
                 accelerate launch train_dreambooth_lora.py \
@@ -68,8 +98,7 @@ echo 'count:0 - esd-x.nG3.00_U.rihanna_sd1.4.bf16.bs4 0
                     --placeholder_token="v1" --initializer_token='person' \
                     --load_token_embedding_step 250 \
                     --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-"""
+
 echo 'count:0 - stereo_U.mrobbie_sd1.4.bf16 0
 '
                 accelerate launch train_dreambooth_lora.py \

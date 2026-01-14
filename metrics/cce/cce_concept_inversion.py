@@ -526,8 +526,15 @@ class TextualInversionDataset(Dataset):
         self.center_crop = center_crop
         self.flip_p = flip_p
 
-        self.image_paths = [os.path.join(self.data_root, file_path) for file_path in os.listdir(self.data_root)][:num_train_images]
 
+        # my add to only filter images 
+        image_exts = ('.jpg', '.jpeg', '.png', '.bmp', '.gif', '.webp')
+        image_files = [f for f in os.listdir(self.data_root) if f.lower().endswith(image_exts) ]
+        self.image_paths = [os.path.join(self.data_root, f) for f in image_files][:num_train_images]
+
+        # self.image_paths = [os.path.join(self.data_root, file_path) for file_path in os.listdir(self.data_root)][:num_train_images]
+
+        
         self.num_images = len(self.image_paths)
         self._length = self.num_images
 
@@ -627,7 +634,9 @@ class TextualInversionDataset_I2P(Dataset):
         for item in self.metadata:
             self.image_paths.append(os.path.join(self.data_root, item["file_name"]))
             self.captions.append("{} " + item["prompt"][0])
-            
+        
+        
+        
         self.image_paths = self.image_paths[:num_train_images]
 
         self.num_images = len(self.image_paths)
