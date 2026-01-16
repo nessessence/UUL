@@ -1,7 +1,9 @@
 export CUDA_VISIBLE_DEVICES=2
+export device="cuda:2"
 
-python generate_images.py  --prompt "A photo of persian cat" --output_dir "../data_root/generated/stereo/A photo of persian cat/"  --num_images 500 
-python generate_images.py  --prompt "A photo of ganesha" --output_dir "../data_root/generated/stereo/A photo of ganesha/"  --num_images 500 
+
+# python generate_images.py  --prompt "A photo of persian cat" --output_dir "../data_root/generated/stereo/A photo of persian cat/"  --num_images 500 
+# python generate_images.py  --prompt "A photo of ganesha" --output_dir "../data_root/generated/stereo/A photo of ganesha/"  --num_images 500 
 
 
 

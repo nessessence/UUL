@@ -145,7 +145,7 @@ erase2general_concept = {"Margot Robbie": "person",
                             "a painting in the style of Claude Monet": "a painting in the style of artist",
                             "a painting in the style of Picasso": "a painting in the style of artist",
                             "a painting in the style of Jackson Pollock": "a painting in the style of artist",
-                            "naked person": "person"
+                            "naked person": "dressed person"
                             }
 
                             

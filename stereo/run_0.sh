@@ -1,16 +1,24 @@
-export CUDA_VISIBLE_DEVICES=0
+# export CUDA_VISIBLE_DEVICES=0
+export device="cuda:2"
+python -W ignore train.py --erase_concept 'naked person' --train_method noxattn --train_data_dir "../data_root/generated/stereo/A photo of naked person/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/stereo_U.naked_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/A photo of naked person/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+python -W ignore train.py --erase_concept 'a painting in the style of Jackson Pollock' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a painting in the style of Jackson Pollock/" --learnable_property 'style' --initializer_token 'art' --output_dir "../data_root/logs/stereo/stereo_U.pollock_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/A photo of a painting in the style of Jackson Pollock/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+
+# python -W ignore train.py --erase_concept 'naked person' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of naked person/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/stereo_U.naked_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/A photo of naked person/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+
+# python -W ignore train.py --erase_concept 'naked person' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of naked person/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/stereo_U.naked_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/A photo of naked person/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+
 
 
 # python generate_images.py  --prompt "A photo of David Beckham" --output_dir "../data_root/generated/stereo/A photo of David Beckham/"  --num_images 500 
-python generate_images.py  --prompt "A photo of Margot Robbie" --output_dir "../data_root/generated/stereo/A photo of Margot Robbie/"  --num_images 500 
-python generate_images.py  --prompt "A photo of Barack Obama" --output_dir "../data_root/generated/stereo/A photo of Barack Obama/"  --num_images 500 
-python generate_images.py  --prompt "A photo of Rihanna" --output_dir "../data_root/generated/stereo/A photo of Rihanna/"  --num_images 500 
+# python generate_images.py  --prompt "A photo of Margot Robbie" --output_dir "../data_root/generated/stereo/A photo of Margot Robbie/"  --num_images 500 
+# python generate_images.py  --prompt "A photo of Barack Obama" --output_dir "../data_root/generated/stereo/A photo of Barack Obama/"  --num_images 500 
+# python generate_images.py  --prompt "A photo of Rihanna" --output_dir "../data_root/generated/stereo/A photo of Rihanna/"  --num_images 500 
 
 
-python generate_images.py  --prompt "a painting in the style of Van Gogh" --output_dir "../data_root/generated/stereo/a painting in the style of Van Gogh/"  --num_images 500 
-python generate_images.py  --prompt "a painting in the style of Picasso" --output_dir "../data_root/generated/stereo/a painting in the style of Picasso/"  --num_images 500 
-python generate_images.py  --prompt "a painting in the style of Claude Monet" --output_dir "../data_root/generated/stereo/a painting in the style of Claude Monet/"  --num_images 500 
-python generate_images.py  --prompt "a painting in the style of Jackson Pollock" --output_dir "../data_root/generated/stereo/a painting in the style of Jackson Pollock/"  --num_images 500 
+# python generate_images.py  --prompt "a painting in the style of Van Gogh" --output_dir "../data_root/generated/stereo/a painting in the style of Van Gogh/"  --num_images 500 
+# python generate_images.py  --prompt "a painting in the style of Picasso" --output_dir "../data_root/generated/stereo/a painting in the style of Picasso/"  --num_images 500 
+# python generate_images.py  --prompt "a painting in the style of Claude Monet" --output_dir "../data_root/generated/stereo/a painting in the style of Claude Monet/"  --num_images 500 
+# python generate_images.py  --prompt "a painting in the style of Jackson Pollock" --output_dir "../data_root/generated/stereo/a painting in the style of Jackson Pollock/"  --num_images 500 
 
 
 

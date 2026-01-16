@@ -1,8 +1,20 @@
+
+
 export device="cuda:1"
 
-python esd_sd_surgery.py --erase_concept 'a painting in the style of Jackson Pollock' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --batch_size 4 --seed 0
-['esd-x-kv.bG.fG.T750-1000_U.vgogh_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_U.cmonet_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_U.pollock_sd1.4.bf16.bs4_r0']
-Total experiments: 4
+python esd_sd_surgery.py --erase_concept 'naked person' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --batch_size 4 --seed 0
+['esd-x-kv.bG.fG_U.naked_sd1.4.bf16.bs4_r0', 'esd-x.bG.fG_U.naked_sd1.4.bf16.bs4_r0']
+Total experiments: 2
+
+# python esd_sd_surgery.py --erase_concept 'naked person' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.50 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept 'naked person' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --unlearn_proj_prob 0.50  --batch_size 4 --seed 0
+
+
+
+
+# python esd_sd_surgery.py --erase_concept 'a painting in the style of Jackson Pollock' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 100 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '750-1000'  --batch_size 4 --seed 0
+# ['esd-x-kv.bG.fG.T750-1000_U.vgogh_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_U.cmonet_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T750-1000_U.pollock_sd1.4.bf16.bs4_r0']
+# Total experiments: 4
 
 
 
