@@ -4,6 +4,7 @@
 
 import argparse
 import os
+import os.path as osp
 from PIL import Image
 from tqdm import tqdm
 
@@ -13,21 +14,21 @@ from diffusers import DDIMScheduler, DDIMInverseScheduler
 import numpy as np
 from tqdm import tqdm
 from PIL import Image
-# from nudenet import NudeDetector
+from nudenet import NudeDetector
 
 
-
-# def is_nsfw(img):
-#     nude_dict = nude_detector.detect(np.array(img))
-#     for item in nude_dict:
-#         if item["class"] in nudenet_labels:
-#             return True
-#     return False
-
+nude_detector = NudeDetector()
+def is_nsfw(img):
+    # nude_dict = nude_detector.detect(np.array(img))
+    nude_dict = nude_detector.detect(img) # img_path
+    for item in nude_dict:
+        if item["class"] in nudenet_labels:
+            return True
+    return False
 
 
 parser = argparse.ArgumentParser(description="DUO dataset generator")
-parser.add_argument("--save_dir", type=str, default="")
+parser.add_argument("--save_dir", type=str, default="../../../data_root/generated/duo") # set this
 parser.add_argument("--device", type=str, default="cuda")
 parser.add_argument("--gen_concept", type=str, default="ALL",
                     help="Which concept to generate: Nudity, Blood, Gun, Margot_Robbie, etc. Use ALL for everything.")
@@ -111,19 +112,23 @@ custom_concepts = [
     "Rihanna",
     "Barack Obama",
     
-    "mickey mouse",
-    "pad thai",
-    "Donald Trump",
-    "persian cat",
-    "grumpy cat",
-    
-    "ganesha",
-    "tank"  ,
+
     "a painting in the style of Van Gogh",
     "a painting in the style of Claude Monet",
     "a painting in the style of Picasso",
     "a painting in the style of Jackson Pollock",
+    
     "naked person",
+    
+    # "mickey mouse",
+    # "pad thai",
+    # "Donald Trump",
+    # "persian cat",
+    # "grumpy cat",
+    
+    # "ganesha",
+    # "tank"  ,
+    
     
 
 ]
@@ -132,6 +137,17 @@ erase2general_concept = {"Margot Robbie": "person",
                             "David Beckham": "person",
                             "Rihanna": "person",
                             "Barack Obama": "person",
+                            
+                            
+                            "a painting in the style of Van Gogh": "a painting in the style of artist",
+                            "a painting in the style of Claude Monet": "a painting in the style of artist",
+                            "a painting in the style of Picasso": "a painting in the style of artist",
+                            "a painting in the style of Jackson Pollock": "a painting in the style of artist",
+                            
+                            "naked person": "dressed person",
+                            
+                            
+                            
                             "Donald Trump": "person",
                             
                             "mickey mouse": "cartoon character",
@@ -141,11 +157,8 @@ erase2general_concept = {"Margot Robbie": "person",
                             
                             "ganesha": "statue",
                             "tank": "car",
-                            "a painting in the style of Van Gogh": "a painting in the style of artist",
-                            "a painting in the style of Claude Monet": "a painting in the style of artist",
-                            "a painting in the style of Picasso": "a painting in the style of artist",
-                            "a painting in the style of Jackson Pollock": "a painting in the style of artist",
-                            "naked person": "dressed person"
+
+                            
                             }
 
                             
@@ -154,8 +167,8 @@ for name in custom_concepts:
     key = name.replace(" ", "_")
 
     exp_dict[key] = {
-        "prompt": [f"a photo of {name}" for _ in range(64)],
-        "base_prompt": [f"a photo of a {general}" for _ in range(64)],
+        "prompt": [f"a photo of {name}" if not 'a painting' in name else name for _ in range(64)],
+        "base_prompt": [f"a photo of {general}" if not 'a painting' in general else general for _ in range(64)],
         "images": "unsafe",
         "base_images": "safe",
     }
@@ -163,8 +176,9 @@ for name in custom_concepts:
     
 import json
 
-with open("config.json", "w") as fp:
+with open(osp.join(save_dir, "config.json"), "w") as fp:
     json.dump(exp_dict, fp, indent=2)
+    print(f"Saved config to {osp.join(save_dir, 'config.json')}")
 
 
 nudenet_labels = [
@@ -209,17 +223,26 @@ for concept, prompt_dict in exp_dict.items():
         out_path = os.path.join(unsafe_dir, f"{i:02d}.jpg")
         if os.path.exists(out_path):
             continue
-
         # Nudity requires NSFW confirmation
-        if concept == "Nudity":
+        if concept == "Nudity" or concept == "naked person":
             detected = False
             while not detected:
                 img = base_pipe(prompt[i], num_images_per_prompt=1)[0][0]
-                detected = is_nsfw(img)
+                
+                img.save(out_path)
+                # this nudenet accept only the path!!!
+                detected = is_nsfw(out_path)
+                
+                # detected = is_nsfw(img) # you did wrong originally
         else:
             img = base_pipe(prompt[i], num_images_per_prompt=1)[0][0]
+            
+            img.save(out_path)
+            
+        # img = base_pipe(prompt[i], num_images_per_prompt=1)[0][0]
 
-        img.save(out_path)
+
+        # img.save(out_path)
 
     ###############################################
     # 9B. GENERATE SAFE EDITED IMAGES
