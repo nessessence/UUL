@@ -1,5 +1,5 @@
 # export CUDA_VISIBLE_DEVICES=1
-export device="cuda:3"
+export device="cuda:1"
 
 
 python -W ignore train.py --erase_concept 'a painting in the style of Van Gogh' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a painting in the style of Van Gogh/" --learnable_property 'style' --initializer_token 'art' --output_dir "../data_root/logs/stereo/stereo_U.vgogh_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/A photo of a painting in the style of Van Gogh/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 

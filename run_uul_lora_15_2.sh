@@ -1,6 +1,10 @@
 export CUDA_VISIBLE_DEVICES=2
 export pc_id="15_2"
 
+
+
+
+
         accelerate launch metrics/cce/cce_concept_inversion.py \
         --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
         --load_unet_weight_path="" \
@@ -522,8 +526,7 @@ echo 'count:3 - esd-x-kv.bG.fG.T750-1000_U.cmonet_sd1.4.bf16.bs4 0
                         --placeholder_token="v1" --initializer_token='art' \
                         --load_token_embedding_step 500 \
                         --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-"""
+
 echo 'count:0 - esd-x-kv.bG.fG_0.10AhE0.80I0.80-N1.00G1.00_U.mrobbie_sd1.4.bf16.bs4 0
 '
                 accelerate launch train_dreambooth_lora.py \

@@ -1,0 +1,15 @@
+export device="cuda:3"
+
+
+base_dir=$(pwd)
+cd $base_dir/stereo
+
+python generate_images.py  --prompt "a photo of David Beckham" --output_dir "../data_root/generated/stereo/a photo of David Beckham/"  --num_images 500 
+python -W ignore train.py --erase_concept 'David Beckham' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of David Beckham/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/stereo_U.beckham_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/a photo of David Beckham/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+
+python generate_images.py  --prompt "a photo of Margot Robbie" --output_dir "../data_root/generated/stereo/a photo of Margot Robbie/"  --num_images 500 
+python generate_images.py  --prompt "a photo of Barack Obama" --output_dir "../data_root/generated/stereo/a photo of Barack Obama/"  --num_images 500 
+python generate_images.py  --prompt "a photo of Rihanna" --output_dir "../data_root/generated/stereo/a photo of Rihanna/"  --num_images 500 
+python -W ignore train.py --erase_concept 'Margot Robbie' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of Margot Robbie/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/stereo_U.mrobbie_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/a photo of Margot Robbie/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+python -W ignore train.py --erase_concept 'Barack Obama' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of Barack Obama/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/stereo_U.obama_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/a photo of Barack Obama/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+python -W ignore train.py --erase_concept 'Rihanna' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of Rihanna/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root/logs/stereo/stereo_U.rihanna_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/a photo of Rihanna/" --compositional_guidance_scale 2 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 

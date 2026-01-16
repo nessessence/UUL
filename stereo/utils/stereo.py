@@ -95,7 +95,15 @@ def train_erasing(erase_concept, erase_from, train_method, iterations, negative_
         pbar.set_description(f"Loss: {loss.item():.4f}")
 
     with finetuner:
-        torch.save(diffuser.unet.state_dict(), save_path)
+        # torch.save(diffuser.unet.state_dict(), save_path) # this also save gpu tensor
+        
+        # save with cpu 
+        state_dict_cpu = {
+            k: v.detach().cpu() for k, v in diffuser.unet.state_dict().items()
+        }
+        torch.save(state_dict_cpu, save_path)
+    
+    
 
     del neutral_text_embeddings, positive_text_embeddings, target_text_embeddings
     del latents, latents_steps, positive_latents, neutral_latents, target_latents, negative_latents

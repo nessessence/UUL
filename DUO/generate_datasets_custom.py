@@ -267,7 +267,7 @@ for concept, prompt_dict in exp_dict.items():
             edit_strength = 0.75
 
         # Nudity requires removing NSFW via loop
-        if concept == "Nudity":
+        if concept == "Nudity" or concept == "naked person":
             detected = True
             while detected:
                 edit_img = pipe(
@@ -277,9 +277,12 @@ for concept, prompt_dict in exp_dict.items():
                     strength=edit_strength,
                     guidance_scale=7.5,
                 )[0][0]
-                detected = is_nsfw(edit_img)
+                
+                
+                edit_img.save(out_path)
+                detected = is_nsfw(out_path)
 
-            edit_img.save(out_path)
+            
             continue
 
         # non-nudity: no NSFW loop
