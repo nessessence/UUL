@@ -1,7 +1,6 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="21_0"
 
-
   accelerate launch train_dreambooth_lora.py \
   --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
   --instance_data_dir="data_root/data/real_data/moodeng/moodeng-unseen-3" \

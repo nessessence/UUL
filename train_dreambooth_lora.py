@@ -86,6 +86,25 @@ check_min_version("0.22.0")
 logger = get_logger(__name__)
 
 
+def compute_mean_l2_param(unlearned_weights, original_weights, device=None):
+    sq_sum = 0.0
+    count = 0
+
+    for k in unlearned_weights:
+
+
+        w1 = unlearned_weights[k]
+        w2 = original_weights[k]
+
+        diff = w1 - w2
+        sq_sum += diff.pow(2).sum()
+        count += diff.numel()
+
+    mean_l2 = torch.sqrt(sq_sum / count)
+    return mean_l2, count
+
+    
+
 def convert_lora_weight(lora_pretrained_weight):
     
     # sign for different version
@@ -297,9 +316,12 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
 
         # expected: *coco30k.{n_sample}
         n_sample = int(args.validation_prompt[0].split('.')[-1])
-        paired_prompt = torch.load("data_root/data/real_data/coco/id_caption_coco30k_seed99.pt")
+        paired_prompt = torch.load("data_root/data/real_data/coco/id_caption_coco30k_seed123.pth")
         args.validation_prompt = [caption_ for id_,caption_ in paired_prompt[:n_sample]]
         args.num_validation_images = 1
+        
+        # args.reinit_validation_generator = False ... use externally
+        
     print('apply_coco:',apply_coco)
 
     cfg_scales = [ float(c) for c in args.cfg_scale.split(',')]
@@ -908,7 +930,6 @@ def parse_args(input_args=None):
     
     # for image generation only
     parser.add_argument( "--gen_image_path",type=str,default=None)
-    parser.add_argument( "--load__weight_path",type=str,default=None)
     parser.add_argument( "--load_lora_weight_path",type=str,default=None)
     parser.add_argument( "--load_unet_weight_path",type=str,default=None) # many unlearned model, UCE, ESD, 
     
@@ -1380,7 +1401,23 @@ def main(args):
         if args.load_unet_weight_path is not None:
             print('loading UNet weight from: ', args.load_unet_weight_path)
             if '.safetensor' in args.load_unet_weight_path:
-                pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
+                
+                compute_weight_diff = False
+                
+                if compute_weight_diff:
+                    unlearned_weights = load_file(args.load_unet_weight_path)
+                    # only weight that are the same
+                    original_weights = pipeline.unet.state_dict() #
+                    weight_diff,_ = compute_mean_l2_param(unlearned_weights, original_weights)
+                    
+                    print('load_unet_weight_path:', args.load_unet_weight_path)
+                    print(f'mean L2 weight diff: {weight_diff.item()}')
+                    
+                    pipeline.unet.load_state_dict(unlearned_weights, strict=False)
+                    
+                
+                else:
+                    pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
             else:
                 pipeline.unet.load_state_dict(torch.load(args.load_unet_weight_path), strict=False)
             print('UNet weight loaded (for generation)')
@@ -2445,9 +2482,15 @@ def main(args):
                     
                     
                     pipeline.unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
-                    unlearned_weights =  copy.deepcopy(pipeline.unet.state_dict()) if args.use_generation_phases else None
+                    
+                    
+                    # this is a whole UNet parameters
+                    # unlearned_weights =  copy.deepcopy(pipeline.unet.state_dict()) if args.use_generation_phases else None # None .... by default
                     
                     unlearned_weights = load_file(args.load_unet_weight_path)
+                    
+                    
+                    # print(100*['im here'])
                 else:
                     pipeline.unet.load_state_dict(torch.load(args.load_unet_weight_path), strict=False)
                 print('UNet weight loaded (for generation)')
@@ -2594,7 +2637,7 @@ if __name__ == "__main__":
 
 
     if args.donot_reinit_validation_generator:
-        args.reinit_validation_generator = False # used for COCO for example
+        args.reinit_validation_generator = False # used for COCO for example --> more noise
     else:
         args.reinit_validation_generator = True # by default
 

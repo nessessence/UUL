@@ -503,7 +503,15 @@ def robustly_erase_once(erase_concepts, train_method, iterations, compositional_
         pbar.set_description(f"Loss: {loss.item():.4f}")
 
     with finetuner:
-        torch.save(diffuser.unet.state_dict(), save_path)
+        # torch.save(diffuser.unet.state_dict(), save_path)
+        
+              # save with cpu 
+        state_dict_cpu = {
+            k: v.detach().cpu() for k, v in diffuser.unet.state_dict().items()
+        }
+        torch.save(state_dict_cpu, save_path)
+
+        
 
     del neutral_text_embeddings, target_text_embeddings
     del latents, latents_steps, neutral_latents, target_latents, negative_latents

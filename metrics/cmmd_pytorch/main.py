@@ -109,14 +109,42 @@ def compute_cmmd(
         np.save(feature_path, embs)
 
         return embs
+    
+    # if they are either list or tuple
+    def _is_dir_list(x):
+        return isinstance(x, (list, tuple))
 
-    if ref_embed_file is not None:
-        ref_embs = np.load(ref_embed_file).astype("float32")
-    else:
-        ref_embs = get_or_compute_embeddings(ref_dir)
+    def get_embeddings_for_input(dir_or_dirs):
+        """
+        If input is a list/tuple of dirs, compute each then stack.
+        If input is a single dir, compute once.
+        """
+        if _is_dir_list(dir_or_dirs):
+            print(f'loading multiple dirs for embeddings...: {dir_or_dirs}')
+            all_embs = []
+            for d in dir_or_dirs:
+                if not isinstance(d, str):
+                    raise TypeError(f"All entries must be str paths, got {type(d)}: {d}")
+                all_embs.append(get_or_compute_embeddings(d))
+            # "stack them up": concatenate along rows (N, D)
+            return np.concatenate(all_embs, axis=0) if all_embs else np.empty((0, 0), dtype="float32")
+        else:
+            if not isinstance(dir_or_dirs, str):
+                raise TypeError(f"Expected a directory path (str) or list/tuple of str, got {type(dir_or_dirs)}")
+            return get_or_compute_embeddings(dir_or_dirs)
+        
+        
 
-    eval_embs = get_or_compute_embeddings(eval_dir)
+    # if ref_embed_file is not None:
+    #     ref_embs = np.load(ref_embed_file).astype("float32")
+    # else:
+    # ref_embs = get_or_compute_embeddings(ref_dir)
+    # eval_embs = get_or_compute_embeddings(eval_dir)
 
+
+    ref_embs = get_embeddings_for_input(ref_dir)
+    eval_embs = get_embeddings_for_input(eval_dir)
+    
     # print(type(eval_embs))  # <class 'numpy.ndarray'>
     # print(eval_embs.shape)  # e.g., (50, 768)
 

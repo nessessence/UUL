@@ -6,7 +6,9 @@ import torch
 import random
 import numpy as np
 from safetensors.torch import load_file
+from typing import Union
 
+import math
 
 # these concepts do not have preservation concepts (yet)
 
@@ -63,11 +65,9 @@ concept2shortname = {
     "Nicki Minaj": "nminaj",
     "Octavia Spencer": "ospencer",
             
-    "mickey mouse": "mmouse",
     "pad thai": "padthai",
     "Donald Trump": "dtrump",
     "persian cat": "percat",
-    "grumpy cat": "gpcat",
     "mackerel tabby cat": "maccat",
     "beagle dog": "bdog",
     "poodle dog": "pddog",
@@ -86,19 +86,21 @@ concept2shortname = {
     
     "Jesus Christ": "jesus",
     "ipad": "ipad",
-    "macbook": "macbook"
     
+    
+    "Mickey Mouse": "mmouse",
+    "Grumpy Cat": "gcat",
+    "R2D2 robot": "r2d2",
+    "Macbook": "macbook"
 }
 
 # seed = 123
 # rng = np.random.RandomState(seed=seed)
 
 concept2generic_concept = {
-                            "mickey mouse": "cartoon character",
                             "pad thai": "food dish",
                             "Donald Trump": "person",
                             "persian cat": "cat",
-                            "grumpy cat": "cat",
                             "mackerel tabby cat": "cat",
                             "beagle dog": "dog",
                             "poodle dog": "dog",
@@ -116,7 +118,6 @@ concept2generic_concept = {
                             
                             "naked person": "dressed person",
                             
-                            "macbook": "laptop",
                             "ipad": "tablet",
                             "Jesus Christ": "god",
                             
@@ -143,6 +144,13 @@ concept2generic_concept = {
                             "zendaya": "person",
                             "Nicki Minaj": "person",
                             "Octavia Spencer": "person",
+                            
+                            
+                            "Mickey Mouse": "cartoon",
+                            "R2D2 robot": "robot",
+                            "Grumpy Cat": "cat",
+                            "Macbook": "laptop"
+                            
                             
                             
                             }
@@ -219,13 +227,15 @@ import torch
 import torch.nn.functional as F
 
 
+
 def compute_angular_exclusion_inclusion_loss(
     unet_u,         # unlearned UNet (trainable)
     unet_0,         # frozen reference UNet
     p_e,            # erased prompt embedding [B, T, 768]
     p_g,            # generic prompt embedding [B, T, 768]
     m_excl: float,
-    m_incl: float,
+    m_incl: Union[float, str],
+    # m_incl: float,
     layer_filter="attn2",  # cross-attention in diffusers SD1.4
     use_bias: bool = False,
     sim_param_group: str = "avg_token",  # {'avg_token', 'token', 'attn_head'}
@@ -255,6 +265,8 @@ def compute_angular_exclusion_inclusion_loss(
     excl_terms = []
     incl_terms = []
     norm_terms = []
+    preserve_terms = []
+    w_terms = []
     matched_layers = 0
 
     for name, W_u in params_u.items():
@@ -281,9 +293,11 @@ def compute_angular_exclusion_inclusion_loss(
 
         # Linear projections: [B, T, D]
         W_u_e = F.linear(p_e, W_u, b_u)
+        W_u_g = F.linear(p_g, W_u, b_u) # for preservation term
         with torch.no_grad():
             W_0_e = F.linear(p_e, W_0, b_0)
             W_0_g = F.linear(p_g, W_0, b_0)
+            
 
         if sim_param_group == "avg_token":
             W_u_e_m = W_u_e.mean(dim=1)
@@ -322,20 +336,81 @@ def compute_angular_exclusion_inclusion_loss(
             W_u_e_h = W_u_e.view(B, T, num_heads, head_dim)
             W_0_e_h = W_0_e.view(B, T, num_heads, head_dim)
             W_0_g_h = W_0_g.view(B, T, num_heads, head_dim)
+            W_u_g_h = W_u_g.view(B, T, num_heads, head_dim)
             # print(W_u_e_h.shape) # [5, 77, 8, 160]
             
 
             # Cosine per (token, head): [B, T, H]
             cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
             cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
+            
+            
+            # head-wise generic inclusion margin according to the original similarity between the target concept and the generic concept
+            
 
             excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
-            incl_terms.append(torch.clamp(m_incl - cos_incl_h, min=0.0).mean())
+            
+            if 'e' in m_incl or  'ex' in m_incl:
+                # the same
+                with torch.no_grad():
+                    m_incl_ =  F.cosine_similarity(W_0_e_h, W_0_g_h, dim=-1)
+                    print('Generic-Inclusion margin based on original similarity between the target concept and the generic concept per head:\n', m_incl_)
+                    
+                    if 'ex' in m_incl:
+                        m_incl_ *= float(m_incl.replace('ex','')) # 'e{value}' is more generalize
+                        print(float(m_incl.replace('ex','')))
+                    elif 'e' in m_incl:
+                        m_incl_ += float(m_incl.replace('e',''))
+                    
+                    m_incl_ = m_incl_.clamp(min=-1.0,max=1.0) # max cosine similarity is 1.0
+                    
+                    print('Refined Generic-Inclusion margin based on original similarity between the target concept and the generic concept per head:\n', m_incl_)
+                    
+                    # print(cos_incl_h.shape,m_incl_.shape ) # [5, 77, 8]
+                incl_terms.append(torch.clamp(m_incl_ - cos_incl_h, min=0.0).mean())
+                
+                    
+
+            else:
+                incl_terms.append(torch.clamp(float(m_incl) - cos_incl_h, min=0.0).mean())
+                
+            
+            # preservation term
+            cos_preserve_h = F.cosine_similarity(W_u_g_h, W_0_g_h, dim=-1)
+            preserve_term =  1 - cos_preserve_h
+            preserve_terms.append(preserve_term.mean())
+                
+                
+                
 
             # Norm per (token, head): [B, T, H]
             norm_u = W_u_e_h.norm(dim=-1)
             norm_0 = W_0_e_h.norm(dim=-1)
             norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
+            
+            
+            
+            
+        # ---- L_w: weight-delta penalty (computed per sim_param_group) ----
+        dW = (W_u - W_0)
+        if sim_param_group in {"avg_token", "token"}:
+            # Mean squared delta (Frobenius^2 normalized by numel)
+            w_terms.append(dW.pow(2).mean())
+        elif sim_param_group == "attn_head":
+            num_heads = 8
+            out_dim = dW.shape[0]  # rows correspond to output channels
+            # if out_dim % num_heads == 0:
+            head_out = out_dim // num_heads
+            dW_h = dW.view(num_heads, head_out, *dW.shape[1:])  # [H, head_out, in_dim]
+            # print(dW_h.shape) # 8, 160, 768
+            # print(dW_h.pow(2).mean(dim=(1, 2)).shape) # 8,
+            
+            w_terms.append(dW_h.pow(2).mean(dim=(1, 2)).mean())  # mean over heads
+            # else:
+            #     # Fallback if not divisible (keeps behavior robust)
+            #     w_terms.append(dW.pow(2).mean())
+            
+                
 
         matched_layers += 1
 
@@ -347,9 +422,30 @@ def compute_angular_exclusion_inclusion_loss(
     L_incl = torch.stack(incl_terms).mean()
     L_ang = L_excl + L_incl
     L_norm = torch.stack(norm_terms).mean()
+    L_w = torch.stack(w_terms).mean()
+    L_preserve = torch.stack(preserve_terms).mean()
 
-    return L_excl, L_incl, L_norm, L_ang
+    return L_excl, L_incl, L_norm, L_w, L_preserve  #  L_ang, 
 
+def number_to_scientific_str(x: float) -> str:
+    """
+    Convert a positive float to compact scientific notation (e.g., 1 -> '1e0',
+    0.05 -> '5e-2', 0.0001 -> '1e-4').
+    Assumes x > 0.
+    """
+    if x == 0:
+        return "0e0"
+
+    exp = int(math.floor(math.log10(abs(x))))
+    mant = x / (10 ** exp)
+
+    # Clean mantissa: remove trailing .0
+    if mant.is_integer():
+        mant = int(mant)
+
+    return f"{mant}e{exp}"
+
+    
 
 def _capture_midblock_activation(unet, z_t, t, encoder_hidden_states, **unet_kwargs):
     """
@@ -416,81 +512,81 @@ def _pool_mid_activation(x: torch.Tensor, pool: str = "gap") -> torch.Tensor:
         return x.mean(dim=1).flatten(start_dim=1)  # [B, H*W]  (usually not desired)
     raise ValueError(f"Unknown pool='{pool}'")
 
-def compute_angular_exclusion_inclusion_loss_with_midblock(
-    unet_u,         # unlearned UNet (trainable)
-    unet_0,         # frozen reference UNet
-    p_e,            # erased prompt embedding [B, T, 768]
-    p_g,            # generic prompt embedding [B, T, 768]
-    m_excl: float,
-    m_incl: float,
-    z_t,            # noisy latent [B, 4, 64, 64] (SD1.x typical)
-    t,              # timestep(s)
-    m_mid_excl: float = 0.0,
-    m_mid_incl: float = 0.0,
-    mid_weight: float = 1.0,
-    mid_pool: str = "gap",
-    layer_filter="attn2",
-    use_bias: bool = False,
-    sim_param_group: str = "avg_token",
-    **unet_kwargs,
-):
-    """
-    Angular exclusion + inclusion loss in KV projection space, with an *additional* mid-block anchor.
+# def compute_angular_exclusion_inclusion_loss_with_midblock(
+#     unet_u,         # unlearned UNet (trainable)
+#     unet_0,         # frozen reference UNet
+#     p_e,            # erased prompt embedding [B, T, 768]
+#     p_g,            # generic prompt embedding [B, T, 768]
+#     m_excl: float,
+#     m_incl: float,
+#     z_t,            # noisy latent [B, 4, 64, 64] (SD1.x typical)
+#     t,              # timestep(s)
+#     m_mid_excl: float = 0.0,
+#     m_mid_incl: float = 0.0,
+#     mid_weight: float = 1.0,
+#     mid_pool: str = "gap",
+#     layer_filter="attn2",
+#     use_bias: bool = False,
+#     sim_param_group: str = "avg_token",
+#     **unet_kwargs,
+# ):
+#     """
+#     Angular exclusion + inclusion loss in KV projection space, with an *additional* mid-block anchor.
 
-    KV-space loss (same as `compute_angular_exclusion_inclusion_loss`):
-      - Exclusion:  clamp(cos(W_u p_e, W_0 p_e) - m_excl, 0)
-      - Inclusion:  clamp(m_incl - cos(W_u p_e, W_0 p_g), 0)
+#     KV-space loss (same as `compute_angular_exclusion_inclusion_loss`):
+#       - Exclusion:  clamp(cos(W_u p_e, W_0 p_e) - m_excl, 0)
+#       - Inclusion:  clamp(m_incl - cos(W_u p_e, W_0 p_g), 0)
 
-    Mid-block loss (feature-space, hinge on cosine):
-      - Mid Exclusion: clamp(cos(h_u^mid(z_t,t,p_e), h_0^mid(z_t,t,p_e)) - m_mid_excl, 0)
-      - Mid Inclusion: clamp(m_mid_incl - cos(h_u^mid(z_t,t,p_e), h_0^mid(z_t,t,p_g)), 0)
+#     Mid-block loss (feature-space, hinge on cosine):
+#       - Mid Exclusion: clamp(cos(h_u^mid(z_t,t,p_e), h_0^mid(z_t,t,p_e)) - m_mid_excl, 0)
+#       - Mid Inclusion: clamp(m_mid_incl - cos(h_u^mid(z_t,t,p_e), h_0^mid(z_t,t,p_g)), 0)
 
-    Total:
-      L_total = L_ang(KV) + mid_weight * L_mid
+#     Total:
+#       L_total = L_ang(KV) + mid_weight * L_mid
 
-    Parameters
-    ----------
-    z_t, t:
-        Provide the *same* noise realization and timestep when comparing u vs 0.
-        This gives you a causal, time-specific "semantic bottleneck" constraint in addition to KV-space.
+#     Parameters
+#     ----------
+#     z_t, t:
+#         Provide the *same* noise realization and timestep when comparing u vs 0.
+#         This gives you a causal, time-specific "semantic bottleneck" constraint in addition to KV-space.
 
-    mid_pool:
-        How to pool mid activations before cosine. 'spatial_mean' is usually the safest.
-    """
-    # KV-space loss
-    L_excl, L_incl, L_norm, L_ang = compute_angular_exclusion_inclusion_loss(
-        unet_u=unet_u,
-        unet_0=unet_0,
-        p_e=p_e,
-        p_g=p_g,
-        m_excl=m_excl,
-        m_incl=m_incl,
-        layer_filter=layer_filter,
-        use_bias=use_bias,
-        sim_param_group=sim_param_group,
-    )
+#     mid_pool:
+#         How to pool mid activations before cosine. 'spatial_mean' is usually the safest.
+#     """
+#     # KV-space loss
+#     L_excl, L_incl, L_norm, L_ang = compute_angular_exclusion_inclusion_loss(
+#         unet_u=unet_u,
+#         unet_0=unet_0,
+#         p_e=p_e,
+#         p_g=p_g,
+#         m_excl=m_excl,
+#         m_incl=m_incl,
+#         layer_filter=layer_filter,
+#         use_bias=use_bias,
+#         sim_param_group=sim_param_group,
+#     )
 
-    # Mid-block features
-    mid_u_e = _capture_midblock_activation(unet_u, z_t, t, encoder_hidden_states=p_e, **unet_kwargs)
-    with torch.no_grad():
-        mid_0_e = _capture_midblock_activation(unet_0, z_t, t, encoder_hidden_states=p_e, **unet_kwargs)
-        mid_0_g = _capture_midblock_activation(unet_0, z_t, t, encoder_hidden_states=p_g, **unet_kwargs)
+#     # Mid-block features
+#     mid_u_e = _capture_midblock_activation(unet_u, z_t, t, encoder_hidden_states=p_e, **unet_kwargs)
+#     with torch.no_grad():
+#         mid_0_e = _capture_midblock_activation(unet_0, z_t, t, encoder_hidden_states=p_e, **unet_kwargs)
+#         mid_0_g = _capture_midblock_activation(unet_0, z_t, t, encoder_hidden_states=p_g, **unet_kwargs)
 
-    # print(f"mid_u_e shape: {mid_u_e.shape}") # [1, 1280, 8, 8]
-    mid_u_e_v = _pool_mid_activation(mid_u_e, pool=mid_pool)
-    mid_0_e_v = _pool_mid_activation(mid_0_e, pool=mid_pool)
-    mid_0_g_v = _pool_mid_activation(mid_0_g, pool=mid_pool)
+#     # print(f"mid_u_e shape: {mid_u_e.shape}") # [1, 1280, 8, 8]
+#     mid_u_e_v = _pool_mid_activation(mid_u_e, pool=mid_pool)
+#     mid_0_e_v = _pool_mid_activation(mid_0_e, pool=mid_pool)
+#     mid_0_g_v = _pool_mid_activation(mid_0_g, pool=mid_pool)
 
-    cos_mid_excl = F.cosine_similarity(mid_u_e_v, mid_0_e_v, dim=-1)  # [B]
-    cos_mid_incl = F.cosine_similarity(mid_u_e_v, mid_0_g_v, dim=-1)  # [B]
+#     cos_mid_excl = F.cosine_similarity(mid_u_e_v, mid_0_e_v, dim=-1)  # [B]
+#     cos_mid_incl = F.cosine_similarity(mid_u_e_v, mid_0_g_v, dim=-1)  # [B]
 
-    L_mid_excl = torch.clamp(cos_mid_excl - m_mid_excl, min=0.0).mean()
-    L_mid_incl = torch.clamp(m_mid_incl - cos_mid_incl, min=0.0).mean()
-    L_mid = L_mid_excl + L_mid_incl
+#     L_mid_excl = torch.clamp(cos_mid_excl - m_mid_excl, min=0.0).mean()
+#     L_mid_incl = torch.clamp(m_mid_incl - cos_mid_incl, min=0.0).mean()
+#     L_mid = L_mid_excl + L_mid_incl
 
-    L_total = L_ang + mid_weight * L_mid
+#     L_total = L_ang + mid_weight * L_mid
     
-    return L_excl, L_incl, L_norm, L_ang, L_mid
+#     return L_excl, L_incl, L_norm, L_ang, L_mid
 
 
 
@@ -525,8 +621,6 @@ def _value_based_probs_divmax(timesteps: torch.Tensor, alpha: float, is_inverse=
         probs = torch.ones_like(probs)
     probs = probs / probs.sum()
     return probs.cpu().numpy()
-
-    
 
 def resolve_model_name(args): #, training_step):
     erase_concept = args.erase_concept
@@ -595,7 +689,7 @@ def resolve_model_name(args): #, training_step):
     if not args.apply_gradient_projection and args.preservation_weight is not None and args.preservation_weight > 0:
         base_file_name += '.'
         if  args.preservation_train_set:
-            if args.preservation_train_set in ['00','01','02','03']:
+            if args.preservation_train_set in ['00','01','02','03'] + ['G','UG','U']:
                 base_file_name += f"pe{args.preservation_train_set}"
             elif args.preservation_train_set == 'celeb':
                 base_file_name += f"cl"
@@ -625,11 +719,29 @@ def resolve_model_name(args): #, training_step):
         
         if args.ang_excl_margin is not None:
             base_file_name += f"E{args.ang_excl_margin:.2f}"
+            if args.ang_excl_loss_weight != 1.0:
+                base_file_name += f"-{args.ang_excl_loss_weight:.2f}"
         if args.ang_incl_margin is not None:
-            base_file_name += f"I{args.ang_incl_margin:.2f}"
+            if 'ex' in str(args.ang_incl_margin):
+                ang_incl_margin = str(args.ang_incl_margin).replace('ex','')
+                base_file_name += f"Iex{float(ang_incl_margin):.2f}"
+            elif 'e' in str(args.ang_incl_margin):
+                ang_incl_margin = str(args.ang_incl_margin).replace('e','')
+                base_file_name += f"Ie{float(ang_incl_margin):.2f}"
+            else:
+                base_file_name += f"I{float(args.ang_incl_margin):.2f}"
+                
+            if args.ang_incl_loss_weight != 1.0:
+                base_file_name += f"-{args.ang_incl_loss_weight:.2f}"
+                
+        if args.ang_preserve_loss_weight is not None and args.ang_preserve_loss_weight > 0.0:
+            base_file_name += f"P{args.ang_preserve_loss_weight:.2f}"
+            
         base_file_name +='-'
         if args.ang_norm_loss_weight is not None:
             base_file_name += f"N{args.ang_norm_loss_weight:.2f}"
+        if args.weight_modification_weight is not None:
+            base_file_name += f"W{number_to_scientific_str(args.weight_modification_weight)}"
         if args.generic_loss_weight is not None:
             base_file_name += f"G{args.generic_loss_weight:.2f}"         
 
@@ -660,7 +772,7 @@ def resolve_model_name(args): #, training_step):
                 
             base_file_name += '.'
             if  args.preservation_train_set:
-                if args.preservation_train_set in ['00','01','02','03']:
+                if args.preservation_train_set in ['G','UG','U','00','01','02','03']:
                     base_file_name += f"pe{args.preservation_train_set}"
                 elif args.preservation_train_set == 'celeb':
                     base_file_name += f"cl"
@@ -829,7 +941,7 @@ if __name__ == '__main__':
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
     parser.add_argument('--preservation_split', type=str,  default='train', choices=['train','test'] )
     
-    parser.add_argument('--preservation_train_set', type=str,  default='00', choices=['celeb','coco'] + ['00','01','02','03'])
+    parser.add_argument('--preservation_train_set', type=str,  default='00', choices=['celeb','coco'] + ['00','01','02','03']+['G','UG','U'] )
     parser.add_argument('--preservation_weight_option', type=str,  default='additive', choices=['additive','convex'])
 
 
@@ -873,12 +985,22 @@ if __name__ == '__main__':
     
     parser.add_argument("--aei_loss_weight", type=float, default=0.0)
     parser.add_argument("--ang_excl_margin",type=float, default=0.0)
-    parser.add_argument("--ang_incl_margin",type=float, default=0.0) 
+    parser.add_argument("--ang_incl_margin",type=str, default='0') 
+    
+    parser.add_argument("--ang_incl_loss_weight",type=float, default=1.00) 
+    parser.add_argument("--ang_excl_loss_weight",type=float, default=1.00) 
+    parser.add_argument("--ang_preserve_loss_weight",type=float, default=0.00) 
+    
     parser.add_argument("--ang_norm_loss_weight",type=float, default=1.0)  # multiplied from aei_loss_weight
     parser.add_argument("--generic_loss_weight",type=float, default=1.0)  # other unlearn losses
+    parser.add_argument("--weight_modification_weight",type=float, default=None)  # other unlearn losses
     
 
     parser.add_argument('--sim_param_group', type=str,  default='token') # wandb
+    
+    
+    
+    
 
 
 
@@ -1005,7 +1127,7 @@ if __name__ == '__main__':
     # if args.preservation_train_set == 'celeb':
     #     preservation_concepts =  torch.load('../data_root/cache/celeb/100celebrity.pt')
         
-        
+    # preservation_concepts = []
     if args.preservation_train_set == '00':
         
         preserve_cate = 'Strongly Associated'
@@ -1039,7 +1161,18 @@ if __name__ == '__main__':
         if args.preservation_split == 'test':
             print('WARNING: optimizing on test set for preservation concepts!')
         
+        # print(f"preservation_concepts: {preservation_concepts}")
+    
+    elif args.preservation_train_set == 'UG': 
+        generic_concept = concept2generic_concept[erase_concept]
+        preservation_concepts = ["",generic_concept]
+        
         print(f"preservation_concepts: {preservation_concepts}")
+        
+    elif args.preservation_train_set == 'U':
+        preservation_concepts = [""]
+        print(f"preservation_concepts: {preservation_concepts}")
+        
         
         
 
@@ -1515,7 +1648,7 @@ if __name__ == '__main__':
                         # will use this if it work
                     elif batch_size > 1:
                         # print(preservation_concepts)
-                        preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=False).tolist()
+                        preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=len(preservation_concepts) < batch_size).tolist()
                         print(f"preservation_concept: {preservation_concept}")
                         preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
                                                                     device=device,
@@ -1718,7 +1851,9 @@ if __name__ == '__main__':
                 loss_print_logs['preservation_loss'] = preservation_loss.item()
                 
                 if args.aei_loss_weight > 0.0:
-                    a_excl_loss,a_incl_loss,a_norm_loss,_ = compute_angular_exclusion_inclusion_loss(
+                    
+                    # print(p_e.shape, p_g.shape)
+                    a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
                         unet_u=esd_unet, 
                         unet_0=base_unet,
                         # p_e=erase_embeds[0:1,:,:], #[b,77,768] -> [1,77,768]
@@ -1733,40 +1868,38 @@ if __name__ == '__main__':
                         
                     )
                     
-                    
-                    # a_excl_loss,a_incl_loss,a_norm_loss,_,a_mid_loss = compute_angular_exclusion_inclusion_loss_with_midblock(
-                    #                         unet_u=esd_unet, 
-                    #     unet_0=base_unet,
-                    #     p_e=erase_embeds[0:1,:,:], #[b,77,768] -> [1,77,768]
-                    #     p_g=general_embeds[0:1,:,:],#[b,77,768] -> [1,77,768]
-                    #     m_excl=args.ang_excl_margin,
-                    #     m_incl=args.ang_incl_margin,
-                    #     sim_param_group="attn_head",
-                    #     m_mid_excl=0.60,
-                    #     z_t=xt[0:1,:,:,:],  # [b,4,64,64] -> [1,4,64,64]
-                    #     t=timestep,
-
-
-                    # )
-                    
+     
                     # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
                     
                     
-                    aei_loss = a_excl_loss + a_incl_loss + args.ang_norm_loss_weight*a_norm_loss  
+                    aei_loss = (args.ang_excl_loss_weight*a_excl_loss) + (args.ang_incl_loss_weight* a_incl_loss) + args.ang_norm_loss_weight*a_norm_loss   + args.ang_preserve_loss_weight* a_preserve_loss
                     # aei_loss += a_mid_loss
                     
                     
-                    loss_print_logs['ang_excl_loss'] = a_excl_loss.item()
-                    loss_print_logs['ang_incl_loss'] = a_incl_loss.item()
+                    loss_print_logs['ang_excl_loss'] = a_excl_loss.item() * args.ang_excl_loss_weight
+                    loss_print_logs['ang_incl_loss'] = a_incl_loss.item() * args.ang_incl_loss_weight
                     loss_print_logs['ang_norm_loss'] = a_norm_loss.item()
                     # loss_print_logs['ang_mid_loss'] = a_mid_loss.item()
                     loss_print_logs['aei_loss'] = aei_loss.item()
+                    loss_print_logs['ang_preserve_loss'] = a_preserve_loss.item()  # * args.ang_preserve_loss_weight
                     
-                    total_loss = args.aei_loss_weight*aei_loss +  preservation_weight * preservation_loss
-                    
-                    
-                    loss_print_logs['unlearn_loss'] = unlearn_loss.item()
+                    # initialize with aei loss
+                    total_loss = args.aei_loss_weight*aei_loss 
+                     
+                    # generic mapping/ neg guidance/unlearn loss
+                    # loss_print_logs['unlearn_loss'] = unlearn_loss.item() ... already logged above
                     total_loss += args.generic_loss_weight * unlearn_loss
+                    
+                    # preservation loss
+                    # loss_print_logs['preservation_loss'] = preservation_loss.item() .... already logged above
+                    total_loss += preservation_weight * preservation_loss
+                    
+                    # l2 weight modification loss (inconsistent for now)
+                    if args.weight_modification_weight is not None and args.weight_modification_weight > 0.0:
+                        loss_print_logs['weight_modification_loss'] = weight_modification_loss.item()
+                        total_loss += args.weight_modification_weight*weight_modification_loss
+                        
+       
                     
                 else:
                     if args.preservation_weight_option == 'convex':
@@ -1907,9 +2040,11 @@ if __name__ == '__main__':
                         "unlearning_loss": float(unlearn_loss.detach().item()),
                         "preservation_loss": float(preservation_loss.detach().item()),
                         "aei_loss": float(aei_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
-                        "ang_excl_loss": float(a_excl_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
-                        "ang_incl_loss": float(a_incl_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
+                        "ang_excl_loss": float(a_excl_loss.detach().item()) * args.ang_excl_loss_weight if args.aei_loss_weight > 0.0 else None,
+                        "ang_incl_loss": float(a_incl_loss.detach().item()) * args.ang_incl_loss_weight if args.aei_loss_weight > 0.0 else None,
+                        "ang_preserve_loss": float(a_preserve_loss.detach().item()) ,
                         "ang_norm_loss": float(a_norm_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
+                        "weight_modification_loss": float(weight_modification_loss.detach().item()) ,
                         "total_weighted_loss": float((total_loss).detach().item()) if args.preservation_weight is not None else float(unlearn_loss.detach().item()),
                         "timestep": int(timestep.detach().cpu().item()),
                         "training_step": int(training_step),
