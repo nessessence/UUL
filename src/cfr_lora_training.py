@@ -412,6 +412,22 @@ def main(args):
         
         lora_layers = AttnProcsLayers(lora_attn_procs)
         
+        
+        # my add that does not help#
+        # for param in lora_layers.parameters():
+        #     print(param)
+        #     param.requires_grad = True
+        
+        # enable grads for LoRA modules inside the processors
+        # for proc in unet.attn_processors.values():
+        #     if hasattr(proc, "to_k_lora"):
+        #         for p in proc.to_k_lora.parameters():
+        #             p.requires_grad_(True)
+        #     if hasattr(proc, "to_v_lora"):
+        #         for p in proc.to_v_lora.parameters():
+        #             p.requires_grad_(True)
+
+            
  
             
         optimizer = optimizer_class(
@@ -570,13 +586,29 @@ def main(args):
                         GSAM_mask = batch['masks']
                     else:
                         GSAM_mask = None
+                        
                     
                     attn_controller.set_concept_positions(batch["concept_positions"], GSAM_mask, use_gsam_mask=args.use_gsam_mask)
 
                     # Predict the noise residual
                     model_pred = unet(noisy_latents, timesteps, encoder_hidden_states).sample
-                    # print(model_pred.requires_grad)
+                    
+                    
+                    # print(model_pred.requires_grad) # False
                     # print(model_pred.grad_fn)
+                     
+                    # print(torch.is_grad_enabled()) # True
+                    # print(any(p.requires_grad for p in unet.parameters())) # True
+                    # print(any(p.requires_grad for p in lora_layers.parameters())) # True
+                    # print(next(iter(lora_layers.parameters())).device, model_pred.device) # cuda:0 cuda:0
+                    # print(model_pred.grad_fn) # None
+
+
+
+
+
+
+
 
                     # Get the target for loss depending on the prediction type
                     if noise_scheduler.config.prediction_type == "epsilon":
@@ -586,7 +618,7 @@ def main(args):
                     else:
                         raise ValueError(f"Unknown prediction type {noise_scheduler.config.prediction_type}")
                     
-                    loss = attn_controller.loss()
+                    loss = attn_controller.loss() # the cross-attention loss that used to train the LoRA layers
                     
                     if args.with_prior_preservation:
                         # Chunk the noise and model_pred into two parts and compute the loss on each part separately.

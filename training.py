@@ -8,6 +8,17 @@ from src.fuse_lora_close_form import main as multi_lora_fusion
 from inference import main as inference
 import shutil
 
+import diffusers
+import transformers
+
+import gc
+print(torch.__version__)  #  2.5.1+cu124
+print(diffusers.__version__) #  0.22.0      
+print(transformers.__version__) # 4.46.2  # they need transformers==4.38.1  https://github.com/Shilin-LU/MACE/issues/11, pip install peft==0.10.0
+
+                                                                                                                                                                                                       
+
+
 def main(conf):
     
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -16,6 +27,13 @@ def main(conf):
 
     # stage 1 & 2 (CFR and LoRA training)
     cfr_lora_training(conf.MACE)
+    
+    
+    gc.collect()
+    torch.cuda.synchronize()
+    torch.cuda.empty_cache()
+    torch.cuda.ipc_collect()  # helps release cached IPC memory in some cases
+
 
     # stage 3 (Multi-LoRA fusion)
     multi_lora_fusion(conf.MACE) # fuse Multiple-LoRA with the original pretrained projection
@@ -75,5 +93,7 @@ if __name__ == "__main__":
         print(f"output_dir: {conf.MACE.output_dir}")
         print(f"final_save_path: {conf.MACE.final_save_path}")
         
+        
+        # conf.MACE.mixed_precision = "bf16"  # use bf16 for faster training and less memory usage
     
     main(conf)

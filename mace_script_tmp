@@ -1,0 +1,121 @@
+
+base_exps = [
+    # 'rv'
+    'sd1.4'
+
+]
+use_simple_exp_name = True
+
+exp_names = []
+
+concepts = seen_concepts
+concepts = ['obama']
+
+for concept in concepts:
+# manual_target_concept = "obama" # "obama" # "rihanna" # "mrobbie" # "edsheeran" # "mrobbie" # "obama" # "rihanna" # "edsheeran"
+# seed_adds = [0,1,2]
+    # if  manual_target_concept != 'aadam': continue
+    # seed_adds = [0,1,2]
+    seed_adds = [0]
+    # seed_adds = [0,1,2]
+
+    # domain_preservations = ["8e+3"] # ["8e+2","8e+3","8e-4"] # ["8e+2","8e+3","8e-4"]#  ["8e+3"] # ["8e+3"] # ["8e+4","8e+5"] #  ["8e+2","8e+3","8e-4","8e-5"] # 8.0e+3, 8.0e+4 2e-5 
+    # general_preservations = ["1e-4"]  # ["1e-0","1e-2","1e-4"] # ,"1e-4"] # preservation sclae for the closed-form
+    # domain_preservations = ["5e-4"] # for 5 concepts
+    
+    
+    domain_preservations = ["1e0","1e1","1e2","1e3"] #  (this is lambda 3 in the paper) Celeb [8e+3] ... this is too much? and weird numbers let's do ["1e0","1e1,""1e2","1e3" .. observe the trend] ... paper use 0.8 but paper said [8e+3] for celeb
+    general_preservations = ["0"] # ["1e-4"] # COCO ... we don't use this
+    learning_rates = ["1e-4"]# ["1e-3", "1e-4", "1e-5"]
+    num_gen_images = [8] # [50] # [8]  default is 8 consistently
+    lora_ranks = [1] # always used 1 according to the paper
+    max_train_steps = [50] # [50,200] ... 50 accord to the paper
+    # use_prs = [True] # [True, False]
+
+    # seed_adds = [3,4]
+
+    # sur_concept = 'object'
+    base_exp_steps = [0] # we want to see it fit first
+
+
+
+    for base_exp in base_exps:
+        for seed_add in seed_adds:
+        
+            target_concept = concept
+                # print(f"target_concept is set to '{target_concept}' manually")
+            # else:
+            #     print("Warning: target_concept is not set and could not be inferred from base_exp.")
+
+            pretrained_model_name_or_path = 'CompVis/stable-diffusion-v1-4'
+
+
+
+            for base_exp_step in base_exp_steps:
+                for lr, num_img, lora_rank,  gen_pr, domain_pr, max_train_step in itertools.product(learning_rates, num_gen_images, lora_ranks,  general_preservations,domain_preservations, max_train_steps):
+                    
+                    
+                    
+                    
+                    exp_name = f"mace.ps{domain_pr}_U.{target_concept}_sd1.4.bf16_r{seed_add}"
+   
+                    final_seed = 2024 + seed_add
+                    # mapping_concept = f"['{concept2mapping_concept[target_concept][1]}']"
+                    
+                    target_concept_name = shortname2concept[target_concept]
+                    target_concept_name = target_concept_name.replace("a painting in the style of ","") # a painting in the style of Van Gogh -> Van Gogh (they already have prompt inside)
+                    
+                    
+                    mapping_concept = concept2generic_concept[target_concept_name]
+                    format_target_concept = target_concept_name.replace(' ','-').lower()
+                    # minor hueristic from MACE paper
+                    if mapping_concept == 'person': 
+                        mapping_concept = 'a person' 
+                        concept_type = "object"
+                        domain_preservation_cache_path = 'data_root/cache/mace/custom/cache_person.pt'
+                        
+                    elif 'artist' in mapping_concept :
+                        mapping_concept = 'artist' # they used just 'art' in the paper
+                        concept_type = "style"
+                        domain_preservation_cache_path = 'data_root/cache/mace/custom/cache_artist.pt'
+                        
+                    elif target_concept == "naked":
+                        mapping_concept = 'dressed person'
+                        concept_type = "object"
+                        domain_preservation_cache_path = 'data_root/cache/mace/custom/cache_dressed_person.pt'
+                    
+                    
+                    # print(mapping_concept, format_target_concept)
+                    
+                    
+                    # config_name =  "erase_default.yaml"
+                    # if 'sceleb5' in target_concept:
+                    config_name = "erase_celeb_1.yaml"
+                    
+                    
+                    script = f""" python data_preparation.py configs/custom/{config_name} \\
+                    exp_name="{exp_name}" \\
+                    MACE.pretrained_model_name_or_path="{pretrained_model_name_or_path}" \\
+                    MACE.num_gen_images={num_img} MACE.seed={final_seed} \\
+                    MACE.multi_concept="[ [ [{erase_target_concept[target_concept]}, {concept_type}] ] ]" \\
+                    MACE.input_data_dir="data_root/generated/mace/{base_exp}/r{seed_add}"
+        python training.py configs/custom/{config_name} \\
+                    exp_name="{exp_name}" \\
+                    MACE.pretrained_model_name_or_path="{pretrained_model_name_or_path}" \\
+                    MACE.learning_rate={lr} MACE.max_train_steps={max_train_step} MACE.seed={final_seed} \\
+                    MACE.rank={lora_rank} \\
+                    MACE.num_gen_images={num_img} \\
+                    MACE.domain_preservation_cache_path={domain_preservation_cache_path} MACE.mapping_concept="{f"['{mapping_concept}']"}" \\
+                    MACE.train_preserve_scale={gen_pr} MACE.preserve_weight={domain_pr} \\
+                    MACE.multi_concept="[ [ [{erase_target_concept[target_concept]}, {concept_type}] ] ]" \\
+                    MACE.input_data_dir="data_root/generated/mace/{base_exp}/r{seed_add}" 
+                    """
+
+
+                    
+                    print(script)
+                    # print(exp_name)
+                    exp_names += [exp_name]
+                    
+print(len(exp_names), "experiments generated")
+print(exp_names)

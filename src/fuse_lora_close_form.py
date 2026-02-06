@@ -3,18 +3,30 @@ from diffusers import StableDiffusionPipeline
 from src.cfr_utils import *
 from src.dataset import MACEDataset
 import gc
+from diffusers import AutoencoderKL, DDPMScheduler, DiffusionPipeline, UNet2DConditionModel
+from safetensors.torch import save_file
+import os
 
+
+        
 
 def main(args):   
         
     model_id = f"{args.output_dir}"
+    # model_id = "CompVis/stable-diffusion-v1-4"
+    print(f'loading pretrained model from: ', model_id)
+    
     # load previously trained mode with LoRA
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    
+    
     lora_pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32).to(device)
+    # lora_pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.bfloat16).to(device)
     lora_pipe.safety_checker = None
     lora_pipe.requires_safety_checker = False
     
-    final_pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32).to("cuda")
+    final_pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32).to(device)
+    # final_pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.bfloat16).to(device)
     final_pipe.safety_checker = None
     final_pipe.requires_safety_checker = False
     
@@ -116,18 +128,24 @@ def main(args):
             cache_dict[key] = args.train_preserve_scale * (prior_preservation_cache_dict[key] \
                             + args.preserve_weight * domain_preservation_cache_dict[key]) \
                             + CFR_dict[key]
-    
+
+        # final_projection_matrices is the learable parameters Wk
         closed_form_refinement(final_projection_matrices, lamb=args.lamb, preserve_scale=1, cache_dict=cache_dict)
     else:
         for key in prior_preservation_cache_dict:
             cache_dict[key] = prior_preservation_cache_dict[key] \
                             + args.preserve_weight * domain_preservation_cache_dict[key]
-                            
+        # final_projection_matrices is the learable parameters Wk
         closed_form_refinement(final_projection_matrices, all_contexts, all_valuess, lamb=args.lamb, 
                                preserve_scale=args.fuse_preserve_scale, cache_dict=cache_dict)
 
     # save the final model
     final_pipe.save_pretrained(args.final_save_path)
+    
+    os.makedirs(f"{args.final_save_path}_", exist_ok=True)
+    save_file(final_pipe.unet.state_dict(), f"{args.final_save_path}_/unet.safetensors")
+    
+    
 
     
 

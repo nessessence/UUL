@@ -22,29 +22,30 @@ def main(conf):
     # generate 8 images per concept using the original model for performing erasure
     if conf.MACE.generate_data:
         
-        if conf.MACE.existing_input_data_dir is not None and conf.MACE.existing_input_data_dir:
-            print('not implemented')
-            exit()
-        else:
+        # if conf.MACE.existing_input_data_dir is not None and conf.MACE.existing_input_data_dir:
+        #     print(conf.MACE.existing_input_data_dir )
+        #     print('not implemented')
+        #     exit()
+        # else:
         
-            print(f'generating images to {conf.MACE.input_data_dir}')
-            print(f'original pretrained_weight to {conf.MACE.pretrained_model_name_or_path}')
-            inference(OmegaConf.create({
-                # "pretrained_model_name_or_path": 'CompVis/stable-diffusion-v1-4',
-                "pretrained_model_name_or_path": conf.MACE.pretrained_model_name_or_path,
-                "multi_concept": conf.MACE.multi_concept,
-                "generate_training_data": True,
-                "device": device,
-                "steps": 50,
-                "num_gen_images": conf.MACE.num_gen_images,
-                "gen_seed": conf.MACE.gen_seed,
-                "gen_dtype": conf.MACE.gen_dtype,
-                "cfg_scale": conf.MACE.cfg_scale,
-                "output_dir": conf.MACE.input_data_dir,
-                "lora_weight_dir_path": conf.MACE.lora_weight_dir_path,
-                "token_embedding_dir_path": conf.MACE.token_embedding_dir_path
-                
-            }))
+        print(f'generating images to {conf.MACE.input_data_dir}')
+        print(f'original pretrained_weight to {conf.MACE.pretrained_model_name_or_path}')
+        inference(OmegaConf.create({
+            # "pretrained_model_name_or_path": 'CompVis/stable-diffusion-v1-4',
+            "pretrained_model_name_or_path": conf.MACE.pretrained_model_name_or_path,
+            "multi_concept": conf.MACE.multi_concept,
+            "generate_training_data": True,
+            "device": device,
+            "steps": 50,
+            "num_gen_images": conf.MACE.num_gen_images,
+            "gen_seed": conf.MACE.gen_seed,
+            "gen_dtype": conf.MACE.gen_dtype,
+            "cfg_scale": conf.MACE.cfg_scale,
+            "output_dir": conf.MACE.input_data_dir,
+            "lora_weight_dir_path": conf.MACE.lora_weight_dir_path,
+            "token_embedding_dir_path": conf.MACE.token_embedding_dir_path
+            
+        }))
     print(conf.MACE.use_gsam_mask)
     # get and save masks for each image
     if conf.MACE.use_gsam_mask:

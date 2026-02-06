@@ -221,8 +221,10 @@ class AttnController:
             attn_prob = attn_prob[:attn_prob.shape[0] // latent_num]
             
         if self.use_gsam_mask:
+            # print('entering gsam mask usage')
             d = int(attn_prob.shape[1] ** 0.5)
             resized_mask = F.interpolate(self.mask, size=(d, d), mode='nearest')
+            
             
             # # save mask
             # img_array = (resized_mask > 0.5).to(torch.uint8) * 255
@@ -236,6 +238,7 @@ class AttnController:
         else:
             head_num = attn_prob.shape[0] // bs
             target_attns = attn_prob.masked_select(self.concept_positions[:,None,:].repeat(head_num, 1, 1)).reshape(-1, self.concept_positions[0].sum())
+        
         
         self.attn_probs.append(target_attns)
         self.logs.append(m_name)

@@ -36,6 +36,7 @@ def main(args):
     # args.gen_dtype = 'fp16's
     if args.gen_dtype == 'fp16': gen_dtype = torch.float16
     if args.gen_dtype == 'fp32':gen_dtype = torch.float32
+    if args.gen_dtype == 'bf16':gen_dtype = torch.bfloat16
     
     print(f'generation dtype: {args.gen_dtype}')
     model_id = args.pretrained_model_name_or_path
@@ -44,17 +45,17 @@ def main(args):
     pipe.requires_safety_checker = False
     pipe.set_progress_bar_config(disable=True)
     
-    if args.lora_weight_dir_path is not None and  args.lora_weight_dir_path:
-        print('loading LoRA into UNet ....')
-        print(f'LoRA path: {args.lora_weight_dir_path}')
-        pipe.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")
-        pipe.fuse_lora()
-        print('Fused LoRA  ....')
+    # if args.lora_weight_dir_path is not None and  args.lora_weight_dir_path:
+    #     print('loading LoRA into UNet ....')
+    #     print(f'LoRA path: {args.lora_weight_dir_path}')
+    #     pipe.load_lora_weights(args.lora_weight_dir_path, weight_name="pytorch_lora_weights.safetensors")
+    #     pipe.fuse_lora()
+    #     print('Fused LoRA  ....')
 
-    if args.token_embedding_dir_path is not None and args.token_embedding_dir_path:
-        # Load token embeddings from the specified path
-        load_token_embedding(pipe.text_encoder, pipe.tokenizer,osp.join(args.token_embedding_dir_path,'token_embedding.pt'))
-        print(f"Token embeddings loaded from {args.token_embedding_dir_path}")
+    # if args.token_embedding_dir_path is not None and args.token_embedding_dir_path:
+    #     # Load token embeddings from the specified path
+    #     load_token_embedding(pipe.text_encoder, pipe.tokenizer,osp.join(args.token_embedding_dir_path,'token_embedding.pt'))
+    #     print(f"Token embeddings loaded from {args.token_embedding_dir_path}")
     
     
     
@@ -119,6 +120,7 @@ def main(args):
         images = pipe(prompt, num_inference_steps=args.steps, guidance_scale=7.5, num_images_per_prompt=num_images).images
         for i, im in enumerate(images):
             im.save(f"{output_folder}/o_{prompt.replace(' ', '-')}_{i}.jpg")  
+            print(f"Saved image to {output_folder}/o_{prompt.replace(' ', '-')}_{i}.jpg")
         
         torch.cuda.empty_cache()
         gc.collect()
@@ -135,6 +137,9 @@ if __name__ == "__main__":
     parser.add_argument('--prompt', type=str, default=None)
     parser.add_argument('--model_path', type=str, default=None)
     parser.add_argument('--save_path', type=str, default=None)
+    
+    parser.add_argument('--gen_dtype', type=str, default='bf16') # my add
+    
     args = parser.parse_args()
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -143,6 +148,7 @@ if __name__ == "__main__":
     output_dir = args.save_path
     num_images = args.num_images
     prompt = args.prompt
+    gen_dtype = args._get_args
     
     main(OmegaConf.create({
         "pretrained_model_name_or_path": model_id,
@@ -152,4 +158,5 @@ if __name__ == "__main__":
         "output_dir": output_dir,
         "num_images": num_images,
         "prompt": prompt,
+        "gen_dtype": args.gen_dtype,
     }))
