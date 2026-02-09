@@ -1839,198 +1839,103 @@ if __name__ == '__main__':
             
             optimizer.zero_grad(set_to_none=True)
 
-            if (not args.apply_gradient_projection):
-                # ---- baseline (same as before) ----
-                
-                loss_print_logs = {}
-                
-                preservation_weight = args.preservation_weight if args.preservation_weight is not None else 0.0
+            
+            loss_print_logs = {}
+            
+            preservation_weight = args.preservation_weight if args.preservation_weight is not None else 0.0
 
+            
+            loss_print_logs['unlearn_loss'] = unlearn_loss.item()
+            loss_print_logs['preservation_loss'] = preservation_loss.item()
+            
+            if args.aei_loss_weight > 0.0:
                 
-                loss_print_logs['unlearn_loss'] = unlearn_loss.item()
-                loss_print_logs['preservation_loss'] = preservation_loss.item()
+                # print(p_e.shape, p_g.shape)
+                a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
+                    unet_u=esd_unet, 
+                    unet_0=base_unet,
+                    # p_e=erase_embeds[0:1,:,:], #[b,77,768] -> [1,77,768]
+                    # p_g=general_embeds[0:1,:,:],#[b,77,768] -> [1,77,768]
+                    p_e=p_e,
+                    p_g=p_g,
+                    m_excl=args.ang_excl_margin,
+                    m_incl=args.ang_incl_margin,
+                    sim_param_group=args.sim_param_group,
+                    # sim_param_group="avg_token",
+                    # sim_param_group="token",
+                    
+                )
                 
-                if args.aei_loss_weight > 0.0:
-                    
-                    # print(p_e.shape, p_g.shape)
-                    a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
-                        unet_u=esd_unet, 
-                        unet_0=base_unet,
-                        # p_e=erase_embeds[0:1,:,:], #[b,77,768] -> [1,77,768]
-                        # p_g=general_embeds[0:1,:,:],#[b,77,768] -> [1,77,768]
-                        p_e=p_e,
-                        p_g=p_g,
-                        m_excl=args.ang_excl_margin,
-                        m_incl=args.ang_incl_margin,
-                        sim_param_group=args.sim_param_group,
-                        # sim_param_group="avg_token",
-                        # sim_param_group="token",
-                        
-                    )
-                    
-     
-                    # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
-                    
-                    
-                    aei_loss = (args.ang_excl_loss_weight*a_excl_loss) + (args.ang_incl_loss_weight* a_incl_loss) + args.ang_norm_loss_weight*a_norm_loss   + args.ang_preserve_loss_weight* a_preserve_loss
-                    # aei_loss += a_mid_loss
-                    
-                    
-                    loss_print_logs['ang_excl_loss'] = a_excl_loss.item() * args.ang_excl_loss_weight
-                    loss_print_logs['ang_incl_loss'] = a_incl_loss.item() * args.ang_incl_loss_weight
-                    loss_print_logs['ang_norm_loss'] = a_norm_loss.item()
-                    # loss_print_logs['ang_mid_loss'] = a_mid_loss.item()
-                    loss_print_logs['aei_loss'] = aei_loss.item()
-                    loss_print_logs['ang_preserve_loss'] = a_preserve_loss.item()  # * args.ang_preserve_loss_weight
-                    
-                    # initialize with aei loss
-                    total_loss = args.aei_loss_weight*aei_loss 
-                     
-                    # generic mapping/ neg guidance/unlearn loss
-                    # loss_print_logs['unlearn_loss'] = unlearn_loss.item() ... already logged above
-                    total_loss += args.generic_loss_weight * unlearn_loss
-                    
-                    # preservation loss
-                    # loss_print_logs['preservation_loss'] = preservation_loss.item() .... already logged above
-                    total_loss += preservation_weight * preservation_loss
-                    
-                    # l2 weight modification loss (inconsistent for now)
-                    if args.weight_modification_weight is not None and args.weight_modification_weight > 0.0:
-                        loss_print_logs['weight_modification_loss'] = weight_modification_loss.item()
-                        total_loss += args.weight_modification_weight*weight_modification_loss
-                        
-       
-                    
-                else:
-                    if args.preservation_weight_option == 'convex':
-                        total_loss = (1.0 - preservation_weight) * unlearn_loss + preservation_weight * preservation_loss
-                    else:
-                        total_loss = unlearn_loss + preservation_weight * preservation_loss
-
-                        
-                loss_print_logs['total_loss'] = total_loss.item()
+    
+                # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
                 
                 
-                print(" | ".join([f"{k}: {v:.6f}" for k,v in loss_print_logs.items()]))
+                aei_loss = (args.ang_excl_loss_weight*a_excl_loss) + (args.ang_incl_loss_weight* a_incl_loss) + args.ang_norm_loss_weight*a_norm_loss   + args.ang_preserve_loss_weight* a_preserve_loss
+                # aei_loss += a_mid_loss
                 
                 
-                # if args.preservation_weight :
-                #     total_loss = unlearn_loss + args.preservation_weight * preservation_loss
-                # else:
-                #     total_loss = unlearn_loss
-                # print(f"total_loss: {total_loss.item()}, "
-                #     f"unlearn_loss: {unlearn_loss.item()}, "
-                #     f"preservation_loss: {preservation_loss.item()}")
-                total_loss.backward()
+                loss_print_logs['ang_excl_loss'] = a_excl_loss.item() * args.ang_excl_loss_weight
+                loss_print_logs['ang_incl_loss'] = a_incl_loss.item() * args.ang_incl_loss_weight
+                loss_print_logs['ang_norm_loss'] = a_norm_loss.item()
+                # loss_print_logs['ang_mid_loss'] = a_mid_loss.item()
+                loss_print_logs['aei_loss'] = aei_loss.item()
+                loss_print_logs['ang_preserve_loss'] = a_preserve_loss.item()  # * args.ang_preserve_loss_weight
                 
-                # max_grad_norm = 1.0
-                # torch.nn.utils.clip_grad_norm_(esd_unet.parameters(), max_grad_norm)
-
-
-
-                # total_norm = torch.nn.utils.clip_grad_norm_(
-                #     # (p for p in esd_params.parameters() if p.grad is not None),
-                #     (p for p in esd_params if p.grad is not None),
-                #     max_norm=float('inf')   # <-- no clipping, just measure
-                # )
-                # print(f"[step {training_step}] grad_norm = {total_norm.item():.4f}")
-
-
-                optimizer.step()
-
+                # initialize with aei loss
+                total_loss = args.aei_loss_weight*aei_loss 
+                    
+                # generic mapping/ neg guidance/unlearn loss
+                # loss_print_logs['unlearn_loss'] = unlearn_loss.item() ... already logged above
+                total_loss += args.generic_loss_weight * unlearn_loss
+                
+                # preservation loss
+                # loss_print_logs['preservation_loss'] = preservation_loss.item() .... already logged above
+                total_loss += preservation_weight * preservation_loss
+                
+                # l2 weight modification loss (inconsistent for now)
+                if args.weight_modification_weight is not None and args.weight_modification_weight > 0.0:
+                    loss_print_logs['weight_modification_loss'] = weight_modification_loss.item()
+                    total_loss += args.weight_modification_weight*weight_modification_loss
+                    
+    
+                
             else:
-                # print(unlearn_loss, preservation_loss)
-                # print('unlearn_loss:', unlearn_loss.item(), 'preservation_loss:', preservation_loss.item())
-                # ---- gradient surgery: resolve conflicts by projecting UNLEARN ⟂ PRESERVE ----
-                
-                # for layer_name,grad in unlearn_param_grads.items():
-                # print("unlearn grad ", layer_name, grad.shape)
-                
-                unlearn_slice = slice(0, (2*batch_size)//2)
-                preservation_slice = slice((2*batch_size)//2, 2*batch_size)
-                
-                # print(f"before unlearn loss {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
-                
-                # A) backprop Unlearning Loss
-                unlearn_loss.backward(retain_graph=True)
-                unlearn_param_grads = collect_param_grads(unet, learnable_param_names) 
-                
-                # set zero grads before next backprop
-                # print(f"before zero {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
-                zero_param_grads(unet, learnable_param_names, set_to_none=False)
-                # print(f"after zero {unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
-
-                # B) backprop Preservation Loss
-                preservation_loss.backward(retain_graph=True)
-                preserve_param_grads = collect_param_grads(unet, learnable_param_names) 
-                
-                # C) resolve conflicts (do projection and combine with preservation gradient)
-                
-                if args.unlearn_proj_prob < 1.0 or (args.collect_gradient_statistics_option is not None and args.collect_gradient_statistics_option in ['dynamic','static']):
-                    
-                    if args.collect_gradient_statistics_option is not None and args.collect_gradient_statistics_option in ['dynamic','static']:
-                        resolved_grads, grad_stats = generalize_gradient_projection_prob(
-                            unlearn_param_grads, preserve_param_grads,
-                            param_group_type=args.gradient_projection_param_group,                      # 'global' | 'attn_head'
-                            projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
-                            scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
-                            preservation_weight_option=args.preservation_weight_option,
-                            A_proj_prob=args.unlearn_proj_prob,
-                            rng=proj_rng,
-                            collect_statistics=True
-                        )
-                        
-                        for key in grad_stats:
-                            total_grad_stats[key] += [grad_stats[key].detach().cpu()]
-
-
-                            print(f"total {key}: {len(total_grad_stats[key])}")
-                            
-                        total_grad_stats['timesteps'].append(timestep.detach().cpu().item())
-                        
-                    else:
-                        resolved_grads = generalize_gradient_projection_prob(
-                            unlearn_param_grads, preserve_param_grads,
-                            param_group_type=args.gradient_projection_param_group,                      # 'global' | 'attn_head'
-                            projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
-                            scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
-                            preservation_weight_option=args.preservation_weight_option,
-                            A_proj_prob=args.unlearn_proj_prob,
-                            rng=proj_rng
-                        )
-
-                
-                else:
-                    resolved_grads = generalize_gradient_projection(
-                        unlearn_param_grads, preserve_param_grads,
-                        param_group_type=args.gradient_projection_param_group,                      # 'global' | 'attn_head'
-                        projection_mode=args.gradient_projection_mode,     # 'hard' | 'soft'
-                        scale=args.gradient_projection_preserve_scale,     # weight for PRESERVE branch
-                        preservation_weight_option=args.preservation_weight_option
-                    )
-
-                # D) inject and step
-                unet.zero_grad(set_to_none=True)
-                
-                # do not update if only collecting gradient statistics: static option
-                if args.collect_gradient_statistics_option is not None and args.collect_gradient_statistics_option == 'static': 
-                    print("Skipping gradient injection/step since only collecting static gradient statistics.")
-                    continue
-                
-                do_grad_injection(unet,resolved_grads,show_per_param=False)
-                # print(f"after injection{unet.mid_block.attentions[0].transformer_blocks[0].attn2.to_v.weight.grad}")
-                
-                optimizer.step()
-                
-                
-                
-                # just for log purpose (not really optimizing this)
-                preservation_weight = args.gradient_projection_preserve_scale
                 if args.preservation_weight_option == 'convex':
-                    total_loss = (1.0 - preservation_weight) * unlearn_loss.detach() + preservation_weight * preservation_loss.detach()
+                    total_loss = (1.0 - preservation_weight) * unlearn_loss + preservation_weight * preservation_loss
                 else:
-                    total_loss = unlearn_loss.detach() + preservation_weight * preservation_loss.detach()
-                
+                    total_loss = unlearn_loss + preservation_weight * preservation_loss
+
+                    
+            loss_print_logs['total_loss'] = total_loss.item()
+            
+            
+            print(" | ".join([f"{k}: {v:.6f}" for k,v in loss_print_logs.items()]))
+            
+            
+            # if args.preservation_weight :
+            #     total_loss = unlearn_loss + args.preservation_weight * preservation_loss
+            # else:
+            #     total_loss = unlearn_loss
+            # print(f"total_loss: {total_loss.item()}, "
+            #     f"unlearn_loss: {unlearn_loss.item()}, "
+            #     f"preservation_loss: {preservation_loss.item()}")
+            total_loss.backward()
+            
+            # max_grad_norm = 1.0
+            # torch.nn.utils.clip_grad_norm_(esd_unet.parameters(), max_grad_norm)
+
+
+
+            # total_norm = torch.nn.utils.clip_grad_norm_(
+            #     # (p for p in esd_params.parameters() if p.grad is not None),
+            #     (p for p in esd_params if p.grad is not None),
+            #     max_norm=float('inf')   # <-- no clipping, just measure
+            # )
+            # print(f"[step {training_step}] grad_norm = {total_norm.item():.4f}")
+
+
+            optimizer.step()
+
 
 
             # --- W&B log (after step) ---
