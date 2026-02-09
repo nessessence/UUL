@@ -2711,6 +2711,15 @@ if __name__ == "__main__":
             print(f'waiting for unet weight: {unet_weight_path}')
             time.sleep(30)
         time.sleep(50)
+    
+    # for mace
+    if 'mace' in args.pretrained_model_name_or_path  and args.wait_weight:
+        sd_weight_path =  osp.join(args.pretrained_model_name_or_path, "unet")
+        while not osp.exists(sd_weight_path):
+            print(f'waiting for pretrained weight: {sd_weight_path}')
+            time.sleep(60)
+        time.sleep(50)
+        
 
     main(args)
     

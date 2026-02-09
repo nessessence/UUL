@@ -19,6 +19,10 @@ def main(conf):
     
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     
+    # if conf.MACE.use_gsam_mask == 'true': conf.MACE.use_gsam_mask == True
+    # if conf.MACE.use_sam_hq == 'true': conf.MACE.use_sam_hq == True
+    
+    
     # generate 8 images per concept using the original model for performing erasure
     if conf.MACE.generate_data:
         
@@ -97,5 +101,6 @@ if __name__ == "__main__":
     conf = OmegaConf.merge(yaml_conf, override_conf)
     
     
+    print(conf.MACE.use_gsam_mask)
     
     main(conf)

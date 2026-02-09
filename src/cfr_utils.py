@@ -152,7 +152,6 @@ def prepare_k_v(text_encoder, projection_matrices, ca_layers, og_matrices, test_
             
 def closed_form_refinement(projection_matrices, all_contexts=None, all_valuess=None, lamb=0.5, 
                            preserve_scale=1, cache_dict=None, cache_dict_path=None, cache_mode=False):
-    
     with torch.no_grad():
         if cache_dict_path is not None:
             cache_dict = torch.load(cache_dict_path, map_location=projection_matrices[0].weight.device)
@@ -160,7 +159,7 @@ def closed_form_refinement(projection_matrices, all_contexts=None, all_valuess=N
         for layer_num in tqdm(range(len(projection_matrices))):
             gc.collect()
             torch.cuda.empty_cache()
-            
+            # the lamb is 0 in their config
             mat1 = lamb * projection_matrices[layer_num].weight
             mat2 = lamb * torch.eye(projection_matrices[layer_num].weight.shape[1], device=projection_matrices[layer_num].weight.device)
             

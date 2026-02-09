@@ -1,24 +1,689 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="13_0"
 
-  accelerate launch train_dreambooth_lora.py \
-                                --pretrained_model_name_or_path='data_root/logs/mace.ps1e0_U.obama_sd1.4.bf16_r0/LoRA_fusion_model/'  \
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
                                 --load_unet_weight_path="" \
                                 --load_lora_weight_path="" \
                                 --instance_data_dir="data_root/data/real_data/dummy" \
-                                --gen_image_path="data_root/generated/study/test_mace_ps1e0" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.mrobbie_sd1.4.bf16_r0/step0" \
                                 --output_dir="data_root/logs/gen" \
-                                --validation_prompt="a photo of Barack Obama;a photo of Drake;a photo of Margot Robbie" --instance_prompt="a photo of Barack Obama;a photo of Drake;a photo of Margot Robbie" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.mrobbie_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.mrobbie_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                                 --run_note 'gen img' --wait_weight \
                                 --num_validation_images 100 \
                                 --donot_reinit_validation_generator \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 
-
-
+                                
 $$$$
 : << 'COMMENT'
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.naked_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.naked_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.naked_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of dressed person;a photo of dressed man;a photo of dressed woman;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of dressed person;a photo of dressed man;a photo of dressed woman;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Picasso;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Jackson Pollock" --instance_prompt="a painting in the style of Picasso;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Jackson Pollock" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.vgogh_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.vgogh_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.vgogh_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso;a painting in the style of Jackson Pollock" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso;a painting in the style of Jackson Pollock" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.cmonet_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.cmonet_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.cmonet_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Claude Monet;a painting in the style of Van Gogh;a painting in the style of Picasso;a painting in the style of Jackson Pollock" --instance_prompt="a painting in the style of Claude Monet;a painting in the style of Van Gogh;a painting in the style of Picasso;a painting in the style of Jackson Pollock" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.pollock_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.pollock_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.pollock_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso" --instance_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+2.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+4.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+2_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+4_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.ps8e+3.coco1e-4_U.pollock_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e+3.coco1e-4_U.pollock_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso" --instance_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+# echo 'count:0 - mace.ps8e+3.coco1e-4_U.rihanna_sd1.4.bf16 0
+# '
+#                             accelerate launch train_dreambooth_lora.py \
+#                                 --pretrained_model_name_or_path='data_root2/logs/mace/mace.ps8e+3.coco1e-4_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+#                                 --load_unet_weight_path="" \
+#                                 --load_lora_weight_path="" \
+#                                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                                 --gen_image_path="data_root/generated/study/mace.ps8e+3.coco1e-4_U.rihanna_sd1.4.bf16_r0/step0" \
+#                                 --output_dir="data_root/logs/gen" \
+#                                 --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+#                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                                 --run_note 'gen img' --wait_weight \
+#                                 --num_validation_images 100 \
+#                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - mace.ps8e+5.coco1e-4_U.rihanna_sd1.4.bf16 0
+# '
+#                             accelerate launch train_dreambooth_lora.py \
+#                                 --pretrained_model_name_or_path='data_root2/logs/mace/mace.ps8e+5.coco1e-4_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+#                                 --load_unet_weight_path="" \
+#                                 --load_lora_weight_path="" \
+#                                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                                 --gen_image_path="data_root/generated/study/mace.ps8e+5.coco1e-4_U.rihanna_sd1.4.bf16_r0/step0" \
+#                                 --output_dir="data_root/logs/gen" \
+#                                 --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+#                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                                 --run_note 'gen img' --wait_weight \
+#                                 --num_validation_images 100 \
+#                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - mace.ps8e+7.coco1e-4_U.rihanna_sd1.4.bf16 0
+# '
+#                             accelerate launch train_dreambooth_lora.py \
+#                                 --pretrained_model_name_or_path='data_root2/logs/mace/mace.ps8e+7.coco1e-4_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+#                                 --load_unet_weight_path="" \
+#                                 --load_lora_weight_path="" \
+#                                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                                 --gen_image_path="data_root/generated/study/mace.ps8e+7.coco1e-4_U.rihanna_sd1.4.bf16_r0/step0" \
+#                                 --output_dir="data_root/logs/gen" \
+#                                 --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+#                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                                 --run_note 'gen img' --wait_weight \
+#                                 --num_validation_images 100 \
+#                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+# echo 'count:0 - mace.ps8e+9.coco1e-4_U.rihanna_sd1.4.bf16 0
+# '
+#                             accelerate launch train_dreambooth_lora.py \
+#                                 --pretrained_model_name_or_path='data_root2/logs/mace/mace.ps8e+9.coco1e-4_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+#                                 --load_unet_weight_path="" \
+#                                 --load_lora_weight_path="" \
+#                                 --instance_data_dir="data_root/data/real_data/dummy" \
+#                                 --gen_image_path="data_root/generated/study/mace.ps8e+9.coco1e-4_U.rihanna_sd1.4.bf16_r0/step0" \
+#                                 --output_dir="data_root/logs/gen" \
+#                                 --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+#                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+#                                 --run_note 'gen img' --wait_weight \
+#                                 --num_validation_images 100 \
+#                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16.bs4 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16.bs4/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16.bs4_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0.bf16.bs4 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0.bf16.bs4/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0.bf16.bs4_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+
+
 echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.60Iex0.60P32.00-N0.00G0.00_U.mrobbie_sd1.4.bf16.bs4 1000
 '
                             accelerate launch train_dreambooth_lora.py \
@@ -23263,6 +23928,638 @@ echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.20Iex0.40P4.00-N0.
                                 --load_lora_weight_path="" \
                                 --instance_data_dir="data_root/data/real_data/dummy" \
                                 --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.20Iex0.40P4.00-N0.00G0.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0.bf16.bs4 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0.bf16.bs4/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0.bf16.bs4_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16.bs4 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16.bs4/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16.bs4_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/logs/mace/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.mrobbie_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.obama_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Barack Obama;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e+6.coco.tr1e-4.fr1e-4.lamb0.00_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg0e+0.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.beckham_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.beckham_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.beckham_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of David Beckham;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.rihanna_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.rihanna_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.rihanna_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of Rihanna;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.naked_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.naked_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.naked_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of dressed person;a photo of dressed man;a photo of dressed woman;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of dressed person;a photo of dressed man;a photo of dressed woman;a photo of Margot Robbie;a photo of Anne Hathaway;a photo of Amy Adams;a photo of Emma Stone;a photo of Amber Heard;a photo of David Beckham;a photo of Chris Hemsworth;a photo of Elon Musk;a photo of Adam Driver;a photo of Andrew Garfield;a photo of Barack Obama;a photo of Morgan Freeman;a photo of Chris Rock;a photo of Will Smith;a photo of Idris Elba;a photo of Rihanna;a photo of Oprah Winfrey;a photo of Zendaya;a photo of Nicki Minaj;a photo of Octavia Spencer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Picasso;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Jackson Pollock" --instance_prompt="a painting in the style of Picasso;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Jackson Pollock" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.vgogh_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.vgogh_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.vgogh_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso;a painting in the style of Jackson Pollock" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso;a painting in the style of Jackson Pollock" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.cmonet_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.cmonet_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.cmonet_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Claude Monet;a painting in the style of Van Gogh;a painting in the style of Picasso;a painting in the style of Jackson Pollock" --instance_prompt="a painting in the style of Claude Monet;a painting in the style of Van Gogh;a painting in the style of Picasso;a painting in the style of Jackson Pollock" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.pollock_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.pollock_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.pollock_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso" --instance_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+2.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+4.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+0_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+2_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+2_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+4_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+4_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5e+4_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb2e+4_U.picasso_sd1.4.bf16_r0/step0" \
                                 --output_dir="data_root/logs/gen" \
                                 --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \

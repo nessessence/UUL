@@ -1,4 +1,5 @@
 import os
+import os.path as osp
 # os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 import sys
 from omegaconf import OmegaConf
@@ -88,11 +89,15 @@ if __name__ == "__main__":
     if "exp_name" in conf and conf.exp_name:
         print('overwrite output_dir by exp_name')
         exp = conf.exp_name
-        conf.MACE.output_dir = f"./data_root/logs/{exp}/CFR_with_multi_LoRAs"
-        conf.MACE.final_save_path = f"./data_root/logs/{exp}/LoRA_fusion_model"
+        
+        
+        conf.MACE.output_dir = osp.join(  conf.MACE.base_output_dir,f"{exp}/CFR_with_multi_LoRAs")
+        conf.MACE.final_save_path = osp.join( conf.MACE.base_output_dir, f"{exp}/LoRA_fusion_model")
         print(f"output_dir: {conf.MACE.output_dir}")
         print(f"final_save_path: {conf.MACE.final_save_path}")
         
+        
+        print(f"conf.MACE.use_gsam_mask: {conf.MACE.use_gsam_mask}")
         
         # conf.MACE.mixed_precision = "bf16"  # use bf16 for faster training and less memory usage
     

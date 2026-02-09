@@ -124,17 +124,30 @@ def main(args):
     # integrate the preserving knowledge and multi-lora knowledge
     cache_dict = {}
     if len(train_dataset.dict_for_close_form) > max_concept_num:    
+
         for key in CFR_dict:
             cache_dict[key] = args.train_preserve_scale * (prior_preservation_cache_dict[key] \
                             + args.preserve_weight * domain_preservation_cache_dict[key]) \
                             + CFR_dict[key]
 
+
+
+                        
+                        
+                        
         # final_projection_matrices is the learable parameters Wk
         closed_form_refinement(final_projection_matrices, lamb=args.lamb, preserve_scale=1, cache_dict=cache_dict)
     else:
+        # this get activated
         for key in prior_preservation_cache_dict:
             cache_dict[key] = prior_preservation_cache_dict[key] \
                             + args.preserve_weight * domain_preservation_cache_dict[key]
+                            
+                            
+        # # my add:
+        # if not args.domain_preservation_cache_path and not args.prior_preservation_cache_path:
+        #     cache_dict = None # ... so that they would not consider this in closed_form_refinement
+            
         # final_projection_matrices is the learable parameters Wk
         closed_form_refinement(final_projection_matrices, all_contexts, all_valuess, lamb=args.lamb, 
                                preserve_scale=args.fuse_preserve_scale, cache_dict=cache_dict)
@@ -142,8 +155,8 @@ def main(args):
     # save the final model
     final_pipe.save_pretrained(args.final_save_path)
     
-    os.makedirs(f"{args.final_save_path}_", exist_ok=True)
-    save_file(final_pipe.unet.state_dict(), f"{args.final_save_path}_/unet.safetensors")
+    # os.makedirs(f"{args.final_save_path}_", exist_ok=True)
+    # save_file(final_pipe.unet.state_dict(), f"{args.final_save_path}_/unet.safetensors")
     
     
 

@@ -337,6 +337,7 @@ def main(args):
     if args.prior_preservation_cache_path:
         prior_preservation_cache_dict = torch.load(args.prior_preservation_cache_path, map_location=projection_matrices[0].weight.device)
     else:
+
         prior_preservation_cache_dict = {}
         for layer_num in tqdm(range(len(projection_matrices))):
             prior_preservation_cache_dict[f'{layer_num}_for_mat1'] = .0
@@ -357,6 +358,12 @@ def main(args):
         cache_dict[key] = args.train_preserve_scale * (prior_preservation_cache_dict[key] \
                         + args.preserve_weight * domain_preservation_cache_dict[key]) \
                         + CFR_dict[key]
+                        
+    # my add:
+    # if not args.domain_preservation_cache_path and not args.prior_preservation_cache_path:
+    #     cache_dict = None # ... so that they would not consider this in closed_form_refinement
+                        
+        # print(cache_dict[key] )
     
     # closed-form refinement
     projection_matrices, _, _ = get_ca_layers(unet, with_to_k=True)
@@ -364,6 +371,8 @@ def main(args):
     if len(train_dataset.dict_for_close_form) > max_concept_num:
         closed_form_refinement(projection_matrices, lamb=args.lamb, preserve_scale=1, cache_dict=cache_dict)
     else:
+        # this is activated
+        # see that .. there will be doubling the scale.  lamb1*( lamda1 + lambda3)
         closed_form_refinement(projection_matrices, contexts, valuess, lamb=args.lamb, 
                                preserve_scale=args.train_preserve_scale, cache_dict=cache_dict)
     

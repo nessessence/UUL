@@ -9,6 +9,7 @@ Grounded-Segment-Anything/
 cache/
 wandb/
 data_root/cache/*.pt
+data_root2
 temp/
 DUO/train/outputs
 DUO/train/outputs_testcustom
@@ -16,3 +17,4 @@ concept_ablation
 metrics/gcd/examples/resources
 metrics/gcd/examples/backup_resources
 metrics/gcd/examples/resources
+test
