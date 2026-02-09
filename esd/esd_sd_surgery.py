@@ -982,6 +982,7 @@ if __name__ == '__main__':
 
     parser.add_argument( "--apply_poison",action='store_true') # many unlearned model, UCE, ESD, 
     
+    parser.add_argument( "--neg_guidance_method",type=str, default='cfg') #  'cfg'(default as ESD), ccfg
     
     parser.add_argument("--aei_loss_weight", type=float, default=0.0)
     parser.add_argument("--ang_excl_margin",type=float, default=0.0)
@@ -1500,29 +1501,80 @@ if __name__ == '__main__':
 
 
 
-            # 
-            if args.apply_poison:
-                print('apply poisoning pipeline  ') # retrive pretrained signal
+            noise_pred_erase = pipe.unet(
+                xt,
+                timestep,
+                encoder_hidden_states=erase_embeds,
+                timestep_cond=timestep_cond,
+                cross_attention_kwargs=None,
+                added_cond_kwargs=None,
+                return_dict=False,
+            )[0]
+            
+            # get the noise predictions for null embeds
+            noise_pred_base = pipe.unet(
+                xt,
+                timestep,
+                encoder_hidden_states=base_embeds,
+                timestep_cond=timestep_cond,
+                cross_attention_kwargs=None,
+                added_cond_kwargs=None,
+                return_dict=False,
+            )[0]
+
+            if args.erase_from == 'uncond':
+                noise_pred_erase_from = noise_pred_base
+        
+        
+            elif args.erase_from == 'general':
+                noise_pred_erase_from = pipe.unet(
+                    xt,
+                    timestep,
+                    encoder_hidden_states=general_embeds,
+                    timestep_cond=timestep_cond,
+                    cross_attention_kwargs=None,
+                    added_cond_kwargs=None,
+                    return_dict=False,
+                )[0]
+            
+            elif args.erase_from == 'neighbor':
+                noise_pred_erase_from = pipe.unet(
+                    xt,
+                    timestep,
+                    encoder_hidden_states=neighbor_embeds,
+                    timestep_cond=timestep_cond,
+                    cross_attention_kwargs=None,
+                    added_cond_kwargs=None,
+                    return_dict=False,
+                )[0]
+
+            elif args.erase_from == 'object':
+                noise_pred_erase_from = pipe.unet(
+                    xt,
+                    timestep,
+                    encoder_hidden_states=object_embeds,
+                    timestep_cond=timestep_cond,
+                    cross_attention_kwargs=None,
+                    added_cond_kwargs=None,
+                    return_dict=False,
+                )[0]
                 
-                # [x_e, x_g, x_p] -> [x_e, x_g, x_p, x_p]
-                xt = torch.cat([xt, xt[2:3]], dim=0)
-        # - E(x_e|p_g) <- E(x_e|p_ps) poisioning
-		# - E(x_g|p_g) <- E(x_g|p_g) preserve generic
-		# - E(x_p|p_g) <- E(x_p|p_g) preserve specifc
-		# - E(x_p|p_p) <- E(x_p|p_p) preserve specifc
-		# - E(x_g|p_p) <- E(x_g|p_p)  .... less prioritize
-          
-                poison_denoise_prompts = [poison_concept, generic_concept, generic_concept, peer_concept]
-                poison_batch_embeds, _ = pipe.encode_prompt(prompt=poison_denoise_prompts,
+                
+            elif args.erase_from == 'forward' and apply_extra_forward:
+                print(f'erase from forward concept: {forward_concept}')
+                
+                forward_embeds, _ = pipe.encode_prompt(prompt=forward_concept,
                                                 device=device,
-                                                num_images_per_prompt=1,
+                                                num_images_per_prompt=batch_size,
                                                 do_classifier_free_guidance=True,
-                                                negative_prompt=['']*len(poison_denoise_prompts))
-                                                       
-                pretrained_noise_pred_poison_batch = pipe.unet(
+                                                negative_prompt='') 
+
+
+
+                noise_pred_erase_from = pipe.unet(
                     xt,
                     timestep,
-                    encoder_hidden_states=poison_batch_embeds,
+                    encoder_hidden_states=forward_embeds,
                     timestep_cond=timestep_cond,
                     cross_attention_kwargs=None,
                     added_cond_kwargs=None,
@@ -1530,144 +1582,60 @@ if __name__ == '__main__':
                 )[0]
                 
                 
-                
-            # regular ESD pipeline
             else:
-                noise_pred_erase = pipe.unet(
-                    xt,
-                    timestep,
-                    encoder_hidden_states=erase_embeds,
-                    timestep_cond=timestep_cond,
-                    cross_attention_kwargs=None,
-                    added_cond_kwargs=None,
-                    return_dict=False,
-                )[0]
+                noise_pred_erase_from = noise_pred_erase
                 
-                # get the noise predictions for null embeds
-                noise_pred_base = pipe.unet(
-                    xt,
-                    timestep,
-                    encoder_hidden_states=base_embeds,
-                    timestep_cond=timestep_cond,
-                    cross_attention_kwargs=None,
-                    added_cond_kwargs=None,
-                    return_dict=False,
-                )[0]
+            if args.preservation_weight is not None and args.preservation_weight > 0:
+                
+                
+                if batch_size == 1:
+                    preservation_concept = rng.choice(preservation_concepts).item()
+                    print(f"preservation_concept: {preservation_concept}")
+                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
+                                                                device=device,
+                                                                num_images_per_prompt=batch_size,
+                                                                do_classifier_free_guidance=True,
+                                                                negative_prompt='')
 
-                if args.erase_from == 'uncond':
-                    noise_pred_erase_from = noise_pred_base
-            
-            
-                elif args.erase_from == 'general':
-                    noise_pred_erase_from = pipe.unet(
-                        xt,
+
+                                                                
+                    preservation_embeds = preservation_embeds.to(device)    
+                                                                
+                    xt_ps = pipe(preservation_concept, 
+                            num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+                    noise_pred_ps = pipe.unet(
+                        xt_ps,
                         timestep,
-                        encoder_hidden_states=general_embeds,
+                        encoder_hidden_states=preservation_embeds,
                         timestep_cond=timestep_cond,
                         cross_attention_kwargs=None,
                         added_cond_kwargs=None,
                         return_dict=False,
                     )[0]
                 
-                elif args.erase_from == 'neighbor':
-                    noise_pred_erase_from = pipe.unet(
-                        xt,
+                    # will use this if it work
+                elif batch_size > 1:
+                    # print(preservation_concepts)
+                    preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=len(preservation_concepts) < batch_size).tolist()
+                    print(f"preservation_concept: {preservation_concept}")
+                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
+                                                                device=device,
+                                                                num_images_per_prompt=1, # fix to 1 now
+                                                                do_classifier_free_guidance=True,
+                                                                negative_prompt=['']*batch_size)
+                        
+                        
+                    xt_ps = pipe(preservation_concept, 
+                            num_images_per_prompt=1, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
+                    noise_pred_ps = pipe.unet(
+                        xt_ps,
                         timestep,
-                        encoder_hidden_states=neighbor_embeds,
+                        encoder_hidden_states=preservation_embeds,
                         timestep_cond=timestep_cond,
                         cross_attention_kwargs=None,
                         added_cond_kwargs=None,
                         return_dict=False,
                     )[0]
-
-                elif args.erase_from == 'object':
-                    noise_pred_erase_from = pipe.unet(
-                        xt,
-                        timestep,
-                        encoder_hidden_states=object_embeds,
-                        timestep_cond=timestep_cond,
-                        cross_attention_kwargs=None,
-                        added_cond_kwargs=None,
-                        return_dict=False,
-                    )[0]
-                    
-                    
-                elif args.erase_from == 'forward' and apply_extra_forward:
-                    print(f'erase from forward concept: {forward_concept}')
-                    
-                    forward_embeds, _ = pipe.encode_prompt(prompt=forward_concept,
-                                                    device=device,
-                                                    num_images_per_prompt=batch_size,
-                                                    do_classifier_free_guidance=True,
-                                                    negative_prompt='') 
-
-
-
-                    noise_pred_erase_from = pipe.unet(
-                        xt,
-                        timestep,
-                        encoder_hidden_states=forward_embeds,
-                        timestep_cond=timestep_cond,
-                        cross_attention_kwargs=None,
-                        added_cond_kwargs=None,
-                        return_dict=False,
-                    )[0]
-                    
-                    
-                else:
-                    noise_pred_erase_from = noise_pred_erase
-                    
-                if args.preservation_weight is not None and args.preservation_weight > 0:
-                    
-                    
-                    if batch_size == 1:
-                        preservation_concept = rng.choice(preservation_concepts).item()
-                        print(f"preservation_concept: {preservation_concept}")
-                        preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
-                                                                    device=device,
-                                                                    num_images_per_prompt=batch_size,
-                                                                    do_classifier_free_guidance=True,
-                                                                    negative_prompt='')
-
-
-                                                                    
-                        preservation_embeds = preservation_embeds.to(device)    
-                                                                    
-                        xt_ps = pipe(preservation_concept, 
-                                num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
-                        noise_pred_ps = pipe.unet(
-                            xt_ps,
-                            timestep,
-                            encoder_hidden_states=preservation_embeds,
-                            timestep_cond=timestep_cond,
-                            cross_attention_kwargs=None,
-                            added_cond_kwargs=None,
-                            return_dict=False,
-                        )[0]
-                    
-                        # will use this if it work
-                    elif batch_size > 1:
-                        # print(preservation_concepts)
-                        preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=len(preservation_concepts) < batch_size).tolist()
-                        print(f"preservation_concept: {preservation_concept}")
-                        preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
-                                                                    device=device,
-                                                                    num_images_per_prompt=1, # fix to 1 now
-                                                                    do_classifier_free_guidance=True,
-                                                                    negative_prompt=['']*batch_size)
-                            
-                            
-                        xt_ps = pipe(preservation_concept, 
-                                num_images_per_prompt=1, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
-                        noise_pred_ps = pipe.unet(
-                            xt_ps,
-                            timestep,
-                            encoder_hidden_states=preservation_embeds,
-                            timestep_cond=timestep_cond,
-                            cross_attention_kwargs=None,
-                            added_cond_kwargs=None,
-                            return_dict=False,
-                        )[0]
                     
                 ###
                 
@@ -1831,7 +1799,24 @@ if __name__ == '__main__':
                 noise_pred_base = noise_pred_base.float()
                 
                 
-                unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
+                
+                if args.neg_guidance_method == 'ccfg':
+                    print('yes')
+                    
+                    
+                    noise_contrast = noise_pred_null
+                    noise_contrast += guidance_scale*(noise_pred_erase_from-noise_pred_null)
+                    tau = 0.2
+                    l2norm = tau * ((noise_pred_erase - noise_pred_null) ** 2).sum(dim=(1, 2, 3), keepdim=True)
+                    print(l2norm.shape)
+                    noise_contrast -= negative_guidance * (noise_pred_erase - noise_pred_null) * 2 * (torch.exp(-l2norm) / (1 + torch.exp(-l2norm)))
+
+                    loss = criteria(noise_pred_esd_model, noise_contrast) 
+
+            
+                else:
+                
+                    unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
                 preservation_loss = torch.tensor(0.0).to(device)
             
             
