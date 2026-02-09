@@ -632,7 +632,8 @@ def resolve_model_name(args): #, training_step):
     base_file_name = f"{train_method}"
     if args.negative_guidance:
         base_file_name += f".nG{args.negative_guidance:.2f}"
-        
+        if args.neg_guidance_method != 'cfg':
+            base_file_name += f"-{args.neg_guidance_method}"
         
     if args.extra_forward_prob is not None and args.extra_forward_prob > 0 and args.forward_general:
         
@@ -1801,17 +1802,19 @@ if __name__ == '__main__':
                 
                 
                 if args.neg_guidance_method == 'ccfg':
-                    print('yes')
+                    
+                    assert args.base_concept == 'null'
+                    noise_pred_null = noise_pred_base
                     
                     
                     noise_contrast = noise_pred_null
                     noise_contrast += guidance_scale*(noise_pred_erase_from-noise_pred_null)
                     tau = 0.2
                     l2norm = tau * ((noise_pred_erase - noise_pred_null) ** 2).sum(dim=(1, 2, 3), keepdim=True)
-                    print(l2norm.shape)
+                    # print(l2norm.shape)
                     noise_contrast -= negative_guidance * (noise_pred_erase - noise_pred_null) * 2 * (torch.exp(-l2norm) / (1 + torch.exp(-l2norm)))
 
-                    loss = criteria(noise_pred_esd_model, noise_contrast) 
+                    unlearn_loss = criteria(noise_pred_esd_model, noise_contrast) 
 
             
                 else:
@@ -1932,9 +1935,9 @@ if __name__ == '__main__':
                         "aei_loss": float(aei_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
                         "ang_excl_loss": float(a_excl_loss.detach().item()) * args.ang_excl_loss_weight if args.aei_loss_weight > 0.0 else None,
                         "ang_incl_loss": float(a_incl_loss.detach().item()) * args.ang_incl_loss_weight if args.aei_loss_weight > 0.0 else None,
-                        "ang_preserve_loss": float(a_preserve_loss.detach().item()) ,
+                        "ang_preserve_loss": float(a_preserve_loss.detach().item())  if args.aei_loss_weight > 0.0 else None,
                         "ang_norm_loss": float(a_norm_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
-                        "weight_modification_loss": float(weight_modification_loss.detach().item()) ,
+                        "weight_modification_loss": float(weight_modification_loss.detach().item())  if args.aei_loss_weight > 0.0 else None,
                         "total_weighted_loss": float((total_loss).detach().item()) if args.preservation_weight is not None else float(unlearn_loss.detach().item()),
                         "timestep": int(timestep.detach().cpu().item()),
                         "training_step": int(training_step),
