@@ -2,7 +2,13 @@
 
 export device="cuda:2"
 
-python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 16.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 0.50 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 2.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'a painting in the style of Picasso' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 16.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
 
 
 

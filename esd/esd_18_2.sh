@@ -1,6 +1,15 @@
 export device="cuda:2"
 
-python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Rihanna' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 0.50 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Rihanna' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 1.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Rihanna' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 2.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+python esd_sd_surgery.py --erase_concept 'Rihanna' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
+['esd-x.nG0.50-ccfg.fG_U.obama_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00-ccfg.fG_U.obama_sd1.4.bf16.bs4_r0', 'esd-x.nG2.00-ccfg.fG_U.obama_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00-ccfg.fG_U.obama_sd1.4.bf16.bs4_r0', 'esd-x.nG0.50-ccfg.fG_U.beckham_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00-ccfg.fG_U.beckham_sd1.4.bf16.bs4_r0', 'esd-x.nG2.00-ccfg.fG_U.beckham_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00-ccfg.fG_U.beckham_sd1.4.bf16.bs4_r0', 'esd-x.nG0.50-ccfg.fG_U.rihanna_sd1.4.bf16.bs4_r0', 'esd-x.nG1.00-ccfg.fG_U.rihanna_sd1.4.bf16.bs4_r0', 'esd-x.nG2.00-ccfg.fG_U.rihanna_sd1.4.bf16.bs4_r0', 'esd-x.nG3.00-ccfg.fG_U.rihanna_sd1.4.bf16.bs4_r0']
+Total experiments: 12
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 500 --device $device  --train_precision 'bf16'  --negative_guidance 3.00 --neg_guidance_method 'ccfg'  --unlearn_proj_prob 0.50  --erase_from 'general'  --batch_size 4 --seed 0
 
 
 
