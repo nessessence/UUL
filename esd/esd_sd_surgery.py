@@ -27,6 +27,11 @@ Artistic_Prelim_List = [
 ]
 
 
+concept2multiple_concepts = {
+    "4CELEB00": ["Margot Robbie", "David Beckham", "Barack Obama", "Rihanna"],
+    "8CELEB00": ["Margot Robbie", "David Beckham", "Barack Obama", "Rihanna"] + ["Emma Stone","Elon Musk","Morgan Freeman","Oprah Winfrey"],
+    "4ARTIST00": ["a painting in the style of Van Gogh", "a painting in the style of Claude Monet", "a painting in the style of Picasso", "a painting in the style of Jackson Pollock"]
+}
 
 bypass_preservation_concepts = [
     "naked person",
@@ -149,7 +154,12 @@ concept2generic_concept = {
                             "Mickey Mouse": "cartoon",
                             "R2D2 robot": "robot",
                             "Grumpy Cat": "cat",
-                            "Macbook": "laptop"
+                            "Macbook": "laptop",
+                            
+                            "4CELEB00" : "person",
+                            "8CELEB00" : "person",
+                            "4ARTIST00" : "a painting in the style of artist"
+                            
                             
                             
                             
@@ -239,6 +249,7 @@ def compute_angular_exclusion_inclusion_loss(
     layer_filter="attn2",  # cross-attention in diffusers SD1.4
     use_bias: bool = False,
     sim_param_group: str = "avg_token",  # {'avg_token', 'token', 'attn_head'}
+    max_token_seq_len: int = None, 
 ):
     """
     Angular exclusion + inclusion loss in KV projection space (unsquared hinge).
@@ -341,8 +352,13 @@ def compute_angular_exclusion_inclusion_loss(
             
 
             # Cosine per (token, head): [B, T, H]
-            cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
-            cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
+            if max_token_seq_len is not None:
+                print(f'using only {max_token_seq_len} tokens for angular loss computation')
+                cos_excl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_e_h[:, :max_token_seq_len], dim=-1)
+                cos_incl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_g_h[:, :max_token_seq_len], dim=-1)
+            else:
+                cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
+                cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
             
             
             # head-wise generic inclusion margin according to the original similarity between the target concept and the generic concept
@@ -746,7 +762,8 @@ def resolve_model_name(args): #, training_step):
         if args.generic_loss_weight is not None:
             base_file_name += f"G{args.generic_loss_weight:.2f}"         
 
-
+        if args.ang_loss_max_token_seq_len is not None and args.ang_loss_max_token_seq_len != 77 :
+            base_file_name += f"nT{args.ang_loss_max_token_seq_len}"   
         
     if args.apply_gradient_projection:
             base_file_name += f"_GP"
@@ -998,9 +1015,8 @@ if __name__ == '__main__':
     parser.add_argument("--weight_modification_weight",type=float, default=None)  # other unlearn losses
     
 
-    parser.add_argument('--sim_param_group', type=str,  default='token') # wandb
-    
-    
+    parser.add_argument('--sim_param_group', type=str,  default='token')
+    parser.add_argument('--ang_loss_max_token_seq_len', type=int, default=None) 
     
     
 
@@ -1218,15 +1234,40 @@ if __name__ == '__main__':
         
         
         ####
+        
+        erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00
+        
+        
         generic_concept = concept2generic_concept[erase_concept]
-        if 'a painting in the style of ' in erase_concept:
-            p_e_prompts = [erase_concept, f"an artwork of {erase_concept.replace('a painting in the style of ','')}", f"a photo in the style of {erase_concept.replace('a painting in the style of ','')}", f"a picture in the style of {erase_concept.replace('a painting in the style of ','')}"]
-            p_g_prompts = [generic_concept, f"an artwork of {generic_concept.replace('a painting in the style of ','')}", f"a photo in the style of {generic_concept.replace('a painting in the style of ','')}", f"a picture in the style of {generic_concept.replace('a painting in the style of ','')}"]
+        
+        
+        
+        
+        if erase_multiple_concepts:
+            erase_concepts = concept2multiple_concepts[erase_concept]
+            p_e_prompts = []; p_g_prompts = []
             
-        else: 
-            p_e_prompts = [erase_concept, f"a photo of {erase_concept}", f"an image of {erase_concept}", f"a picture of {erase_concept}", f"a photo of a {erase_concept}"]
-            p_g_prompts = [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"]
+            if 'ARTIST' in erase_concept:
+                for ec in erase_concepts:
+                    p_e_prompts.extend( [ec, f"a painting in the style of {ec}", f"an artwork of {ec}", f"a photo in the style of {ec}", f"a picture in the style of {ec}"] )
+                    p_g_prompts.extend( [generic_concept, f"a painting in the style of {generic_concept}", f"an artwork of {generic_concept}", f"a photo in the style of {generic_concept}", f"a picture in the style of {generic_concept}"] )
+            else:
+                for ec in erase_concepts:
+                    p_e_prompts.extend( [ec, f"a photo of {ec}", f"an image of {ec}", f"a picture of {ec}", f"a photo of a {ec}"] )
+                    p_g_prompts.extend( [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"] )
+        
+        
+        else:
             
+            
+            if 'a painting in the style of ' in erase_concept:
+                p_e_prompts = [erase_concept, f"an artwork of {erase_concept.replace('a painting in the style of ','')}", f"a photo in the style of {erase_concept.replace('a painting in the style of ','')}", f"a picture in the style of {erase_concept.replace('a painting in the style of ','')}"]
+                p_g_prompts = [generic_concept, f"an artwork of {generic_concept.replace('a painting in the style of ','')}", f"a photo in the style of {generic_concept.replace('a painting in the style of ','')}", f"a picture in the style of {generic_concept.replace('a painting in the style of ','')}"]
+                
+            else: 
+                p_e_prompts = [erase_concept, f"a photo of {erase_concept}", f"an image of {erase_concept}", f"a picture of {erase_concept}", f"a photo of a {erase_concept}"]
+                p_g_prompts = [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"]
+                
         print(f"p_e_prompts: {p_e_prompts}")
         print(f"p_g_prompts: {p_g_prompts}")
             
@@ -1248,21 +1289,21 @@ if __name__ == '__main__':
         
         
         
-        apply_swap_vgogh = False
-        # hack
-        vgogh_embeds, _ = pipe.encode_prompt(prompt=erase_concept,
-                                                device=device,
-                                                num_images_per_prompt=batch_size,
-                                                do_classifier_free_guidance=True,
-                                                negative_prompt='')
-        starry_night_embeds, _ = pipe.encode_prompt(prompt="a starry night painting",
-                                                device=device,
-                                                num_images_per_prompt=batch_size,
-                                                do_classifier_free_guidance=True,
-                                                negative_prompt='')       
+        # apply_swap_vgogh = False
+        # # hack
+        # vgogh_embeds, _ = pipe.encode_prompt(prompt=erase_concept,
+        #                                         device=device,
+        #                                         num_images_per_prompt=batch_size,
+        #                                         do_classifier_free_guidance=True,
+        #                                         negative_prompt='')
+        # starry_night_embeds, _ = pipe.encode_prompt(prompt="a starry night painting",
+        #                                         device=device,
+        #                                         num_images_per_prompt=batch_size,
+        #                                         do_classifier_free_guidance=True,
+        #                                         negative_prompt='')       
         
-        vgogh_embeds = vgogh_embeds.to(device)
-        starry_night_embeds = starry_night_embeds.to(device)         
+        # vgogh_embeds = vgogh_embeds.to(device)
+        # starry_night_embeds = starry_night_embeds.to(device)         
         
         if args.base_concept == 'null':
             base_embeds = null_embeds
@@ -1354,15 +1395,15 @@ if __name__ == '__main__':
         
         
         
-        if apply_swap_vgogh:
-            if training_step % 2 ==0:
-                erase_embeds = vgogh_embeds
-                erase_concept = 'a painting in the style of Van Gogh'
-                print('using vangogh embeds')
-            else:
-                erase_embeds = starry_night_embeds
-                erase_concept = 'a starry night painting'
-                print('using starry night embeds')
+        # if apply_swap_vgogh:
+        #     if training_step % 2 ==0:
+        #         erase_embeds = vgogh_embeds
+        #         erase_concept = 'a painting in the style of Van Gogh'
+        #         print('using vangogh embeds')
+        #     else:
+        #         erase_embeds = starry_night_embeds
+        #         erase_concept = 'a starry night painting'
+        #         print('using starry night embeds')
         
         timesteps_list = pipe.scheduler.timesteps.tolist()
         timesteps2num_inference_step = {t: i for i, t in enumerate(pipe.scheduler.timesteps.tolist())}
@@ -1849,6 +1890,7 @@ if __name__ == '__main__':
                     m_excl=args.ang_excl_margin,
                     m_incl=args.ang_incl_margin,
                     sim_param_group=args.sim_param_group,
+                    max_token_seq_len=args.ang_loss_max_token_seq_len,
                     # sim_param_group="avg_token",
                     # sim_param_group="token",
                     
