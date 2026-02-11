@@ -20,3 +20,4 @@ metrics/gcd/examples/resources
 test
 groundingdino_swint_ogc.pth
 sam_hq_vit_h.pthmace/metrics/gcd/examples/backup_resources/face_recognition/best_model_states.pkl
+**/best_model_states.pkl
