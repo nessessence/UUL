@@ -9,6 +9,27 @@ from safetensors.torch import load_file
 from typing import Union
 
 import math
+import sys
+# os.environ["PYTHONHASHSEED"] = str(123)s
+from tqdm.auto import tqdm
+from safetensors.torch import save_file
+from diffusers import StableDiffusionPipeline, UNet2DConditionModel
+import argparse
+sys.path.append('.')
+from utils.sd_utils import esd_sd_call
+StableDiffusionPipeline.__call__ = esd_sd_call
+
+
+# from utils.gradient_surgery import collect_param_grads,zero_param_grads,param_grad_stats,generalize_gradient_projection,inject_resolved_grads_by_name
+# from utils.gradient_surgery import do_grad_injection
+# from utils.gradient_surgery import generalize_gradient_projection_prob
+from diffusers import DDIMScheduler
+import wandb 
+import torch
+import torch.nn.functional as F
+
+
+
 
 # these concepts do not have preservation concepts (yet)
 
@@ -205,36 +226,9 @@ concept2neighbor = {
 concept2poison_concept = {
     'mickey mouse': 'cat',
 }
-import sys
-# os.environ["PYTHONHASHSEED"] = str(123)s
-from tqdm.auto import tqdm
-from safetensors.torch import save_file
-from diffusers import StableDiffusionPipeline, UNet2DConditionModel
-import argparse
-sys.path.append('.')
-from utils.sd_utils import esd_sd_call
-StableDiffusionPipeline.__call__ = esd_sd_call
-
-
-from gradient_surgery import collect_param_grads,zero_param_grads,param_grad_stats,generalize_gradient_projection,inject_resolved_grads_by_name
-from gradient_surgery import do_grad_injection
-from gradient_surgery import generalize_gradient_projection_prob
-from diffusers import DDIMScheduler
-from diffusers import DDPMScheduler
-
-import wandb 
-
-import torch
-import torch.nn.functional as F
 
 
 
-import torch
-import torch.nn.functional as F
-
-
-import torch
-import torch.nn.functional as F
 
 
 

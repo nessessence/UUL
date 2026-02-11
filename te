@@ -1,5 +1,0 @@
-python main.py \
-  --image_path_0 [image_path_0] --image_path_1 [image_path_1] \ 
-  --prompt_0 [prompt_0] --prompt_1 [prompt_1] \
-  --output_path [output_path] \
-  --use_adain --use_reschedule --save_inter
