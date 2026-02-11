@@ -2,8 +2,37 @@
 export device="cuda:0"
 export CUDA_VISIBLE_DEVICES=0
 
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x.nG0.50-ccfg.fG_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Barack Obama/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="v0" --initializer_token="person" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x.nG0.50-ccfg.fG_U.obama_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
 
-python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 1000 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 1.00 --preservation_train_set 'UG' --preservation_weight_option 'additive'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '999-1000'  --aei_loss_weight 1.00 --ang_excl_margin 0.60 --ang_incl_margin 0.6 --sim_param_group 'attn_head' --ang_norm_loss_weight 0.00 --generic_loss_weight 0.00 --ang_incl_loss_weight 1.00 --ang_excl_loss_weight 1.00  --ang_preserve_loss_weight 32.00  --ang_loss_max_token_seq_len 30  --batch_size 4 --seed 0
+                
+# python esd_sd_surgery.py --erase_concept 'naked person' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 1000 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 1.00 --preservation_train_set 'UG' --preservation_weight_option 'additive'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '999-1000'  --aei_loss_weight 1.00 --ang_excl_margin 0.80 --ang_incl_margin ex0.80 --sim_param_group 'attn_head' --ang_norm_loss_weight 0.00 --generic_loss_weight 0.00 --ang_incl_loss_weight 1.00 --ang_excl_loss_weight 1.00  --ang_preserve_loss_weight 32.00  --batch_size 4 --seed 0
+
+# python esd_sd_surgery.py --erase_concept '4CELEB00' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 1000 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 1.00 --preservation_train_set 'UG' --preservation_weight_option 'additive'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '999-1000'  --aei_loss_weight 1.00 --ang_excl_margin 0.60 --ang_incl_margin ex0.80 --sim_param_group 'attn_head' --ang_norm_loss_weight 0.00 --generic_loss_weight 0.00 --ang_incl_loss_weight 1.00 --ang_excl_loss_weight 1.00  --ang_preserve_loss_weight 32.00  --batch_size 4 --seed 0
+# python esd_sd_surgery.py --erase_concept '8CELEB00' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 1000 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 1.00 --preservation_train_set 'UG' --preservation_weight_option 'additive'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '999-1000'  --aei_loss_weight 1.00 --ang_excl_margin 0.40 --ang_incl_margin ex0.80 --sim_param_group 'attn_head' --ang_norm_loss_weight 0.00 --generic_loss_weight 0.00 --ang_incl_loss_weight 1.00 --ang_excl_loss_weight 1.00  --ang_preserve_loss_weight 32.00  --batch_size 4 --seed 0
+
+
+
+
+
+# python esd_sd_surgery.py --erase_concept 'Margot Robbie' --train_method 'esd-x-kv'  --lr 5e-5 --save_path '../data_root/logs/esd/study/' --max_training_step 1000 --log_step 1000 --device $device  --train_precision 'bf16'  --negative_guidance 0.00 --preservation_weight 1.00 --preservation_train_set 'UG' --preservation_weight_option 'additive'  --unlearn_proj_prob 0.50  --base_concept 'general'  --erase_from 'general'  --timestep_constraint '999-1000'  --aei_loss_weight 1.00 --ang_excl_margin 0.60 --ang_incl_margin 0.6 --sim_param_group 'attn_head' --ang_norm_loss_weight 0.00 --generic_loss_weight 0.00 --ang_incl_loss_weight 1.00 --ang_excl_loss_weight 1.00  --ang_preserve_loss_weight 32.00  --ang_loss_max_token_seq_len 30  --batch_size 4 --seed 0
 
 
 
