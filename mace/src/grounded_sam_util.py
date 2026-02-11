@@ -4,6 +4,7 @@ import json
 import torch
 import sys
 sys.path.append('Grounded-Segment-Anything')
+# sys.path.append('mace/Grounded-Segment-Anything')
 import GroundingDINO.groundingdino.datasets.transforms as T
 from GroundingDINO.groundingdino.models import build_model
 from GroundingDINO.groundingdino.util import box_ops

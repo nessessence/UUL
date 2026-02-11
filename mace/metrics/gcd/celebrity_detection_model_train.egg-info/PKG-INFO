@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: celebrity-detection-model-train
+Version: 1.0.0
+Summary: Facial recognition model training.
+Home-page: https://github.com/Giphy/celeb-detection-oss/
+Author: Giphy
+Author-email: rd@giphy.com
+License: Proprietary
+Keywords: deeplearning giphy
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3.6
+Provides-Extra: dev
+Provides-Extra: test
+License-File: LICENSE
+
+UNKNOWN
+

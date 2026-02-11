@@ -1,31 +1,21 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="15_0"
 
-#  python data_preparation.py configs/custom/erase_custom_1.yaml \
-#                         exp_name="" \
-#                         MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-#                         MACE.num_gen_images=8 MACE.seed=2024 \
-#                         MACE.multi_concept="[[['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
-#                         MACE.use_gsam_mask='true' use_sam_hq='true' \
-#                         MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
 
-
-
-# 50
-#  python training.py configs/custom/erase_custom_1.yaml \
-#                     exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.4CELEB00_sd1.4.bf16_r0" \
-#                     MACE.base_output_dir="data_root2/logs/mace" \
-#                     MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-#                     MACE.use_gsam_mask='true' use_sam_hq='true' \
-#                     MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
-#                     MACE.rank=1 MACE.num_gen_images=8 \
-#                     MACE.prior_preservation_cache_path="" \
-#                     MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-#                     MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-#                     MACE.lamb=1e+6 MACE.fuse_preserve_scale=1e0 \
-#                     MACE.mapping_concept="['a person', 'a person', 'a person', 'a person']" \
-#                     MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object']]]" \
-#                     MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
+ python mace/training.py mace/configs/custom/erase_custom_1.yaml \
+                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.4CELEB00_sd1.4.bf16_r0" \
+                    MACE.base_output_dir="data_root2/logs/mace" \
+                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
+                    MACE.use_gsam_mask='true' use_sam_hq='true' \
+                    MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+                    MACE.rank=1 MACE.num_gen_images=8 \
+                    MACE.prior_preservation_cache_path="" \
+                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
+                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
+                    MACE.lamb=1e+6 MACE.fuse_preserve_scale=1e0 \
+                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person']" \
+                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object']]]" \
+                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
                     
 # 50
 #  python training.py configs/custom/erase_custom_1.yaml \
@@ -79,72 +69,72 @@ export pc_id="15_0"
 # ['mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.4CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.4CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb2.5e+5_U.4CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.4CELEB00_sd1.4.bf16_r0']
 
 
-50
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.8CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=1e+6 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
+# 50
+#  python training.py configs/custom/erase_custom_1.yaml \
+#                     exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.8CELEB00_sd1.4.bf16_r0" \
+#                     MACE.base_output_dir="data_root2/logs/mace" \
+#                     MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
+#                     MACE.use_gsam_mask='true' use_sam_hq='true' \
+#                     MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+#                     MACE.rank=1 MACE.num_gen_images=8 \
+#                     MACE.prior_preservation_cache_path="" \
+#                     MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
+#                     MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
+#                     MACE.lamb=1e+6 MACE.fuse_preserve_scale=1e0 \
+#                     MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
+#                     MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
+#                     MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
                     
-50
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.8CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=5e+5 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
+# 50
+#  python training.py configs/custom/erase_custom_1.yaml \
+#                     exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.8CELEB00_sd1.4.bf16_r0" \
+#                     MACE.base_output_dir="data_root2/logs/mace" \
+#                     MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
+#                     MACE.use_gsam_mask='true' use_sam_hq='true' \
+#                     MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+#                     MACE.rank=1 MACE.num_gen_images=8 \
+#                     MACE.prior_preservation_cache_path="" \
+#                     MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
+#                     MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
+#                     MACE.lamb=5e+5 MACE.fuse_preserve_scale=1e0 \
+#                     MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
+#                     MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
+#                     MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
                     
-50
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb2.5e+5_U.8CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=2.5e+5 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
+# 50
+#  python training.py configs/custom/erase_custom_1.yaml \
+#                     exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb2.5e+5_U.8CELEB00_sd1.4.bf16_r0" \
+#                     MACE.base_output_dir="data_root2/logs/mace" \
+#                     MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
+#                     MACE.use_gsam_mask='true' use_sam_hq='true' \
+#                     MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+#                     MACE.rank=1 MACE.num_gen_images=8 \
+#                     MACE.prior_preservation_cache_path="" \
+#                     MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
+#                     MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
+#                     MACE.lamb=2.5e+5 MACE.fuse_preserve_scale=1e0 \
+#                     MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
+#                     MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
+#                     MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
                     
-50
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.8CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=1e+5 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
+# 50
+#  python training.py configs/custom/erase_custom_1.yaml \
+#                     exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.8CELEB00_sd1.4.bf16_r0" \
+#                     MACE.base_output_dir="data_root2/logs/mace" \
+#                     MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
+#                     MACE.use_gsam_mask='true' use_sam_hq='true' \
+#                     MACE.learning_rate=1e-4 MACE.max_train_steps=50 MACE.seed=2024 \
+#                     MACE.rank=1 MACE.num_gen_images=8 \
+#                     MACE.prior_preservation_cache_path="" \
+#                     MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
+#                     MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
+#                     MACE.lamb=1e+5 MACE.fuse_preserve_scale=1e0 \
+#                     MACE.mapping_concept="['a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person', 'a person']" \
+#                     MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object'], ['emma-stone', 'object'], ['elon-musk', 'object'], ['morgan-freeman', 'object'], ['oprah-winfrey', 'object']]]" \
+#                     MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
                     
-4 experiments generated
-['mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.8CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.8CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb2.5e+5_U.8CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.8CELEB00_sd1.4.bf16_r0']
+# 4 experiments generated
+# ['mace.psg8e-1.tr1e0.fr1e0.lamb1e+6_U.8CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb5e+5_U.8CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb2.5e+5_U.8CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.8CELEB00_sd1.4.bf16_r0']
 
 #  python training.py configs/custom/erase_custom_1.yaml \
 #                     exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+4.as0_U.4CELEB00_sd1.4.bf16_r0" \

@@ -18,3 +18,5 @@ metrics/gcd/examples/resources
 metrics/gcd/examples/backup_resources
 metrics/gcd/examples/resources
 test
+groundingdino_swint_ogc.pth
+sam_hq_vit_h.pth
