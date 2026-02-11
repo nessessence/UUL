@@ -19,7 +19,6 @@ sys.path.append('.')
 from utils.sd_utils import esd_sd_call
 StableDiffusionPipeline.__call__ = esd_sd_call
 
-
 # from utils.gradient_surgery import collect_param_grads,zero_param_grads,param_grad_stats,generalize_gradient_projection,inject_resolved_grads_by_name
 # from utils.gradient_surgery import do_grad_injection
 # from utils.gradient_surgery import generalize_gradient_projection_prob
@@ -28,8 +27,7 @@ import wandb
 import torch
 import torch.nn.functional as F
 
-
-
+#+++ Constant
 
 # these concepts do not have preservation concepts (yet)
 
@@ -221,221 +219,10 @@ concept2neighbor = {
     "macbook": "dell laptop",
     
 }
+#---
 
+#+++ Utility_Functions
 
-concept2poison_concept = {
-    'mickey mouse': 'cat',
-}
-
-
-
-
-
-
-def compute_angular_exclusion_inclusion_loss(
-    unet_u,         # unlearned UNet (trainable)
-    unet_0,         # frozen reference UNet
-    p_e,            # erased prompt embedding [B, T, 768]
-    p_g,            # generic prompt embedding [B, T, 768]
-    m_excl: float,
-    m_incl: Union[float, str],
-    # m_incl: float,
-    layer_filter="attn2",  # cross-attention in diffusers SD1.4
-    use_bias: bool = False,
-    sim_param_group: str = "avg_token",  # {'avg_token', 'token', 'attn_head'}
-    max_token_seq_len: int = None, 
-):
-    """
-    Angular exclusion + inclusion loss in KV projection space (unsquared hinge).
-
-    sim_param_group:
-      - 'avg_token' : mean over tokens -> cosine -> hinge
-      - 'token'     : cosine per token -> hinge per token -> mean
-      - 'attn_head' : mean over tokens -> reshape to (num_heads=8) -> cosine per head
-                     -> hinge per head -> mean
-
-    Also returns L_norm (NOT added to L_ang):
-      L_norm = mean | log(||W_u p_e||) - log(||W_0 p_e||) |
-    computed using the same grouping as sim_param_group.
-
-    Returns:
-      (L_excl, L_incl, L_ang, L_norm)
-    """
-
-    assert sim_param_group in {"avg_token", "token", "attn_head"}
-
-    params_u = dict(unet_u.named_parameters())
-    params_0 = dict(unet_0.named_parameters())
-
-    excl_terms = []
-    incl_terms = []
-    norm_terms = []
-    preserve_terms = []
-    w_terms = []
-    matched_layers = 0
-
-    for name, W_u in params_u.items():
-        if layer_filter not in name:
-            continue
-        if not (name.endswith("to_k.weight") or name.endswith("to_v.weight")):
-            continue
-        if name not in params_0:
-            continue
-
-        # Frozen reference
-        W_0 = params_0[name].detach()
-
-        # Bias handling
-        if use_bias:
-            b_name = name.replace(".weight", ".bias")
-            b_u = params_u.get(b_name, None)
-            b_0 = params_0.get(b_name, None)
-            if b_0 is not None:
-                b_0 = b_0.detach()
-        else:
-            b_u = None
-            b_0 = None
-
-        # Linear projections: [B, T, D]
-        W_u_e = F.linear(p_e, W_u, b_u)
-        W_u_g = F.linear(p_g, W_u, b_u) # for preservation term
-        with torch.no_grad():
-            W_0_e = F.linear(p_e, W_0, b_0)
-            W_0_g = F.linear(p_g, W_0, b_0)
-            
-
-        if sim_param_group == "avg_token":
-            W_u_e_m = W_u_e.mean(dim=1)
-            W_0_e_m = W_0_e.mean(dim=1)
-            W_0_g_m = W_0_g.mean(dim=1)
-
-            cos_excl = F.cosine_similarity(W_u_e_m, W_0_e_m, dim=-1)
-            cos_incl = F.cosine_similarity(W_u_e_m, W_0_g_m, dim=-1)
-
-            excl_terms.append(torch.clamp(cos_excl - m_excl, min=0.0).mean())
-            incl_terms.append(torch.clamp(m_incl - cos_incl, min=0.0).mean())
-
-            norm_u = W_u_e_m.norm(dim=-1)
-            norm_0 = W_0_e_m.norm(dim=-1)
-            norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
-
-        elif sim_param_group == "token":
-            cos_excl_tok = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
-            cos_incl_tok = F.cosine_similarity(W_u_e, W_0_g, dim=-1)
-
-            excl_terms.append(torch.clamp(cos_excl_tok - m_excl, min=0.0).mean())
-            incl_terms.append(torch.clamp(m_incl - cos_incl_tok, min=0.0).mean())
-
-            norm_u = W_u_e.norm(dim=-1)
-            norm_0 = W_0_e.norm(dim=-1)
-            norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
-
-        elif sim_param_group == "attn_head":
-            # Keep token resolution; reshape into heads per token.
-            # W_*: [B, T, D] -> [B, T, H, d]
-            num_heads = 8
-            B, T, D = W_u_e.shape
-            assert D % num_heads == 0
-            head_dim = D // num_heads
-
-            W_u_e_h = W_u_e.view(B, T, num_heads, head_dim)
-            W_0_e_h = W_0_e.view(B, T, num_heads, head_dim)
-            W_0_g_h = W_0_g.view(B, T, num_heads, head_dim)
-            W_u_g_h = W_u_g.view(B, T, num_heads, head_dim)
-            # print(W_u_e_h.shape) # [5, 77, 8, 160]
-            
-
-            # Cosine per (token, head): [B, T, H]
-            if max_token_seq_len is not None:
-                print(f'using only {max_token_seq_len} tokens for angular loss computation')
-                cos_excl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_e_h[:, :max_token_seq_len], dim=-1)
-                cos_incl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_g_h[:, :max_token_seq_len], dim=-1)
-            else:
-                cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
-                cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
-            
-            
-            # head-wise generic inclusion margin according to the original similarity between the target concept and the generic concept
-            
-
-            excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
-            
-            if 'e' in m_incl or  'ex' in m_incl:
-                # the same
-                with torch.no_grad():
-                    m_incl_ =  F.cosine_similarity(W_0_e_h, W_0_g_h, dim=-1)
-                    print('Generic-Inclusion margin based on original similarity between the target concept and the generic concept per head:\n', m_incl_)
-                    
-                    if 'ex' in m_incl:
-                        m_incl_ *= float(m_incl.replace('ex','')) # 'e{value}' is more generalize
-                        print(float(m_incl.replace('ex','')))
-                    elif 'e' in m_incl:
-                        m_incl_ += float(m_incl.replace('e',''))
-                    
-                    m_incl_ = m_incl_.clamp(min=-1.0,max=1.0) # max cosine similarity is 1.0
-                    
-                    print('Refined Generic-Inclusion margin based on original similarity between the target concept and the generic concept per head:\n', m_incl_)
-                    
-                    # print(cos_incl_h.shape,m_incl_.shape ) # [5, 77, 8]
-                incl_terms.append(torch.clamp(m_incl_ - cos_incl_h, min=0.0).mean())
-                
-                    
-
-            else:
-                incl_terms.append(torch.clamp(float(m_incl) - cos_incl_h, min=0.0).mean())
-                
-            
-            # preservation term
-            cos_preserve_h = F.cosine_similarity(W_u_g_h, W_0_g_h, dim=-1)
-            preserve_term =  1 - cos_preserve_h
-            preserve_terms.append(preserve_term.mean())
-                
-                
-                
-
-            # Norm per (token, head): [B, T, H]
-            norm_u = W_u_e_h.norm(dim=-1)
-            norm_0 = W_0_e_h.norm(dim=-1)
-            norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
-            
-            
-            
-            
-        # ---- L_w: weight-delta penalty (computed per sim_param_group) ----
-        dW = (W_u - W_0)
-        if sim_param_group in {"avg_token", "token"}:
-            # Mean squared delta (Frobenius^2 normalized by numel)
-            w_terms.append(dW.pow(2).mean())
-        elif sim_param_group == "attn_head":
-            num_heads = 8
-            out_dim = dW.shape[0]  # rows correspond to output channels
-            # if out_dim % num_heads == 0:
-            head_out = out_dim // num_heads
-            dW_h = dW.view(num_heads, head_out, *dW.shape[1:])  # [H, head_out, in_dim]
-            # print(dW_h.shape) # 8, 160, 768
-            # print(dW_h.pow(2).mean(dim=(1, 2)).shape) # 8,
-            
-            w_terms.append(dW_h.pow(2).mean(dim=(1, 2)).mean())  # mean over heads
-            # else:
-            #     # Fallback if not divisible (keeps behavior robust)
-            #     w_terms.append(dW.pow(2).mean())
-            
-                
-
-        matched_layers += 1
-
-    if matched_layers == 0:
-        zero = torch.tensor(0.0, device=p_e.device)
-        return zero, zero, zero, zero
-
-    L_excl = torch.stack(excl_terms).mean()
-    L_incl = torch.stack(incl_terms).mean()
-    L_ang = L_excl + L_incl
-    L_norm = torch.stack(norm_terms).mean()
-    L_w = torch.stack(w_terms).mean()
-    L_preserve = torch.stack(preserve_terms).mean()
-
-    return L_excl, L_incl, L_norm, L_w, L_preserve  #  L_ang, 
 
 def number_to_scientific_str(x: float) -> str:
     """
@@ -454,156 +241,6 @@ def number_to_scientific_str(x: float) -> str:
         mant = int(mant)
 
     return f"{mant}e{exp}"
-
-    
-
-def _capture_midblock_activation(unet, z_t, t, encoder_hidden_states, **unet_kwargs):
-    """
-    Run UNet forward once and capture the mid_block output activation.
-
-    Notes
-    -----
-    - Works with diffusers' UNet2DConditionModel where `unet.mid_block` is a Module.
-    - The captured tensor is the *output* of `mid_block` (after internal resnets/attn inside mid).
-    - Returns a tensor of shape [B, C, H, W] (typical), but we keep it generic.
-
-    Parameters
-    ----------
-    unet : torch.nn.Module
-        Diffusers UNet2DConditionModel (or compatible) with `.mid_block`.
-    z_t : torch.Tensor
-        Noisy latent, shape [B, 4, 64, 64] for SD1.x.
-    t : torch.Tensor or int
-        Timestep(s). Diffusers accepts an int, scalar tensor, or [B] tensor.
-    encoder_hidden_states : torch.Tensor
-        Text/prompt embedding, shape [B, T, 768] for SD1.x.
-    unet_kwargs : dict
-        Additional kwargs passed to UNet forward (e.g., `added_cond_kwargs`, `cross_attention_kwargs`, etc.)
-    """
-    assert hasattr(unet, "mid_block"), "UNet does not have `mid_block`; cannot capture mid-block activation."
-
-    captured = {}
-
-    def _hook(_module, _inp, out):
-        captured["mid"] = out
-
-    handle = unet.mid_block.register_forward_hook(_hook)
-    try:
-        out = unet(z_t, t, encoder_hidden_states=encoder_hidden_states, **unet_kwargs)
-        # Some diffusers versions return UNet2DConditionOutput(sample=...)
-        # We don't need `out` here; hook captured mid-block activation.
-        mid = captured.get("mid", None)
-        if mid is None:
-            raise RuntimeError("Failed to capture mid-block activation. Hook did not fire.")
-        return mid
-    finally:
-        handle.remove()
-
-
-def _pool_mid_activation(x: torch.Tensor, pool: str = "gap") -> torch.Tensor:
-    """
-    Pool UNet mid-block activations.
-
-    x: [B, C, H, W]
-    returns:
-      - "gap": [B, C]   (global average over H,W)  ✅ recommended
-      - "gmp": [B, C]   (global max over H,W)
-      - "hw_flat": [B, C*H*W] (keeps spatial info; noisier)
-      - "channel_gap": [B, H*W] (averages channels; usually NOT what you want for semantics)
-    """
-    assert x.ndim == 4, f"Expected [B,C,H,W], got {tuple(x.shape)}"
-    if pool == "gap":
-        return x.mean(dim=(2, 3))  # [B, C]
-    if pool == "gmp":
-        return x.amax(dim=(2, 3))  # [B, C]
-    if pool == "hw_flat":
-        return x.flatten(start_dim=1)  # [B, C*H*W]
-    if pool == "channel_gap":
-        return x.mean(dim=1).flatten(start_dim=1)  # [B, H*W]  (usually not desired)
-    raise ValueError(f"Unknown pool='{pool}'")
-
-# def compute_angular_exclusion_inclusion_loss_with_midblock(
-#     unet_u,         # unlearned UNet (trainable)
-#     unet_0,         # frozen reference UNet
-#     p_e,            # erased prompt embedding [B, T, 768]
-#     p_g,            # generic prompt embedding [B, T, 768]
-#     m_excl: float,
-#     m_incl: float,
-#     z_t,            # noisy latent [B, 4, 64, 64] (SD1.x typical)
-#     t,              # timestep(s)
-#     m_mid_excl: float = 0.0,
-#     m_mid_incl: float = 0.0,
-#     mid_weight: float = 1.0,
-#     mid_pool: str = "gap",
-#     layer_filter="attn2",
-#     use_bias: bool = False,
-#     sim_param_group: str = "avg_token",
-#     **unet_kwargs,
-# ):
-#     """
-#     Angular exclusion + inclusion loss in KV projection space, with an *additional* mid-block anchor.
-
-#     KV-space loss (same as `compute_angular_exclusion_inclusion_loss`):
-#       - Exclusion:  clamp(cos(W_u p_e, W_0 p_e) - m_excl, 0)
-#       - Inclusion:  clamp(m_incl - cos(W_u p_e, W_0 p_g), 0)
-
-#     Mid-block loss (feature-space, hinge on cosine):
-#       - Mid Exclusion: clamp(cos(h_u^mid(z_t,t,p_e), h_0^mid(z_t,t,p_e)) - m_mid_excl, 0)
-#       - Mid Inclusion: clamp(m_mid_incl - cos(h_u^mid(z_t,t,p_e), h_0^mid(z_t,t,p_g)), 0)
-
-#     Total:
-#       L_total = L_ang(KV) + mid_weight * L_mid
-
-#     Parameters
-#     ----------
-#     z_t, t:
-#         Provide the *same* noise realization and timestep when comparing u vs 0.
-#         This gives you a causal, time-specific "semantic bottleneck" constraint in addition to KV-space.
-
-#     mid_pool:
-#         How to pool mid activations before cosine. 'spatial_mean' is usually the safest.
-#     """
-#     # KV-space loss
-#     L_excl, L_incl, L_norm, L_ang = compute_angular_exclusion_inclusion_loss(
-#         unet_u=unet_u,
-#         unet_0=unet_0,
-#         p_e=p_e,
-#         p_g=p_g,
-#         m_excl=m_excl,
-#         m_incl=m_incl,
-#         layer_filter=layer_filter,
-#         use_bias=use_bias,
-#         sim_param_group=sim_param_group,
-#     )
-
-#     # Mid-block features
-#     mid_u_e = _capture_midblock_activation(unet_u, z_t, t, encoder_hidden_states=p_e, **unet_kwargs)
-#     with torch.no_grad():
-#         mid_0_e = _capture_midblock_activation(unet_0, z_t, t, encoder_hidden_states=p_e, **unet_kwargs)
-#         mid_0_g = _capture_midblock_activation(unet_0, z_t, t, encoder_hidden_states=p_g, **unet_kwargs)
-
-#     # print(f"mid_u_e shape: {mid_u_e.shape}") # [1, 1280, 8, 8]
-#     mid_u_e_v = _pool_mid_activation(mid_u_e, pool=mid_pool)
-#     mid_0_e_v = _pool_mid_activation(mid_0_e, pool=mid_pool)
-#     mid_0_g_v = _pool_mid_activation(mid_0_g, pool=mid_pool)
-
-#     cos_mid_excl = F.cosine_similarity(mid_u_e_v, mid_0_e_v, dim=-1)  # [B]
-#     cos_mid_incl = F.cosine_similarity(mid_u_e_v, mid_0_g_v, dim=-1)  # [B]
-
-#     L_mid_excl = torch.clamp(cos_mid_excl - m_mid_excl, min=0.0).mean()
-#     L_mid_incl = torch.clamp(m_mid_incl - cos_mid_incl, min=0.0).mean()
-#     L_mid = L_mid_excl + L_mid_incl
-
-#     L_total = L_ang + mid_weight * L_mid
-    
-#     return L_excl, L_incl, L_norm, L_ang, L_mid
-
-
-
-
-
-
-
 
 
 def _value_based_probs_divmax(timesteps: torch.Tensor, alpha: float, is_inverse=False) -> np.ndarray:
@@ -1015,10 +652,223 @@ def get_parser():
     parser.add_argument('--ang_loss_max_token_seq_len', type=int, default=None) 
     
     return parser
+
+
+#---
+
+
+#+++ PPP_Loss 
+def compute_angular_exclusion_inclusion_loss(
+    unet_u,         # unlearned UNet (trainable)
+    unet_0,         # frozen reference UNet
+    p_e,            # erased prompt embedding [B, T, 768]
+    p_g,            # generic prompt embedding [B, T, 768]
+    m_excl: float,
+    m_incl: Union[float, str],
+    # m_incl: float,
+    layer_filter="attn2",  # cross-attention in diffusers SD1.4
+    use_bias: bool = False,
+    sim_param_group: str = "avg_token",  # {'avg_token', 'token', 'attn_head'}
+    max_token_seq_len: int = None, 
+):
+    """
+    Angular exclusion + inclusion loss in KV projection space (unsquared hinge).
+
+    sim_param_group:
+      - 'avg_token' : mean over tokens -> cosine -> hinge
+      - 'token'     : cosine per token -> hinge per token -> mean
+      - 'attn_head' : mean over tokens -> reshape to (num_heads=8) -> cosine per head
+                     -> hinge per head -> mean
+
+    Also returns L_norm (NOT added to L_ang):
+      L_norm = mean | log(||W_u p_e||) - log(||W_0 p_e||) |
+    computed using the same grouping as sim_param_group.
+
+    Returns:
+      (L_excl, L_incl, L_ang, L_norm)
+    """
+
+    assert sim_param_group in {"avg_token", "token", "attn_head"}
+
+    params_u = dict(unet_u.named_parameters())
+    params_0 = dict(unet_0.named_parameters())
+
+    excl_terms = []
+    incl_terms = []
+    norm_terms = []
+    preserve_terms = []
+    w_terms = []
+    matched_layers = 0
+
+    for name, W_u in params_u.items():
+        if layer_filter not in name:
+            continue
+        if not (name.endswith("to_k.weight") or name.endswith("to_v.weight")):
+            continue
+        if name not in params_0:
+            continue
+
+        # Frozen reference
+        W_0 = params_0[name].detach()
+
+        # Bias handling
+        if use_bias:
+            b_name = name.replace(".weight", ".bias")
+            b_u = params_u.get(b_name, None)
+            b_0 = params_0.get(b_name, None)
+            if b_0 is not None:
+                b_0 = b_0.detach()
+        else:
+            b_u = None
+            b_0 = None
+
+        # Linear projections: [B, T, D]
+        W_u_e = F.linear(p_e, W_u, b_u)
+        W_u_g = F.linear(p_g, W_u, b_u) # for preservation term
+        with torch.no_grad():
+            W_0_e = F.linear(p_e, W_0, b_0)
+            W_0_g = F.linear(p_g, W_0, b_0)
+            
+
+        if sim_param_group == "avg_token":
+            W_u_e_m = W_u_e.mean(dim=1)
+            W_0_e_m = W_0_e.mean(dim=1)
+            W_0_g_m = W_0_g.mean(dim=1)
+
+            cos_excl = F.cosine_similarity(W_u_e_m, W_0_e_m, dim=-1)
+            cos_incl = F.cosine_similarity(W_u_e_m, W_0_g_m, dim=-1)
+
+            excl_terms.append(torch.clamp(cos_excl - m_excl, min=0.0).mean())
+            incl_terms.append(torch.clamp(m_incl - cos_incl, min=0.0).mean())
+
+            norm_u = W_u_e_m.norm(dim=-1)
+            norm_0 = W_0_e_m.norm(dim=-1)
+            norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
+
+        elif sim_param_group == "token":
+            cos_excl_tok = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
+            cos_incl_tok = F.cosine_similarity(W_u_e, W_0_g, dim=-1)
+
+            excl_terms.append(torch.clamp(cos_excl_tok - m_excl, min=0.0).mean())
+            incl_terms.append(torch.clamp(m_incl - cos_incl_tok, min=0.0).mean())
+
+            norm_u = W_u_e.norm(dim=-1)
+            norm_0 = W_0_e.norm(dim=-1)
+            norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
+
+        elif sim_param_group == "attn_head":
+            # Keep token resolution; reshape into heads per token.
+            # W_*: [B, T, D] -> [B, T, H, d]
+            num_heads = 8
+            B, T, D = W_u_e.shape
+            assert D % num_heads == 0
+            head_dim = D // num_heads
+
+            W_u_e_h = W_u_e.view(B, T, num_heads, head_dim)
+            W_0_e_h = W_0_e.view(B, T, num_heads, head_dim)
+            W_0_g_h = W_0_g.view(B, T, num_heads, head_dim)
+            W_u_g_h = W_u_g.view(B, T, num_heads, head_dim)
+            # print(W_u_e_h.shape) # [5, 77, 8, 160]
+            
+
+            # Cosine per (token, head): [B, T, H]
+            if max_token_seq_len is not None:
+                print(f'using only {max_token_seq_len} tokens for angular loss computation')
+                cos_excl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_e_h[:, :max_token_seq_len], dim=-1)
+                cos_incl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_g_h[:, :max_token_seq_len], dim=-1)
+            else:
+                cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
+                cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
+            
+            
+            # head-wise generic inclusion margin according to the original similarity between the target concept and the generic concept
+            
+
+            excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
+            
+            if 'e' in m_incl or  'ex' in m_incl:
+                # the same
+                with torch.no_grad():
+                    m_incl_ =  F.cosine_similarity(W_0_e_h, W_0_g_h, dim=-1)
+                    print('Generic-Inclusion margin based on original similarity between the target concept and the generic concept per head:\n', m_incl_)
+                    
+                    if 'ex' in m_incl:
+                        m_incl_ *= float(m_incl.replace('ex','')) # 'e{value}' is more generalize
+                        print(float(m_incl.replace('ex','')))
+                    elif 'e' in m_incl:
+                        m_incl_ += float(m_incl.replace('e',''))
+                    
+                    m_incl_ = m_incl_.clamp(min=-1.0,max=1.0) # max cosine similarity is 1.0
+                    
+                    print('Refined Generic-Inclusion margin based on original similarity between the target concept and the generic concept per head:\n', m_incl_)
+                    
+                    # print(cos_incl_h.shape,m_incl_.shape ) # [5, 77, 8]
+                incl_terms.append(torch.clamp(m_incl_ - cos_incl_h, min=0.0).mean())
+                
+                    
+
+            else:
+                incl_terms.append(torch.clamp(float(m_incl) - cos_incl_h, min=0.0).mean())
+                
+            
+            # preservation term
+            cos_preserve_h = F.cosine_similarity(W_u_g_h, W_0_g_h, dim=-1)
+            preserve_term =  1 - cos_preserve_h
+            preserve_terms.append(preserve_term.mean())
+                
+                
+                
+
+            # Norm per (token, head): [B, T, H]
+            norm_u = W_u_e_h.norm(dim=-1)
+            norm_0 = W_0_e_h.norm(dim=-1)
+            norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
+            
+            
+            
+            
+        # ---- L_w: weight-delta penalty (computed per sim_param_group) ----
+        dW = (W_u - W_0)
+        if sim_param_group in {"avg_token", "token"}:
+            # Mean squared delta (Frobenius^2 normalized by numel)
+            w_terms.append(dW.pow(2).mean())
+        elif sim_param_group == "attn_head":
+            num_heads = 8
+            out_dim = dW.shape[0]  # rows correspond to output channels
+            # if out_dim % num_heads == 0:
+            head_out = out_dim // num_heads
+            dW_h = dW.view(num_heads, head_out, *dW.shape[1:])  # [H, head_out, in_dim]
+            # print(dW_h.shape) # 8, 160, 768
+            # print(dW_h.pow(2).mean(dim=(1, 2)).shape) # 8,
+            
+            w_terms.append(dW_h.pow(2).mean(dim=(1, 2)).mean())  # mean over heads
+            # else:
+            #     # Fallback if not divisible (keeps behavior robust)
+            #     w_terms.append(dW.pow(2).mean())
+            
+                
+
+        matched_layers += 1
+
+    if matched_layers == 0:
+        zero = torch.tensor(0.0, device=p_e.device)
+        return zero, zero, zero, zero
+
+    L_excl = torch.stack(excl_terms).mean()
+    L_incl = torch.stack(incl_terms).mean()
+    L_ang = L_excl + L_incl
+    L_norm = torch.stack(norm_terms).mean()
+    L_w = torch.stack(w_terms).mean()
+    L_preserve = torch.stack(preserve_terms).mean()
+
+    return L_excl, L_incl, L_norm, L_w, L_preserve  #  L_ang, 
+
+#---
+
     
 
     
-    
+#+++ Main_Function 
 if __name__ == '__main__':
 
     parser = get_parser()
@@ -1207,10 +1057,8 @@ if __name__ == '__main__':
         print(f"constrainted_timesteps: {constrainted_timesteps}")
         # print(f"{save_path}/esd-{erase_concept.replace(' ', '_')}-from-{erase_concept.replace(' ', '_')}-{train_method.replace('-','')}_T{args.timestep_constraint}.safetensors")
         # t_scale = args.num_inference_steps/1000
-
         # args.scaled_lb_timestep_constraint = int(t_scale*args.lb_timestep_constraint)
         # args.scaled_ub_timestep_constraint = int(t_scale*args.ub_timestep_constraint)
-
         # print(f'scaled timestep constraint: {args.scaled_lb_timestep_constraint}-{args.scaled_ub_timestep_constraint}')
 
     if args.decompositional_timestep_sampler is not None:
@@ -1233,16 +1081,10 @@ if __name__ == '__main__':
         null_embeds = null_embeds.to(device)
         
         
-        ####
-        
-        erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00
-        
         
         generic_concept = concept2generic_concept[erase_concept]
-        
-        
-        
-        
+        ####
+        erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00
         if erase_multiple_concepts:
             erase_concepts = concept2multiple_concepts[erase_concept]
             p_e_prompts = []; p_g_prompts = []
@@ -1256,10 +1098,7 @@ if __name__ == '__main__':
                     p_e_prompts.extend( [ec, f"a photo of {ec}", f"an image of {ec}", f"a picture of {ec}", f"a photo of a {ec}"] )
                     p_g_prompts.extend( [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"] )
         
-        
         else:
-            
-            
             if 'a painting in the style of ' in erase_concept:
                 p_e_prompts = [erase_concept, f"an artwork of {erase_concept.replace('a painting in the style of ','')}", f"a photo in the style of {erase_concept.replace('a painting in the style of ','')}", f"a picture in the style of {erase_concept.replace('a painting in the style of ','')}"]
                 p_g_prompts = [generic_concept, f"an artwork of {generic_concept.replace('a painting in the style of ','')}", f"a photo in the style of {generic_concept.replace('a painting in the style of ','')}", f"a picture in the style of {generic_concept.replace('a painting in the style of ','')}"]
@@ -1271,91 +1110,35 @@ if __name__ == '__main__':
         print(f"p_e_prompts: {p_e_prompts}")
         print(f"p_g_prompts: {p_g_prompts}")
             
-        p_e, _ =pipe.encode_prompt(prompt=p_e_prompts,
-                                                       device=device,
-                                                       num_images_per_prompt=1,
-                                                       do_classifier_free_guidance=True,
-                                                       negative_prompt=len(p_e_prompts)*[''])
+        p_e, _ = pipe.encode_prompt(prompt=p_e_prompts, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=len(p_e_prompts)*[''])
+        p_g, _ = pipe.encode_prompt(prompt=p_g_prompts, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=len(p_g_prompts)*[''])
         
-        p_g, _ =pipe.encode_prompt(prompt=p_g_prompts,
-                                                device=device,
-                                                num_images_per_prompt=1,
-                                                do_classifier_free_guidance=True,
-                                                negative_prompt=len(p_g_prompts)*[''])
-        
-        p_e = p_e.to(device)
-        p_g = p_g.to(device)
-        
-        
-        
-        
-        # apply_swap_vgogh = False
-        # # hack
-        # vgogh_embeds, _ = pipe.encode_prompt(prompt=erase_concept,
-        #                                         device=device,
-        #                                         num_images_per_prompt=batch_size,
-        #                                         do_classifier_free_guidance=True,
-        #                                         negative_prompt='')
-        # starry_night_embeds, _ = pipe.encode_prompt(prompt="a starry night painting",
-        #                                         device=device,
-        #                                         num_images_per_prompt=batch_size,
-        #                                         do_classifier_free_guidance=True,
-        #                                         negative_prompt='')       
-        
-        # vgogh_embeds = vgogh_embeds.to(device)
-        # starry_night_embeds = starry_night_embeds.to(device)         
-        
+        p_e, p_g = p_e.to(device), p_g.to(device)
+
         if args.base_concept == 'null':
             base_embeds = null_embeds
         elif args.base_concept == 'general':
-            # fix a photo of (?)
             general_concept = concept2generic_concept[erase_concept]
-            general_embeds, _ = pipe.encode_prompt(prompt=general_concept,
-                                                        device=device,
-                                                        num_images_per_prompt=batch_size,
-                                                        do_classifier_free_guidance=True,
-                                                        negative_prompt='')
+            general_embeds, _ = pipe.encode_prompt(prompt=general_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
             base_embeds = general_embeds.to(device)
         elif args.base_concept == 'neighbor':
             neighbor_concept = concept2neighbor[erase_concept]
-            neighbor_embeds, _ = pipe.encode_prompt(prompt=neighbor_concept,
-                                                        device=device,
-                                                        num_images_per_prompt=batch_size,
-                                                        do_classifier_free_guidance=True,
-                                                        negative_prompt='')
+            neighbor_embeds, _ = pipe.encode_prompt(prompt=neighbor_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
             base_embeds = neighbor_embeds.to(device)
-            
             print(f"base_concept neighbor: {neighbor_concept}")
-        # revise later
         if args.erase_from == 'object':
-            object_embeds, _ = pipe.encode_prompt(prompt="object",
-                                                    device=device,
-                                                    num_images_per_prompt=batch_size,
-                                                    do_classifier_free_guidance=True,
-                                                    negative_prompt='')
+            object_embeds, _ = pipe.encode_prompt(prompt="object", device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
             object_embeds = object_embeds.to(device)
-            
-            
         elif args.erase_from == 'general':
             general_concept = concept2generic_concept[erase_concept]
-            print(f"erase_from general concept: {general_concept}")
-            general_embeds, _ = pipe.encode_prompt(prompt=general_concept,
-                                                    device=device,
-                                                    num_images_per_prompt=batch_size,
-                                                    do_classifier_free_guidance=True,
-                                                    negative_prompt='')
+            general_embeds, _ = pipe.encode_prompt(prompt=general_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
             general_embeds = general_embeds.to(device)
-            
+            print(f"erase_from general concept: {general_concept}")
         elif args.erase_from == 'neighbor':
             neighbor_concept = concept2neighbor[erase_concept]
-            print(f"erase_from neighbor concept: {neighbor_concept}")
-            neighbor_embeds, _ = pipe.encode_prompt(prompt=neighbor_concept,
-                                                    device=device,
-                                                    num_images_per_prompt=batch_size,
-                                                    do_classifier_free_guidance=True,
-                                                    negative_prompt='')
+            neighbor_embeds, _ = pipe.encode_prompt(prompt=neighbor_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
             neighbor_embeds = neighbor_embeds.to(device)
-            
+            print(f"erase_from neighbor concept: {neighbor_concept}")
             
         # elif args.erase_from == 'forward':
         #     if args.forward_preserve:
@@ -1367,13 +1150,10 @@ if __name__ == '__main__':
         #         preserve2embed = { p: e for p, e in zip(preserve_concepts, preserve_embeds)}
                 
         
-        
         timestep_cond = None 
         if pipe.unet.config.time_cond_proj_dim is not None:
             guidance_scale_tensor = torch.tensor(guidance_scale - 1).repeat(batch_size)
-            timestep_cond = pipe.get_guidance_scale_embedding(
-                guidance_scale_tensor, embedding_dim=pipe.unet.config.time_cond_proj_dim
-            ).to(device=device, dtype=torch_dtype)
+            timestep_cond = pipe.get_guidance_scale_embedding(guidance_scale_tensor, embedding_dim=pipe.unet.config.time_cond_proj_dim).to(device=device, dtype=torch_dtype)
         
 
     
@@ -1393,17 +1173,6 @@ if __name__ == '__main__':
         pipe.unet = base_unet
         
         
-        
-        
-        # if apply_swap_vgogh:
-        #     if training_step % 2 ==0:
-        #         erase_embeds = vgogh_embeds
-        #         erase_concept = 'a painting in the style of Van Gogh'
-        #         print('using vangogh embeds')
-        #     else:
-        #         erase_embeds = starry_night_embeds
-        #         erase_concept = 'a starry night painting'
-        #         print('using starry night embeds')
         
         timesteps_list = pipe.scheduler.timesteps.tolist()
         timesteps2num_inference_step = {t: i for i, t in enumerate(pipe.scheduler.timesteps.tolist())}
@@ -1477,19 +1246,7 @@ if __name__ == '__main__':
             apply_extra_forward = False
             apply_indiv_extra_forward = None
             
-            if args.apply_poison:
-                # posion require (x_e,x_g,x_p) in the same batch
-                generic_concept =  concept2generic_concept[erase_concept]
-                peer_concept = extra_forward_rng.choice(preservation_concepts).item()
-                poison_concept = concept2poison_concept[erase_concept] # will be used in poisoning denoising step later
-                
-                print(f"forward concepts: {[erase_concept, generic_concept,peer_concept]}, apply_indiv_extra_forward: {apply_indiv_extra_forward}")
-                
-                xt = pipe([erase_concept, generic_concept, peer_concept] , 
-                    num_images_per_prompt=1, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
-
-
-            elif args.use_indiv_extra_forward and args.extra_forward_prob is not None and args.extra_forward_prob > 0:
+            if args.use_indiv_extra_forward and args.extra_forward_prob is not None and args.extra_forward_prob > 0:
                 apply_indiv_extra_forward = extra_forward_rng.rand(args.batch_size) > args.extra_forward_prob
 
                 all_forward_concepts = []
@@ -1543,85 +1300,40 @@ if __name__ == '__main__':
 
 
 
-            noise_pred_erase = pipe.unet(
-                xt,
-                timestep,
-                encoder_hidden_states=erase_embeds,
-                timestep_cond=timestep_cond,
-                cross_attention_kwargs=None,
-                added_cond_kwargs=None,
-                return_dict=False,
-            )[0]
+            noise_pred_erase = pipe.unet(xt,timestep, encoder_hidden_states=erase_embeds,
+                timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False,)[0]
             
             # get the noise predictions for null embeds
-            noise_pred_base = pipe.unet(
-                xt,
-                timestep,
-                encoder_hidden_states=base_embeds,
-                timestep_cond=timestep_cond,
-                cross_attention_kwargs=None,
-                added_cond_kwargs=None,
-                return_dict=False,
-            )[0]
+            noise_pred_base = pipe.unet(xt,timestep,encoder_hidden_states=base_embeds,
+                timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False,)[0]
 
             if args.erase_from == 'uncond':
                 noise_pred_erase_from = noise_pred_base
         
         
             elif args.erase_from == 'general':
-                noise_pred_erase_from = pipe.unet(
-                    xt,
-                    timestep,
-                    encoder_hidden_states=general_embeds,
-                    timestep_cond=timestep_cond,
-                    cross_attention_kwargs=None,
-                    added_cond_kwargs=None,
-                    return_dict=False,
-                )[0]
+                noise_pred_erase_from = pipe.unet(xt,timestep,encoder_hidden_states=general_embeds,
+                    timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False)[0]
             
             elif args.erase_from == 'neighbor':
-                noise_pred_erase_from = pipe.unet(
-                    xt,
-                    timestep,
-                    encoder_hidden_states=neighbor_embeds,
-                    timestep_cond=timestep_cond,
-                    cross_attention_kwargs=None,
-                    added_cond_kwargs=None,
-                    return_dict=False,
-                )[0]
+                noise_pred_erase_from = pipe.unet(xt,timestep,encoder_hidden_states=neighbor_embeds,
+                    timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False)[0]
 
             elif args.erase_from == 'object':
-                noise_pred_erase_from = pipe.unet(
-                    xt,
-                    timestep,
-                    encoder_hidden_states=object_embeds,
-                    timestep_cond=timestep_cond,
-                    cross_attention_kwargs=None,
-                    added_cond_kwargs=None,
-                    return_dict=False,
-                )[0]
+                noise_pred_erase_from = pipe.unet(xt,timestep,encoder_hidden_states=object_embeds,
+                    timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False)[0]
+
                 
                 
             elif args.erase_from == 'forward' and apply_extra_forward:
                 print(f'erase from forward concept: {forward_concept}')
                 
-                forward_embeds, _ = pipe.encode_prompt(prompt=forward_concept,
-                                                device=device,
-                                                num_images_per_prompt=batch_size,
-                                                do_classifier_free_guidance=True,
-                                                negative_prompt='') 
+                forward_embeds, _ = pipe.encode_prompt(prompt=forward_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
 
 
 
-                noise_pred_erase_from = pipe.unet(
-                    xt,
-                    timestep,
-                    encoder_hidden_states=forward_embeds,
-                    timestep_cond=timestep_cond,
-                    cross_attention_kwargs=None,
-                    added_cond_kwargs=None,
-                    return_dict=False,
-                )[0]
+                noise_pred_erase_from = pipe.unet(xt,timestep,encoder_hidden_states=forward_embeds,
+                    timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False,)[0]
                 
                 
             else:
@@ -1633,11 +1345,7 @@ if __name__ == '__main__':
                 if batch_size == 1:
                     preservation_concept = rng.choice(preservation_concepts).item()
                     print(f"preservation_concept: {preservation_concept}")
-                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
-                                                                device=device,
-                                                                num_images_per_prompt=batch_size,
-                                                                do_classifier_free_guidance=True,
-                                                                negative_prompt='')
+                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
 
 
                                                                 
@@ -1645,39 +1353,22 @@ if __name__ == '__main__':
                                                                 
                     xt_ps = pipe(preservation_concept, 
                             num_images_per_prompt=batch_size, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
-                    noise_pred_ps = pipe.unet(
-                        xt_ps,
-                        timestep,
-                        encoder_hidden_states=preservation_embeds,
-                        timestep_cond=timestep_cond,
-                        cross_attention_kwargs=None,
-                        added_cond_kwargs=None,
-                        return_dict=False,
-                    )[0]
+                    
+                    noise_pred_ps = pipe.unet(xt_ps,timestep,encoder_hidden_states=preservation_embeds,
+                        timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False,)[0]
                 
                     # will use this if it work
                 elif batch_size > 1:
                     # print(preservation_concepts)
                     preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=len(preservation_concepts) < batch_size).tolist()
                     print(f"preservation_concept: {preservation_concept}")
-                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept,
-                                                                device=device,
-                                                                num_images_per_prompt=1, # fix to 1 now
-                                                                do_classifier_free_guidance=True,
-                                                                negative_prompt=['']*batch_size)
+                    preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=['']*batch_size)
                         
                         
                     xt_ps = pipe(preservation_concept, 
                             num_images_per_prompt=1, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, run_till_timestep=num_inference_step_, generator=torch.Generator().manual_seed(forward_seed), output_type='latent', height=height, width=width).images
-                    noise_pred_ps = pipe.unet(
-                        xt_ps,
-                        timestep,
-                        encoder_hidden_states=preservation_embeds,
-                        timestep_cond=timestep_cond,
-                        cross_attention_kwargs=None,
-                        added_cond_kwargs=None,
-                        return_dict=False,
-                    )[0]
+                    noise_pred_ps = pipe.unet(xt_ps,timestep,encoder_hidden_states=preservation_embeds,
+                        timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False,)[0]
                     
                 ###
                 
@@ -1685,183 +1376,109 @@ if __name__ == '__main__':
         # gradient !!!
                 
         pipe.unet = esd_unet
+                
+        if args.preservation_weight is not None and args.preservation_weight > 0:
+            # prompt=[erase_concept,preservation_concept]
+            
+            if batch_size == 1:
+                mix_prompts = [erase_concept, preservation_concept]
+            elif batch_size > 1:
+                assert len(preservation_concept) == batch_size
+                mix_prompts = batch_size*[erase_concept] + preservation_concept
+            
+            text_embeds, _ = pipe.encode_prompt(prompt=mix_prompts, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=['']* (2*batch_size))
+            total_xt = torch.cat([xt, xt_ps], dim=0)
+        else: 
+            text_embeds = erase_embeds
+            total_xt = xt
+
+        # have to forward once
+        total_noise_pred_esd_model = pipe.unet(total_xt,timestep,encoder_hidden_states=text_embeds,
+            timestep_cond=timestep_cond,cross_attention_kwargs=None,added_cond_kwargs=None,return_dict=False,)[0]
         
-        if args.apply_poison:
-            print('using poison noise prediction for ESD training')
-        # - E(x_e|p_g) <- E(x_e|p_ps) poisioning
-		# - E(x_g|p_g) <- E(x_g|p_g) preserve generic
-		# - E(x_p|p_g) <- E(x_p|p_g) preserve specifc
-		# - E(x_p|p_p) <- E(x_p|p_p) preserve specifc
-		# - E(x_g|p_p) <- E(x_g|p_p)  .... less prioritize
-            # create the first term
-            mix_prompts = [generic_concept,generic_concept,generic_concept, peer_concept] 
-            text_embeds, _ = pipe.encode_prompt(prompt=mix_prompts,
-                                    device=device,
-                                    num_images_per_prompt=1,
-                                    do_classifier_free_guidance=True,
-                                    negative_prompt=['']*len(mix_prompts))
-            unlearned_pred_poison_batch = pipe.unet(
-                xt,
-                timestep,
-                encoder_hidden_states=text_embeds,
-                timestep_cond=timestep_cond,
-                cross_attention_kwargs=None,
-                added_cond_kwargs=None,
-                return_dict=False,
-            )[0]
-            
-            posioning_loss = criteria(unlearned_pred_poison_batch[:1],pretrained_noise_pred_poison_batch[:1].detach())  # E(x_e|p_g) <- E(x_e|p_ps)
-            posioning_preserve_loss = criteria(unlearned_pred_poison_batch[1:],pretrained_noise_pred_poison_batch[1:].detach())
-            
-            preservation_weight = args.preservation_weight if args.preservation_weight is not None else 0.0
-            if args.preservation_weight_option == 'convex':
-                total_loss = (1.0 - preservation_weight) * posioning_loss + preservation_weight * posioning_preserve_loss
-            else:
-                total_loss = posioning_loss + preservation_weight * posioning_preserve_loss
+        
+        
+        # print(f"total_noise_pred_esd_model.shape: {total_noise_pred_esd_model.shape}")  # [2, 4, 64, 64]
+        
+        
+        ### specifial negative guidance for extra forward
+        
+        if apply_indiv_extra_forward is not None:
+            ng = args.batch_size*[negative_guidance]
+            for i in range(args.batch_size):
+                if apply_indiv_extra_forward[i]:
+                    ng[i] = args.extra_forward_negative_guidance
+            ng = torch.tensor(ng) 
+            ng = ng.view(-1, 1, 1, 1).to(device)
+            # print(f'negative guidance: {ng}')
 
-                
-            print(f"total_loss: {total_loss.item()}, "
-                f"posioning_loss: {posioning_loss.item()}, "
-                f"posioning_preserve_loss: {posioning_preserve_loss.item()}")
-            total_loss.backward()
-            optimizer.step()
-                
-            # --- W&B log (after step) ---
-            if args.report_to == 'wandb':
-                wandb.log({
-                    "posioning_loss": float(posioning_loss.detach().item()),
-                    "posioning_preserve_loss": float(posioning_preserve_loss.detach().item()),
-                    "total_weighted_loss": float((total_loss).detach().item()) if args.preservation_weight is not None else float(posioning_loss.detach().item()),
-                    "timestep": int(timestep.detach().cpu().item()),
-                    "training_step": int(training_step),
-                }, step=int(training_step))
-         
-
-
-                
+        
+        elif args.extra_forward_negative_guidance is not None and apply_extra_forward:
+            ng = args.extra_forward_negative_guidance
+            print(f'negative guidance: {ng}')
         else:
-            if args.preservation_weight is not None and args.preservation_weight > 0:
-                # prompt=[erase_concept,preservation_concept]
+            ng = negative_guidance
                 
-                if batch_size == 1:
-                    mix_prompts = [erase_concept, preservation_concept]
-                elif batch_size > 1:
-                    assert len(preservation_concept) == batch_size
-                    mix_prompts = batch_size*[erase_concept] + preservation_concept
-                
-                text_embeds, _ = pipe.encode_prompt(prompt=mix_prompts,
-                                                    device=device,
-                                                    num_images_per_prompt=1,
-                                                    do_classifier_free_guidance=True,
-                                                    negative_prompt=['']* (2*batch_size))
-                total_xt = torch.cat([xt, xt_ps], dim=0)
-            else: 
-                text_embeds = erase_embeds
-                total_xt = xt
-                
-            # print(f"total_xt.shape: {total_xt.shape}")  # [2*bs, 4, 64, 64]
-            # print("text_embeds.shape:", text_embeds.shape)  # [2*bs, 77, 768]
+        # ng = torch.tensor(args.batch_size*[ng]) 
+        # ng = ng.view(-1, 1, 1, 1).to(device)
+        # print(f'ng.shape: {ng.shape}')
+        
+        # print(total_noise_pred_esd_model.shape)  # [2, 4, 64, 64]
+        
+        #+++ Loss_Computation
+        if args.preservation_weight is not None and args.preservation_weight > 0: 
+            noise_pred_esd_model, noise_pred_ps_esd_model = total_noise_pred_esd_model.chunk(2, dim=0)
+            # print(noise_pred_ps_esd_model)
+            # print(noise_pred_esd_model.shape, noise_pred_ps_esd_model.shape) [1, 4, 64, 64]
             
-            # print(f"text_embeds0: {text_embeds[0,::].mean()}")
-            # print(f"text_embeds1: {text_embeds[1,::].mean()}")
-            # print(f"text_embeds2: {text_embeds[2,::].mean()}")
-            # print(f"text_embeds3: {text_embeds[3,::].mean()}")
-            # print(f"text_embeds4: {text_embeds[4,::].mean()}")
-            # print(f"text_embeds5: {text_embeds[5,::].mean()}")
-            
-            # have to forward once
-            total_noise_pred_esd_model = pipe.unet(
-                total_xt,
-                timestep,
-                encoder_hidden_states=text_embeds,
-                timestep_cond=timestep_cond,
-                cross_attention_kwargs=None,
-                added_cond_kwargs=None,
-                return_dict=False,
-            )[0]
-            
-            
-            
-            # print(f"total_noise_pred_esd_model.shape: {total_noise_pred_esd_model.shape}")  # [2, 4, 64, 64]
-            
-            
-            
-            ### specifial negative guidance for extra forward
-            
-            if apply_indiv_extra_forward is not None:
-                ng = args.batch_size*[negative_guidance]
-                for i in range(args.batch_size):
-                    if apply_indiv_extra_forward[i]:
-                        ng[i] = args.extra_forward_negative_guidance
-                ng = torch.tensor(ng) 
-                ng = ng.view(-1, 1, 1, 1).to(device)
-                # print(f'negative guidance: {ng}')
+            # change to float
+            noise_pred_esd_model = noise_pred_esd_model.float()
+            noise_pred_ps_esd_model = noise_pred_ps_esd_model.float()
+            noise_pred_ps = noise_pred_ps.float()
+            noise_pred_erase = noise_pred_erase.float()
+            noise_pred_erase_from = noise_pred_erase_from.float()
 
             
-            elif args.extra_forward_negative_guidance is not None and apply_extra_forward:
-                ng = args.extra_forward_negative_guidance
-                print(f'negative guidance: {ng}')
+            
+            unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
+            preservation_loss = criteria(noise_pred_ps_esd_model, noise_pred_ps)
+            
+            
+        else:
+            
+            
+            
+            
+            noise_pred_esd_model = total_noise_pred_esd_model
+
+            # change to float 
+            noise_pred_erase = noise_pred_erase.float()
+            noise_pred_esd_model = noise_pred_esd_model.float()
+            noise_pred_erase_from = noise_pred_erase_from.float()
+            noise_pred_base = noise_pred_base.float()
+            
+            
+            
+            if args.neg_guidance_method == 'ccfg':
+                
+                assert args.base_concept == 'null'
+                noise_pred_null = noise_pred_base
+                
+                
+                noise_contrast = noise_pred_null
+                noise_contrast += guidance_scale*(noise_pred_erase_from-noise_pred_null)
+                tau = 0.2
+                l2norm = tau * ((noise_pred_erase - noise_pred_null) ** 2).sum(dim=(1, 2, 3), keepdim=True)
+                # print(l2norm.shape)
+                noise_contrast -= negative_guidance * (noise_pred_erase - noise_pred_null) * 2 * (torch.exp(-l2norm) / (1 + torch.exp(-l2norm)))
+
+                unlearn_loss = criteria(noise_pred_esd_model, noise_contrast) 
+
+        
             else:
-                ng = negative_guidance
-                    
-            # ng = torch.tensor(args.batch_size*[ng]) 
-            # ng = ng.view(-1, 1, 1, 1).to(device)
-            # print(f'ng.shape: {ng.shape}')
             
-            # print(total_noise_pred_esd_model.shape)  # [2, 4, 64, 64]
-            if args.preservation_weight is not None and args.preservation_weight > 0: 
-                noise_pred_esd_model, noise_pred_ps_esd_model = total_noise_pred_esd_model.chunk(2, dim=0)
-                # print(noise_pred_ps_esd_model)
-                # print(noise_pred_esd_model.shape, noise_pred_ps_esd_model.shape) [1, 4, 64, 64]
-                
-                # change to float
-                noise_pred_esd_model = noise_pred_esd_model.float()
-                noise_pred_ps_esd_model = noise_pred_ps_esd_model.float()
-                noise_pred_ps = noise_pred_ps.float()
-                noise_pred_erase = noise_pred_erase.float()
-                noise_pred_erase_from = noise_pred_erase_from.float()
-
-                
-                
                 unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
-                preservation_loss = criteria(noise_pred_ps_esd_model, noise_pred_ps)
-                
-                
-            else:
-                
-                
-                
-                
-                noise_pred_esd_model = total_noise_pred_esd_model
-
-                # change to float 
-                noise_pred_erase = noise_pred_erase.float()
-                noise_pred_esd_model = noise_pred_esd_model.float()
-                noise_pred_erase_from = noise_pred_erase_from.float()
-                noise_pred_base = noise_pred_base.float()
-                
-                
-                
-                if args.neg_guidance_method == 'ccfg':
-                    
-                    assert args.base_concept == 'null'
-                    noise_pred_null = noise_pred_base
-                    
-                    
-                    noise_contrast = noise_pred_null
-                    noise_contrast += guidance_scale*(noise_pred_erase_from-noise_pred_null)
-                    tau = 0.2
-                    l2norm = tau * ((noise_pred_erase - noise_pred_null) ** 2).sum(dim=(1, 2, 3), keepdim=True)
-                    # print(l2norm.shape)
-                    noise_contrast -= negative_guidance * (noise_pred_erase - noise_pred_null) * 2 * (torch.exp(-l2norm) / (1 + torch.exp(-l2norm)))
-
-                    unlearn_loss = criteria(noise_pred_esd_model, noise_contrast) 
-
-            
-                else:
-                
-                    unlearn_loss = criteria(noise_pred_esd_model, noise_pred_erase_from - (ng*(noise_pred_erase - noise_pred_base))) 
-                preservation_loss = torch.tensor(0.0).to(device)
+            preservation_loss = torch.tensor(0.0).to(device)
             
             
             # print(f"noise_pred_esd_model.shape: {noise_pred_esd_model.shape}") # [bs, 4, 64, 64]
@@ -1883,16 +1500,12 @@ if __name__ == '__main__':
                 a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
                     unet_u=esd_unet, 
                     unet_0=base_unet,
-                    # p_e=erase_embeds[0:1,:,:], #[b,77,768] -> [1,77,768]
-                    # p_g=general_embeds[0:1,:,:],#[b,77,768] -> [1,77,768]
                     p_e=p_e,
                     p_g=p_g,
                     m_excl=args.ang_excl_margin,
                     m_incl=args.ang_incl_margin,
                     sim_param_group=args.sim_param_group,
                     max_token_seq_len=args.ang_loss_max_token_seq_len,
-                    # sim_param_group="avg_token",
-                    # sim_param_group="token",
                     
                 )
                 
@@ -1941,31 +1554,14 @@ if __name__ == '__main__':
             
             print(" | ".join([f"{k}: {v:.6f}" for k,v in loss_print_logs.items()]))
             
-            
-            # if args.preservation_weight :
-            #     total_loss = unlearn_loss + args.preservation_weight * preservation_loss
-            # else:
-            #     total_loss = unlearn_loss
-            # print(f"total_loss: {total_loss.item()}, "
-            #     f"unlearn_loss: {unlearn_loss.item()}, "
-            #     f"preservation_loss: {preservation_loss.item()}")
+
             total_loss.backward()
             
-            # max_grad_norm = 1.0
-            # torch.nn.utils.clip_grad_norm_(esd_unet.parameters(), max_grad_norm)
-
-
-
-            # total_norm = torch.nn.utils.clip_grad_norm_(
-            #     # (p for p in esd_params.parameters() if p.grad is not None),
-            #     (p for p in esd_params if p.grad is not None),
-            #     max_norm=float('inf')   # <-- no clipping, just measure
-            # )
-            # print(f"[step {training_step}] grad_norm = {total_norm.item():.4f}")
 
 
             optimizer.step()
-
+            
+#---
 
 
             # --- W&B log (after step) ---
@@ -1991,123 +1587,4 @@ if __name__ == '__main__':
                     print(f"[wandb] log failed: {_e}")
                 # --- end W&B log ---
 
-
-        # save_esd_model(esd_param_names, esd_params, args, args.training_step)
-        
-
-        # logging identical to before
-        # losses.append((unlearn_loss + args.preservation_weight * preservation_loss).item())
-        # pbar.set_postfix(esd_loss=losses[-1], timestep=num_inference_step_)
-
-            
-            
-        # total_loss = unlearn_loss + args.preservation_weight*preservation_loss
-        # print(f"total_loss: {total_loss.item()}, unlearn_loss: {unlearn_loss.item()}, preservation_loss: {preservation_loss.item()}")
-        
-        
-        # total_loss.backward()
-        # losses.append(total_loss.item())
-        # pbar.set_postfix(esd_loss=total_loss.item(),
-        #                  timestep=num_inference_step_,)
-        # optimizer.step()
-        
-        # logging identical to before
-        # losses.append((unlearn_loss + args.preservation_weight * preservation_loss).item())
-        # pbar.set_postfix(esd_loss=losses[-1], timestep=num_inference_step_)
-
-
-    
-    # esd_param_dict = {}
-    # for name, param in zip(esd_param_names, esd_params):
-    #     esd_param_dict[name] = param
-    
-    
-    
-    # Resolve naming
-    # erase_concept_from = erase_concept
-    # base_file_name = f"esd-{erase_concept.replace(' ', '_')}-from-{erase_concept_from.replace(' ', '_')}-{train_method.replace('-','')}"
-    
-    # esd-x.obama_sd1.4
-    # erase_concept_shortname = concept2shortname[erase_concept] if erase_concept in concept2shortname else erase_concept.replace(' ', '-')
-    # base_file_name = f"{train_method}.{erase_concept_shortname}"
-
-    # if args.negative_guidance != 2:
-    #     base_file_name += f"_nG{args.negative_guidance:.2f}"
-    
-    # if not args.gradient_projection_preserve_scale and args.preservation_weight is not None and args.preservation_weight > 0:
-    #     base_file_name += f"_PS{args.preservation_weight:.2f}"
-        
-        
-    # if args.apply_gradient_projection:
-    #         base_file_name += f"_GP"
-            
-    #         base_file_name += '.g'
-    #         if args.gradient_projection_param_group == 'global' or args.gradient_projection_param_group == 'none':
-    #             base_file_name += f"G"
-    #         if args.gradient_projection_param_group == 'attn_head':
-    #             base_file_name += f"H"
-    #         if args.gradient_projection_param_group == 'layer':
-    #             base_file_name += f"L"
-    #         if args.gradient_projection_param_group != 'neuron':
-    #             base_file_name += f"N"
-                
-    #         base_file_name += '.p'
-    #         if args.gradient_projection_mode == 'hard':
-    #             base_file_name += f"H"
-    #         if args.gradient_projection_mode == 'soft':
-    #             base_file_name += f"S"
-
-    #         base_file_name += f".ps{args.gradient_projection_preserve_scale:.2f}"
-
-
-    # if args.timestep_constraint is not None:
-    #     base_file_name += f"_T{args.timestep_constraint}"
-        
-    # if args.base_concept == 'general':
-    #     base_file_name += f"_BGeneral"
-        
-    # if args.decompositional_timestep_sampler is not None:
-    #     base_file_name += f"_dT{args.decompositional_timestep_sampler}"
-        
-    # if args.max_training_step != 200:
-    #     base_file_name += f"_S{args.max_training_step}"
-        
-    # base_file_name += f"_sd1.4"
-    
-    # save_file(esd_param_dict, f"{save_path}/{base_file_name}.safetensors")
-
-
-
-
-
-
-
-
-
-# def set_random(seed):
-#     rng = np.random.RandomState(seed=seed)
-#     return rng
-    # random.seed(seed)
-    # np.random.seed(seed)
-
-        
-    # torch.manual_seed(seed)
-    # torch.cuda.manual_seed(seed)
-    # torch.cuda.manual_seed_all(seed)
-
-    # torch.backends.cudnn.deterministic = True
-    # torch.backends.cudnn.benchmark = False
-
-
-    # torch.use_deterministic_algorithms(True, warn_only=True)
-    # torch.backends.cuda.matmul.allow_tf32 = False
-    # torch.backends.cudnn.allow_tf32 = False
-
-
-    # try:
-    #     torch.backends.cuda.sdp_kernel(enable_flash=False, enable_mem_efficient=False, enable_math=True)
-    # except Exception:
-    #     # older PyTorch
-    #     torch.backends.cuda.enable_flash_sdp(False)
-    #     torch.backends.cuda.enable_mem_efficient_sdp(False)
-    #     torch.backends.cuda.enable_math_sdp(True)
+#---
