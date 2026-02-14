@@ -31,6 +31,22 @@ import torch.nn.functional as F
 
 # these concepts do not have preservation concepts (yet)
 
+
+concept2prompt_templates = {
+    'object': [
+        "{}",
+        "a photo of {}",
+        "a photo of a {}",
+        "an image of {}",
+        "a picture of {}",
+    ],
+    'stlye':   [ 
+    "a painting in the style of {}",
+    "an artwork of {}",
+    "a photo in the style of {}",
+    "a picture in the style of {}",]
+}
+
 Celeb_Prelim_List = ["Margot Robbie", "Anne Hathaway", "Amy Adams", "Emma Stone", "Amber Heard",
                      "David Beckham", "Chris Hemsworth", "Elon Musk", "Adam Driver", "Andrew Garfield",
                      "Barack Obama", "Morgan Freeman", "Chris Rock", "Will Smith", "Idris Elba",
@@ -242,6 +258,30 @@ def number_to_scientific_str(x: float) -> str:
 
     return f"{mant}e{exp}"
 
+# my own implementation
+def load_token_embedding(text_encoder, tokenizer, weight_path):
+    print(f"Loading Token Embeddings from {weight_path}")
+    # Load the saved token embeddings
+    loaded_embeds_dict = torch.load(weight_path)
+    # Get the input embedding layer
+    token_embeddings = text_encoder.get_input_embeddings()
+    # Process each token
+    for token, embed in loaded_embeds_dict.items():
+        # Check if token already exists in tokenizer
+        token_id = tokenizer.convert_tokens_to_ids(token)
+        if token_id == tokenizer.unk_token_id:
+            print(f'adding {token} to the tokenizer vocabs')
+            # Token doesn't exist, add to tokenizer
+            tokenizer.add_tokens([token])
+            token_id = tokenizer.convert_tokens_to_ids(token)
+            # Resize the embedding layer to match new vocab size
+            text_encoder.resize_token_embeddings(len(tokenizer))
+        # Set the embedding weight
+        with torch.no_grad():
+            print(f'loading embedding for {token}')
+            token_embeddings.weight[token_id] = embed.to(token_embeddings.weight.device)
+            
+            
 
 def _value_based_probs_divmax(timesteps: torch.Tensor, alpha: float, is_inverse=False) -> np.ndarray:
     """
@@ -486,7 +526,10 @@ def resolve_model_name(args): #, training_step):
 def save_esd_model(esd_param_names, esd_params, args, training_step, total_grad_stats=None):
     model_name = resolve_model_name(args)
 
-    save_model_path = osp.join(args.save_path, model_name, f'step{training_step}.safetensors')
+    if args.attacked_flag is not None:
+         save_model_path = osp.join(args.save_path, model_name, 'attacked_models', f'{args.attacked_flag}_step{training_step}.safetensors')
+    else:
+        save_model_path = osp.join(args.save_path, model_name, f'step{training_step}.safetensors')
     os.makedirs(osp.dirname(save_model_path), exist_ok=True)
 
     esd_param_dict = {}
@@ -628,7 +671,8 @@ def get_parser():
     
     
     parser.add_argument( "--load_unet_weight_path",type=str,default=None) # many unlearned model, UCE, ESD, 
-    
+    parser.add_argument( "--load_token_embedding_path",type=str,default=None) # many unlearned model, UCE, ESD, 
+   
 
 
     parser.add_argument( "--apply_poison",action='store_true') # many unlearned model, UCE, ESD, 
@@ -651,13 +695,21 @@ def get_parser():
     parser.add_argument('--sim_param_group', type=str,  default='token')
     parser.add_argument('--ang_loss_max_token_seq_len', type=int, default=None) 
     
+    
+    
+    parser.add_argument('--attacked_flag', type=int, default=None)  # flag for save model weight just for textual inversion attack
+    parser.add_argument('--erase_concept_ti', type=str, default=None) # we will use erase_concept_ti for erase
+    
+    
+    parser.add_argument('--erase_concept_ti_weight', type=str, default=None) #  feature = W_iPe_i vs W_0Pe_i  (the weight that used to learn TIA)
+    
     return parser
 
 
 #---
 
 
-#+++ PPP_Loss 
+#+++ PPP_Loss(Ours) 
 def compute_angular_exclusion_inclusion_loss(
     unet_u,         # unlearned UNet (trainable)
     unet_0,         # frozen reference UNet
@@ -670,6 +722,7 @@ def compute_angular_exclusion_inclusion_loss(
     use_bias: bool = False,
     sim_param_group: str = "avg_token",  # {'avg_token', 'token', 'attn_head'}
     max_token_seq_len: int = None, 
+    
 ):
     """
     Angular exclusion + inclusion loss in KV projection space (unsquared hinge).
@@ -868,11 +921,11 @@ def compute_angular_exclusion_inclusion_loss(
     
 
     
-#+++ Main_Function 
-if __name__ == '__main__':
 
-    parser = get_parser()
-    args = parser.parse_args()
+    
+#+++ Main_Function 
+def main(args):
+    
     
     if args.special_log_step is not None:
         args.special_log_step = [int(e) for e in args.special_log_step.split(',')]
@@ -960,8 +1013,17 @@ if __name__ == '__main__':
     
     if args.load_unet_weight_path is not None:
         print('loading UNet weight from: ', args.load_unet_weight_path)
+        
+        # load to esd_unet (erased_unet) only ... not for the pretrained base_unet
         esd_unet.load_state_dict(load_file(args.load_unet_weight_path), strict=False)
     
+    if args.load_token_embedding_path is not None:
+        
+        args.load_token_embedding_path = args.load_token_embedding_path.split(';') # can be a lot
+        
+        for p in args.load_token_embedding_path:
+            print(f'loading token embedding from :{p}')
+            load_token_embedding(pipe.text_encoder, pipe.tokenizer,p)
     
     # pipe.scheduler.set_timesteps(100)
     # pipe.scheduler = DDPMScheduler.from_config(pipe.scheduler.config)
@@ -1084,8 +1146,9 @@ if __name__ == '__main__':
         
         generic_concept = concept2generic_concept[erase_concept]
         ####
-        erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00
+        erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00 ... this is a tag for using multiple concept erasing
         if erase_multiple_concepts:
+            assert args.erase_concept_ti is None # not support yet
             erase_concepts = concept2multiple_concepts[erase_concept]
             p_e_prompts = []; p_g_prompts = []
             
@@ -1100,13 +1163,61 @@ if __name__ == '__main__':
         
         else:
             if 'a painting in the style of ' in erase_concept:
-                p_e_prompts = [erase_concept, f"an artwork of {erase_concept.replace('a painting in the style of ','')}", f"a photo in the style of {erase_concept.replace('a painting in the style of ','')}", f"a picture in the style of {erase_concept.replace('a painting in the style of ','')}"]
-                p_g_prompts = [generic_concept, f"an artwork of {generic_concept.replace('a painting in the style of ','')}", f"a photo in the style of {generic_concept.replace('a painting in the style of ','')}", f"a picture in the style of {generic_concept.replace('a painting in the style of ','')}"]
+                prompt_templates = concept2prompt_templates['style']
                 
+                
+                if args.erase_concept_ti is None:
+                    raw_erase_concept = erase_concept.replace('a painting in the style of ','') #  "a painting in the style of Van Gogh" --> Van Gogh 
+                    raw_generic_concept = generic_concept.replace('a painting in the style of ','')  # "a painting in the style of artist" --> artist
+                    
+                    p_e_prompts = [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
+                    p_g_prompts = [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                    
+                    
+                    # p_e_prompts = [f"a painting in the style of {raw_erase_concept}", f"an artwork of {raw_erase_concept}", f"a photo in the style of {raw_erase_concept}", f"a picture in the style of {raw_erase_concept}"]
+                    # p_g_prompts = [f"a painting in the style of {raw_generic_concept}", f"an artwork of {raw_generic_concept}", f"a photo in the style of {raw_generic_concept}", f"a picture in the style of {raw_generic_concept}"]
+                    
+                else:
+                    erase_concept_tis = args.erase_concept_ti.split(';') # can be more than one
+                    raw_erase_concept = erase_concept.replace('a painting in the style of ','') #  "a painting in the style of Van Gogh" --> Van Gogh
+                    raw_generic_concept = generic_concept.replace('a painting in the style of ','')
+                    print(f'using attack token embeddings for PPP: {erase_concept_tis}')
+                    p_e_prompts = []; p_g_prompts = []
+                    
+                    # also adding the original
+                    p_e_prompts += [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
+                    p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                    for erase_concept_ti in erase_concept_tis:
+                        p_e_prompts += [prompt_template.format(erase_concept_ti) for prompt_template in prompt_templates]
+                        p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                        # p_e_prompts += [f"a painting in the style of {erase_concept_ti}", f"an artwork of {erase_concept_ti}", f"a photo in the style of {erase_concept_ti}", f"a picture in the style of {erase_concept_ti}"]
+                        # p_g_prompts += [f"a painting in the style of {raw_generic_concept}", f"an artwork of {raw_generic_concept}", f"a photo in the style of {raw_generic_concept}", f"a picture in the style of {raw_generic_concept}"]
+                    
+                        
+                    
             else: 
-                p_e_prompts = [erase_concept, f"a photo of {erase_concept}", f"an image of {erase_concept}", f"a picture of {erase_concept}", f"a photo of a {erase_concept}"]
-                p_g_prompts = [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"]
+                prompt_templates = concept2prompt_templates['object']
+                if args.erase_concept_ti is None:
+                    p_e_prompts = [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
+                    p_g_prompts = [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
                 
+                    # p_e_prompts = [erase_concept, f"a photo of {erase_concept}", f"an image of {erase_concept}", f"a picture of {erase_concept}", f"a photo of a {erase_concept}"]
+                    # p_g_prompts = [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"]
+                
+                else:
+                    erase_concept_tis = args.erase_concept_ti.split(';') # can be more than one
+                    print(f'using attack token embeddings for PPP: {erase_concept_tis}')
+                    p_e_prompts = []; p_g_prompts = []
+                    
+                    
+                    p_e_prompts += [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
+                    p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                    # adding TIA tokens
+                    for erase_concept_ti in erase_concept_tis:
+                        p_e_prompts += [prompt_template.format(erase_concept_ti) for prompt_template in prompt_templates]
+                        p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                    
+                                
         print(f"p_e_prompts: {p_e_prompts}")
         print(f"p_g_prompts: {p_g_prompts}")
             
@@ -1219,7 +1330,7 @@ if __name__ == '__main__':
 
             num_inference_step_ = rng.randint(0, len(constrainted_timesteps))
             timestep = constrainted_timesteps[num_inference_step_]
-            print(f"timestep: {timestep}")
+            # print(f"timestep: {timestep}")
             
             
             
@@ -1344,7 +1455,7 @@ if __name__ == '__main__':
                 
                 if batch_size == 1:
                     preservation_concept = rng.choice(preservation_concepts).item()
-                    print(f"preservation_concept: {preservation_concept}")
+                    # print(f"preservation_concept: {preservation_concept}")
                     preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
 
 
@@ -1361,7 +1472,7 @@ if __name__ == '__main__':
                 elif batch_size > 1:
                     # print(preservation_concepts)
                     preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=len(preservation_concepts) < batch_size).tolist()
-                    print(f"preservation_concept: {preservation_concept}")
+                    # print(f"preservation_concept: {preservation_concept}")
                     preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=['']*batch_size)
                         
                         
@@ -1402,7 +1513,6 @@ if __name__ == '__main__':
         
         
         ### specifial negative guidance for extra forward
-        
         if apply_indiv_extra_forward is not None:
             ng = args.batch_size*[negative_guidance]
             for i in range(args.batch_size):
@@ -1483,108 +1593,123 @@ if __name__ == '__main__':
             
             # print(f"noise_pred_esd_model.shape: {noise_pred_esd_model.shape}") # [bs, 4, 64, 64]
             
-            optimizer.zero_grad(set_to_none=True)
+        optimizer.zero_grad(set_to_none=True)
+
+        
+        loss_print_logs = {}
+        
+        preservation_weight = args.preservation_weight if args.preservation_weight is not None else 0.0
+
+        
+        loss_print_logs['unlearn_loss'] = unlearn_loss.item()
+        loss_print_logs['preservation_loss'] = preservation_loss.item()
+        
+        
+        print('before loss')
+        if args.aei_loss_weight > 0.0:
+            
+            print('loss computation: angular exclusion-inclusion loss enabled')
+            
+            # print(p_e.shape, p_g.shape)
+            a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
+                unet_u=esd_unet, 
+                unet_0=base_unet,
+                p_e=p_e,
+                p_g=p_g,
+                m_excl=args.ang_excl_margin,
+                m_incl=args.ang_incl_margin,
+                sim_param_group=args.sim_param_group,
+                max_token_seq_len=args.ang_loss_max_token_seq_len,
+                
+            )
+            
+
+            # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
+            
+            
+            aei_loss = (args.ang_excl_loss_weight*a_excl_loss) + (args.ang_incl_loss_weight* a_incl_loss) + args.ang_norm_loss_weight*a_norm_loss   + args.ang_preserve_loss_weight* a_preserve_loss
+            # aei_loss += a_mid_loss
+            
+            
+            loss_print_logs['ang_excl_loss'] = a_excl_loss.item() * args.ang_excl_loss_weight
+            loss_print_logs['ang_incl_loss'] = a_incl_loss.item() * args.ang_incl_loss_weight
+            loss_print_logs['ang_norm_loss'] = a_norm_loss.item()
+            # loss_print_logs['ang_mid_loss'] = a_mid_loss.item()
+            loss_print_logs['aei_loss'] = aei_loss.item()
+            loss_print_logs['ang_preserve_loss'] = a_preserve_loss.item()  # * args.ang_preserve_loss_weight
+            
+            # initialize with aei loss
+            total_loss = args.aei_loss_weight*aei_loss 
+                
+            # generic mapping/ neg guidance/unlearn loss
+            # loss_print_logs['unlearn_loss'] = unlearn_loss.item() ... already logged above
+            total_loss += args.generic_loss_weight * unlearn_loss
+            
+            # preservation loss
+            # loss_print_logs['preservation_loss'] = preservation_loss.item() .... already logged above
+            total_loss += preservation_weight * preservation_loss
+            
+            # l2 weight modification loss (inconsistent for now)
+            if args.weight_modification_weight is not None and args.weight_modification_weight > 0.0:
+                loss_print_logs['weight_modification_loss'] = weight_modification_loss.item()
+                total_loss += args.weight_modification_weight*weight_modification_loss
+                
 
             
-            loss_print_logs = {}
-            
-            preservation_weight = args.preservation_weight if args.preservation_weight is not None else 0.0
-
-            
-            loss_print_logs['unlearn_loss'] = unlearn_loss.item()
-            loss_print_logs['preservation_loss'] = preservation_loss.item()
-            
-            if args.aei_loss_weight > 0.0:
-                
-                # print(p_e.shape, p_g.shape)
-                a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
-                    unet_u=esd_unet, 
-                    unet_0=base_unet,
-                    p_e=p_e,
-                    p_g=p_g,
-                    m_excl=args.ang_excl_margin,
-                    m_incl=args.ang_incl_margin,
-                    sim_param_group=args.sim_param_group,
-                    max_token_seq_len=args.ang_loss_max_token_seq_len,
-                    
-                )
-                
-    
-                # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
-                
-                
-                aei_loss = (args.ang_excl_loss_weight*a_excl_loss) + (args.ang_incl_loss_weight* a_incl_loss) + args.ang_norm_loss_weight*a_norm_loss   + args.ang_preserve_loss_weight* a_preserve_loss
-                # aei_loss += a_mid_loss
-                
-                
-                loss_print_logs['ang_excl_loss'] = a_excl_loss.item() * args.ang_excl_loss_weight
-                loss_print_logs['ang_incl_loss'] = a_incl_loss.item() * args.ang_incl_loss_weight
-                loss_print_logs['ang_norm_loss'] = a_norm_loss.item()
-                # loss_print_logs['ang_mid_loss'] = a_mid_loss.item()
-                loss_print_logs['aei_loss'] = aei_loss.item()
-                loss_print_logs['ang_preserve_loss'] = a_preserve_loss.item()  # * args.ang_preserve_loss_weight
-                
-                # initialize with aei loss
-                total_loss = args.aei_loss_weight*aei_loss 
-                    
-                # generic mapping/ neg guidance/unlearn loss
-                # loss_print_logs['unlearn_loss'] = unlearn_loss.item() ... already logged above
-                total_loss += args.generic_loss_weight * unlearn_loss
-                
-                # preservation loss
-                # loss_print_logs['preservation_loss'] = preservation_loss.item() .... already logged above
-                total_loss += preservation_weight * preservation_loss
-                
-                # l2 weight modification loss (inconsistent for now)
-                if args.weight_modification_weight is not None and args.weight_modification_weight > 0.0:
-                    loss_print_logs['weight_modification_loss'] = weight_modification_loss.item()
-                    total_loss += args.weight_modification_weight*weight_modification_loss
-                    
-    
-                
+        else:
+            if args.preservation_weight_option == 'convex':
+                total_loss = (1.0 - preservation_weight) * unlearn_loss + preservation_weight * preservation_loss
             else:
-                if args.preservation_weight_option == 'convex':
-                    total_loss = (1.0 - preservation_weight) * unlearn_loss + preservation_weight * preservation_loss
-                else:
-                    total_loss = unlearn_loss + preservation_weight * preservation_loss
+                total_loss = unlearn_loss + preservation_weight * preservation_loss
 
+                
+        loss_print_logs['total_loss'] = total_loss.item()
+        
+        
+        print(" | ".join([f"{k}: {v:.6f}" for k,v in loss_print_logs.items()]))
+        
+
+        total_loss.backward()
+        
+
+
+        optimizer.step()
+        
+        
+        #---
+
+#+++ WandB logging
+        # --- W&B log (after step) ---
+        if args.report_to == 'wandb':
+            try:
+                wandb.log({
+                    "unlearning_loss": float(unlearn_loss.detach().item()),
+                    "preservation_loss": float(preservation_loss.detach().item()),
+                    "aei_loss": float(aei_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
+                    "ang_excl_loss": float(a_excl_loss.detach().item()) * args.ang_excl_loss_weight if args.aei_loss_weight > 0.0 else None,
+                    "ang_incl_loss": float(a_incl_loss.detach().item()) * args.ang_incl_loss_weight if args.aei_loss_weight > 0.0 else None,
+                    "ang_preserve_loss": float(a_preserve_loss.detach().item())  if args.aei_loss_weight > 0.0 else None,
+                    "ang_norm_loss": float(a_norm_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
+                    "weight_modification_loss": float(weight_modification_loss.detach().item())  if args.aei_loss_weight > 0.0 else None,
+                    "total_weighted_loss": float((total_loss).detach().item()) if args.preservation_weight is not None else float(unlearn_loss.detach().item()),
+                    "timestep": int(timestep.detach().cpu().item()),
+                    "training_step": int(training_step),
                     
-            loss_print_logs['total_loss'] = total_loss.item()
-            
-            
-            print(" | ".join([f"{k}: {v:.6f}" for k,v in loss_print_logs.items()]))
-            
-
-            total_loss.backward()
-            
-
-
-            optimizer.step()
-            
-#---
-
-
-            # --- W&B log (after step) ---
-            if args.report_to == 'wandb':
-                try:
-                    wandb.log({
-                        "unlearning_loss": float(unlearn_loss.detach().item()),
-                        "preservation_loss": float(preservation_loss.detach().item()),
-                        "aei_loss": float(aei_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
-                        "ang_excl_loss": float(a_excl_loss.detach().item()) * args.ang_excl_loss_weight if args.aei_loss_weight > 0.0 else None,
-                        "ang_incl_loss": float(a_incl_loss.detach().item()) * args.ang_incl_loss_weight if args.aei_loss_weight > 0.0 else None,
-                        "ang_preserve_loss": float(a_preserve_loss.detach().item())  if args.aei_loss_weight > 0.0 else None,
-                        "ang_norm_loss": float(a_norm_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
-                        "weight_modification_loss": float(weight_modification_loss.detach().item())  if args.aei_loss_weight > 0.0 else None,
-                        "total_weighted_loss": float((total_loss).detach().item()) if args.preservation_weight is not None else float(unlearn_loss.detach().item()),
-                        "timestep": int(timestep.detach().cpu().item()),
-                        "training_step": int(training_step),
-                        
-                        # "ang_mid_loss": float(a_mid_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
-                        
-                    }, step=int(training_step))
-                except Exception as _e:
-                    print(f"[wandb] log failed: {_e}")
+                    # "ang_mid_loss": float(a_mid_loss.detach().item()) if args.aei_loss_weight > 0.0 else None,
+                    
+                }, step=int(training_step))
+            except Exception as _e:
+                print(f"[wandb] log failed: {_e}")
                 # --- end W&B log ---
-
 #---
+#---
+
+
+if __name__ == '__main__':
+
+    parser = get_parser()
+    args = parser.parse_args()
+    
+    
+    main(args)
+    

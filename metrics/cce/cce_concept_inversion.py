@@ -44,6 +44,11 @@ from diffusers.utils.import_utils import is_xformers_available
 import torch.nn as nn
 from safetensors.torch import load_file
 
+
+
+from PIL import Image, ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 if is_wandb_available():
     import wandb
 
@@ -175,6 +180,7 @@ def save_progress(text_encoder, placeholder_token_ids, accelerator, args, save_p
         .get_input_embeddings()
         .weight[min(placeholder_token_ids) : max(placeholder_token_ids) + 1]
     )
+    print(f'save: {args.placeholder_token}')
     learned_embeds_dict = {args.placeholder_token: learned_embeds.detach().cpu()}
     torch.save(learned_embeds_dict, save_path)
 
@@ -240,6 +246,10 @@ def parse_args():
         help="The output directory where the model predictions and checkpoints will be written.",
     )
     parser.add_argument("--seed", type=int, default=None, help="A seed for reproducible training.")
+    
+    parser.add_argument("--random_init_token_seed", type=int, default=999, help="A seed for reproducible training.")
+    
+    
     parser.add_argument(
         "--resolution",
         type=int,
@@ -831,8 +841,17 @@ def main():
     # Initialise the newly added placeholder token with the embeddings of the initializer token
     token_embeds = text_encoder.get_input_embeddings().weight.data
     with torch.no_grad():
-        for token_id in placeholder_token_ids:
-            token_embeds[token_id] = token_embeds[initializer_token_id].clone()
+        for i, token_id in enumerate(placeholder_token_ids):
+            # added
+            if args.initializer_token == 'random':
+                # Random initialization with measured Pretrained Token Embedding std
+                embedding_dim = token_embeds.shape[1]
+                generator = torch.Generator(device=token_embeds.device).manual_seed(args.random_init_token_seed)
+                token_embeds[token_id] = torch.randn(embedding_dim, generator=generator, device=token_embeds.device) *  token_embeds.std().item()
+                print(f"  ↳ randomly initialized '{token_id}' with std={ token_embeds.std().item():.4f} (seed={args.random_init_token_seed})")  
+                
+            else:
+                token_embeds[token_id] = token_embeds[initializer_token_id].clone()
 
     # Freeze vae and unet
     vae.requires_grad_(False)

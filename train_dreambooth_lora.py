@@ -356,7 +356,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                         save_image_path_dir = osp.join(save_image_path,f"uncond", f"{cfg:.2f}")
                         
                     # cce step tag
-                    elif 'v0' in prompt and args.load_token_embedding_step is not None:
+                    elif ('v0' in prompt or 'cce0' in prompt) and args.load_token_embedding_step is not None:
                         save_image_path_dir = osp.join(save_image_path,f"{prompt}-{args.load_token_embedding_step}", f"{cfg:.2f}")
                         
                     else:
@@ -1443,11 +1443,21 @@ def main(args):
             print(f'generating images from: lora{args.load_lora_weight_path}')
             
         else: print('not loading loRA weight')
-        if args.load_token_embedding_path is not None and args.placeholder_token is not None:
+        
+        
+        # print( args.load_token_embedding_path,osp.isfile(args.load_token_embedding_path))
+        if args.load_token_embedding_path is not None and args.placeholder_token is not None and  osp.isdir(args.load_token_embedding_path):
             print('loading token embedding')
             file_name = f'token_embedding-{args.load_token_embedding_step}.pt' if args.load_token_embedding_step is not None else 'token_embedding.pt'
             print(f'loading token embedding from: {osp.join(args.load_token_embedding_path,file_name)}')
             load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,file_name))
+            
+        
+        elif args.load_token_embedding_path is not None:
+            print('loading token embedding')
+            print(f'loading token embedding from: {args.load_token_embedding_path}')
+            load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, args.load_token_embedding_path)
+            
         
         log_validation(
             unet=pipeline.unet,
@@ -2516,11 +2526,15 @@ def main(args):
                 print(f'generating images from: lora{args.load_lora_weight_path}')
                 
             else: print('not loading loRA weight')
-            if args.load_token_embedding_path is not None and args.placeholder_token is not None:
+            if args.load_token_embedding_path is not None and args.placeholder_token is not None and osp.isdir(args.load_token_embedding_path):
                 file_name = f'token_embedding-{args.load_token_embedding_step}.pt' if args.load_token_embedding_step is not None else 'token_embedding.pt'
                 print(f'loading token embedding from: {osp.join(args.load_token_embedding_path,file_name)}')
                 load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,file_name))
-            
+            elif args.load_token_embedding_path is not None:
+                print(f'loading token embedding from: {args.load_token_embedding_path}')
+                load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, args.load_token_embedding_path)
+                
+                
             
             if args.use_generation_phases:
                 

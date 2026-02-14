@@ -1,74 +1,847 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="15_0"
 
-0
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.4CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=0 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=1e+6 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
-                    
-0
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb5e+5.as0_U.4CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=0 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=5e+5 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
-                    
-0
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb2.5e+5.as0_U.4CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=0 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=2.5e+5 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
-                    
-0
- python training.py configs/custom/erase_custom_1.yaml \
-                    exp_name="mace.psg8e-1.tr1e0.fr1e0.lamb1e+5.as0_U.4CELEB00_sd1.4.bf16_r0" \
-                    MACE.base_output_dir="data_root2/logs/mace" \
-                    MACE.pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4" \
-                    MACE.use_gsam_mask='true' use_sam_hq='true' \
-                    MACE.learning_rate=1e-4 MACE.max_train_steps=0 MACE.seed=2024 \
-                    MACE.rank=1 MACE.num_gen_images=8 \
-                    MACE.prior_preservation_cache_path="" \
-                    MACE.domain_preservation_cache_path="data_root/cache/mace/custom/cache_person.pt"  \
-                    MACE.train_preserve_scale=1e0 MACE.preserve_weight=8e-1 \
-                    MACE.lamb=1e+5 MACE.fuse_preserve_scale=1e0 \
-                    MACE.mapping_concept="['a person', 'a person', 'a person', 'a person']" \
-                    MACE.multi_concept="[[['margot-robbie', 'object'], ['david-beckham', 'object'], ['barack-obama', 'object'], ['rihanna', 'object']]]" \
-                    MACE.input_data_dir="data_root/generated/mace/sd1.4/r0" 
-                    
-4 experiments generated
-['mace.psg8e-1.tr1e0.fr1e0.lamb1e+6.as0_U.4CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb5e+5.as0_U.4CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb2.5e+5.as0_U.4CELEB00_sd1.4.bf16_r0', 'mace.psg8e-1.tr1e0.fr1e0.lamb1e+5.as0_U.4CELEB00_sd1.4.bf16_r0']
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:5 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+$$$$
+: << 'COMMENT'
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 # echo 'count:0 - mace.ps8e+7.coco1e-4_U.mrobbie_sd1.4.bf16 0
 # '
 #                             accelerate launch train_dreambooth_lora.py \
@@ -143,8 +916,359 @@ export pc_id="15_0"
 #                                 --run_note 'gen img' --wait_weight \
 #                                 --num_validation_images 100 \
 #                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-# $$$$
-: << 'COMMENT'
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG0.50_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG1.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG2.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Margot Robbie/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=4 \
+                --gradient_accumulation_steps=4 \
+                --max_train_steps=1000 \
+                --learning_rate=5.0e-03 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 250 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.nG3.00_U.mrobbie_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 1000 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
 
 echo 'count:0 - mace.ps8e-1.coco1e-4_U.obama_sd1.4.bf16_r0.bf16.bs4 0
 '
