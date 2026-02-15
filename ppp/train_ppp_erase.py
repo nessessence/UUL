@@ -687,6 +687,10 @@ def get_parser():
     parser.add_argument("--ang_excl_loss_weight",type=float, default=1.00) 
     parser.add_argument("--ang_preserve_loss_weight",type=float, default=0.00) 
     
+    parser.add_argument("--ang_push_pair_option", type=str, default='pairwise') # pairwise or allpair
+    parser.add_argument("--ang_all_pair_aggr_concept_option", type=str, default='avg') # for all pair option, how to aggregate concept-level loss: mean or max
+    
+    
     parser.add_argument("--ang_norm_loss_weight",type=float, default=1.0)  # multiplied from aei_loss_weight
     parser.add_argument("--generic_loss_weight",type=float, default=1.0)  # other unlearn losses
     parser.add_argument("--weight_modification_weight",type=float, default=None)  # other unlearn losses
@@ -698,10 +702,15 @@ def get_parser():
     
     
     parser.add_argument('--attacked_flag', type=int, default=None)  # flag for save model weight just for textual inversion attack
-    parser.add_argument('--erase_concept_ti', type=str, default=None) # we will use erase_concept_ti for erase
+    parser.add_argument('--erase_tis', type=str, default=None) # we will use erase_ti for erase
+    parser.add_argument('--erase_ti_weights', type=str, default=None) #  feature = W_iPe_i vs W_0Pe_i  (the weight that used to learn TIA)
+    # parser.add_argument('--erased_unet_weights', type=str, default=None) #  feature = W_iPe_i vs W_0Pe_i  (the weight that used to learn TIA)
+    
+    # overwrite arugment
+    parser.add_argument("--final_ang_preserve_loss_weight", type=float, default=None) 
+    parser.add_argument("--final_ang_excl_margin",  type=float, default=None)
     
     
-    parser.add_argument('--erase_concept_ti_weight', type=str, default=None) #  feature = W_iPe_i vs W_0Pe_i  (the weight that used to learn TIA)
     
     return parser
 
@@ -722,6 +731,11 @@ def compute_angular_exclusion_inclusion_loss(
     use_bias: bool = False,
     sim_param_group: str = "avg_token",  # {'avg_token', 'token', 'attn_head'}
     max_token_seq_len: int = None, 
+    
+    unet_u_tis=None,
+    push_pair_option: str = 'pairwise', # pairwise or allpair
+    n_prompt_template: int = None, # number of prompt template for each concept (including the raw text)
+    all_pair_aggr_concept_option: str = 'avg' # for all pair option, how to aggregate concept-level loss: mean or max
     
 ):
     """
@@ -745,6 +759,13 @@ def compute_angular_exclusion_inclusion_loss(
 
     params_u = dict(unet_u.named_parameters())
     params_0 = dict(unet_0.named_parameters())
+    
+    
+    if unet_u_tis is not None:
+        # print(unet_u_tis[0].keys())
+        params_u_tis = [unet_u_ti for unet_u_ti in unet_u_tis]
+        
+        # params_u_tis = [dict(unet_u_ti.named_parameters()) for unet_u_ti in unet_u_tis]
 
     excl_terms = []
     incl_terms = []
@@ -763,6 +784,12 @@ def compute_angular_exclusion_inclusion_loss(
 
         # Frozen reference
         W_0 = params_0[name].detach()
+        
+        # if unet_u_tis is not None:
+            # W_u_tis = [params_u_ti[name].detach() for params_u_ti in params_u_tis]
+            
+            # W_u_tis = [params_u_ti.get(name, None) for params_u_ti in params_u_tis]
+            # W_u_tis = [W_u_ti.detach() if W_u_ti is not None else None for W_u_ti in W_u_tis]
 
         # Bias handling
         if use_bias:
@@ -775,9 +802,36 @@ def compute_angular_exclusion_inclusion_loss(
             b_u = None
             b_0 = None
 
-        # Linear projections: [B, T, D]
-        W_u_e = F.linear(p_e, W_u, b_u)
-        W_u_g = F.linear(p_g, W_u, b_u) # for preservation term
+        if unet_u_tis is not None:
+            # remain the same
+            W_u_e = F.linear(p_e, W_u, b_u)
+            W_u_g = F.linear(p_g, W_u, b_u) 
+            
+            
+            W_u_tis = [params_u_ti[name].detach().to(W_u.device) for params_u_ti in params_u_tis]
+            
+            
+            with torch.no_grad():
+                W_u_ti_e = [F.linear(p_e[:n_prompt_template], W_0, b_0) ] # first one is the raw text prompt and original pretrained
+                for i_ti in range(len(W_u_tis)):
+                    W_u_ti = W_u_tis[i_ti]
+                    
+                    # 1 is for the raw text, the rest is for tis
+                    W_u_ti_e += [F.linear(p_e[(1+i_ti)*n_prompt_template: (1+i_ti+1)*n_prompt_template], W_u_ti, b_u)] # [B, T, D] for i_ti 
+            W_u_ti_e = torch.cat(W_u_ti_e, dim=0) 
+            
+            # print(W_u_e.shape) # [B, T, D]
+            # print('applying erased weight projection')
+            
+        else:
+        
+            # Linear projections: [B, T, D]
+            W_u_e = F.linear(p_e, W_u, b_u)
+            W_u_g = F.linear(p_g, W_u, b_u) # for preservation term
+            
+            
+            
+        # from pretrained 
         with torch.no_grad():
             W_0_e = F.linear(p_e, W_0, b_0)
             W_0_g = F.linear(p_g, W_0, b_0)
@@ -823,21 +877,60 @@ def compute_angular_exclusion_inclusion_loss(
             W_u_g_h = W_u_g.view(B, T, num_heads, head_dim)
             # print(W_u_e_h.shape) # [5, 77, 8, 160]
             
+            # # Cosine per (token, head): [B, T, H]
+            # if max_token_seq_len is not None:
+            #     print(f'using only {max_token_seq_len} tokens for angular loss computation')
+            #     cos_excl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_e_h[:, :max_token_seq_len], dim=-1)
+            #     cos_incl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_g_h[:, :max_token_seq_len], dim=-1)
+            # else:
+            #     cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
+            #     cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
 
-            # Cosine per (token, head): [B, T, H]
-            if max_token_seq_len is not None:
-                print(f'using only {max_token_seq_len} tokens for angular loss computation')
-                cos_excl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_e_h[:, :max_token_seq_len], dim=-1)
-                cos_incl_h = F.cosine_similarity(W_u_e_h[:, :max_token_seq_len], W_0_g_h[:, :max_token_seq_len], dim=-1)
-            else:
+            n_concepts = p_e.shape[0] // n_prompt_template
+            if push_pair_option == 'allpair' and n_concepts > 1:
+                # remain the same
+                cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
+                
+
+                
+                # from  (B, num_tokens, num_heads, head_dim) -> (n_concepts, n_prompt_template, num_tokens, num_heads, head_dim)
+                # B form: [ P1C1, P2C1, P3C1, P1C2, P2C2, .. ]
+                
+                
+                # target features (computed with the learnable weights)
+                x1 = W_u_e_h.view(n_concepts, n_prompt_template, T, num_heads, head_dim) # (C, P, T, H, D) # [1, 5, 77, 8, 40]' is invalid for input of size 246400
+                x1 = x1.permute(1, 2, 3, 0, 4)          # (P, T, H, C, D)
+                x1 = F.normalize(x1, dim=-1)                  # normalize on D (head_dim)
+                
+                # reference features (computed with frozen weights)
+                W_u_ti_e_h = W_u_ti_e.view(B, T, num_heads, head_dim)
+                x2 = W_u_ti_e_h.view(n_concepts, n_prompt_template, T, num_heads, head_dim)
+                x2 = x2.permute(1, 2, 3, 0, 4)          # (P, T, H, C, D)
+                x2= F.normalize(x2, dim=-1)            
+
+                cos_cc_same_template = x1 @ x2.transpose(-1, -2)   # (P, T, H, C, C)
+                
+                if all_pair_aggr_concept_option == 'avg':
+                    excl_terms.append(torch.clamp(cos_cc_same_template - m_excl, min=0.0).mean())
+                
+                elif all_pair_aggr_concept_option == 'max':
+                    
+                    # For each concept in target feature(x1), find the most similar reference feature (x2)
+                    excl_terms.append(torch.clamp(cos_cc_same_template - m_excl, min=0.0).max(dim=-1).values.mean())
+
+                    # excl_terms.append(torch.clamp(cos_cc_same_template - m_excl, min=0.0).max(dim=-1).mean())
+
+                # cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1) # (n_concepts, n_prompt_template, num_tokens, num_heads)
+                # cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
+            
+            elif push_pair_option == 'pairwise':
                 cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
                 cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
-            
             
             # head-wise generic inclusion margin according to the original similarity between the target concept and the generic concept
             
 
-            excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
+                excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
             
             if 'e' in m_incl or  'ex' in m_incl:
                 # the same
@@ -1022,8 +1115,25 @@ def main(args):
         args.load_token_embedding_path = args.load_token_embedding_path.split(';') # can be a lot
         
         for p in args.load_token_embedding_path:
-            print(f'loading token embedding from :{p}')
             load_token_embedding(pipe.text_encoder, pipe.tokenizer,p)
+    
+    
+    
+    if args.erase_tis is not None: args.erase_tis = args.erase_tis.split(';')
+    print(f'erase_ti: {args.erase_tis}')
+    
+    
+    print(f'args.erase_ti_weights: {args.erase_ti_weights}')
+    erased_unet_weights = None
+    if args.erase_ti_weights is not None:
+        args.erase_ti_weights = args.erase_ti_weights.split(';') # can be many paths
+        assert args.erase_tis is not None and len(args.erase_tis) == len(args.erase_ti_weights), "Number of TI concepts and number of TI weight paths should be the same"
+        erased_unet_weights = []
+        for p in args.erase_ti_weights:
+            print(f'loading erased unet weight from :{p}')
+            erased_unet_weights.append(load_file(p))
+    
+    
     
     # pipe.scheduler.set_timesteps(100)
     # pipe.scheduler = DDPMScheduler.from_config(pipe.scheduler.config)
@@ -1148,7 +1258,7 @@ def main(args):
         ####
         erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00 ... this is a tag for using multiple concept erasing
         if erase_multiple_concepts:
-            assert args.erase_concept_ti is None # not support yet
+            assert args.erase_ti is None # not support yet
             erase_concepts = concept2multiple_concepts[erase_concept]
             p_e_prompts = []; p_g_prompts = []
             
@@ -1163,10 +1273,12 @@ def main(args):
         
         else:
             if 'a painting in the style of ' in erase_concept:
-                prompt_templates = concept2prompt_templates['style']
+                erase_concept_type = 'style'
+                prompt_templates = concept2prompt_templates[erase_concept_type]
                 
                 
-                if args.erase_concept_ti is None:
+                
+                if args.erase_tis is None:
                     raw_erase_concept = erase_concept.replace('a painting in the style of ','') #  "a painting in the style of Van Gogh" --> Van Gogh 
                     raw_generic_concept = generic_concept.replace('a painting in the style of ','')  # "a painting in the style of artist" --> artist
                     
@@ -1178,26 +1290,27 @@ def main(args):
                     # p_g_prompts = [f"a painting in the style of {raw_generic_concept}", f"an artwork of {raw_generic_concept}", f"a photo in the style of {raw_generic_concept}", f"a picture in the style of {raw_generic_concept}"]
                     
                 else:
-                    erase_concept_tis = args.erase_concept_ti.split(';') # can be more than one
+                    # erase_tis = args.erase_ti.split(';') # can be more than one
                     raw_erase_concept = erase_concept.replace('a painting in the style of ','') #  "a painting in the style of Van Gogh" --> Van Gogh
                     raw_generic_concept = generic_concept.replace('a painting in the style of ','')
-                    print(f'using attack token embeddings for PPP: {erase_concept_tis}')
+                    print(f'using attack token embeddings for PPP: {erase_tis}')
                     p_e_prompts = []; p_g_prompts = []
                     
                     # also adding the original
                     p_e_prompts += [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
-                    for erase_concept_ti in erase_concept_tis:
-                        p_e_prompts += [prompt_template.format(erase_concept_ti) for prompt_template in prompt_templates]
+                    for erase_ti in args.erase_tis:
+                        p_e_prompts += [prompt_template.format(erase_ti) for prompt_template in prompt_templates]
                         p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
-                        # p_e_prompts += [f"a painting in the style of {erase_concept_ti}", f"an artwork of {erase_concept_ti}", f"a photo in the style of {erase_concept_ti}", f"a picture in the style of {erase_concept_ti}"]
+                        # p_e_prompts += [f"a painting in the style of {erase_ti}", f"an artwork of {erase_ti}", f"a photo in the style of {erase_ti}", f"a picture in the style of {erase_ti}"]
                         # p_g_prompts += [f"a painting in the style of {raw_generic_concept}", f"an artwork of {raw_generic_concept}", f"a photo in the style of {raw_generic_concept}", f"a picture in the style of {raw_generic_concept}"]
                     
                         
                     
             else: 
-                prompt_templates = concept2prompt_templates['object']
-                if args.erase_concept_ti is None:
+                erase_concept_type = 'object'
+                prompt_templates = concept2prompt_templates[erase_concept_type]
+                if args.erase_tis is None:
                     p_e_prompts = [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts = [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
                 
@@ -1205,16 +1318,16 @@ def main(args):
                     # p_g_prompts = [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"]
                 
                 else:
-                    erase_concept_tis = args.erase_concept_ti.split(';') # can be more than one
-                    print(f'using attack token embeddings for PPP: {erase_concept_tis}')
+                    # erase_tis = args.erase_ti.split(';') # can be more than one
+                    print(f'using attack token embeddings for PPP: {args.erase_tis}')
                     p_e_prompts = []; p_g_prompts = []
                     
                     
                     p_e_prompts += [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
                     # adding TIA tokens
-                    for erase_concept_ti in erase_concept_tis:
-                        p_e_prompts += [prompt_template.format(erase_concept_ti) for prompt_template in prompt_templates]
+                    for erase_ti in args.erase_tis:
+                        p_e_prompts += [prompt_template.format(erase_ti) for prompt_template in prompt_templates]
                         p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
                     
                                 
@@ -1605,10 +1718,9 @@ def main(args):
         loss_print_logs['preservation_loss'] = preservation_loss.item()
         
         
-        print('before loss')
         if args.aei_loss_weight > 0.0:
             
-            print('loss computation: angular exclusion-inclusion loss enabled')
+            # print('loss computation: angular exclusion-inclusion loss enabled')
             
             # print(p_e.shape, p_g.shape)
             a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
@@ -1616,10 +1728,16 @@ def main(args):
                 unet_0=base_unet,
                 p_e=p_e,
                 p_g=p_g,
-                m_excl=args.ang_excl_margin,
+                m_excl=args.ang_excl_margin if args.final_ang_excl_margin is None else args.final_ang_excl_margin,
                 m_incl=args.ang_incl_margin,
                 sim_param_group=args.sim_param_group,
                 max_token_seq_len=args.ang_loss_max_token_seq_len,
+                
+                # for advance experiment
+                unet_u_tis=erased_unet_weights,
+                push_pair_option=args.ang_push_pair_option,
+                n_prompt_template=len(concept2prompt_templates[erase_concept_type]),
+                all_pair_aggr_concept_option=args.ang_all_pair_aggr_concept_option
                 
             )
             
@@ -1627,7 +1745,12 @@ def main(args):
             # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
             
             
-            aei_loss = (args.ang_excl_loss_weight*a_excl_loss) + (args.ang_incl_loss_weight* a_incl_loss) + args.ang_norm_loss_weight*a_norm_loss   + args.ang_preserve_loss_weight* a_preserve_loss
+            aei_loss = (args.ang_excl_loss_weight*a_excl_loss) + (args.ang_incl_loss_weight* a_incl_loss) + args.ang_norm_loss_weight*a_norm_loss
+            
+            if args.final_ang_preserve_loss_weight is not None:
+                aei_loss += args.final_ang_preserve_loss_weight * a_preserve_loss
+            else:
+                aei_loss += args.ang_preserve_loss_weight* a_preserve_loss
             # aei_loss += a_mid_loss
             
             

@@ -44,7 +44,7 @@ from diffusers.utils.import_utils import is_xformers_available
 import torch.nn as nn
 from safetensors.torch import load_file
 
-
+import time
 
 from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -773,6 +773,17 @@ def main():
         args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision
     )
 
+
+    args.wait_weight = True
+    if args.load_unet_weight_path and args.wait_weight:
+        unet_weight_path =  args.load_unet_weight_path
+        # if unet_weight_path does not exist, then wait (it is in training process) ... re-check every 10 seconds
+        while not osp.exists(unet_weight_path):
+            print(f'waiting for unet weight: {unet_weight_path}')
+            time.sleep(30)
+        time.sleep(50)
+        
+        
 
     if args.load_unet_weight_path is not None and args.load_unet_weight_path:
         print(f'loading unet weights from {args.load_unet_weight_path}')

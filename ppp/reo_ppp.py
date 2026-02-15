@@ -220,7 +220,7 @@ def train_concept_inversion(
     
     # placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
     
-    save_path = os.path.join(output_dir,f"tia-{iteration}iter-{global_step}step.pt")
+    save_path = os.path.join(output_dir,f"tia{iteration}-{global_step}step.pt")
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     save_token_embedding(pipeline.text_encoder, placeholder_tokens, placeholder_token_ids, save_path)
         
@@ -270,12 +270,22 @@ if __name__ == '__main__':
     parser.add_argument("--initializer_token", type=str, required=True, help="Initializer token (OPTIONS: person/object/art)")
     
     
-    parser.add_argument("--load_erased_weight_if_exist",action='store_true')
     
     
     parser.add_argument("--skip_stage1",action='store_true')
+    parser.add_argument("--use_erase_ti_weight", action='store_true') # will parse the weight automatically
     
     
+    parser.add_argument("--load_erased_weight_if_exist",action='store_true') # load only the first weight
+    
+    parser.add_argument("--iteratively_load_erased_weight_if_exist", action='store_true') # will parse the weight automatically
+    parser.add_argument("--iteratively_load_attack_token_if_exist", action='store_true') # will parse the weight automatically
+    
+    # # overwrite in the final stage -> in train_ppp_erase
+    # parser.add_argument("--final_ang_preserve_loss_weight", type=float, default=None) 
+    # parser.add_argument("--final_ang_excl_margin",  type=float, default=None)
+    
+
     
     args = parser.parse_args()
     
@@ -292,33 +302,107 @@ if __name__ == '__main__':
     attack_unlearn_steps = args.attack_unlearn_steps if args.attack_unlearn_steps is not None else args.max_training_step
     
     # so that we don't need erase for the first iteration
-    if args.load_erased_weight_if_exist:
-        erased_unet_path = osp.join(exp_path_dir, f'step{attack_unlearn_steps}.safetensors')
-        if osp.exists(erased_unet_path):
-             print(f'Found erased unet weights at {erased_unet_path}, loading it directly...')
-             load_unet_weight_path = erased_unet_path
-        else: load_unet_weight_path = None
-    else:
-        load_unet_weight_path = args.load_unet_weight_path # None by default
-        
-        
     
-    if load_unet_weight_path is None:
-        print('Start the first erasing')
-        ppp_erase(args)
-        load_unet_weight_path = osp.join(exp_path_dir,f'step{attack_unlearn_steps}.safetensors')
+    
+
         # load_unet_weight_path = osp.join(exp_path_dir,f'step{attack_unlearn_steps}.safetensors')
     
     
+    
+    load_unet_weight_path = None  # args.load_unet_weight_path # None by default
+    
+    erased_unet_paths = [] # Wu1
     saved_tokens = {}
-    for cur_ti_iter in range(args.total_ti_attack_iterations):
-        if args.skip_stage1: continue
+    # we preserve UNet0 for pretrained model (erased zero times)
+    for cur_ti_iter in range( 1, args.total_ti_attack_iterations+1 ): # nth erase
         
-        print(f'starting erasing-attack iter: {cur_ti_iter}')
+        print(f'Start Erasure iter: {cur_ti_iter}')
         
-        # placeholder_token = generate_unique_placeholder_token(saved_tokens, ti_iter)
+
+        if cur_ti_iter == 1: # generally, we already 1st erased unet. So, just use it
+            load_unet_weight_path = osp.join(exp_path_dir,f'step{attack_unlearn_steps}.safetensors')
+            if args.load_erased_weight_if_exist and osp.exists(load_unet_weight_path): 
+                print(f'Found 1st erased unet weights at {load_unet_weight_path}')
+            else: 
+                print('Start the 1st erasing')
+                # we don't do erase with TIA0, but we do Pe (raw text)
+                ppp_erase(args)
+                
+            erased_unet_paths += [load_unet_weight_path]
+            
+
+        else:
+            # Erased n th : We_n = F ( We_n-1 , Pe_n-1)
+            print(f'Starting {cur_ti_iter} th Erasing ')
+            args_ = deepcopy(args)
+            
+            
+            # loading We_n-1 and Pe_n-1            
+            args_.erase_tis = f'TIA{cur_ti_iter-1}' # 
+            args_.load_token_embedding_path = osp.join(ti_attack_path_dir, f"tia{cur_ti_iter-1}-{args.ti_used_train_steps}step.pt") 
+            
+            args_.load_unet_weight_path = load_unet_weight_path
+            
+            
+            ### Hacked
+            args_.final_ang_preserve_loss_weight = None
+            args_.final_ang_excl_margin = None
+            
+            
+            if args.use_erase_ti_weight:
+                args_.erase_ti_weights = ';'.join([erased_unet_paths[-1]])  # only the last
+     
+     
+            args_.attacked_flag = f"tia{cur_ti_iter}-{args.ti_used_train_steps}step" # 
+            
+            if args.ang_push_pair_option == 'allpair':
+                args_.attacked_flag += '-AP'
+                if args.ang_all_pair_aggr_concept_option == 'max':
+                    args_.attacked_flag += '.max'
+                
+            if args.use_erase_ti_weight:
+                args_.attacked_flag += '-Wu'
+        
+
+            load_unet_weight_path = osp.join(exp_path_dir, 'attacked_models', f'{args_.attacked_flag}_step{args.max_training_step}.safetensors')
+        
+        
+            if (args.iteratively_load_erased_weight_if_exist or args.skip_stage1) and osp.exists(load_unet_weight_path):
+                print(f'founded already erased unet weights from {load_unet_weight_path} for iteration {cur_ti_iter}')
+                print('skipping the erasing and directly go to the next iteration of TI attack ...')
+                
+            else: 
+                print(f'performing erasing with {args_.erase_tis} token loaded from {args_.load_token_embedding_path} ')
+                ppp_erase(args_) 
+            
+           
+            
+            
+            print(f'save at: {load_unet_weight_path}')
+            # print(f'Next iteration will load unet from {load_unet_weight_path}')
+        
+            erased_unet_paths += [load_unet_weight_path]
+
+    
+
+        
+        print(f"Entering {cur_ti_iter}th  Textual Inversion Attack Process")
+        # Pe_n = F(We_n)
+
         placeholder_token = f'TIA{cur_ti_iter}'
         saved_tokens[f'{cur_ti_iter}'] = placeholder_token
+        
+        
+        attack_token_path = osp.join(ti_attack_path_dir, f"tia{cur_ti_iter}-{args.ti_used_train_steps}step.pt")
+        
+        if ( args.iteratively_load_attack_token_if_exist or args.skip_stage1) and osp.exists(attack_token_path):
+            print(f'founded already computed attack token from {attack_token_path} for iteration {cur_ti_iter}')
+            print('skipping the TI attack and directly go to the next iteration of erasing ...')
+            continue # skip the iteration if the attack token already exists. (we assume if the attack token exists, then the unet weight also exist, which is reasonable since we save the attack token at the end of each iteration)
+        
+        
+        
+        print(f"{placeholder_token} Attack to {load_unet_weight_path}")
         
         
         # ReInitialize the pipeline for each iteration
@@ -344,28 +428,13 @@ if __name__ == '__main__':
         torch.cuda.empty_cache()
             
             
-        
-        args_ = deepcopy(args)
-        args_.load_unet_weight_path = load_unet_weight_path
-        args_.load_token_embedding_path = osp.join(ti_attack_path_dir,f"tia-{cur_ti_iter}iter-{args.ti_used_train_steps}step.pt")
-        args_.erase_concept_ti = f'TIA{cur_ti_iter}' # placeholder_token
-        args_.attacked_flag = f"tia-{cur_ti_iter+1}iter-{args.ti_used_train_steps}step" #  osp.join(args.save_path, model_name, 'attacked_models', f'{args.attacked_flag}_step{training_step}.safetensors')
-        
-        print(f'performing erasing with {args_.erase_concept_ti} token loaded from {args_.load_token_embedding_path} ')
-        ppp_erase(args_)
-        print(f"Complete Attacking model with '{placeholder_token}' saved to {load_unet_weight_path}")
-        
-        
+
         # remove old weight (saved memory)
-        if cur_ti_iter > 0: 
-            os.remove(load_unet_weight_path)
-            print(f'Removed previous unet weight at {load_unet_weight_path}')
-        
-        load_unet_weight_path = osp.join(exp_path_dir, 'attacked_models', f'tia-{cur_ti_iter+1}iter-{args.ti_used_train_steps}step_step{args.max_training_step}.safetensors')
-        print(f'Next iteration will load unet from {load_unet_weight_path}')
+        # if cur_ti_iter > 0: 
+            # os.remove(load_unet_weight_path)
+            # print(f'Removed previous unet weight at {load_unet_weight_path}')
         
 
-    
     
     
     # Stage 2: PPP Erase with multiple attacked tokens
@@ -374,10 +443,35 @@ if __name__ == '__main__':
     args_ = deepcopy(args)
     
     # args_.load_token_embedding_path = f"{osp.join(ti_attack_path_dir,f'tia-iter0-{args.ti_used_train_steps}step.pt')};{osp.join(ti_attack_path_dir,f'tia-iter1-{args.ti_used_train_steps}step.pt')};{osp.join(ti_attack_path_dir,f'tia-iter2-{args.ti_used_train_steps}step.pt')}
-    args_.load_token_embedding_path = ";".join(osp.join(ti_attack_path_dir, f"tia-{i}iter-{args.ti_used_train_steps}step.pt") for i in range(args.total_ti_attack_iterations))
+    args_.load_token_embedding_path = ";".join(osp.join(ti_attack_path_dir, f"tia{i+1}-{args.ti_used_train_steps}step.pt") for i in range(args.total_ti_attack_iterations))
 
-    args_.erase_concept_ti =  ';'.join(f'TIA{i}' for i in range(args.total_ti_attack_iterations)) #f'TIA0;TIA1;TIA2' # should be more automated
-    args_.attacked_flag = f'tia-012iter-{args.ti_used_train_steps}step' # hardcoded
+    args_.erase_tis =  ';'.join(f'TIA{i+1}' for i in range(args.total_ti_attack_iterations)) #f'TIA0;TIA1;TIA2' # should be more automated
+    if args.use_erase_ti_weight:
+        args_.erase_ti_weights = ';'.join(erased_unet_paths) # f'{args.ti_used_train_steps};{args.ti_used_train_steps};{args.ti_used_train_steps}' # should be more automated
+    if args.final_ang_preserve_loss_weight is not None:
+        print(f'overwriting ang_preserve_loss_weight from {args_.ang_preserve_loss_weight} to {args.final_ang_preserve_loss_weight} for the final stage PPP erasing')
+        args_.final_ang_preserve_loss_weight = args.final_ang_preserve_loss_weight
+    if args.final_ang_excl_margin is not None:
+        print(f'overwriting ang_excl_margin from {args_.ang_excl_margin} to {args.final_ang_excl_margin} for the final stage PPP erasing')
+        args_.final_ang_excl_margin = args.final_ang_excl_margin
+    
+    
+    
+     
+    args_.attacked_flag = f"tia{''.join(str(i+1) for i in range(args.total_ti_attack_iterations))}-{args.ti_used_train_steps}step" # hardcoded
+    if args.ang_push_pair_option == 'allpair':
+        args_.attacked_flag += '-AP'
+        if args.ang_all_pair_aggr_concept_option == 'max':
+            args_.attacked_flag += '.max'
+    if args.use_erase_ti_weight:
+        args_.attacked_flag += '-Wu'
+        
+    if args.final_ang_preserve_loss_weight is not None:
+        args_.attacked_flag += f'-P{args.final_ang_preserve_loss_weight:.2f}'
+    if args.final_ang_excl_margin is not None:
+        args_.attacked_flag += f'-E{args.final_ang_excl_margin:.2f}'
+    
+    print(f'attack flag: {args_.attacked_flag}')
     
     ppp_erase(args_)
     
@@ -385,7 +479,7 @@ if __name__ == '__main__':
 
     torch.cuda.empty_cache()
 
-    print(f'done erasing .... at: attacked_models')
+    print(f'done erasing ')
     
 #---
     
