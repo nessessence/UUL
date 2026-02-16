@@ -77,6 +77,7 @@ def train_concept_inversion(
     
     output_dir=None,
     save_steps=50,
+    attacked_model_tag='',
 ):
     
     # Set the random seed for reproducibility
@@ -206,7 +207,11 @@ def train_concept_inversion(
             
             if global_step % save_steps == 0:
                 # save_path = os.path.join(args.output_dir, f"learned_embeds-steps-{global_step}.bin")
-                save_path = os.path.join(output_dir ,f"tia-{iteration}iter-{global_step}step.pt")
+                
+                if attacked_model_tag:
+                    save_path = os.path.join(output_dir ,f"tia{iteration}-{global_step}step_{attacked_model_tag}.pt")
+                else:
+                    save_path = os.path.join(output_dir ,f"tia{iteration}-{global_step}step.pt")
                 os.makedirs(os.path.dirname(save_path), exist_ok=True)
                 save_token_embedding(pipeline.text_encoder,  placeholder_tokens, placeholder_token_ids,  save_path)
 
@@ -220,7 +225,10 @@ def train_concept_inversion(
     
     # placeholder_token_ids = tokenizer.convert_tokens_to_ids(placeholder_tokens)
     
-    save_path = os.path.join(output_dir,f"tia{iteration}-{global_step}step.pt")
+    if attacked_model_tag:
+        save_path = os.path.join(output_dir ,f"tia{iteration}-{global_step}step_{attacked_model_tag}.pt")
+    else:
+        save_path = os.path.join(output_dir ,f"tia{iteration}-{global_step}step.pt")
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     save_token_embedding(pipeline.text_encoder, placeholder_tokens, placeholder_token_ids, save_path)
         
@@ -310,8 +318,9 @@ if __name__ == '__main__':
     
     
     load_unet_weight_path = None  # args.load_unet_weight_path # None by default
-    
+    attack_token_path = None # we will define it in the loop
     erased_unet_paths = [] # Wu1
+    attack_token_paths = []
     saved_tokens = {}
     # we preserve UNet0 for pretrained model (erased zero times)
     for cur_ti_iter in range( 1, args.total_ti_attack_iterations+1 ): # nth erase
@@ -339,8 +348,8 @@ if __name__ == '__main__':
             
             # loading We_n-1 and Pe_n-1            
             args_.erase_tis = f'TIA{cur_ti_iter-1}' # 
-            args_.load_token_embedding_path = osp.join(ti_attack_path_dir, f"tia{cur_ti_iter-1}-{args.ti_used_train_steps}step.pt") 
-            
+            # args_.load_token_embedding_path = osp.join(ti_attack_path_dir, f"tia{cur_ti_iter-1}-{args.ti_used_train_steps}step.pt") 
+            args_.load_token_embedding_path = attack_token_path  # just load the last one, which is the most trained one, to save time.
             args_.load_unet_weight_path = load_unet_weight_path
             
             
@@ -354,14 +363,15 @@ if __name__ == '__main__':
      
      
             args_.attacked_flag = f"tia{cur_ti_iter}-{args.ti_used_train_steps}step" # 
-            
+            addition_attack_flag = ''
             if args.ang_push_pair_option == 'allpair':
-                args_.attacked_flag += '-AP'
+                addition_attack_flag += '-AP'
                 if args.ang_all_pair_aggr_concept_option == 'max':
-                    args_.attacked_flag += '.max'
-                
+                    addition_attack_flag += '.max'
             if args.use_erase_ti_weight:
-                args_.attacked_flag += '-Wu'
+                addition_attack_flag += '-Wu'
+            if addition_attack_flag != '': args_.attacked_flag = f'{ args_.attacked_flag}_{addition_attack_flag[1:]}'
+                
         
 
             load_unet_weight_path = osp.join(exp_path_dir, 'attacked_models', f'{args_.attacked_flag}_step{args.max_training_step}.safetensors')
@@ -393,9 +403,19 @@ if __name__ == '__main__':
         saved_tokens[f'{cur_ti_iter}'] = placeholder_token
         
         
-        attack_token_path = osp.join(ti_attack_path_dir, f"tia{cur_ti_iter}-{args.ti_used_train_steps}step.pt")
+        if cur_ti_iter == 1:
+            attacked_model_tag = ''
+            attack_token_path = osp.join(ti_attack_path_dir, f"tia{cur_ti_iter}-{args.ti_used_train_steps}step.pt")
+        else:
+            attacked_model_tag = osp.basename(load_unet_weight_path).replace('.safetensors','')
+            attack_token_path = osp.join(ti_attack_path_dir, f"tia{cur_ti_iter}-{args.ti_used_train_steps}step_{attacked_model_tag}.pt")
         
-        if ( args.iteratively_load_attack_token_if_exist or args.skip_stage1) and osp.exists(attack_token_path):
+            
+        print('attacked_model_tag: ', attacked_model_tag)
+        
+        
+        use_iter_1_if_exist = True
+        if (( args.iteratively_load_attack_token_if_exist or args.skip_stage1) or (use_iter_1_if_exist and cur_ti_iter == 1)) and osp.exists(attack_token_path):
             print(f'founded already computed attack token from {attack_token_path} for iteration {cur_ti_iter}')
             print('skipping the TI attack and directly go to the next iteration of erasing ...')
             continue # skip the iteration if the attack token already exists. (we assume if the attack token exists, then the unet weight also exist, which is reasonable since we save the attack token at the end of each iteration)
@@ -422,12 +442,14 @@ if __name__ == '__main__':
             save_steps=args.ti_save_steps,
             iteration=cur_ti_iter,  # just to name the token , and some data loading operation need it (from STEREO)
             num_iterations=args.total_ti_attack_iterations, # this inherit from STEREO ... to automatically create non-overlapping image subsets for each iteration .... in which im not sure why
-            output_dir=ti_attack_path_dir)
+            output_dir=ti_attack_path_dir,
+            attacked_model_tag=attacked_model_tag
+            )
         
         del pipeline.unet, pipeline.vae, pipeline.text_encoder, pipeline
         torch.cuda.empty_cache()
             
-            
+        attack_token_paths += [attack_token_path]
 
         # remove old weight (saved memory)
         # if cur_ti_iter > 0: 
@@ -443,8 +465,8 @@ if __name__ == '__main__':
     args_ = deepcopy(args)
     
     # args_.load_token_embedding_path = f"{osp.join(ti_attack_path_dir,f'tia-iter0-{args.ti_used_train_steps}step.pt')};{osp.join(ti_attack_path_dir,f'tia-iter1-{args.ti_used_train_steps}step.pt')};{osp.join(ti_attack_path_dir,f'tia-iter2-{args.ti_used_train_steps}step.pt')}
-    args_.load_token_embedding_path = ";".join(osp.join(ti_attack_path_dir, f"tia{i+1}-{args.ti_used_train_steps}step.pt") for i in range(args.total_ti_attack_iterations))
-
+    # args_.load_token_embedding_path = ";".join(osp.join(ti_attack_path_dir, f"tia{i+1}-{args.ti_used_train_steps}step.pt") for i in range(args.total_ti_attack_iterations))
+    args_.load_token_embedding_path = ';'.join(attack_token_paths)
     args_.erase_tis =  ';'.join(f'TIA{i+1}' for i in range(args.total_ti_attack_iterations)) #f'TIA0;TIA1;TIA2' # should be more automated
     if args.use_erase_ti_weight:
         args_.erase_ti_weights = ';'.join(erased_unet_paths) # f'{args.ti_used_train_steps};{args.ti_used_train_steps};{args.ti_used_train_steps}' # should be more automated
@@ -459,17 +481,26 @@ if __name__ == '__main__':
     
      
     args_.attacked_flag = f"tia{''.join(str(i+1) for i in range(args.total_ti_attack_iterations))}-{args.ti_used_train_steps}step" # hardcoded
+    
+    addition_attack_flag = ''
     if args.ang_push_pair_option == 'allpair':
-        args_.attacked_flag += '-AP'
+        addition_attack_flag += '-AP'
         if args.ang_all_pair_aggr_concept_option == 'max':
-            args_.attacked_flag += '.max'
+            addition_attack_flag += '.max'
     if args.use_erase_ti_weight:
-        args_.attacked_flag += '-Wu'
+        addition_attack_flag += '-Wu'
+    if addition_attack_flag != '': args_.attacked_flag = f'{ args_.attacked_flag}_{addition_attack_flag[1:]}'
         
+        
+    addition_attack_flag = ''
     if args.final_ang_preserve_loss_weight is not None:
-        args_.attacked_flag += f'-P{args.final_ang_preserve_loss_weight:.2f}'
+       addition_attack_flag += f'-P{args.final_ang_preserve_loss_weight:.2f}'
     if args.final_ang_excl_margin is not None:
-        args_.attacked_flag += f'-E{args.final_ang_excl_margin:.2f}'
+        addition_attack_flag += f'-E{args.final_ang_excl_margin:.2f}'
+    if addition_attack_flag != '': args_.attacked_flag = f'{ args_.attacked_flag}_{addition_attack_flag[1:]}'
+    
+    
+    
     
     print(f'attack flag: {args_.attacked_flag}')
     

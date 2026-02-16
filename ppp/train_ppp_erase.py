@@ -40,7 +40,7 @@ concept2prompt_templates = {
         "an image of {}",
         "a picture of {}",
     ],
-    'stlye':   [ 
+    'style':   [ 
     "a painting in the style of {}",
     "an artwork of {}",
     "a photo in the style of {}",
@@ -902,13 +902,20 @@ def compute_angular_exclusion_inclusion_loss(
                 x1 = x1.permute(1, 2, 3, 0, 4)          # (P, T, H, C, D)
                 x1 = F.normalize(x1, dim=-1)                  # normalize on D (head_dim)
                 
-                # reference features (computed with frozen weights)
-                W_u_ti_e_h = W_u_ti_e.view(B, T, num_heads, head_dim)
-                x2 = W_u_ti_e_h.view(n_concepts, n_prompt_template, T, num_heads, head_dim)
-                x2 = x2.permute(1, 2, 3, 0, 4)          # (P, T, H, C, D)
-                x2= F.normalize(x2, dim=-1)            
+                
+                if unet_u_tis is not None:
+                    # reference features (computed with frozen weights)
+                    W_u_ti_e_h = W_u_ti_e.view(B, T, num_heads, head_dim)
+                    x2 = W_u_ti_e_h.view(n_concepts, n_prompt_template, T, num_heads, head_dim)
+                    x2 = x2.permute(1, 2, 3, 0, 4)          # (P, T, H, C, D)
+                    x2= F.normalize(x2, dim=-1)            
 
-                cos_cc_same_template = x1 @ x2.transpose(-1, -2)   # (P, T, H, C, C)
+                    cos_cc_same_template = x1 @ x2.transpose(-1, -2)   # (P, T, H, C, C)
+                
+                else:
+                      cos_cc_same_template = x1 @ x1.transpose(-1, -2)
+                
+                    
                 
                 if all_pair_aggr_concept_option == 'avg':
                     excl_terms.append(torch.clamp(cos_cc_same_template - m_excl, min=0.0).mean())
@@ -923,7 +930,7 @@ def compute_angular_exclusion_inclusion_loss(
                 # cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1) # (n_concepts, n_prompt_template, num_tokens, num_heads)
                 # cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
             
-            elif push_pair_option == 'pairwise':
+            elif push_pair_option == 'pairwise' or n_concepts == 1:
                 cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
                 cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
             
@@ -1293,7 +1300,7 @@ def main(args):
                     # erase_tis = args.erase_ti.split(';') # can be more than one
                     raw_erase_concept = erase_concept.replace('a painting in the style of ','') #  "a painting in the style of Van Gogh" --> Van Gogh
                     raw_generic_concept = generic_concept.replace('a painting in the style of ','')
-                    print(f'using attack token embeddings for PPP: {erase_tis}')
+                    print(f'using attack token embeddings for PPP: {args.erase_tis}')
                     p_e_prompts = []; p_g_prompts = []
                     
                     # also adding the original

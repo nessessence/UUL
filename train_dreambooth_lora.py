@@ -80,6 +80,10 @@ from esd.utils.surgery_util import custom_call,parse_generation_phase_parameter
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
+
+print('diffusers version:', diffusers.__version__)
+print('transformers version:', transformers.__version__)
+
 # Will error if the minimal version of diffusers is not installed. Remove at your own risks.
 check_min_version("0.22.0")
 
@@ -214,7 +218,10 @@ def save_token_embedding(text_encoder, placeholder_token, placeholder_token_id, 
 def load_token_embedding(text_encoder, tokenizer, weight_path):
     logger.info(f"Loading Token Embeddings from {weight_path}")
     # Load the saved token embeddings
-    loaded_embeds_dict = torch.load(weight_path)
+    loaded_embeds_dict = torch.load(weight_path, weights_only=False)
+    
+    print(f"loaded_embeds_dict.keys(): {loaded_embeds_dict.keys()}")
+    
     # Get the input embedding layer
     token_embeddings = text_encoder.get_input_embeddings()
     # Process each token
@@ -1449,7 +1456,7 @@ def main(args):
         if args.load_token_embedding_path is not None and args.placeholder_token is not None and  osp.isdir(args.load_token_embedding_path):
             print('loading token embedding')
             file_name = f'token_embedding-{args.load_token_embedding_step}.pt' if args.load_token_embedding_step is not None else 'token_embedding.pt'
-            print(f'loading token embedding from: {osp.join(args.load_token_embedding_path,file_name)}')
+            # print(f'loading token embedding from: {osp.join(args.load_token_embedding_path,file_name)}')
             load_token_embedding(pipeline.text_encoder, pipeline.tokenizer, osp.join(args.load_token_embedding_path,file_name))
             
         
