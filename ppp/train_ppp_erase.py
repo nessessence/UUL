@@ -454,6 +454,14 @@ def resolve_model_name(args): #, training_step):
         if args.ang_loss_max_token_seq_len is not None and args.ang_loss_max_token_seq_len != 77 :
             base_file_name += f"nT{args.ang_loss_max_token_seq_len}"   
         
+        
+        
+        if args.ang_push_pair_option == 'allpair':
+            base_file_name += f"-All" # pairwise or allpair
+            base_file_name += f".a{args.ang_all_pair_aggr_concept_option[0].capitalize()}" # pairwise or allpair
+        
+        
+        
     if args.apply_gradient_projection:
             base_file_name += f"_GP"
             base_file_name += '.g'
@@ -874,10 +882,53 @@ def compute_angular_exclusion_inclusion_loss(
             norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
 
         elif sim_param_group == "token":
-            cos_excl_t = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
+            
+            
+            B, T, D = W_u_e.shape
+            
+            n_concepts = p_e.shape[0] // n_prompt_template
+            
+            
+            
             cos_incl_t = F.cosine_similarity(W_u_e, W_0_g, dim=-1)
+            
+            # Exclusion (Push)
+            # by default
+            if push_pair_option == 'pairwise' or n_concepts == 1:
+                
+                cos_excl_t = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
+                excl_terms.append(torch.clamp(cos_excl_t - m_excl, min=0.0).mean())
 
-            excl_terms.append(torch.clamp(cos_excl_t - m_excl, min=0.0).mean())
+            elif push_pair_option == 'allpair' and n_concepts > 1:
+                # print('push all option')
+                
+            # target features (computed with the learnable weights)
+                x1 = W_u_e.view(n_concepts, n_prompt_template, T, D)  #  (C, P, T, D)
+                x1 = x1.permute(1, 2, 0, 3)            # # (P, T, C, D)
+                x1 = F.normalize(x1, dim=-1)      
+                
+                x2 = W_0_e.view(n_concepts, n_prompt_template, T, D)  #  (C, P, T, D)
+                x2 = x2.permute(1, 2, 0, 3)            # # (P, T, C, D)
+                x2 = F.normalize(x2, dim=-1)                
+                
+                
+                cos_cc_same_template = x1 @ x2.transpose(-1, -2) #   # (P, T, C, C)
+                # print(cos_cc_same_template)
+                
+                
+                ## concept aggregation
+                if all_pair_aggr_concept_option == 'avg':
+                    excl_terms.append(torch.clamp(cos_cc_same_template - m_excl, min=0.0).mean())
+                
+                elif all_pair_aggr_concept_option == 'max':
+                    
+                    # print(torch.clamp(cos_cc_same_template, min=0.0).max(dim=-1).values)
+                    # For each concept in target feature(x1), find the most similar reference feature (x2)
+                    excl_terms.append(torch.clamp(cos_cc_same_template - m_excl, min=0.0).max(dim=-1).values.mean())
+
+                    # print(excl_terms[-1])
+
+            # Inclusion (PULL)
 
             if 'rs' in m_incl:
                 # print('using improved symmetric relative generic inclusion loss')
@@ -952,17 +1003,18 @@ def compute_angular_exclusion_inclusion_loss(
             # else:
             #     cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
             #     cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
-
+            
+            
+            
+            # exclusion (PULL)
             n_concepts = p_e.shape[0] // n_prompt_template
             if push_pair_option == 'allpair' and n_concepts > 1:
                 # remain the same
                 cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
-                
 
                 
                 # from  (B, num_tokens, num_heads, head_dim) -> (n_concepts, n_prompt_template, num_tokens, num_heads, head_dim)
                 # B form: [ P1C1, P2C1, P3C1, P1C2, P2C2, .. ]
-                
                 
                 # target features (computed with the learnable weights)
                 x1 = W_u_e_h.view(n_concepts, n_prompt_template, T, num_heads, head_dim) # (C, P, T, H, D) # [1, 5, 77, 8, 40]' is invalid for input of size 246400
@@ -982,8 +1034,8 @@ def compute_angular_exclusion_inclusion_loss(
                 else:
                       cos_cc_same_template = x1 @ x1.transpose(-1, -2)
                 
-                    
                 
+                ## concept aggregation
                 if all_pair_aggr_concept_option == 'avg':
                     excl_terms.append(torch.clamp(cos_cc_same_template - m_excl, min=0.0).mean())
                 
@@ -997,17 +1049,21 @@ def compute_angular_exclusion_inclusion_loss(
                 # cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1) # (n_concepts, n_prompt_template, num_tokens, num_heads)
                 # cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
             
+            # by default, we use pairwise push, which means each target concept is only pushed away from its own original feature and pulled towards its own generic feature, which is more stable and effective especially when the number of concepts increases
             elif push_pair_option == 'pairwise' or n_concepts == 1:
                 cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
                 cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
             
             # head-wise generic inclusion margin according to the original similarity between the target concept and the generic concept
-            
 
                 excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
               
               
-                         # symmetric 
+              
+              
+            # Inclusion (Push)  
+              
+            # symmetric 
             if 'rs' in m_incl:
                 # print('using improved symmetric relative generic inclusion loss')
                 
@@ -1374,15 +1430,18 @@ def main(args):
         ####
         erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00 ... this is a tag for using multiple concept erasing
         if erase_multiple_concepts:
-            assert args.erase_ti is None # not support yet
+            assert args.erase_tis is None # not support yet
             erase_concepts = concept2multiple_concepts[erase_concept]
             p_e_prompts = []; p_g_prompts = []
             
             if 'ARTIST' in erase_concept:
+                erase_concept_type = 'style'
                 for ec in erase_concepts:
                     p_e_prompts.extend( [ec, f"a painting in the style of {ec}", f"an artwork of {ec}", f"a photo in the style of {ec}", f"a picture in the style of {ec}"] )
                     p_g_prompts.extend( [generic_concept, f"a painting in the style of {generic_concept}", f"an artwork of {generic_concept}", f"a photo in the style of {generic_concept}", f"a picture in the style of {generic_concept}"] )
             else:
+                erase_concept_type = 'object'
+                
                 for ec in erase_concepts:
                     p_e_prompts.extend( [ec, f"a photo of {ec}", f"an image of {ec}", f"a picture of {ec}", f"a photo of a {ec}"] )
                     p_g_prompts.extend( [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"] )

@@ -1,5 +1,268 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="15_0"
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+$$$$
+: << 'COMMENT'
+echo 'count:0 - uce_U.mmouse_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/uce/uce_U.mmouse_sd1.4.bf16_r0/unet_weight.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/uce_U.mmouse_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - uce_U.mmouse_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/uce/uce_U.mmouse_sd1.4.bf16_r0/unet_weight.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/uce_U.mmouse_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - uce_U.mmouse_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/uce/uce_U.mmouse_sd1.4.bf16_r0/unet_weight.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/uce_U.mmouse_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - uce_U.mmouse_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/uce/uce_U.mmouse_sd1.4.bf16_r0/unet_weight.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/uce_U.mmouse_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" --instance_prompt="a photo of Mickey Mouse;a photo of Minnie Mouse;a photo of Donald Duck;a photo of Goofy;a photo of Pluto;a photo of cartoon mouse character" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.00Ir0.60P32.00-N0.00G0.00_U.mmouse_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*coco30k.500" --instance_prompt="*coco30k.500" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 echo 'count:0 - duo-s.b100_U.vgogh_sd1.4.bf16 1000
 '
                             accelerate launch train_dreambooth_lora.py \
@@ -15,8 +278,6 @@ echo 'count:0 - duo-s.b100_U.vgogh_sd1.4.bf16 1000
                                 --num_validation_images 100 \
                                 --donot_reinit_validation_generator \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-: << 'COMMENT'
 echo 'count:0 - duo-s.b100_U.mrobbie_sd1.4.bf16 1000
 '
                             accelerate launch train_dreambooth_lora.py \
