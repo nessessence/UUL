@@ -5,10 +5,10 @@ import os
 import platform
 import numpy as np
 import torch
-import cleanfid
-from cleanfid.downloads_helper import check_download_url
-from cleanfid.inception_pytorch import InceptionV3
-from cleanfid.inception_torchscript import InceptionV3W
+# import cleanfid
+from .downloads_helper import check_download_url
+from .inception_pytorch import InceptionV3
+from .inception_torchscript import InceptionV3W
 
 
 """

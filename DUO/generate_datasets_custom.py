@@ -119,6 +119,16 @@ custom_concepts = [
     "a painting in the style of Jackson Pollock",
     
     "naked person",
+    "naked man",
+    "naked woman",
+    
+    "Mickey Mouse",
+    "R2D2 robot",
+    "Mario",
+    "Grumpy Cat",
+    "Macbook",
+    
+    
     
     # "mickey mouse",
     # "pad thai",
@@ -145,8 +155,14 @@ erase2general_concept = {"Margot Robbie": "person",
                             "a painting in the style of Jackson Pollock": "a painting in the style of artist",
                             
                             "naked person": "dressed person",
+                            "naked man": "dressed man",
+                            "naked woman": "dressed woman",
                             
-                            
+                            "Mickey Mouse": "cartoon",
+                            "R2D2 robot": "robot",
+                            "Mario": "game character",
+                            "Grumpy Cat": "cat",
+                            "Macbook": "laptop",
                             
                             "Donald Trump": "person",
                             

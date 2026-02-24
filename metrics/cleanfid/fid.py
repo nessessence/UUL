@@ -7,11 +7,19 @@ import numpy as np
 from PIL import Image
 from scipy import linalg
 import zipfile
-import cleanfid
-from cleanfid.utils import *
-from cleanfid.features import build_feature_extractor, get_reference_statistics
-from cleanfid.resize import *
+# from cleanfid.utils import *
+# from cleanfid.features import build_feature_extractor, get_reference_statistics
+# from cleanfid.resize import *
+
+from .utils import *
+from .features import build_feature_extractor, get_reference_statistics
+from .resize import *
+
 from natsort import natsorted
+import time
+
+def _is_dir_list(x):
+    return isinstance(x, (list, tuple))
 
 
 """
@@ -160,6 +168,39 @@ def get_folder_features(fdir, model=None, num_workers=12, num=None,
                                   custom_image_tranform=custom_image_tranform,
                                   description=description, fdir=fdir, verbose=verbose)
     return np_feats
+
+
+
+# my implementation
+def get_folders_features(fdirs, model=None, num_workers=12, num=None,
+                        shuffle=False, seed=0, batch_size=128, device=torch.device("cuda"),
+                        mode="clean", custom_fn_resize=None, description="", verbose=True,
+                        custom_image_tranform=None):
+
+    files = []
+    for fdir in fdirs:
+        files += natsorted([
+                file for ext in EXTENSIONS
+            for file in glob(os.path.join(fdir, f"*.{ext}"))
+            ])
+
+    if verbose:
+        print(f"Found {len(files)} images in the folders {fdirs}")
+    # use a subset number of files if needed
+    if num is not None:
+        if shuffle:
+            random.seed(seed)
+            random.shuffle(files)
+        files = files[:num]
+        # print(files)
+        
+    np_feats = get_files_features(files, model, num_workers=num_workers,
+                                  batch_size=batch_size, device=device, mode=mode,
+                                  custom_fn_resize=custom_fn_resize,
+                                  custom_image_tranform=custom_image_tranform,
+                                  description=description, fdir=None, verbose=verbose)
+    return np_feats
+
 
 
 """
@@ -387,30 +428,83 @@ def make_custom_stats(name, fdir, num=None, mode="clean", model_name="inception_
     np.savez_compressed(outf, feats=np_feats)
 
 
+    
+    
+
 def compute_kid(fdir1=None, fdir2=None, gen=None,
             mode="clean", num_workers=12, batch_size=32,
             device=torch.device("cuda"), dataset_name="FFHQ",
             dataset_res=1024, dataset_split="train", num_gen=50_000, z_dim=512,
             verbose=True, use_dataparallel=True, n_max_gen_img=None):
     
+    t = time.time()
     # build the feature extractor based on the mode
     feat_model = build_feature_extractor(mode, device, use_dataparallel=use_dataparallel)
+    t = time.time() - t # 0.12
+    
+    if verbose:
+        print(f"built the feature extractor in {t:.2f} seconds")
 
     # if both dirs are specified, compute KID between folders
     if fdir1 is not None and fdir2 is not None:
         if verbose:
             print("compute KID between two folders")
-        # get all inception features for the first folder
-        fbname1 = os.path.basename(fdir1)
-        np_feats1 = get_folder_features(fdir1, feat_model, num_workers=num_workers,
-                            batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
-                            description=f"KID {fbname1} : ", verbose=verbose)
-        # get all inception features for the second folder
-        fbname2 = os.path.basename(fdir2)
-        np_feats2 = get_folder_features(fdir2, feat_model, num_workers=num_workers,
-                            batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
-                            description=f"KID {fbname2} : ", verbose=verbose)
+            
+            
+        if _is_dir_list(fdir1) and _is_dir_list(fdir2):
+            
+            np_feats1 = get_folders_features(fdir1, feat_model, num_workers=num_workers,
+                batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
+                description=f"loading features {fdir1} : ", verbose=verbose)
+
+            np_feats2 = get_folders_features(fdir2, feat_model, num_workers=num_workers,
+                batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
+                description=f"loading features {fdir2} : ", verbose=verbose)
+
+            # np_feats1 = get_folders_features(fdir1, feat_model, num_workers=num_workers,
+            #                         batch_size=batch_size, device=device, mode=mode,
+            #                         description=f"KID folder 1: ", verbose=verbose)
+            # np_feats2 = get_folders_features(fdir2, feat_model, num_workers=num_workers,                                    batch_size=batch_size, device=device, mode=mode,
+            #                         description=f"KID folder 2: ", verbose=verbose)
+            
+            # np_feats1 = []
+            # for dir1 in fdir1:
+            #     fbname1 = os.path.basename(dir1)
+            #     np_feats1.extend(get_folder_features(dir1, feat_model, num_workers=num_workers,
+            #                     batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
+            #                     description=f"loading features {fbname1} : ", verbose=verbose))
+            # np_feats1 = np.stack(np_feats1)
+            
+            # np_feats2 = []
+            # for dir2 in fdir2:
+            #     fbname2 = os.path.basename(dir2)
+            #     np_feats2.extend(get_folder_features(dir2, feat_model, num_workers=num_workers,
+            #                     batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
+            #                     description=f"loading features {fbname2} : ", verbose=verbose))
+            # np_feats2 = np.stack(np_feats2)
+            
+            print(f"loaded features for {len(np_feats1)} images in folder 1 and {len(np_feats2)} images in folder 2")
+            
+            
+            
+        else:
+            # get all inception features for the first folder
+            fbname1 = os.path.basename(fdir1)
+            np_feats1 = get_folder_features(fdir1, feat_model, num_workers=num_workers,
+                                batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
+                                description=f"KID {fbname1} : ", verbose=verbose)
+            # get all inception features for the second folder
+            fbname2 = os.path.basename(fdir2)
+            np_feats2 = get_folder_features(fdir2, feat_model, num_workers=num_workers,
+                                batch_size=batch_size, device=device, mode=mode, num=n_max_gen_img,
+                                description=f"KID {fbname2} : ", verbose=verbose)
+            
+            
         score = kernel_distance(np_feats1, np_feats2)
+        
+        t = time.time() - t
+        if verbose:
+            print(f"computed KID between the two folders in {t:.2f} seconds")
         return score
 
     # compute kid of a folder

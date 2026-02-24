@@ -70,6 +70,8 @@ concept2multiple_concepts = {
 
 bypass_preservation_concepts = [
     "naked person",
+    "naked woman",
+    "naked man",
     "mackerel tabby cat",
     "beagle dog",
     "a painting in the style of Picasso",
@@ -121,8 +123,11 @@ concept2shortname = {
     "a painting in the style of Picasso": "picasso",
     "a painting in the style of Jackson Pollock": "pollock",
     "a painting in the style of Salvador Dalí": "dali",
-    
+   
+    # NSFW concepts 
     "naked person": "naked",
+    "naked woman": "nakedw",
+    "naked man": "nakedm",
     
     "Jesus Christ": "jesus",
     "ipad": "ipad",
@@ -157,6 +162,8 @@ concept2generic_concept = {
                             "a painting in the style of Salvador Dalí": "a painting in the style of artist",
                             
                             "naked person": "dressed person",
+                            "naked woman": "dressed woman",
+                            "naked man": "dressed man",
                             
                             "ipad": "tablet",
                             "Jesus Christ": "god",
@@ -164,6 +171,8 @@ concept2generic_concept = {
                             
                             
                             "Margot Robbie": "person",
+                            # "David Beckham": "the person", #hack
+                            # "David Beckham": "person person",
                             "David Beckham": "person",
                             "Barack Obama": "person",
                             "Rihanna": "person",
@@ -410,7 +419,16 @@ def resolve_model_name(args): #, training_step):
             if args.ang_excl_loss_weight != 1.0:
                 base_file_name += f"-{args.ang_excl_loss_weight:.2f}"
         if args.ang_incl_margin is not None:
-            if 'ex' in str(args.ang_incl_margin):
+            
+            print(args.ang_incl_margin)
+            if 'rs' in str(args.ang_incl_margin):
+                ang_incl_margin = str(args.ang_incl_margin).replace('rs','')
+                base_file_name += f"Irs{float(ang_incl_margin):.2f}"
+            elif 'r' in str(args.ang_incl_margin):
+                ang_incl_margin = str(args.ang_incl_margin).replace('r','')
+                base_file_name += f"Ir{float(ang_incl_margin):.2f}"
+            
+            elif 'ex' in str(args.ang_incl_margin):
                 ang_incl_margin = str(args.ang_incl_margin).replace('ex','')
                 base_file_name += f"Iex{float(ang_incl_margin):.2f}"
             elif 'e' in str(args.ang_incl_margin):
@@ -494,6 +512,10 @@ def resolve_model_name(args): #, training_step):
     if args.decompositional_timestep_sampler is not None:
         base_file_name += f"_dT{args.decompositional_timestep_sampler}"
 
+
+    if args.test_tag is not None:
+        base_file_name += f"_{args.test_tag}"
+
     base_file_name += f"_U.{erase_concept_shortname}"
     
     
@@ -507,8 +529,7 @@ def resolve_model_name(args): #, training_step):
         base_file_name += f".bs{args.batch_size}" # n just for note that still one preservation concept
 
 
-    if args.test_tag is not None:
-        base_file_name += f"_{args.test_tag}"
+
       
 
       
@@ -635,7 +656,7 @@ def get_parser():
     parser.add_argument('--preservation_weight', type=float,  default=None, required=False)
     parser.add_argument('--preservation_split', type=str,  default='train', choices=['train','test'] )
     
-    parser.add_argument('--preservation_train_set', type=str,  default='00', choices=['celeb','coco'] + ['00','01','02','03']+['G','UG','U'] )
+    parser.add_argument('--preservation_train_set', type=str,  default='U', choices=['celeb','coco'] + ['00','01','02','03']+['G','UG','U'] )
     parser.add_argument('--preservation_weight_option', type=str,  default='additive', choices=['additive','convex'])
 
 
@@ -810,7 +831,6 @@ def compute_angular_exclusion_inclusion_loss(
             
             W_u_tis = [params_u_ti[name].detach().to(W_u.device) for params_u_ti in params_u_tis]
             
-            
             with torch.no_grad():
                 W_u_ti_e = [F.linear(p_e[:n_prompt_template], W_0, b_0) ] # first one is the raw text prompt and original pretrained
                 for i_ti in range(len(W_u_tis)):
@@ -818,7 +838,8 @@ def compute_angular_exclusion_inclusion_loss(
                     
                     # 1 is for the raw text, the rest is for tis
                     W_u_ti_e += [F.linear(p_e[(1+i_ti)*n_prompt_template: (1+i_ti+1)*n_prompt_template], W_u_ti, b_u)] # [B, T, D] for i_ti 
-            W_u_ti_e = torch.cat(W_u_ti_e, dim=0) 
+                    
+                W_u_ti_e = torch.cat(W_u_ti_e, dim=0) 
             
             # print(W_u_e.shape) # [B, T, D]
             # print('applying erased weight projection')
@@ -853,15 +874,61 @@ def compute_angular_exclusion_inclusion_loss(
             norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
 
         elif sim_param_group == "token":
-            cos_excl_tok = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
-            cos_incl_tok = F.cosine_similarity(W_u_e, W_0_g, dim=-1)
+            cos_excl_t = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
+            cos_incl_t = F.cosine_similarity(W_u_e, W_0_g, dim=-1)
 
-            excl_terms.append(torch.clamp(cos_excl_tok - m_excl, min=0.0).mean())
-            incl_terms.append(torch.clamp(m_incl - cos_incl_tok, min=0.0).mean())
+            excl_terms.append(torch.clamp(cos_excl_t - m_excl, min=0.0).mean())
+
+            if 'rs' in m_incl:
+                # print('using improved symmetric relative generic inclusion loss')
+                
+                m_incl_ =  float(m_incl.replace('rs',''))
+                
+                with torch.no_grad():
+                    base_cos_incl_t = F.cosine_similarity(W_0_e, W_0_g, dim=-1)
+                # r1 = torch.clamp(m_incl_ - cos_incl_h/base_cos_incl_h, min=0.0).mean()
+                r1 = torch.clamp(m_incl_ - cos_incl_t/base_cos_incl_t, min=0.0)
+                r2 = torch.clamp(cos_incl_t/base_cos_incl_t - (2-m_incl_), min=0.0)
+                
+                # either r1 or r2 is greater than 0 will contribute to the loss, which means either cos_incl_h/base_cos_incl_h is smaller than m_incl_ or greater than (2-m_incl_)
+                incl_terms.append((r1 + r2).mean())
+
+                
+            # releative: Lpull = max (m_pull - cos_sim (WePe, W0Pg) / cos_sim (W0Pe, W0Pg) , 0)
+            elif 'r' in m_incl:
+                # print('using improved relative generic inclusion loss')
+                m_incl_ =  float(m_incl.replace('r',''))
+                # cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
+                with torch.no_grad():
+                    base_cos_incl_t = F.cosine_similarity(W_0_e, W_0_g, dim=-1)
+                r = torch.clamp(m_incl_ - cos_incl_t/base_cos_incl_t, min=0.0)
+                incl_terms.append(r.mean())
+                
+       
+       
+            else:
+                incl_terms.append(torch.clamp(float(m_incl) - cos_incl_t, min=0.0).mean())
+                         
+            # excl_terms.append(torch.clamp(cos_excl_tok - m_excl, min=0.0).mean())
+            # incl_terms.append(torch.clamp(m_incl - cos_incl_tok, min=0.0).mean())
 
             norm_u = W_u_e.norm(dim=-1)
             norm_0 = W_0_e.norm(dim=-1)
             norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
+            
+       
+       
+                   
+            # preservation term
+            cos_preserve = F.cosine_similarity(W_u_g, W_0_g, dim=-1)
+            preserve_term =  1 - cos_preserve
+            preserve_terms.append(preserve_term.mean())
+                
+            
+
+                     
+            
+            
 
         elif sim_param_group == "attn_head":
             # Keep token resolution; reshape into heads per token.
@@ -938,8 +1005,37 @@ def compute_angular_exclusion_inclusion_loss(
             
 
                 excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
-            
-            if 'e' in m_incl or  'ex' in m_incl:
+              
+              
+                         # symmetric 
+            if 'rs' in m_incl:
+                # print('using improved symmetric relative generic inclusion loss')
+                
+                m_incl_ =  float(m_incl.replace('rs',''))
+                
+                with torch.no_grad():
+                    base_cos_incl_h = F.cosine_similarity(W_0_e_h, W_0_g_h, dim=-1)
+                # r1 = torch.clamp(m_incl_ - cos_incl_h/base_cos_incl_h, min=0.0).mean()
+                r1 = torch.clamp(m_incl_ - cos_incl_h/base_cos_incl_h, min=0.0)
+                r2 = torch.clamp(cos_incl_h/base_cos_incl_h - (2-m_incl_), min=0.0)
+                
+                # either r1 or r2 is greater than 0 will contribute to the loss, which means either cos_incl_h/base_cos_incl_h is smaller than m_incl_ or greater than (2-m_incl_)
+                incl_terms.append((r1 + r2).mean())
+
+                
+            # releative: Lpull = max (m_pull - cos_sim (WePe, W0Pg) / cos_sim (W0Pe, W0Pg) , 0)
+            elif 'r' in m_incl:
+                # print('using improved relative generic inclusion loss')
+                m_incl_ =  float(m_incl.replace('r',''))
+                # cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
+                with torch.no_grad():
+                    base_cos_incl_h = F.cosine_similarity(W_0_e_h, W_0_g_h, dim=-1)
+                r = torch.clamp(m_incl_ - cos_incl_h/base_cos_incl_h, min=0.0)
+                incl_terms.append(r.mean())
+                
+     
+            ##
+            elif 'e' in m_incl or  'ex' in m_incl:
                 # the same
                 with torch.no_grad():
                     m_incl_ =  F.cosine_similarity(W_0_e_h, W_0_g_h, dim=-1)
@@ -1186,7 +1282,10 @@ def main(args):
         if erase_concept in  bypass_preservation_concepts:
             preservation_concepts = []
         else:
-            preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v3_r123.pth')[args.erase_concept.lower()][args.preservation_split][preserve_cate]
+            print('still bypassing')
+            #hack
+            preservation_concepts = []
+            # preservation_concepts =  torch.load('../data_root/data/preservation_concepts/all_pe_v3_r123.pth')[args.erase_concept.lower()][args.preservation_split][preserve_cate]
         
         
         if args.preservation_split == 'train':
@@ -1262,6 +1361,16 @@ def main(args):
         
         
         generic_concept = concept2generic_concept[erase_concept]
+        
+        # if generic_concept == 'person' and erase_concept!='Rihanna':
+        #     generic_concept = 'the person'
+            
+        #     print('change generic concept to: ', generic_concept)
+            
+        
+        
+        
+        
         ####
         erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00 ... this is a tag for using multiple concept erasing
         if erase_multiple_concepts:
@@ -1575,7 +1684,7 @@ def main(args):
                 
                 if batch_size == 1:
                     preservation_concept = rng.choice(preservation_concepts).item()
-                    # print(f"preservation_concept: {preservation_concept}")
+                    print(f"preservation_concept: {preservation_concept}")
                     preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept, device=device, num_images_per_prompt=batch_size, do_classifier_free_guidance=True, negative_prompt='')
 
 
@@ -1592,7 +1701,7 @@ def main(args):
                 elif batch_size > 1:
                     # print(preservation_concepts)
                     preservation_concept = rng.choice(preservation_concepts, size=(batch_size,), replace=len(preservation_concepts) < batch_size).tolist()
-                    # print(f"preservation_concept: {preservation_concept}")
+                    print(f"preservation_concept: {preservation_concept}")
                     preservation_embeds, _ = pipe.encode_prompt(prompt=preservation_concept, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=['']*batch_size)
                         
                         

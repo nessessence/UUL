@@ -38,3 +38,10 @@ python ppp/reo_ppp.py --erase_concept 'a painting in the style of Claude Monet' 
 
 # ['esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.20I0.80P32.00-N0.00G0.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.40I0.80P32.00-N0.00G0.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.60I0.80P32.00-N0.00G0.00_U.picasso_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.20I0.80P32.00-N0.00G0.00_U.vgogh_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.40I0.80P32.00-N0.00G0.00_U.vgogh_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.60I0.80P32.00-N0.00G0.00_U.vgogh_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.20I0.80P32.00-N0.00G0.00_U.cmonet_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.40I0.80P32.00-N0.00G0.00_U.cmonet_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.60I0.80P32.00-N0.00G0.00_U.cmonet_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.20I0.80P32.00-N0.00G0.00_U.pollock_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.40I0.80P32.00-N0.00G0.00_U.pollock_sd1.4.bf16.bs4_r0', 'esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AhE0.60I0.80P32.00-N0.00G0.00_U.pollock_sd1.4.bf16.bs4_r0']
 # Total experiments: 12
+
+
+         # if train_method == 'xattn-kv' or  train_method == 'stereo-x-kv':
+                #     if 'attn2' not in module_name and ('to_k' not in module_name or 'to_v' not in module_name):
+                #         continue
+                    
+                    

@@ -1,7 +1,7 @@
 import os
 import torch
 import torch.nn as nn
-from cleanfid.downloads_helper import *
+from .downloads_helper import *
 import contextlib
 
 

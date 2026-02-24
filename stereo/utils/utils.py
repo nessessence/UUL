@@ -345,6 +345,12 @@ class FineTunedModel(torch.nn.Module):
                 if train_method == 'xattn':
                     if 'attn2' not in module_name:
                         continue
+                elif train_method in ['xattn-kv', 'stereo-x-kv']:
+                    if 'attn2' not in module_name:
+                        continue
+                    if 'to_k' not in module_name and 'to_v' not in module_name:
+                        continue
+       
                 elif train_method == 'xattn-strict':
                     if 'attn2' not in module_name or 'to_q' not in module_name or 'to_k' not in module_name:
                         continue

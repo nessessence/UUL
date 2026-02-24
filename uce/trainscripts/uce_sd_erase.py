@@ -4,6 +4,7 @@ import argparse
 import os
 import copy
 import time
+import os.path as osp
 
 from safetensors.torch import save_file
 from diffusers import DiffusionPipeline
@@ -85,9 +86,15 @@ def UCE(pipe, edit_concepts, guide_concepts, preserve_concepts, erase_scale, pre
     uce_state_dict = {}
     for name, parameter in zip(uce_module_names, uce_modules):
         uce_state_dict[name+'.weight'] = parameter.weight
-    save_file(uce_state_dict, os.path.join(save_dir, exp_name+'.safetensors'))
+        
+    os.makedirs(os.path.join(save_dir, exp_name),exist_ok=True)
+    weight_path =  os.path.join(save_dir, exp_name, 'unet_weight.safetensors')
+    save_file(uce_state_dict, os.path.join(save_dir, exp_name, 'unet_weight.safetensors'))
     
     end_time = time.time()
+    
+    print(f'save weight at: {weight_path} ')
+    
     print(f'\n\nErased concepts using UCE\nModel edited in {end_time-start_time} seconds\n')
     
 if __name__ == '__main__':

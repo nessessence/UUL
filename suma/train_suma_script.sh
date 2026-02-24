@@ -1,0 +1,1 @@
+python train_suma.py --output_dir stereo_weights_mine/David_Beckham_2

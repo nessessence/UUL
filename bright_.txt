@@ -1,0 +1,4 @@
+cd /ist/users/bright/sing3
+bash run_bind_pness.sh
+pg
+python llava.py --folder_path data_root/generated/study/original_pretrained_sd1.4_bf16/"a photo of Mickey Mouse"/7.50/

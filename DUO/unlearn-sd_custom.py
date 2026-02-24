@@ -721,13 +721,15 @@ def main(args):
             target_modules = ["attn1.to_k", "attn1.to_q", "attn1.to_v", "attn1.to_out.0"]
         elif args.train_method == 'duo-x':
             target_modules = ["attn2.to_k", "attn2.to_q", "attn2.to_v", "attn2.to_out.0"]
+            
+        elif args.train_method == 'duo-x-kv':
+            target_modules = ["attn2.to_k", "attn2.to_v"]
+            
         elif args.train_method == 'duo-xs':
             target_modules = ["to_k", "to_q", "to_v", "to_out.0"]
             
         print(f'Using custom train_method: {args.train_method}, target_modules: {target_modules}')
             
-            
-    
     else:
         if args.no_cross_attn:
             target_modules = ["attn1.to_k", "attn1.to_q", "attn1.to_v", "attn1.to_out.0"]
