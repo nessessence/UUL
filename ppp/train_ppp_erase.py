@@ -413,7 +413,9 @@ def resolve_model_name(args): #, training_step):
         if args.sim_param_group == 'average_token':
             base_file_name += f"a" 
         # base_file_name += f"{args.aei_loss_weight:.2f}"
-        
+        if args.ang_aggr_feature_option != 'avg':
+            base_file_name += f"{args.ang_aggr_feature_option[0].capitalize()}"
+            
         if args.ang_excl_margin is not None:
             base_file_name += f"E{args.ang_excl_margin:.2f}"
             if args.ang_excl_loss_weight != 1.0:
@@ -455,11 +457,24 @@ def resolve_model_name(args): #, training_step):
             base_file_name += f"nT{args.ang_loss_max_token_seq_len}"   
         
         
+        if args.mask_out_template_prompt:
+            base_file_name += f"-mt" # mask out template prompt tokens for pushing loss
         
+                
+        # print(args.ang_push_pair_option)
+        if args.ang_compute_token_option == 'allpair':
+            base_file_name += f"-AT" # pairwise or allpair
+            base_file_name += f".a{args.ang_aggr_token_option[0].capitalize()}" # pairwise or allpair
+            
+            
+        # print(args.ang_push_pair_option)
         if args.ang_push_pair_option == 'allpair':
-            base_file_name += f"-All" # pairwise or allpair
+            base_file_name += f"-AC" # pairwise or allpair
             base_file_name += f".a{args.ang_all_pair_aggr_concept_option[0].capitalize()}" # pairwise or allpair
+            
+    
         
+
         
         
     if args.apply_gradient_projection:
@@ -739,6 +754,17 @@ def get_parser():
     parser.add_argument("--final_ang_preserve_loss_weight", type=float, default=None) 
     parser.add_argument("--final_ang_excl_margin",  type=float, default=None)
     
+
+    
+    parser.add_argument("--mask_out_template_prompt", action='store_true') # for pushing loss, whether to mask out the template prompt tokens or not (default as masking out)
+    parser.add_argument("--ang_compute_token_option",  type=str, default='pairwise') # for computing angular loss, how to compute token-level loss: pairwise or allpair
+    parser.add_argument("--ang_aggr_token_option",  type=str, default='avg', choices=['avg','max']) # for computing angular loss, if allpair, how to aggregate token-level loss: mean or max
+    
+    
+    # ahM or ah
+    parser.add_argument("--ang_aggr_feature_option",  type=str, default='avg', choices=['avg','max']) # for computing angular loss, if allpair, how to aggregate token-level loss: mean or max
+    
+    
     
     
     return parser
@@ -762,9 +788,19 @@ def compute_angular_exclusion_inclusion_loss(
     max_token_seq_len: int = None, 
     
     unet_u_tis=None,
+    
+    aggr_feature_option= 'avg',
+    
+    
     push_pair_option: str = 'pairwise', # pairwise or allpair
     n_prompt_template: int = None, # number of prompt template for each concept (including the raw text)
-    all_pair_aggr_concept_option: str = 'avg' # for all pair option, how to aggregate concept-level loss: mean or max
+    all_pair_aggr_concept_option: str = 'avg', # for all pair option, how to aggregate concept-level loss: mean or max
+    
+    
+    template_prompt_end_idx=None, # for masking tokens belong to the prompt template for pushing loss not pushing the template prompt
+    
+    compute_token_option = 'pairwise',
+    aggr_token_option = 'avg',
     
 ):
     """
@@ -895,10 +931,117 @@ def compute_angular_exclusion_inclusion_loss(
             # Exclusion (Push)
             # by default
             if push_pair_option == 'pairwise' or n_concepts == 1:
-                
-                cos_excl_t = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
-                excl_terms.append(torch.clamp(cos_excl_t - m_excl, min=0.0).mean())
 
+
+                if compute_token_option  == 'pairwise':
+                
+                    cos_excl_t = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
+                    excl_term = torch.clamp(cos_excl_t - m_excl, min=0.0) #  B, T, 1
+                    
+                    if template_prompt_end_idx is not None:
+                        print(f'mask out the template prompt during pushing operation: {template_prompt_end_idx}')
+                        
+                        end = torch.tensor(template_prompt_end_idx).unsqueeze(1).to(excl_term.device)
+                        mask = torch.arange(excl_term.size(1), device=excl_term.device) < end
+                        # print(mask)
+                        # print(f'before:\n{excl_term}')
+                        excl_term = excl_term.masked_fill(mask, 0.0)
+                        print(f'after masked:\n{excl_term}')
+                        
+                        # print(excl_term)
+                        
+                    if aggr_feature_option == 'max': # if avg .... just do it at the end
+                        excl_term = excl_term.max(dim=-1).values  # max over tokens
+                        # print(excl_term)
+                    
+                    
+                        
+                    excl_terms.append(excl_term.mean()) # (max) mean over prompts 
+                
+                # overtoken
+                elif compute_token_option  == 'allpair':
+                    x1 = W_u_e.view(n_prompt_template, T, D)  #  ( P, T, D) # 1 concepts
+                    x1 = F.normalize(x1, dim=-1)  
+                    
+                    
+                    
+                    x2 = W_0_e.view(n_prompt_template, T, D)  #  ( P, T, D)
+                    x2 = F.normalize(x2, dim=-1) 
+                    
+                    cos_excl_t = x1 @ x2.transpose(-1, -2)   # (P, T, T)
+    
+    
+    
+                    # masking anything involving template tokens
+                    if template_prompt_end_idx is not None:
+                        P, T, _ = cos_excl_t.shape
+
+                        end = torch.as_tensor(template_prompt_end_idx, device=cos_excl_t.device, dtype=torch.long).clamp_(0, T)  # (P,)
+                        m = torch.arange(T, device=cos_excl_t.device).unsqueeze(0) < end.unsqueeze(1)  # (P, T)
+
+                        full_mask = m.unsqueeze(-1) | m.unsqueeze(-2)   # (P, T, T)  rows OR cols are template tokens
+                        cos_excl_t = cos_excl_t.masked_fill(full_mask, 0.0)
+                        
+                        print(cos_excl_t)
+
+    
+                    # if template_prompt_end_idx is not None:
+                    #     P, T, _ = cos_excl_t.shape
+
+                    #     end = torch.as_tensor(template_prompt_end_idx, device=cos_excl_t.device, dtype=torch.long)  # (P,)
+                    #     end = end.clamp_(min=0, max=T)
+
+                    #     row_mask = torch.arange(T, device=cos_excl_t.device).unsqueeze(0) < end.unsqueeze(1)  # (P, T)
+
+                    #     # mask out rows i < end[p]  => cos_excl_t[p, i, :] = 0
+                    #     cos_excl_t = cos_excl_t.masked_fill(row_mask.unsqueeze(-1), 0.0)  # (P, T, T)                
+                        
+                    #     print(cos_excl_t)
+
+                        
+                    # # prevent the template prompt tokens from contributing to the pushing loss for all tokens in the target feature by masking out the cosine similarity that related to the template prompt tokens in the cos_excl_t    
+                    # if template_prompt_end_idx is not None:
+                    #     print(cos_excl_t.shape) # (P T T) (5,77,77)
+                    #     print(f'mask out the template prompt during pushing operation: {template_prompt_end_idx}') # [1, 4, 5, 4, 4] (P)
+                    #     end = torch.tensor(template_prompt_end_idx).unsqueeze(1).to(cos_excl_t.device)
+                    #     mask = torch.arange(cos_excl_t.size(1), device=cos_excl_t.device) < end
+                    #     cos_excl_t = cos_excl_t.masked_fill(mask.unsqueeze(0).unsqueeze(0), 0.0) # (P, T, T)
+                        
+                    #     print(cos_excl_t)
+                    
+                    if aggr_token_option == 'avg':
+                        excl_term = torch.clamp(cos_excl_t - m_excl, min=0.0).mean(dim=-1) # mean over the T tokens in reference feature for each token in target feature, resulting in (P, T)
+                    elif aggr_token_option == 'max':
+                        
+                        excl_term =torch.clamp(cos_excl_t - m_excl, min=0.0).max(dim=-1).values #  max over the T tokens
+                        # (P,T)
+                        
+                    # mask out template token
+                    if template_prompt_end_idx is not None:
+                        print(f'mask out the template prompt during pushing operation: {template_prompt_end_idx}') # [1, 4, 5, 4, 4] (P)
+                        end = torch.tensor(template_prompt_end_idx).unsqueeze(1).to(excl_term.device)
+                        mask = torch.arange(excl_term.size(1), device=excl_term.device) < end
+                        excl_term = excl_term.masked_fill(mask, 0.0)
+                        
+                        # the entire row that related to the template prompt tokens will be masked out in the cos_excl_t, which means those template prompt tokens will not contribute to the pushing loss for all tokens in the target feature
+                        # excl_term = excl_term.masked_fill(mask.unsqueeze(1), 0.0)
+                        
+                        # the entire column that related to the template prompt tokens will be masked out in the cos_excl_t, which means those template prompt tokens will not contribute to the pushing loss for all tokens in the target feature
+                        excl_term = excl_term.masked_fill(mask.unsqueeze(0), 0.0)
+
+                        # print(excl_term)
+
+                #hack: should make argument for this
+                
+                if aggr_feature_option == 'max': # if avg .... just do it at the end
+                    excl_term = excl_term.max(dim=-1).values  # max over tokens
+                    
+                    
+                excl_terms.append(excl_term.mean()) # mean over prompts template
+                
+                # excl_terms.append(torch.clamp(cos_excl_t - m_excl, min=0.0).mean())
+
+            # aggregation all multiple concepts 
             elif push_pair_option == 'allpair' and n_concepts > 1:
                 # print('push all option')
                 
@@ -1051,15 +1194,37 @@ def compute_angular_exclusion_inclusion_loss(
             
             # by default, we use pairwise push, which means each target concept is only pushed away from its own original feature and pulled towards its own generic feature, which is more stable and effective especially when the number of concepts increases
             elif push_pair_option == 'pairwise' or n_concepts == 1:
-                cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1)
+                cos_excl_h = F.cosine_similarity(W_u_e_h, W_0_e_h, dim=-1) #  [B, T, nH, 1] 
                 cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
             
             # head-wise generic inclusion margin according to the original similarity between the target concept and the generic concept
 
-                excl_terms.append(torch.clamp(cos_excl_h - m_excl, min=0.0).mean())
+
+                
+                
+                
+                excl_term = torch.clamp(cos_excl_h - m_excl, min=0.0)
               
-              
-              
+                # template_prompt_end_idx want to have size of [B,77] (5,77)
+                if template_prompt_end_idx is not None:
+                    print(f'mask out the template prompt during pushing operation: {template_prompt_end_idx}') # [1, 4, 5, 4, 4] (P)
+                    
+                    end = torch.as_tensor(template_prompt_end_idx, device=excl_term.device)  # (B,)
+                    mask = torch.arange(excl_term.size(1), device=excl_term.device)[None, :] < end[:, None]  # (B,77)
+
+                    excl_term = excl_term.masked_fill(mask.unsqueeze(-1), 0.0)  # (B,77,1) -> broadcast to (B,77,D)
+                  
+                    
+                    # the entire row that related to the template prompt tokens will be masked out in the cos_excl_t, which means those template prompt tokens will not contribute to the pushing loss for all tokens in the target feature
+                    
+                    # the entire column that related to the template prompt tokens will be masked out in the cos_excl_t, which means those template prompt tokens will not contribute to the pushing loss for all tokens in the target feature
+                    # excl_term = excl_term.masked_fill(mask.unsqueeze(0), 0.0)
+                    print(excl_term.shape)
+                    print(excl_term)
+
+                excl_terms += [excl_term.mean()] # mean over tokens and heads
+
+
               
             # Inclusion (Push)  
               
@@ -1459,6 +1624,7 @@ def main(args):
                     
                     p_e_prompts = [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts = [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                    p_template_prompts =[prompt_template.format('') for prompt_template in prompt_templates]
                     
                     
                     # p_e_prompts = [f"a painting in the style of {raw_erase_concept}", f"an artwork of {raw_erase_concept}", f"a photo in the style of {raw_erase_concept}", f"a picture in the style of {raw_erase_concept}"]
@@ -1488,18 +1654,23 @@ def main(args):
                 if args.erase_tis is None:
                     p_e_prompts = [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts = [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
-                
+
+                    
+                    p_template_prompts =[prompt_template.format('') for prompt_template in prompt_templates]
+                     
                     # p_e_prompts = [erase_concept, f"a photo of {erase_concept}", f"an image of {erase_concept}", f"a picture of {erase_concept}", f"a photo of a {erase_concept}"]
                     # p_g_prompts = [generic_concept, f"a photo of {generic_concept}", f"an image of {generic_concept}", f"a picture of {generic_concept}", f"a photo of a {generic_concept}"]
                 
                 else:
                     # erase_tis = args.erase_ti.split(';') # can be more than one
                     print(f'using attack token embeddings for PPP: {args.erase_tis}')
-                    p_e_prompts = []; p_g_prompts = []
+                    p_e_prompts = []; p_g_prompts = []; p_template_prompts = []
                     
                     
                     p_e_prompts += [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                    
+                    p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
                     # adding TIA tokens
                     for erase_ti in args.erase_tis:
                         p_e_prompts += [prompt_template.format(erase_ti) for prompt_template in prompt_templates]
@@ -1513,6 +1684,14 @@ def main(args):
         p_g, _ = pipe.encode_prompt(prompt=p_g_prompts, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=len(p_g_prompts)*[''])
         
         p_e, p_g = p_e.to(device), p_g.to(device)
+        
+        
+        if args.mask_out_template_prompt:
+            template_prompt_end_idx =  [ pipe.tokenizer(p )['input_ids'].index(pipe.tokenizer.eos_token_id) for p in p_template_prompts]  # the last token before </s> is usually the concept token, we want to keep it and mask out the template part before it
+            
+            for i in range(len(p_e)):
+                print(f"masking out template prompt for: {p_e_prompts[i]} | template_prompt_end_idx: {template_prompt_end_idx[i]}")
+        
 
         if args.base_concept == 'null':
             base_embeds = null_embeds
@@ -1912,8 +2091,14 @@ def main(args):
                 unet_u_tis=erased_unet_weights,
                 push_pair_option=args.ang_push_pair_option,
                 n_prompt_template=len(concept2prompt_templates[erase_concept_type]),
-                all_pair_aggr_concept_option=args.ang_all_pair_aggr_concept_option
+                all_pair_aggr_concept_option=args.ang_all_pair_aggr_concept_option,
+                template_prompt_end_idx = template_prompt_end_idx if args.mask_out_template_prompt else None,
                 
+                aggr_feature_option = args.ang_aggr_feature_option,
+                
+                compute_token_option = args.ang_compute_token_option,
+                aggr_token_option = args.ang_aggr_token_option
+    
             )
             
 

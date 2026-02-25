@@ -335,17 +335,17 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     # cfg_scales = [args.cfg_scale] if isinstance(args.cfg_scale, float) else args.cfg_scale
 
     images = []; index_images = []; prompt2images = defaultdict(list)
-    for j,prompt in enumerate(args.validation_prompt):
+    for j,prompt in tqdm(enumerate(args.validation_prompt), total=len(args.validation_prompt), disable=not apply_coco):
         
         
         for cfg in cfg_scales:
             print(f'prompt: {prompt} cfg: {cfg:.2f} neg_prompt: {args.negative_prompt is not None }')
             
-            if apply_coco:
-                print(f'{j+1} / {n_sample}')
+            # if apply_coco:
+            #     print(f'{j+1} / {n_sample}')
             skip_already_generated = False
             if save_image_path is not None:
-                if apply_coco:
+                if apply_coco: 
                     save_image_path_dir = osp.join(save_image_path,"coco30k", f"{cfg:.2f}")
                     if skip_already_generated: 
                         if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= len(args.validation_prompt):  # TODO: should count only images
@@ -383,7 +383,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
             num_images = args.num_validation_images
             batch_size = args.gen_batch #args.gen_batch
 
-            for i in tqdm(range(0, num_images, batch_size)):
+            for i in tqdm(range(0, num_images, batch_size),disable=not apply_coco):
                 batch_indices = range(i, min(i + batch_size, num_images))
                 
                 prompts = [prompt] * len(batch_indices)
