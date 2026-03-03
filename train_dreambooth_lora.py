@@ -317,16 +317,26 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
 
     generator = torch.Generator(device=accelerator.device).manual_seed(args.seed) if args.seed else None
     
-    apply_coco = False
+    apply_coco = False; use_coco30k = False; use_cocoval = False
     if '*coco30k' in args.validation_prompt[0]:
         apply_coco = True
-
+        use_coco30k = True
+        
         # expected: *coco30k.{n_sample}
         n_sample = int(args.validation_prompt[0].split('.')[-1])
         paired_prompt = torch.load("data_root/data/real_data/coco/id_caption_coco30k_seed123.pth")
         args.validation_prompt = [caption_ for id_,caption_ in paired_prompt[:n_sample]]
         args.num_validation_images = 1
-        
+    
+    if '*cocoval' in args.validation_prompt[0]:
+        apply_coco = True
+        use_cocoval = True
+        # expected: *cocoval.{n_sample}
+        n_sample = int(args.validation_prompt[0].split('.')[-1])
+        paired_prompt = torch.load("data_root/data/real_data/coco/id_caption_cocoval_seed123.pth")
+        args.validation_prompt = [caption_ for id_,caption_ in paired_prompt[:n_sample]]
+        args.num_validation_images = 1    
+
         # args.reinit_validation_generator = False ... use externally
         
     print('apply_coco:',apply_coco)
@@ -335,123 +345,168 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
     # cfg_scales = [args.cfg_scale] if isinstance(args.cfg_scale, float) else args.cfg_scale
 
     images = []; index_images = []; prompt2images = defaultdict(list)
-    for j,prompt in tqdm(enumerate(args.validation_prompt), total=len(args.validation_prompt), disable=not apply_coco):
-        
-        
-        for cfg in cfg_scales:
-            print(f'prompt: {prompt} cfg: {cfg:.2f} neg_prompt: {args.negative_prompt is not None }')
+    
+    
+    use_new_route = True
+    if apply_coco and use_new_route:
+        cfg = cfg_scales[0]
+        if use_coco30k:
+            save_image_path_dir = osp.join(save_image_path,"coco30k_jpg", f"{cfg:.2f}")
+            print(f'COCO30k: {n_sample} at:', save_image_path_dir)
+        elif use_cocoval:
+            save_image_path_dir = osp.join(save_image_path,"cocoval_jpg", f"{cfg:.2f}")
+            print(f'COCOval: {n_sample} at:', save_image_path_dir)
             
-            # if apply_coco:
-            #     print(f'{j+1} / {n_sample}')
-            skip_already_generated = False
-            if save_image_path is not None:
-                if apply_coco: 
-                    save_image_path_dir = osp.join(save_image_path,"coco30k", f"{cfg:.2f}")
-                    if skip_already_generated: 
-                        if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= len(args.validation_prompt):  # TODO: should count only images
-                            logger.info(f"Skipping COCO as already exist in {save_image_path_dir} with {len(args.validation_prompt)} images")
-                            print('ending generation')
-                            exit()
+        os.makedirs(save_image_path_dir,exist_ok=True)
+        
+        # args.gen_batch = 5
+        for i in tqdm(range(0,len(args.validation_prompt),args.gen_batch ), total=len(args.validation_prompt)//args.gen_batch, disable=not apply_coco):
+            prompts = args.validation_prompt[i: i + args.gen_batch]
+            print(prompts)
+
+            images_batch = pipeline(
+                prompts,
+                num_inference_steps=args.num_inference_steps,
+                guidance_scale=cfg,
+                generator=generator,
+            ).images
+
+            for rel_idx, image in enumerate(images_batch):
+                abs_idx = i + rel_idx
+
+                if save_image_path is not None:
+                    fname = f"{abs_idx:04}.jpg"
+                    image.save(osp.join(save_image_path_dir, fname))
                 else:
+                    img_prompt_tag = f'{prompt}_{cfg:.2f}'
+                    images.append((img_prompt_tag, image))
+                    index_images.append(abs_idx)
+                    prompt2images[img_prompt_tag].append(image)
+                            
+            
+    # old with coco
+    else:
+        for j,prompt in tqdm(enumerate(args.validation_prompt), total=len(args.validation_prompt)):
+            
+            
+            for cfg in cfg_scales:
+                print(f'prompt: {prompt} cfg: {cfg:.2f} neg_prompt: {args.negative_prompt is not None }')
+                
+                # if apply_coco:
+                #     print(f'{j+1} / {n_sample}')
+                skip_already_generated = False
+                if save_image_path is not None:
+                    if apply_coco: 
+                        save_image_path_dir = osp.join(save_image_path,"coco30k", f"{cfg:.2f}")
+                        if skip_already_generated: 
+                            if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= len(args.validation_prompt):  # TODO: should count only images
+                                logger.info(f"Skipping COCO as already exist in {save_image_path_dir} with {len(args.validation_prompt)} images")
+                                print('ending generation')
+                                exit()
+                    else:
+                        if args.use_custom_pipeline and prompt.startswith('*Ph.'):
+                            save_image_path_dir = osp.join(save_image_path,f"{prompt.split('*Ph.')[-1]}", f"{cfg:.2f}")
+                            
+                        elif args.negative_prompt is not None:
+                            save_image_path_dir = osp.join(save_image_path,f"{prompt}_neg", f"{cfg:.2f}")
+                            
+                        elif prompt == '':
+                            save_image_path_dir = osp.join(save_image_path,f"uncond", f"{cfg:.2f}")
+                            
+                        # cce step tag
+                        elif ('v0' in prompt or 'cce0' in prompt) and args.load_token_embedding_step is not None:
+                            save_image_path_dir = osp.join(save_image_path,f"{prompt}-{args.load_token_embedding_step}", f"{cfg:.2f}")
+                            
+                        else:
+                            save_image_path_dir = osp.join(save_image_path,prompt, f"{cfg:.2f}")
+                        if skip_already_generated: 
+                            if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= args.num_validation_images:  # TODO: should count only images
+                                logger.info(f"Skipping {prompt} as  already exist in {save_image_path_dir} with {len(args.num_validation_images)} images")
+                                continue
+                    os.makedirs(save_image_path_dir,exist_ok=True)
+                    print("save_image_path_dir:",save_image_path_dir)
+                        
+                        
+                if args.reinit_validation_generator:
+                    generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
+                
+                # hacky:  always generate the first image (usually the target) 100 samples
+                if j == 0:
+                    num_images = 100
+                else: num_images = args.num_validation_images
+                
+                
+                batch_size = args.gen_batch #args.gen_batch
+
+                for i in tqdm(range(0, num_images, batch_size),disable= apply_coco):
+                    batch_indices = range(i, min(i + batch_size, num_images))
+                    
+                    prompts = [prompt] * len(batch_indices)
+                    # generators = [torch.Generator(device=accelerator.device).manual_seed(args.seed + idx) for idx in batch_indices]
                     if args.use_custom_pipeline and prompt.startswith('*Ph.'):
-                        save_image_path_dir = osp.join(save_image_path,f"{prompt.split('*Ph.')[-1]}", f"{cfg:.2f}")
+                        # custom generation phase parameters
+                        assert original_pretrained_weights is not None and unlearned_weights is not None
+                        generation_phase_parameter,simplified_phase_parameter = parse_generation_phase_parameter(prompt,  orginal_pretrained_weight=original_pretrained_weights,unlearned_weight=unlearned_weights)
+                        print(f'custom generation phase parameters: {simplified_phase_parameter}')
+                        images_batch = pipeline(
+                            [""]* len(batch_indices), # dummy
+                            num_inference_steps=args.num_inference_steps,
+                            guidance_scale=cfg,
+                            generator=generator,
+                            generation_phase_parameter=generation_phase_parameter,
+                        ).images
                         
+                    
+                    
+
                     elif args.negative_prompt is not None:
-                        save_image_path_dir = osp.join(save_image_path,f"{prompt}_neg", f"{cfg:.2f}")
-                        
-                    elif prompt == '':
-                        save_image_path_dir = osp.join(save_image_path,f"uncond", f"{cfg:.2f}")
-                        
-                    # cce step tag
-                    elif ('v0' in prompt or 'cce0' in prompt) and args.load_token_embedding_step is not None:
-                        save_image_path_dir = osp.join(save_image_path,f"{prompt}-{args.load_token_embedding_step}", f"{cfg:.2f}")
-                        
+                        negative_prompts = [args.negative_prompt] * len(batch_indices)
+                        images_batch = pipeline(
+                            prompts,
+                            num_inference_steps=args.num_inference_steps,
+                            guidance_scale=cfg,
+                            negative_prompt=negative_prompts,
+                            generator=generator,
+                        ).images
                     else:
-                        save_image_path_dir = osp.join(save_image_path,prompt, f"{cfg:.2f}")
-                    if skip_already_generated: 
-                        if os.path.exists(save_image_path_dir) and count_images_in_dir(save_image_path_dir) >= args.num_validation_images:  # TODO: should count only images
-                            logger.info(f"Skipping {prompt} as  already exist in {save_image_path_dir} with {len(args.num_validation_images)} images")
-                            continue
-                os.makedirs(save_image_path_dir,exist_ok=True)
-                print("save_image_path_dir:",save_image_path_dir)
+                        images_batch = pipeline(
+                            prompts,
+                            num_inference_steps=args.num_inference_steps,
+                            guidance_scale=cfg,
+                            generator=generator,
+                        ).images
+
+                    for rel_idx, image in enumerate(images_batch):
+                        abs_idx = i + rel_idx
+
+                        if save_image_path is not None:
+                            fname = f"{j:04}.png" if apply_coco else f"{abs_idx:04}.png"
+                            image.save(osp.join(save_image_path_dir, fname))
+                        else:
+                            img_prompt_tag = f'{prompt}_{cfg:.2f}'
+                            images.append((img_prompt_tag, image))
+                            index_images.append(abs_idx)
+                            prompt2images[img_prompt_tag].append(image)
                     
+            # for i in tqdm(range(args.num_validation_images)):
+                
+            #     # dummy_latents = randn_tensor( (1, 4, 64, 64),device=accelerator.device, generator=generator)
+            #     image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
+            #     if save_image_path is not None:
+            #         if apply_coco:
+            #             img_path = osp.join(save_image_path_dir,f"{j:04}.png")
+            #         else:
+            #             img_path = osp.join(save_image_path_dir,f"{i:04}.png")
+            #         image.save(img_path)
+                
+            #         # img_path = osp.join(save_image_path_dir, f"{i:04}.jpg")  # i is your sample index
+            #         # image.save(img_path,format="JPEG")
+            #     else:
+                
+            #         images.append((prompt, image))
+            #         index_images += [i]
                     
-            if args.reinit_validation_generator:
-                generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
-                
-                
-            num_images = args.num_validation_images
-            batch_size = args.gen_batch #args.gen_batch
-
-            for i in tqdm(range(0, num_images, batch_size),disable=not apply_coco):
-                batch_indices = range(i, min(i + batch_size, num_images))
-                
-                prompts = [prompt] * len(batch_indices)
-                # generators = [torch.Generator(device=accelerator.device).manual_seed(args.seed + idx) for idx in batch_indices]
-                if args.use_custom_pipeline and prompt.startswith('*Ph.'):
-                    # custom generation phase parameters
-                    assert original_pretrained_weights is not None and unlearned_weights is not None
-                    generation_phase_parameter,simplified_phase_parameter = parse_generation_phase_parameter(prompt,  orginal_pretrained_weight=original_pretrained_weights,unlearned_weight=unlearned_weights)
-                    print(f'custom generation phase parameters: {simplified_phase_parameter}')
-                    images_batch = pipeline(
-                        [""]* len(batch_indices), # dummy
-                        num_inference_steps=args.num_inference_steps,
-                        guidance_scale=cfg,
-                        generator=generator,
-                        generation_phase_parameter=generation_phase_parameter,
-                    ).images
-                    
-                
-                
-
-                elif args.negative_prompt is not None:
-                    negative_prompts = [args.negative_prompt] * len(batch_indices)
-                    images_batch = pipeline(
-                        prompts,
-                        num_inference_steps=args.num_inference_steps,
-                        guidance_scale=cfg,
-                        negative_prompt=negative_prompts,
-                        generator=generator,
-                    ).images
-                else:
-                    images_batch = pipeline(
-                        prompts,
-                        num_inference_steps=args.num_inference_steps,
-                        guidance_scale=cfg,
-                        generator=generator,
-                    ).images
-
-                for rel_idx, image in enumerate(images_batch):
-                    abs_idx = i + rel_idx
-
-                    if save_image_path is not None:
-                        fname = f"{j:04}.png" if apply_coco else f"{abs_idx:04}.png"
-                        image.save(osp.join(save_image_path_dir, fname))
-                    else:
-                        img_prompt_tag = f'{prompt}_{cfg:.2f}'
-                        images.append((img_prompt_tag, image))
-                        index_images.append(abs_idx)
-                        prompt2images[img_prompt_tag].append(image)
-                
-        # for i in tqdm(range(args.num_validation_images)):
-            
-        #     # dummy_latents = randn_tensor( (1, 4, 64, 64),device=accelerator.device, generator=generator)
-        #     image = pipeline(prompt, num_inference_steps=args.num_inference_steps, guidance_scale=args.cfg_scale, generator=generator).images[0]
-        #     if save_image_path is not None:
-        #         if apply_coco:
-        #             img_path = osp.join(save_image_path_dir,f"{j:04}.png")
-        #         else:
-        #             img_path = osp.join(save_image_path_dir,f"{i:04}.png")
-        #         image.save(img_path)
-            
-        #         # img_path = osp.join(save_image_path_dir, f"{i:04}.jpg")  # i is your sample index
-        #         # image.save(img_path,format="JPEG")
-        #     else:
-            
-        #         images.append((prompt, image))
-        #         index_images += [i]
-                
-        #         prompt2images[prompt] += [image]
+            #         prompt2images[prompt] += [image]
             
             
     if save_image_path is not None: return
