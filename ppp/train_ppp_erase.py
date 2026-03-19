@@ -416,6 +416,11 @@ def resolve_model_name(args): #, training_step):
         if args.ang_aggr_feature_option != 'avg':
             base_file_name += f"{args.ang_aggr_feature_option[0].capitalize()}"
             
+            
+        if args.use_l2_loss:
+            base_file_name += 'L2'
+            
+
         if args.ang_excl_margin is not None:
             base_file_name += f"E{args.ang_excl_margin:.2f}"
             if args.ang_excl_loss_weight != 1.0:
@@ -788,6 +793,9 @@ def get_parser():
     parser.add_argument("--use_refine_generic_concept",  action='store_true')
     
     
+    parser.add_argument("--use_l2_loss",  action='store_true')
+    
+
     
     return parser
 
@@ -827,7 +835,8 @@ def compute_angular_exclusion_inclusion_loss(
     target_prompt_end_concentration_idx=None, 
     rescale_from_masking=False,
     
-    apply_push_only_eos=False
+    apply_push_only_eos=False,
+    return_l2_baseline = False,
     
     
 ):
@@ -867,8 +876,9 @@ def compute_angular_exclusion_inclusion_loss(
     w_terms = []
     matched_layers = 0
     
-    return_l2_baseline = False
     l_push_l2_terms = []
+    l_pull_l2_terms = []
+    l_preserve_l2_terms = []
 
     for name, W_u in params_u.items():
         if layer_filter not in name:
@@ -880,6 +890,11 @@ def compute_angular_exclusion_inclusion_loss(
 
         # Frozen reference
         W_0 = params_0[name].detach()
+        
+        
+        
+
+        
         
         # if unet_u_tis is not None:
             # W_u_tis = [params_u_ti[name].detach() for params_u_ti in params_u_tis]
@@ -977,18 +992,58 @@ def compute_angular_exclusion_inclusion_loss(
                     if return_l2_baseline:
                         # Calculate squared L2 distance: ||W_e*p_e - W_0*p_e||^2
                         
-                        # Lpush
-                        # dim=-1 ensures we sum across the embedding/feature dimension
-                        dist_sq = torch.sum((W_e_p_e - W_0_p_e) ** 2, dim=-1)
-                        # L_push = max(m_push - dist_sq, 0)
-                        # This penalizes the model if dist_sq < m_push
-                        l_push_l2 = torch.clamp(m_push - dist_sq, min=0.0)
-                        l_push_l2_terms += [l_push_l2.mean()]
                         
-                        # Lpull
-                        dist_sq_pull = torch.sum((W_e_p_e - W_0_p_g) ** 2, dim=-1)
+                        m_push = m_excl 
+                        m_pull = m_incl if isinstance(m_incl, (int, float)) else float(m_incl[1:]) # better use 0.0
+
+                        
+                        # prevent stagenation of the first iteration                        
+                        if m_pull == 0.0:
+                            with torch.no_grad():
+                                if torch.allclose(W_u_e, W_0_e):
+                                    W_u_e.add_(1e-4 * torch.randn_like(W_u_e))
+                                    
+                     
+                     
+                        # =========================
+                        # L2-push
+                        # =========================
+                        # ||W^j_{e,l} p_e - W^j_{0,l} p_e||_2^2
+                        dist_sq_push = torch.sum((W_u_e - W_0_e) ** 2, dim=-1)
+
+                        # max(m_push - dist_sq_push, 0)
+                        l_push_l2 = torch.clamp(m_push - dist_sq_push, min=0.0)
+
+                        # Average over batch/examples, keep one scalar for this (l, j)
+                        l_push_l2_terms.append(l_push_l2.mean())
+
+                        # =========================
+                        # L2-pull
+                        # =========================
+                        # ||W^j_{e,l} p_e - W^j_{0,l} p_g||_2^2
+                        dist_sq_pull = torch.sum((W_u_e - W_0_g) ** 2, dim=-1)
+
+                        # max(dist_sq_pull - m_pull, 0)
                         l_pull_l2 = torch.clamp(dist_sq_pull - m_pull, min=0.0)
-                        l_pull_l2_terms += [l_pull_l2.mean()]
+
+                        # Average over batch/examples, keep one scalar for this (l, j)
+                        l_pull_l2_terms.append(l_pull_l2.mean())
+
+
+   
+                        
+                        # # Lpush
+                        # # dim=-1 ensures we sum across the embedding/feature dimension
+                        # dist_sq_push = torch.sum((W_u_e - W_0_e) ** 2, dim=-1)
+                        # # L_push = max(m_push - dist_sq, 0)
+                        # # This penalizes the model if dist_sq < m_push
+                        # l_push_l2 = torch.clamp(m_push - dist_sq_push, min=0.0)
+                        # l_push_l2_terms += [l_push_l2.mean()]
+                        
+                        # # Lpull
+                        # dist_sq_pull = torch.sum((W_u_e - W_0_g) ** 2, dim=-1)
+                        # l_pull_l2 = torch.clamp(dist_sq_pull - m_pull, min=0.0)
+                        # l_pull_l2_terms += [l_pull_l2.mean()]
                         
                         
                     
@@ -1033,7 +1088,7 @@ def compute_angular_exclusion_inclusion_loss(
                         # print(f'after masked:\n{excl_term}')
 
                     if target_prompt_end_concentration_idx is not None or apply_push_only_eos :
-                        print(f'mask out the tokens after certain position for concentrating the pushing loss on the early tokens: {target_prompt_end_concentration_idx}')
+                        # print(f'mask out the tokens after certain position for concentrating the pushing loss on the early tokens: {target_prompt_end_concentration_idx}')
                         end = torch.as_tensor(target_prompt_end_concentration_idx, device=excl_term.device).unsqueeze(1)  # (P,1)
                         mask_latetoken = torch.arange(T, device=excl_term.device).unsqueeze(0) > end                       # (P,T)
                         invalid |= mask_latetoken
@@ -1232,6 +1287,16 @@ def compute_angular_exclusion_inclusion_loss(
                 
             
 
+            preserve_l2_term = torch.sum((W_u_g - W_0_g) ** 2, dim=-1)
+            l_preserve_l2_terms.append(preserve_l2_term.mean())
+                    #   l_push_l2 = torch.clamp(m_push - dist_sq, min=0.0)
+                    #     l_push_l2_terms += [l_push_l2.mean()]
+                        
+                    #     # Lpull
+                    #     dist_sq_pull = torch.sum((W_e_p_e - W_0_p_g) ** 2, dim=-1)
+                    #     l_pull_l2 = torch.clamp(dist_sq_pull - m_pull, min=0.0)
+                    #     l_pull_l2_terms += [l_pull_l2.mean()]
+                        
                      
             
             
@@ -1291,7 +1356,7 @@ def compute_angular_exclusion_inclusion_loss(
                     # print(excl_term)
 
                 if target_prompt_end_concentration_idx is not None:
-                    print(f'mask out the tokens after certain position for concentrating the pushing loss on the early tokens: {target_prompt_end_concentration_idx}')
+                    # print(f'mask out the tokens after certain position for concentrating the pushing loss on the early tokens: {target_prompt_end_concentration_idx}')
                     end = torch.as_tensor(target_prompt_end_concentration_idx, device=excl_term.device)  # (P,1)
                     mask_latetoken = torch.arange(excl_term.size(1), device=excl_term.device)[None, :] > end[:, None]                   # (P,T)
                     invalid |= mask_latetoken
@@ -1472,7 +1537,9 @@ def compute_angular_exclusion_inclusion_loss(
     if return_l2_baseline:
         L_push_l2 = torch.stack(l_push_l2_terms).mean()
         l_pull_l2 = torch.stack(l_pull_l2_terms).mean()
-        return L_excl, L_incl, L_ang, L_norm, L_w, L_preserve, L_push_l2, l_pull_l2
+        l_preserve_l2 = torch.stack(l_preserve_l2_terms).mean()
+        
+        return L_excl, L_incl, L_norm, L_w, L_preserve, L_push_l2, l_pull_l2, l_preserve_l2
 
     return L_excl, L_incl, L_norm, L_w, L_preserve  #  L_ang, 
 
@@ -2225,34 +2292,73 @@ def main(args):
             # print('loss computation: angular exclusion-inclusion loss enabled')
             
             # print(p_e.shape, p_g.shape)
-            a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
-                unet_u=esd_unet, 
-                unet_0=base_unet,
-                p_e=p_e,
-                p_g=p_g,
-                m_excl=args.ang_excl_margin if args.final_ang_excl_margin is None else args.final_ang_excl_margin,
-                m_incl=args.ang_incl_margin,
-                sim_param_group=args.sim_param_group,
-                max_token_seq_len=args.ang_loss_max_token_seq_len,
-                
-                # for advance experiment
-                unet_u_tis=erased_unet_weights,
-                push_pair_option=args.ang_push_pair_option,
-                n_prompt_template=len(concept2prompt_templates[erase_concept_type]),
-                all_pair_aggr_concept_option=args.ang_all_pair_aggr_concept_option,
-                
-                aggr_feature_option = args.ang_aggr_feature_option,
-                
-                compute_token_option = args.ang_compute_token_option,
-                aggr_token_option = args.ang_aggr_token_option,
-                
-                template_prompt_end_idx = template_prompt_end_idx if args.mask_out_template_prompt else None,
-                target_prompt_end_concentration_idx=target_prompt_end_concentration_idx if args.mask_after_eos_nth_token is not None else None,
-                rescale_from_masking = args.rescale_from_masking
-                # mask_after_eos_nth_token = target_prompt_end_idx if args.mask_after_eos_nth_token is not None else None,
-                
-    
-            )
+            
+            if args.use_l2_loss:
+                print('test')
+                # L_excl, L_incl, L_ang, L_norm, L_w, L_preserve, L_push_l2, l_pull_l2, l_preserve_l2
+                # replace Lang (cosine) with the L2
+                _,_,a_norm_loss,weight_modification_loss, _, a_excl_loss,a_incl_loss,a_preserve_loss = compute_angular_exclusion_inclusion_loss(
+                    unet_u=esd_unet, 
+                    unet_0=base_unet,
+                    p_e=p_e,
+                    p_g=p_g,
+                    m_excl=args.ang_excl_margin if args.final_ang_excl_margin is None else args.final_ang_excl_margin,
+                    m_incl=args.ang_incl_margin,
+                    sim_param_group=args.sim_param_group,
+                    max_token_seq_len=args.ang_loss_max_token_seq_len,
+                    
+                    # for advance experiment
+                    unet_u_tis=erased_unet_weights,
+                    push_pair_option=args.ang_push_pair_option,
+                    n_prompt_template=len(concept2prompt_templates[erase_concept_type]),
+                    all_pair_aggr_concept_option=args.ang_all_pair_aggr_concept_option,
+                    
+                    aggr_feature_option = args.ang_aggr_feature_option,
+                    
+                    compute_token_option = args.ang_compute_token_option,
+                    aggr_token_option = args.ang_aggr_token_option,
+                    
+                    template_prompt_end_idx = template_prompt_end_idx if args.mask_out_template_prompt else None,
+                    target_prompt_end_concentration_idx=target_prompt_end_concentration_idx if args.mask_after_eos_nth_token is not None else None,
+                    rescale_from_masking = args.rescale_from_masking,   
+                    return_l2_baseline = True
+                    # mask_after_eos_nth_token = target_prompt_end_idx if args.mask_after_eos_nth_token is not None else None,
+                    
+        
+                )
+                print(a_excl_loss)
+            
+            
+            
+            else:
+                a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
+                    unet_u=esd_unet, 
+                    unet_0=base_unet,
+                    p_e=p_e,
+                    p_g=p_g,
+                    m_excl=args.ang_excl_margin if args.final_ang_excl_margin is None else args.final_ang_excl_margin,
+                    m_incl=args.ang_incl_margin,
+                    sim_param_group=args.sim_param_group,
+                    max_token_seq_len=args.ang_loss_max_token_seq_len,
+                    
+                    # for advance experiment
+                    unet_u_tis=erased_unet_weights,
+                    push_pair_option=args.ang_push_pair_option,
+                    n_prompt_template=len(concept2prompt_templates[erase_concept_type]),
+                    all_pair_aggr_concept_option=args.ang_all_pair_aggr_concept_option,
+                    
+                    aggr_feature_option = args.ang_aggr_feature_option,
+                    
+                    compute_token_option = args.ang_compute_token_option,
+                    aggr_token_option = args.ang_aggr_token_option,
+                    
+                    template_prompt_end_idx = template_prompt_end_idx if args.mask_out_template_prompt else None,
+                    target_prompt_end_concentration_idx=target_prompt_end_concentration_idx if args.mask_after_eos_nth_token is not None else None,
+                    rescale_from_masking = args.rescale_from_masking
+                    # mask_after_eos_nth_token = target_prompt_end_idx if args.mask_after_eos_nth_token is not None else None,
+                    
+        
+                )
             
 
             # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
@@ -2283,7 +2389,12 @@ def main(args):
             
             # preservation loss
             # loss_print_logs['preservation_loss'] = preservation_loss.item() .... already logged above
+            
             total_loss += preservation_weight * preservation_loss
+            # total_loss += preservation_weight * preservation_loss
+            
+            
+            
             
             # l2 weight modification loss (inconsistent for now)
             if args.weight_modification_weight is not None and args.weight_modification_weight > 0.0:
@@ -2297,6 +2408,9 @@ def main(args):
                 total_loss = (1.0 - preservation_weight) * unlearn_loss + preservation_weight * preservation_loss
             else:
                 total_loss = unlearn_loss + preservation_weight * preservation_loss
+                
+                
+                
 
                 
         loss_print_logs['total_loss'] = total_loss.item()
@@ -2306,6 +2420,9 @@ def main(args):
         
 
         total_loss.backward()
+        
+        
+        print(f'total loss:',total_loss)
         
 
 

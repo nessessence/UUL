@@ -1,5 +1,1448 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="15_3"
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.45I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.45I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.45I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+$$$$
+: << 'COMMENT'
+sleep 15m
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtL2E2000.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E2000.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E2000.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+sleep 20m
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtL2E250.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E250.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E250.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtL2E750.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E750.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E750.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.crock_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.crock_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.crock_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Chris Rock;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Chris Rock;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1.00I0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1.00I0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1.00I0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+                                
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.cmonet_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.cmonet_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.cmonet_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b100_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b100_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b100_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b250_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b250_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b250_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b100_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b100_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b100_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b250_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b250_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b250_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b500_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b500_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b500_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b1000_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b1000_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b1000_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - stereo-u.G2.00_U.macbook_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.macbook_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.macbook_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Macbook;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of Macbook;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - stereo-u.G2.00_U.naked_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude woman;a photo of nude man;a photo of Margot Robbie" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude woman;a photo of nude man;a photo of Margot Robbie" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - stereo-u.G2.00_U.naked_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 echo 'count:0 - esd-x-kv.nG3.00_U.naked_sd1.4.bf16.bs4 1000
 '
                             accelerate launch train_dreambooth_lora.py \
@@ -44,8 +1487,6 @@ echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.macbook_sd1.4.bf16 0
                                 --num_validation_images 100 \
                                 --donot_reinit_validation_generator \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-: << 'COMMENT'
 echo 'count:0 - esd-x-kv.nG2.00_U.naked_sd1.4.bf16.bs4 1000
 '
                             accelerate launch train_dreambooth_lora.py \
@@ -27610,6 +29051,1218 @@ echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.macbook_sd1.4.bf16 0
                                 --run_note 'gen img' --wait_weight \
                                 --num_validation_images 100 \
                                 --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - stereo-u.G2.00_U.naked_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude woman;a photo of nude man;a photo of Margot Robbie" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude woman;a photo of nude man;a photo of Margot Robbie" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - stereo-u.G2.00_U.naked_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.naked_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - stereo-u.G2.00_U.macbook_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.macbook_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.macbook_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Macbook;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" --instance_prompt="a photo of Macbook;a photo of dell laptop;a photo of hp laptop;a photo of lenovo laptop;a photo of asus laptop;a photo of desktop computer" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b100_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b100_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b100_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b250_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b250_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b250_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b500_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b500_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b500_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b1000_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b1000_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b1000_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b100_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b100_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b100_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - duo-s.b250_U.cmonet_sd1.4.bf16 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="data_root/logs/duo/duo-s.b250_U.cmonet_sd1.4.bf16_r0/checkpoint-1000" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/duo-s.b250_U.cmonet_sd1.4.bf16_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.cmonet_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root2/logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.cmonet_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.cmonet_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80Ir0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.20I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.40I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.60-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.80I0.80-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.20P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.40P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.60P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.80P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1.00I0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1.00I0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1.00I0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.crock_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.crock_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtL2E1000.00I1000.00P1.00-N0.00G0.00-mte0.rs_U.crock_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Chris Rock;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Chris Rock;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.80I0.00-0.00P1.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtL2E750.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E750.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E750.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtL2E250.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E250.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E250.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtL2E2000.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E2000.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtL2E2000.00I0.00-0.00-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.60I0.20-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.45I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.45I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000_1.00AtE0.45I0.40-N0.00G0.00-mte0.rs_U.nminaj_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" --instance_prompt="a photo of Nicki Minaj;a photo of Andrew Garfield;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba;a photo of Morgan Freeman;a photo of Oprah Winfrey;a photo of Emma Stone;a photo of Elon Musk" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 $$$$
 """

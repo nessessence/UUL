@@ -1,5 +1,53 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="20_3"
+sleep 6m
+echo 'count:0 - stereo-u.G2.00_U.macbook_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.macbook_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.macbook_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+$$$$
+: << 'COMMENT'
+sleep 10m
+echo 'count:0 - stereo-u.G2.00_U.pollock_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.pollock_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.pollock_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso;a painting in the style of Abed Abdi;a painting in the style of Albert Marquet;a painting in the style of Alberto Vargas;a painting in the style of Adrian Tomine;a painting in the style of Albert Edelfelt;a painting in the style of A.J. Casson;a painting in the style of Abbott Fuller Graves;a painting in the style of Alan Kenny;a painting in the style of Alberto Sughi;a painting in the style of Aaron Siskind;a painting in the style of Adriaen van Outrecht;a painting in the style of Albert Goodwin;a painting in the style of Alberto Biasi;a painting in the style of Albert Bloch;a painting in the style of Adrian Donoghue;a painting in the style of Akos Major;a painting in the style of Alberto Burri;a painting in the style of Ai Weiwei;a painting in the style of Alastair Magnaldo;a painting in the style of Albert Watson;a painting in the style of Agnes Martin;a painting in the style of Aleksey Savrasov;a painting in the style of Adolph Gottlieb;a painting in the style of Adrianus Eversen;a painting in the style of Affandi;a painting in the style of Alessandro Allori;a painting in the style of Alec Soth;a painting in the style of Abigail Larson;a painting in the style of Alan Parry;a painting in the style of Akira Toriyama;a painting in the style of Adonna Khare;a painting in the style of Alena Aenami;a painting in the style of Agnes Cecile;a painting in the style of Albert Lynch;a painting in the style of Albrecht Durer;a painting in the style of Alejandro Jodorowsky;a painting in the style of Alex Alemany;a painting in the style of Alex Colville;a painting in the style of Albert Eckhout;a painting in the style of Abram Efimovich Arkhipov;a painting in the style of Adolph Menzel;a painting in the style of Aleksi Briclot;a painting in the style of Agostino Tassi;a painting in the style of Albert Bierstadt;a painting in the style of Aaron Douglas;a painting in the style of Albert Tucker;a painting in the style of Abraham Pether;a painting in the style of Alberto Magnelli;a painting in the style of Adam Hughes;a painting in the style of Alan Schaller" --instance_prompt="a painting in the style of Jackson Pollock;a painting in the style of Van Gogh;a painting in the style of Claude Monet;a painting in the style of Picasso;a painting in the style of Abed Abdi;a painting in the style of Albert Marquet;a painting in the style of Alberto Vargas;a painting in the style of Adrian Tomine;a painting in the style of Albert Edelfelt;a painting in the style of A.J. Casson;a painting in the style of Abbott Fuller Graves;a painting in the style of Alan Kenny;a painting in the style of Alberto Sughi;a painting in the style of Aaron Siskind;a painting in the style of Adriaen van Outrecht;a painting in the style of Albert Goodwin;a painting in the style of Alberto Biasi;a painting in the style of Albert Bloch;a painting in the style of Adrian Donoghue;a painting in the style of Akos Major;a painting in the style of Alberto Burri;a painting in the style of Ai Weiwei;a painting in the style of Alastair Magnaldo;a painting in the style of Albert Watson;a painting in the style of Agnes Martin;a painting in the style of Aleksey Savrasov;a painting in the style of Adolph Gottlieb;a painting in the style of Adrianus Eversen;a painting in the style of Affandi;a painting in the style of Alessandro Allori;a painting in the style of Alec Soth;a painting in the style of Abigail Larson;a painting in the style of Alan Parry;a painting in the style of Akira Toriyama;a painting in the style of Adonna Khare;a painting in the style of Alena Aenami;a painting in the style of Agnes Cecile;a painting in the style of Albert Lynch;a painting in the style of Albrecht Durer;a painting in the style of Alejandro Jodorowsky;a painting in the style of Alex Alemany;a painting in the style of Alex Colville;a painting in the style of Albert Eckhout;a painting in the style of Abram Efimovich Arkhipov;a painting in the style of Adolph Menzel;a painting in the style of Aleksi Briclot;a painting in the style of Agostino Tassi;a painting in the style of Albert Bierstadt;a painting in the style of Aaron Douglas;a painting in the style of Albert Tucker;a painting in the style of Abraham Pether;a painting in the style of Alberto Magnelli;a painting in the style of Adam Hughes;a painting in the style of Alan Schaller" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 25 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - stereo-u.G2.00_U.pollock_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root2/logs/stereo/stereo-u.G2.00_U.pollock_sd1.4.bf16_r0/final_reo_unet.pt" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/stereo-u.G2.00_U.pollock_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 echo 'count:0 - duo-s.b100_U.rihanna_sd1.4.bf16 1000
 '
                             accelerate launch train_dreambooth_lora.py \
@@ -126,8 +174,6 @@ echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb1e+5_U.rihanna_sd1.4.bf16 0
                                 --run_note 'gen img' --wait_weight \
                                 --num_validation_images 25 \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-: << 'COMMENT'
 echo 'count:0 - duo-s.b100_U.rihanna_sd1.4.bf16 1000
 '
                             accelerate launch train_dreambooth_lora.py \
