@@ -1896,12 +1896,16 @@ def main(args):
                     # also adding the original
                     p_e_prompts += [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                    
+                    p_template_prompts =[prompt_template.format('') for prompt_template in prompt_templates]
+                    
+                    
                     for erase_ti in args.erase_tis:
                         p_e_prompts += [prompt_template.format(erase_ti) for prompt_template in prompt_templates]
                         p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
                         # p_e_prompts += [f"a painting in the style of {erase_ti}", f"an artwork of {erase_ti}", f"a photo in the style of {erase_ti}", f"a picture in the style of {erase_ti}"]
                         # p_g_prompts += [f"a painting in the style of {raw_generic_concept}", f"an artwork of {raw_generic_concept}", f"a photo in the style of {raw_generic_concept}", f"a picture in the style of {raw_generic_concept}"]
-                    
+                        p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
                         
                     
             else: 
@@ -1927,11 +1931,30 @@ def main(args):
                     p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
                     
                     p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
-                    # adding TIA tokens
+                    
+                    # # adding TIA tokens
                     for erase_ti in args.erase_tis:
                         p_e_prompts += [prompt_template.format(erase_ti) for prompt_template in prompt_templates]
                         p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                        p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
                     
+
+                    
+                    
+                    # adding TIA tokens (cross pair)
+                    # for erase_ti_1 in args.erase_tis:
+                        
+                    #     p_e_prompts += [prompt_template.format(erase_ti_1) for prompt_template in prompt_templates]
+                    #     p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                    #     p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
+                    
+                        # cross pair between different TIA tokens --> better do it in the function
+                        # for erase_ti_2 in args.erase_tis:
+                        #     p_e_prompts += [prompt_template.format(erase_ti_1) for prompt_template in prompt_templates]
+
+                                        
+                    
+
                                 
         print(f"p_e_prompts: {p_e_prompts}")
         print(f"p_g_prompts: {p_g_prompts}")
