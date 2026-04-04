@@ -157,8 +157,25 @@ concept2shortname = {
     
     "Mickey Mouse": "mmouse",
     "Grumpy Cat": "gcat",
-    "R2D2 robot": "r2d2",
-    "Macbook": "macbook"
+    # "R2D2 robot": "r2d2", # ECCV
+    "R2D2": "r2d2",
+    
+    "Macbook": "macbook",
+    
+    
+    "Snoopy": "snoopy",
+    "SpongeBob": "spbob",
+    "Goku": "goku",
+    "Mario": "mario",
+    
+    
+    "Venice": "venice",
+    "Shibuya": "shibuya",
+    "Iguazu waterfall": "iguazu",
+    "a painting in the style of Cyberpunk": "cyberpunk",
+
+    
+    
 }
 
 # seed = 123
@@ -218,7 +235,9 @@ concept2generic_concept = {
                             
                             
                             "Mickey Mouse": "cartoon",
-                            "R2D2 robot": "robot",
+                            # "R2D2 robot": "robot", # ECCV
+                            "R2D2": "robot", # ECCV
+                            
                             "Grumpy Cat": "cat",
                             "Macbook": "laptop",
                             
@@ -227,8 +246,20 @@ concept2generic_concept = {
                             "50CELEB00" : "person",
                             "4ARTIST00" : "a painting in the style of artist",
                             
-                            "50ARTIST00" : "a painting in the style of artist"
+                            "50ARTIST00" : "a painting in the style of artist",
                             
+                            
+                            "Mario": "game character",
+                            "Snoopy": "cartoon character",
+                            "SpongeBob": "cartoon character",
+                            "Goku": "anime character",
+                            
+                            "Venice": "city",
+                            "Shibuya": "city",
+                            "Iguazu waterfall": "waterfall",
+                            "a painting in the style of Cyberpunk": "a painting in the style of artist",
+
+
                             
                             
                             }
@@ -486,19 +517,28 @@ def resolve_model_name(args): #, training_step):
             base_file_name += f"nT{args.ang_loss_max_token_seq_len}"   
         
         
-        if args.mask_out_template_prompt or args.mask_after_eos_nth_token is not None:
+        if args.mask_out_template_prompt or args.mask_before_concept_token or args.mask_after_eos_nth_token is not None :
             base_file_name += f"-m" # mask out template prompt tokens for pushing loss
             
             if args.apply_push_only_eos:
                 base_file_name += 'E'
                 
             else:
-                if args.mask_out_template_prompt:
+                
+                if args.mask_before_concept_token:
+                    base_file_name += f"c" # mask out before concept token for pushing loss
+                    
+                elif args.mask_out_template_prompt:
                     base_file_name += f"t" # mask out template prompt tokens for pushing loss
+ 
+                    
                 if args.mask_after_eos_nth_token is not None:
                     base_file_name += f"e{args.mask_after_eos_nth_token}" # mask out after nth token after eos for pushing loss
             if args.rescale_from_masking:
                 base_file_name += f".rs" # rescale from masking for pushing loss
+                
+            if args.mask_pull_before_concept_token:
+                base_file_name += '.pc'
         
                 
         if args.use_refine_generic_concept:
@@ -800,6 +840,10 @@ def get_parser():
 
     
     parser.add_argument("--mask_out_template_prompt", action='store_true') # for pushing loss, whether to mask out the template prompt tokens or not (default as masking out)
+    parser.add_argument("--mask_before_concept_token", action='store_true') # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
+    parser.add_argument("--mask_pull_before_concept_token", action='store_true') # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
+    
+    
     parser.add_argument("--mask_after_eos_nth_token",  type=int, default=None)
     parser.add_argument("--rescale_from_masking",  action='store_true')
     parser.add_argument("--apply_push_only_eos",  action='store_true')
@@ -855,15 +899,26 @@ def compute_angular_exclusion_inclusion_loss(
     compute_token_option = 'pairwise',
     aggr_token_option = 'avg',
     
+    apply_mask_before_concept_token=False,
+    concept_token_idx=None, # dict of concept to token idxs for computing angular loss, if None, use all tokens
+    
+    
+    
     template_prompt_end_idx=None, # for masking tokens belong to the prompt template for pushing loss not pushing the template prompt
     target_prompt_end_concentration_idx=None, 
     rescale_from_masking=False,
+    
+    
+    generic_concept_token_idx=None, # dict of concept to token idxs for computing angular loss, if None, use all tokens
     
     apply_push_only_eos=False,
     return_l2_baseline = False,
     
     
 ):
+    # all argument
+    # print(f"apply_mask_before_concept_token: {apply_mask_before_concept_token}, concept_token_idx: {concept_token_idx}, template_prompt_end_idx: {template_prompt_end_idx}, target_prompt_end_concentration_idx: {target_prompt_end_concentration_idx}, rescale_from_masking: {rescale_from_masking}, generic_concept_token_idx: {generic_concept_token_idx}, apply_push_only_eos: {apply_push_only_eos}, return_l2_baseline: {return_l2_baseline}")
+    # exit()
     """
     Angular exclusion + inclusion loss in KV projection space (unsquared hinge).
 
@@ -996,7 +1051,6 @@ def compute_angular_exclusion_inclusion_loss(
             
             
             
-            cos_incl_t = F.cosine_similarity(W_u_e, W_0_g, dim=-1)
             
             # Exclusion (Push)
             # by default
@@ -1054,53 +1108,18 @@ def compute_angular_exclusion_inclusion_loss(
                         l_pull_l2_terms.append(l_pull_l2.mean())
 
 
-   
-                        
-                        # # Lpush
-                        # # dim=-1 ensures we sum across the embedding/feature dimension
-                        # dist_sq_push = torch.sum((W_u_e - W_0_e) ** 2, dim=-1)
-                        # # L_push = max(m_push - dist_sq, 0)
-                        # # This penalizes the model if dist_sq < m_push
-                        # l_push_l2 = torch.clamp(m_push - dist_sq_push, min=0.0)
-                        # l_push_l2_terms += [l_push_l2.mean()]
-                        
-                        # # Lpull
-                        # dist_sq_pull = torch.sum((W_u_e - W_0_g) ** 2, dim=-1)
-                        # l_pull_l2 = torch.clamp(dist_sq_pull - m_pull, min=0.0)
-                        # l_pull_l2_terms += [l_pull_l2.mean()]
-                        
-                        
-                    
-                    # if template_prompt_end_idx is not None:
-                    #     print(f'mask out the template prompt during pushing operation: {template_prompt_end_idx}')
-                        
-                    #     end = torch.tensor(template_prompt_end_idx).unsqueeze(1).to(excl_term.device)
-                    #     mask_template = torch.arange(excl_term.size(1), device=excl_term.device) < end
-                    #     # print(mask)
-                    #     # print(f'before:\n{excl_term}')
-                    #     excl_term = excl_term.masked_fill(mask_template, 0.0)
-                    #     print(f'after masked:\n{excl_term}')
-                        
-                    # if  target_prompt_end_concentration_idx is not None:
-                    #     print(f'mask out the tokens after certain position for concentrating the pushing loss on the early tokens: {target_prompt_end_concentration_idx}')
-                        
-                    #     end = torch.tensor(target_prompt_end_concentration_idx).unsqueeze(1).to(excl_term.device)
-                    #     mask_latetoken = torch.arange(excl_term.size(1), device=excl_term.device) > end # 0 should include eos
-                    #     # print(mask)
-                    #     # print(f'before:\n{excl_term}')
-                    #     excl_term = excl_term.masked_fill(mask_latetoken, 0.0)
-                    #     print(f'after  eos masked:\n{excl_term}')
-                        
-                    # if aggr_feature_option == 'max': # if avg .... just do it at the end
-                    #     excl_term = excl_term.max(dim=-1).values  # max over tokens
-                    #     # print(excl_term)
-                    
-                        
-                    # excl_terms.append(excl_term.mean()) # (max) mean over prompts 
-                    
-                    
                     P, T = excl_term.shape[:2]
                     invalid = torch.zeros((P, T), dtype=torch.bool, device=excl_term.device)
+
+                    if apply_mask_before_concept_token and concept_token_idx is not None:
+                        concept_token = torch.as_tensor(concept_token_idx, device=excl_term.device).unsqueeze(1) 
+                        mask_before_concept_token = torch.arange(T, device=excl_term.device).unsqueeze(0) < concept_token           # (P,T)
+                        
+                        # print(concept_token)
+                        # print(mask_before_concept_token)
+                        invalid |= mask_before_concept_token
+                        
+                        excl_term = excl_term.masked_fill(mask_before_concept_token, 0.0)
 
                     if template_prompt_end_idx is not None:
                         # print(f'mask out the template prompt during pushing operation: {template_prompt_end_idx}')
@@ -1110,6 +1129,13 @@ def compute_angular_exclusion_inclusion_loss(
 
                         excl_term = excl_term.masked_fill(mask_template, 0.0)
                         # print(f'after masked:\n{excl_term}')
+
+
+
+
+
+
+
 
                     if target_prompt_end_concentration_idx is not None or apply_push_only_eos :
                         # print(f'mask out the tokens after certain position for concentrating the pushing loss on the early tokens: {target_prompt_end_concentration_idx}')
@@ -1127,7 +1153,10 @@ def compute_angular_exclusion_inclusion_loss(
                             invalid |= mask_earlytoken
                             excl_term = excl_term.masked_fill(mask_earlytoken, 0.0)
                             
-                        
+                    # print(f'push mask: {invalid}')
+                    
+                    
+                    # print(f'after masked:\n{excl_term}')
                         
                         # print(f'after eos masked:\n{excl_term}')
 
@@ -1173,7 +1202,7 @@ def compute_angular_exclusion_inclusion_loss(
                         full_mask = m.unsqueeze(-1) | m.unsqueeze(-2)   # (P, T, T)  rows OR cols are template tokens
                         cos_excl_t = cos_excl_t.masked_fill(full_mask, 0.0)
                         
-                        print(cos_excl_t)
+                        # print(cos_excl_t)
 
     
                     # if template_prompt_end_idx is not None:
@@ -1262,21 +1291,100 @@ def compute_angular_exclusion_inclusion_loss(
 
                     # print(excl_terms[-1])
 
-            # Inclusion (PULL)
 
+            
+            
+
+
+            # Inclusion (PULL)
+            
+            
+            # possible shifted (make sure the target concept idx == generic concept idx )
+            # if generic_concept_token_idx not None:
+                
+                # W_0_e # [B, T, D]
+            
+            
+            invalid = torch.zeros((P, T), dtype=torch.bool, device=excl_term.device)
+            
+            if generic_concept_token_idx is None:
+            
+                cos_incl_t = F.cosine_similarity(W_u_e, W_0_g, dim=-1)
+                
+                # for 'r' and 'rs'
+                with torch.no_grad():
+                    base_cos_incl_t = F.cosine_similarity(W_0_e, W_0_g, dim=-1)
+                
+            else:
+                
+                B, T, D = W_u_e.shape
+
+                shifts = torch.tensor(concept_token_idx).view(B) -  torch.tensor(generic_concept_token_idx).view(B)  # [B]
+                shifts = shifts.to(W_0_g.device)
+                
+                # print(f'generic to target shifts: {shifts}')
+                
+
+                # Build shifted W_0_g via extended buffer
+                T_ext = T + shifts.abs().max().item()
+                W_0_g_ext = torch.zeros(B, T_ext, D, device=W_0_g.device, dtype=W_0_g.dtype) + 1e-12 # plus 1e-12 to prevent 0/0 -> nan
+
+                for b in range(B):
+                    s = shifts[b].item()
+                    src_start = max(0, -s)
+                    dst_start = max(0,  s)
+                    length = T - max(0, abs(s))
+                    if length > 0:
+                        W_0_g_ext[b, dst_start:dst_start+length, :] = W_0_g[b, src_start:src_start+length, :]
+
+                W_0_g_shifted = W_0_g_ext[:, :T, :]  # [B, T, D]
+
+                # Mark shifted-out positions directly into existing `invalid`
+                positions = torch.arange(T, device=W_0_g.device).unsqueeze(0)   # [1, T]
+                src_positions = positions - shifts.unsqueeze(1)                   # [B, T]
+                
+                
+                
+                cos_incl_t = F.cosine_similarity(W_u_e, W_0_g_shifted, dim=-1)  # [B, T]
+                
+                # for 'r' and 'rs'
+                with torch.no_grad():
+                    base_cos_incl_t = F.cosine_similarity(W_0_e, W_0_g_shifted, dim=-1)
+                    # print(base_cos_incl_t)
+                
+                
+                # mask that will used later
+                generic_shift = (src_positions < 0) | (src_positions >= T)  
+                invalid |= generic_shift          # [B, T]
+                
+                # print(generic_shift)
+                
+                
+                
+                
+                # mask out tokens before concept token (applies to both branches)
+                concept_token = torch.as_tensor(concept_token_idx, device=cos_incl_t.device).view(P, 1)
+                mask_before_concept_token = torch.arange(T, device=cos_incl_t.device).unsqueeze(0) < concept_token  # [P, T]
+                invalid |= mask_before_concept_token
+                
+                print(invalid)
+            
+
+   
+                            
             if 'rs' in m_incl:
                 # print('using improved symmetric relative generic inclusion loss')
                 
                 m_incl_ =  float(m_incl.replace('rs',''))
                 
-                with torch.no_grad():
-                    base_cos_incl_t = F.cosine_similarity(W_0_e, W_0_g, dim=-1)
+
                 # r1 = torch.clamp(m_incl_ - cos_incl_h/base_cos_incl_h, min=0.0).mean()
                 r1 = torch.clamp(m_incl_ - cos_incl_t/base_cos_incl_t, min=0.0)
                 r2 = torch.clamp(cos_incl_t/base_cos_incl_t - (2-m_incl_), min=0.0)
                 
                 # either r1 or r2 is greater than 0 will contribute to the loss, which means either cos_incl_h/base_cos_incl_h is smaller than m_incl_ or greater than (2-m_incl_)
-                incl_terms.append((r1 + r2).mean())
+                # incl_terms.append((r1 + r2).mean())
+                incl_terms.append((r1 + r2)[~invalid].mean())
 
                 
             # releative: Lpull = max (m_pull - cos_sim (WePe, W0Pg) / cos_sim (W0Pe, W0Pg) , 0)
@@ -1284,15 +1392,37 @@ def compute_angular_exclusion_inclusion_loss(
                 # print('using improved relative generic inclusion loss')
                 m_incl_ =  float(m_incl.replace('r',''))
                 # cos_incl_h = F.cosine_similarity(W_u_e_h, W_0_g_h, dim=-1)
-                with torch.no_grad():
-                    base_cos_incl_t = F.cosine_similarity(W_0_e, W_0_g, dim=-1)
+
                 r = torch.clamp(m_incl_ - cos_incl_t/base_cos_incl_t, min=0.0)
-                incl_terms.append(r.mean())
+                # incl_terms.append(r.mean())
+                
+                
+                # print(r)
+                # print(f"valid tokens: {(~invalid).sum().item()} / {invalid.numel()}")
+
+                
+                
+                incl_terms.append(r[~invalid].mean())
+                
                 
        
        
             else:
-                incl_terms.append(torch.clamp(float(m_incl) - cos_incl_t, min=0.0).mean())
+                # incl_terms.append(torch.clamp(float(m_incl) - cos_incl_t, min=0.0).mean())
+                
+                incl_terms.append(torch.clamp(float(m_incl) - cos_incl_t, min=0.0)[~invalid].mean())
+                
+                
+            # masking
+            
+            # if generic_concept_token_idx not None:
+                
+                
+                
+                
+                
+                
+                
                          
             # excl_terms.append(torch.clamp(cos_excl_tok - m_excl, min=0.0).mean())
             # incl_terms.append(torch.clamp(m_incl - cos_incl_tok, min=0.0).mean())
@@ -1817,8 +1947,11 @@ def main(args):
         
         generic_concept = concept2generic_concept[erase_concept]
         
-        if args.use_refine_generic_concept and generic_concept == 'person' and erase_concept!='Rihanna':
-            generic_concept = 'a person'
+        if args.use_refine_generic_concept:
+            if generic_concept == 'person' and erase_concept!='Rihanna':
+                generic_concept = 'the person'
+            if generic_concept == 'cartoon' and erase_concept == 'Mickey Mouse':
+                generic_concept = 'cartoon character'
             
         #     print('change generic concept to: ', generic_concept)
             
@@ -1965,17 +2098,59 @@ def main(args):
         p_e, p_g = p_e.to(device), p_g.to(device)
         
         
+        
+        # increase concentration
+        # target_prompt_end_concentration_idx = None
+        # if args.mask_after_eos_nth_token is not None:
+        target_prompt_end_idx =  [ pipe.tokenizer(p )['input_ids'].index(pipe.tokenizer.eos_token_id) for p in p_e_prompts]
+        if args.mask_after_eos_nth_token is not None:
+            target_prompt_end_concentration_idx = [idx + args.mask_after_eos_nth_token for idx in target_prompt_end_idx] # offset the mask ... if 0 ... then mask right after EOS
+
+        template_prompt_end_idx = None
+        concept_token_idx = None
+        if args.mask_before_concept_token or args.mask_pull_before_concept_token:
+            # hack.. before eos token
+            # print( pipe.tokenizer('Macbook')) #  [49406, 20617, 49407]
+            # print( pipe.tokenizer('macbook')) # [49406, 20617, 49407]
+            # print( pipe.tokenizer('laptop')) # [49406, 10464, 49407]
+            # print(pipe.tokenizer(p_e_prompts))
+            
+            concept_token_idx = [idx -1  for idx in target_prompt_end_idx] 
+            for i in range(len(p_e_prompts)):
+                print(f"masking out before concept token for: {p_e_prompts[i]} | concept_token_idx: {concept_token_idx[i]}")
+                
+
+        
         if args.mask_out_template_prompt:
             template_prompt_end_idx =  [ pipe.tokenizer(p )['input_ids'].index(pipe.tokenizer.eos_token_id) for p in p_template_prompts]  # the last token before </s> is usually the concept token, we want to keep it and mask out the template part before it
             
-            for i in range(len(p_e)):
+            for i in range(len(p_e_prompts)):
                 print(f"masking out template prompt for: {p_e_prompts[i]} | template_prompt_end_idx: {template_prompt_end_idx[i]}")
+             
+             
+        if args.mask_pull_before_concept_token:
+            # hack.. before eos token
+            
+            generic_prompt_end_idx = [ pipe.tokenizer(p )['input_ids'].index(pipe.tokenizer.eos_token_id) for p in p_g_prompts]
+            
+            
+            generic_concept_token_idx = [idx -1  for idx in generic_prompt_end_idx] 
+            for i in range(len(p_g_prompts)):
+                print(f"masking out before concept token for: {p_g_prompts[i]} | concept_token_idx: {generic_concept_token_idx[i]}")  
+            
+            # this will be more compliated for multiple concepts ... need to find the token idx for each concept in each prompt ... and mask out before that
+            # concept_token_id = pipe.tokenizer(erase_concept)['input_ids'][-1] # using the last token of the concept, which is usually the most representative one
+            # print(f"concept_token_id for {erase_concept}: {concept_token_id}")
+            
+            # concept_token_idx = [ pipe.tokenizer(p )['input_ids'].index(concept_token_id) for p in p_e_prompts]
+            
+            # for i in range(len(p_e)):
+            #     print(f"masking out before concept token for: {p_e_prompts[i]} | concept_token_idx: {concept_token_idx[i]}")
                 
-        # increase concentration
-        target_prompt_end_concentration_idx = None
-        if args.mask_after_eos_nth_token is not None:
-            target_prompt_end_idx =  [ pipe.tokenizer(p )['input_ids'].index(pipe.tokenizer.eos_token_id) for p in p_e_prompts]
-            target_prompt_end_concentration_idx = [idx + args.mask_after_eos_nth_token for idx in target_prompt_end_idx]
+            #     if target_prompt_end_concentration_idx is not None:
+            #         print(f"also increasing concentration after target_prompt_end_concentration_idx: {target_prompt_end_concentration_idx[i]}")
+               
+
 
         if args.base_concept == 'null':
             base_embeds = null_embeds
@@ -2388,8 +2563,18 @@ def main(args):
                     aggr_token_option = args.ang_aggr_token_option,
                     
                     template_prompt_end_idx = template_prompt_end_idx if args.mask_out_template_prompt else None,
+                    
+                    apply_mask_before_concept_token = args.mask_before_concept_token, # have to specified because concept_token_idx used in Mask Generic Pull too
+                    concept_token_idx = concept_token_idx,
+                    # concept_token_idx = concept_token_idx if args.mask_before_concept_token else None,
+                    
+                    
                     target_prompt_end_concentration_idx=target_prompt_end_concentration_idx if args.mask_after_eos_nth_token is not None else None,
                     rescale_from_masking = args.rescale_from_masking,   
+                    
+                    
+                    generic_concept_token_idx=generic_concept_token_idx if args.mask_pull_before_concept_token else None,
+                    
                     return_l2_baseline = True
                     # mask_after_eos_nth_token = target_prompt_end_idx if args.mask_after_eos_nth_token is not None else None,
                     
@@ -2421,10 +2606,16 @@ def main(args):
                     compute_token_option = args.ang_compute_token_option,
                     aggr_token_option = args.ang_aggr_token_option,
                     
+                    apply_mask_before_concept_token = args.mask_before_concept_token, # have to specified because concept_token_idx used in Mask Generic Pull too
+                    concept_token_idx = concept_token_idx,
+                    # concept_token_idx = concept_token_idx if args.mask_before_concept_token else None,
+                    
                     template_prompt_end_idx = template_prompt_end_idx if args.mask_out_template_prompt else None,
+                    
                     target_prompt_end_concentration_idx=target_prompt_end_concentration_idx if args.mask_after_eos_nth_token is not None else None,
-                    rescale_from_masking = args.rescale_from_masking
+                    rescale_from_masking = args.rescale_from_masking,
                     # mask_after_eos_nth_token = target_prompt_end_idx if args.mask_after_eos_nth_token is not None else None,
+                    generic_concept_token_idx=generic_concept_token_idx if args.mask_pull_before_concept_token else None,
                     
         
                 )

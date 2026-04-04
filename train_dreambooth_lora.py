@@ -431,7 +431,7 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                     generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
                 
                 # hacky:  always generate the first image (usually the target) 100 samples
-                if j == 0:
+                if j == 0 and not args.do_not_apply_more_sample_on_first_prompt:
                     num_images = 100
                 else: num_images = args.num_validation_images
                 
@@ -1019,6 +1019,10 @@ def parse_args(input_args=None):
 
     parser.add_argument("--use_custom_pipeline",action="store_true")
 
+    
+    
+    parser.add_argument("--do_not_apply_more_sample_on_first_prompt",action="store_true")
+    
     
     parser.add_argument(
         "--placeholder_token",
