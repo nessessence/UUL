@@ -13,7 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Embedding models used in the CMMD calculation."""
+
+
+
+
+# """Embedding models used in the CMMD calculation."""
 
 from transformers import CLIPImageProcessor, CLIPVisionModelWithProjection
 import torch
@@ -78,7 +82,12 @@ class ClipEmbeddingModel:
             do_rescale=False,
             return_tensors="pt",
         )
-        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        # inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
+        inputs = {k: v.to(self.device, non_blocking=True) for k, v in inputs.items()}
+
+
+
         # if _CUDA_AVAILABLE:
         #     inputs = {k: v.to("cuda") for k, v in inputs.items()}
 

@@ -431,7 +431,16 @@ def log_validation(unet, text_encoder,tokenizer, args, accelerator, weight_dtype
                     generator = None if args.seed is None else torch.Generator(device=accelerator.device).manual_seed(args.seed)
                 
                 # hacky:  always generate the first image (usually the target) 100 samples
-                if j == 0 and not args.do_not_apply_more_sample_on_first_prompt:
+                
+                if '50CELEB' in args.gen_image_path or '50ARTIST' in args.gen_image_path:
+                    if j < 50:
+                        num_images = 100
+                    else:
+                        num_images = args.num_validation_images
+                    # num_images = args.num_validation_images
+                        
+                
+                elif j == 0 and not args.do_not_apply_more_sample_on_first_prompt:
                     num_images = 100
                 else: num_images = args.num_validation_images
                 

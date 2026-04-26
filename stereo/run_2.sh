@@ -1,5 +1,13 @@
-export CUDA_VISIBLE_DEVICES=2
+# export CUDA_VISIBLE_DEVICES=2
 export device="cuda:2"
+# python generate_images.py  --prompt "a photo of Emma Stone" --output_dir "../data_root/generated/stereo/a photo of Emma Stone/"  --num_images 500 
+# python generate_images.py  --prompt "a photo of Elon Musk" --output_dir "../data_root/generated/stereo/a photo of Elon Musk/"  --num_images 500 
+
+
+python generate_images.py  --prompt "a painting in the style of Joan Miro" --output_dir "../data_root/generated/stereo/a painting in the style of Joan Miro/"  --num_images 500 
+python generate_images.py  --prompt "a painting in the style of Egon Schiele" --output_dir "../data_root/generated/stereo/a painting in the style of Egon Schiele/"  --num_images 500 
+
+
 
 
 # python generate_images.py  --prompt "A photo of persian cat" --output_dir "../data_root/generated/stereo/A photo of persian cat/"  --num_images 500 

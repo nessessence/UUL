@@ -41,17 +41,34 @@ celebs_50train = ["Bill Clinton", "Jared Leto", "Shirley Temple", "Shia LaBeouf"
          "Frida Kahlo", "Ricky Gervais", "Jessica Biel", "Hugh Jackman", "Charlize Theron",
          "Beth Behrs", "Reese Witherspoon", "Johnny Depp", "Chris Hemsworth", "Mick Jagger",
          "Jason Momoa", "Andrew Garfield", "Jessica Chastain", "Courteney Cox", "Spike Lee"]
-artists_50train = ["Brice Marden", "Casey Weldon", "Christopher Balaskas", "Christophe Vacher", "Clemens Ascher",
-         "Carl Barks", "Catrin Welz-Stein", "Chris Ware", "Brian K. Vaughan", "Bruce Nauman",
-         "Charles Vess", "Brian Froud", "Brooke Shaden", "C. R. W. Nevinson", "Butcher Billy",
-         "Brian Sum", "Claude Cahun", "Chris Moore", "Charles Schridde", "Chen Zhen",
-         "Carl Gustav Carus", "Candido Portinari", "Chip Zdarsky", "Christian Dimitrov", "Chris Saunders",
-         "Clara Miller Burd", "Cassius Marcellus Coolidge", "Clarence Holbrook Carter", "Cedric Peyravernay", "Charles E. Burchfield",
-         "Cagnaccio Di San Pietro", "Carlos Schwabe", "Charles Le Brun", "Brett Weston", "Carmen Saldana",
-         "Carel Willink", "Chris Turnham", "Chantal Joffe", "Carlo Crivelli", "Bruce Pennington",
-         "Briana Mora", "Chris Ofili", "Charles Camoin", "Bruno Catalano", "Charles-Francois Daubigny",
-         "Caspar David Friedrich", "Brian Despain", "Charles Addams", "Bryan Hitch", "Christopher Jin Baron"]
+# artists_50train = ["Brice Marden", "Casey Weldon", "Christopher Balaskas", "Christophe Vacher", "Clemens Ascher",
+#          "Carl Barks", "Catrin Welz-Stein", "Chris Ware", "Brian K. Vaughan", "Bruce Nauman",
+#          "Charles Vess", "Brian Froud", "Brooke Shaden", "C. R. W. Nevinson", "Butcher Billy",
+#          "Brian Sum", "Claude Cahun", "Chris Moore", "Charles Schridde", "Chen Zhen",
+#          "Carl Gustav Carus", "Candido Portinari", "Chip Zdarsky", "Christian Dimitrov", "Chris Saunders",
+#          "Clara Miller Burd", "Cassius Marcellus Coolidge", "Clarence Holbrook Carter", "Cedric Peyravernay", "Charles E. Burchfield",
+#          "Cagnaccio Di San Pietro", "Carlos Schwabe", "Charles Le Brun", "Brett Weston", "Carmen Saldana",
+#          "Carel Willink", "Chris Turnham", "Chantal Joffe", "Carlo Crivelli", "Bruce Pennington",
+#          "Briana Mora", "Chris Ofili", "Charles Camoin", "Bruno Catalano", "Charles-Francois Daubigny",
+#          "Caspar David Friedrich", "Brian Despain", "Charles Addams", "Bryan Hitch", "Christopher Jin Baron"]
 
+
+artists_50train = [
+'Van Gogh', 'Claude Monet', 'Picasso', 'Jackson Pollock', 'Akira Toriyama',
+'George Stubbs', 'Carne Griffiths', 'Alfred Sisley', 'Charles Hermans', 'Pieter Bruegel The Elder',
+
+'Aaron Horkey', 'Frank Bowling', 'Brian Mashburn', 'Amedeo Modigliani', 'Edouard Cortes',
+'Fernand Khnopff', 'Jean Baptiste Simeon Chardin', 'Benozzo Gozzoli', 'Jehan Georges Vibert', 'Henri De Toulouse Lautrec',
+
+'William Turner', 'Alex Garant', 'Pieter De Hooch', 'Rosalyn Drexler', 'William James Glackens',
+'Charles Blackman', 'Leroy Neiman', 'Frans Hals', 'Pierre Auguste Renoir', 'Brian Kesinger',
+
+'Jay Defeo', 'N.C. Wyeth', 'Franz Xaver Winterhalter', 'Mary Cassatt', 'Gustav Klimt',
+'Edmund Charles Tarbell', 'Paul Delvaux', 'Arthur Hughes', 'Chiharu Shiota', 'Charline Von Heyl',
+
+'Romare Bearden', 'Egon Schiele', 'Thomas Moran', 'Georges Seurat', 'Casey Weldon',
+'Hans Hofmann', 'Pietro Perugino', 'Joan Miro', 'Alberto Vargas', 'Edwin Henry Landseer'
+]
 concept2prompt_templates = {
     'object': [
         "{}",
@@ -85,10 +102,19 @@ Artistic_Prelim_List = [
 concept2multiple_concepts = {
     "4CELEB00": ["Margot Robbie", "David Beckham", "Barack Obama", "Rihanna"],
     "8CELEB00": ["Margot Robbie", "David Beckham", "Barack Obama", "Rihanna"] + ["Emma Stone","Elon Musk","Morgan Freeman","Oprah Winfrey"],
-    "4ARTIST00": ["a painting in the style of Van Gogh", "a painting in the style of Claude Monet", "a painting in the style of Picasso", "a painting in the style of Jackson Pollock"]
+    "4ARTIST00": ["a painting in the style of Van Gogh", "a painting in the style of Claude Monet", "a painting in the style of Picasso", "a painting in the style of Jackson Pollock"],
+    "9NAKED00": [f"{a} {b}" for a in ["naked","nude","erotic"] for b in ["person","man","woman"]],
+    "3PNAKED00":  ["naked","nude","erotic"],
+
 }
 concept2multiple_concepts['50CELEB00'] = celebs_50train
 concept2multiple_concepts['50ARTIST00'] = [f'a painting in the style of {artist}' for artist in artists_50train]
+
+
+concept2multiple_generic_concepts = {
+    "9NAKED00": [f"{a} {b}" for a in ["dressed","dressed","dressed"] for b in ["person","man","woman"]],
+
+}
 
 bypass_preservation_concepts = [
     "naked person",
@@ -145,8 +171,14 @@ concept2shortname = {
     "a painting in the style of Picasso": "picasso",
     "a painting in the style of Jackson Pollock": "pollock",
     "a painting in the style of Salvador Dalí": "dali",
-   
+    
+    "a painting in the style of Akira Toriyama":'toriyama',
+    "a painting in the style of Georges Seurat":'gsrat',
+    "a painting in the style of Joan Miro":'jmiro',
+    "a painting in the style of Egon Schiele": 'egon',
     # NSFW concepts 
+
+    "naked": "pnaked",
     "naked person": "naked",
     "naked woman": "nakedw",
     "naked man": "nakedm",
@@ -199,7 +231,15 @@ concept2generic_concept = {
                             "a painting in the style of Picasso": "a painting in the style of artist",
                             "a painting in the style of Jackson Pollock": "a painting in the style of artist",
                             "a painting in the style of Salvador Dalí": "a painting in the style of artist",
+                     
+                            "a painting in the style of Akira Toriyama":"a painting in the style of artist",
+                            "a painting in the style of Georges Seurat":"a painting in the style of artist",
+                            "a painting in the style of Joan Miro":"a painting in the style of artist",
+                            "a painting in the style of Egon Schiele":"a painting in the style of artist",
                             
+                            
+                            
+                            "naked": "dressed",
                             "naked person": "dressed person",
                             "naked woman": "dressed woman",
                             "naked man": "dressed man",
@@ -248,6 +288,8 @@ concept2generic_concept = {
                             
                             "50ARTIST00" : "a painting in the style of artist",
                             
+                            "9NAKED00": "dressed person",
+                            "3PNAKED00" : "dressed",  # ["nake"naked man","naked woman","nude person", "nude woman", "nude man"],
                             
                             "Mario": "game character",
                             "Snoopy": "cartoon character",
@@ -373,6 +415,7 @@ def _value_based_probs_divmax(timesteps: torch.Tensor, alpha: float, is_inverse=
     probs = probs / probs.sum()
     return probs.cpu().numpy()
 
+
 def resolve_model_name(args): #, training_step):
     erase_concept = args.erase_concept
     train_method = args.train_method
@@ -383,8 +426,10 @@ def resolve_model_name(args): #, training_step):
     base_file_name = f"{train_method}"
     if args.negative_guidance:
         base_file_name += f".nG{args.negative_guidance:.2f}"
+        
         if args.neg_guidance_method != 'cfg':
             base_file_name += f"-{args.neg_guidance_method}"
+        
         
     if args.extra_forward_prob is not None and args.extra_forward_prob > 0 and args.forward_general:
         
@@ -467,22 +512,20 @@ def resolve_model_name(args): #, training_step):
             base_file_name += f"t"
         if args.sim_param_group == 'average_token':
             base_file_name += f"a" 
-        # base_file_name += f"{args.aei_loss_weight:.2f}"
+            
         if args.ang_aggr_feature_option != 'avg':
             base_file_name += f"{args.ang_aggr_feature_option[0].capitalize()}"
-            
             
         if args.use_l2_loss:
             base_file_name += 'L2'
             
-
+        # base_file_name += f"{args.aei_loss_weight:.2f}"
+        
         if args.ang_excl_margin is not None:
             base_file_name += f"E{args.ang_excl_margin:.2f}"
             if args.ang_excl_loss_weight != 1.0:
                 base_file_name += f"-{args.ang_excl_loss_weight:.2f}"
         if args.ang_incl_margin is not None:
-            
-            print(args.ang_incl_margin)
             if 'rs' in str(args.ang_incl_margin):
                 ang_incl_margin = str(args.ang_incl_margin).replace('rs','')
                 base_file_name += f"Irs{float(ang_incl_margin):.2f}"
@@ -501,53 +544,70 @@ def resolve_model_name(args): #, training_step):
                 
             if args.ang_incl_loss_weight != 1.0:
                 base_file_name += f"-{args.ang_incl_loss_weight:.2f}"
-                
         if args.ang_preserve_loss_weight is not None and args.ang_preserve_loss_weight > 0.0:
             base_file_name += f"P{args.ang_preserve_loss_weight:.2f}"
-            
+                
         base_file_name +='-'
         if args.ang_norm_loss_weight is not None:
             base_file_name += f"N{args.ang_norm_loss_weight:.2f}"
         if args.weight_modification_weight is not None:
             base_file_name += f"W{number_to_scientific_str(args.weight_modification_weight)}"
         if args.generic_loss_weight is not None:
-            base_file_name += f"G{args.generic_loss_weight:.2f}"         
-
+            base_file_name += f"G{args.generic_loss_weight:.2f}"   
         if args.ang_loss_max_token_seq_len is not None and args.ang_loss_max_token_seq_len != 77 :
-            base_file_name += f"nT{args.ang_loss_max_token_seq_len}"   
+            base_file_name += f"nT{args.ang_loss_max_token_seq_len}"      
+
+
         
-        
-        if args.mask_out_template_prompt or args.mask_before_concept_token or args.mask_after_eos_nth_token is not None :
+        if args.mask_out_template_prompt or args.mask_after_eos_nth_token is not None:
             base_file_name += f"-m" # mask out template prompt tokens for pushing loss
             
             if args.apply_push_only_eos:
                 base_file_name += 'E'
                 
             else:
-                
                 if args.mask_before_concept_token:
                     base_file_name += f"c" # mask out before concept token for pushing loss
-                    
                 elif args.mask_out_template_prompt:
                     base_file_name += f"t" # mask out template prompt tokens for pushing loss
  
-                    
                 if args.mask_after_eos_nth_token is not None:
                     base_file_name += f"e{args.mask_after_eos_nth_token}" # mask out after nth token after eos for pushing loss
             if args.rescale_from_masking:
                 base_file_name += f".rs" # rescale from masking for pushing loss
-                
-            if args.mask_pull_before_concept_token:
-                base_file_name += '.pc'
         
-                
+
+            if args.pull_specific_token:
+
+                if args.pull_specific_token == 'CE':
+                    base_file_name += '.pCE'
+
+                if args.pull_specific_token == 'C':
+                    base_file_name += '.pC'
+                if args.pull_specific_token == 'E':
+                    base_file_name += '.pE'
+
+            elif args.mask_pull_before_concept_token:
+                base_file_name += '.pc'
+
+
+        if args.preserve_specific_token:
+            base_file_name += f".a{args.preserve_specific_token}" # preserve specific token for pushing loss
+        
         if args.use_refine_generic_concept:
             base_file_name += f"-rg" # use refine generic concept for pushing loss
-            
+        
+        
+        if args.ang_compute_token_option == 'avg_pairwise' or args.ang_compute_token_option == 'average_pairwise':
+            base_file_name += '-At'
+
+
+        
         # print(args.ang_push_pair_option)
         if args.ang_compute_token_option == 'allpair':
             base_file_name += f"-AT" # pairwise or allpair
             base_file_name += f".a{args.ang_aggr_token_option[0].capitalize()}" # pairwise or allpair
+            
             
             
         # print(args.ang_push_pair_option)
@@ -556,9 +616,13 @@ def resolve_model_name(args): #, training_step):
             base_file_name += f".a{args.ang_all_pair_aggr_concept_option[0].capitalize()}" # pairwise or allpair
             
     
-        
+    if args.template_prompt is not None:
+        if args.template_prompt == 'empty':
+            base_file_name += '-Te'
+        if args.template_prompt == 'basic':
+            base_file_name += '-Tb'
 
-        
+
         
     if args.apply_gradient_projection:
             base_file_name += f"_GP"
@@ -585,7 +649,7 @@ def resolve_model_name(args): #, training_step):
                 
             base_file_name += '.'
             if  args.preservation_train_set:
-                if args.preservation_train_set in ['G','UG','U','00','01','02','03']:
+                if args.preservation_train_set in ['00','01','02','03'] + ['G','UG','U']:
                     base_file_name += f"pe{args.preservation_train_set}"
                 elif args.preservation_train_set == 'celeb':
                     base_file_name += f"cl"
@@ -622,6 +686,7 @@ def resolve_model_name(args): #, training_step):
     if args.test_tag is not None:
         base_file_name += f"_{args.test_tag}"
 
+        
     base_file_name += f"_U.{erase_concept_shortname}"
     
     
@@ -842,6 +907,7 @@ def get_parser():
     parser.add_argument("--mask_out_template_prompt", action='store_true') # for pushing loss, whether to mask out the template prompt tokens or not (default as masking out)
     parser.add_argument("--mask_before_concept_token", action='store_true') # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
     parser.add_argument("--mask_pull_before_concept_token", action='store_true') # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
+    parser.add_argument("--pull_specific_token",default=None,choices=['C','E','CE']) # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
     
     
     parser.add_argument("--mask_after_eos_nth_token",  type=int, default=None)
@@ -862,7 +928,12 @@ def get_parser():
     
     
     parser.add_argument("--use_l2_loss",  action='store_true')
+
+    parser.add_argument("--preserve_specific_token",default=None,choices=['B','T','TCE','C','E','CE']) # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
     
+    parser.add_argument("--template_prompt",default=None,choices=[None,'empty','basic']) # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
+
+
 
     
     return parser
@@ -913,6 +984,9 @@ def compute_angular_exclusion_inclusion_loss(
     
     apply_push_only_eos=False,
     return_l2_baseline = False,
+
+    pull_specific_token=None,
+    preserve_specific_token=None,
     
     
 ):
@@ -1051,65 +1125,164 @@ def compute_angular_exclusion_inclusion_loss(
             
             
             
-            
             # Exclusion (Push)
             # by default
             if push_pair_option == 'pairwise' or n_concepts == 1:
                 
+                if compute_token_option  == 'pairwise' and return_l2_baseline :
+                  # Calculate squared L2 distance: ||W_e*p_e - W_0*p_e||^2
+                    m_push = m_excl 
+                    m_pull = m_incl if isinstance(m_incl, (int, float)) else float(m_incl[1:]) # better use 0.0
+                    
+                    # prevent stagenation of the first iteration                        
+                    if m_pull == 0.0:
+                        with torch.no_grad():
+                            if torch.allclose(W_u_e, W_0_e):
+                                W_u_e.add_(1e-4 * torch.randn_like(W_u_e))
+                    # =========================
+                    # L2-push
+                    # =========================
+                    # ||W^j_{e,l} p_e - W^j_{0,l} p_e||_2^2
+                    dist_sq_push = torch.sum((W_u_e - W_0_e) ** 2, dim=-1)
+
+                    # max(m_push - dist_sq_push, 0)
+                    l_push_l2 = torch.clamp(m_push - dist_sq_push, min=0.0)
+
+                    # Average over batch/examples, keep one scalar for this (l, j)
+                    l_push_l2_terms.append(l_push_l2.mean())
+
+                    # =========================
+                    # L2-pull
+                    # =========================
+                    # ||W^j_{e,l} p_e - W^j_{0,l} p_g||_2^2
+                    dist_sq_pull = torch.sum((W_u_e - W_0_g) ** 2, dim=-1)
+
+                    # max(dist_sq_pull - m_pull, 0)
+                    l_pull_l2 = torch.clamp(dist_sq_pull - m_pull, min=0.0)
+
+                    # Average over batch/examples, keep one scalar for this (l, j)
+                    l_pull_l2_terms.append(l_pull_l2.mean())
+            
                 
-                
-                
-                
-                
-                if compute_token_option  == 'pairwise':
+                # print(f"concept_token_idx:  {concept_token_idx}") # [2, 5, 6, 5, 5]
+                # print(f"eos_idx:  {eos_token_idx}") # [3, 6, 7, 6, 6]
+                # print(f"W_u_e.shape: {W_u_e.shape}") # [5, 77, 1280]
+
+                if compute_token_option in ['avg_pairwise', 'average_pairwise']:
+                    n_prompt = W_u_e.shape[0]
+                    device = W_u_e.device
+
+                    # ---------------------------
+                    # Helper: extract concept tokens
+                    # ---------------------------
+                    def extract_avg_tokens(W, token_idx):
+                        """
+                        W: [n_prompt, n_tokens, d]
+                        token_idx:
+                            - list[int], one token per prompt
+                            - list[list[int]], multiple concept tokens per prompt
+
+                        returns: [n_prompt, d]
+                        """
+                        out = []
+
+                        for i, idx in enumerate(token_idx):
+                            if isinstance(idx, (list, tuple)):
+                                idx = torch.tensor(idx, device=device)
+                                emb = W[i, idx].mean(dim=0)     # average tokens within prompt
+                                print("average tokens within prompt")
+
+                            else:
+                                emb = W[i, int(idx)]            # single token
+
+                            out.append(emb)
+
+                        return torch.stack(out, dim=0)          # [n_prompt, d]
+
+                    # hack: concept_token_idx
+                    concept_token_idx_1 = [i_ -1 for i_ in concept_token_idx ]
+                    concept_token_idx_ = [(a,b) for a,b in zip(concept_token_idx_1,concept_token_idx)]
+                    print(concept_token_idx_)
+                    # ---------------------------
+                    # 1. Concept embedding
+                    # ---------------------------
+                    concept_emb_u = extract_avg_tokens(W_u_e, concept_token_idx_)   # [n_prompt, d]
+                    concept_emb_0 = extract_avg_tokens(W_0_e, concept_token_idx_)   # [n_prompt, d]
+
+                    # ---------------------------
+                    # 2. EOS embedding
+                    # ---------------------------
+                    eos_token_idx = []
+
+                    for idx in concept_token_idx:
+                        if isinstance(idx, (list, tuple)):
+                            eos_token_idx.append(max(idx) + 1)
+                        else:
+                            eos_token_idx.append(int(idx) + 1)
+
+                    eos_token_idx = torch.tensor(eos_token_idx, device=device)
+                    batch_idx = torch.arange(n_prompt, device=device)
+
+                    eos_emb_u = W_u_e[batch_idx, eos_token_idx]   # [n_prompt, d]
+                    eos_emb_0 = W_0_e[batch_idx, eos_token_idx]   # [n_prompt, d]
+
+                    # ---------------------------
+                    # 3. Average across templates
+                    # ---------------------------
+                    avg_concept_u = concept_emb_u.mean(dim=0)     # [d]
+                    avg_concept_0 = concept_emb_0.mean(dim=0)     # [d]
+
+                    avg_eos_u = eos_emb_u.mean(dim=0)             # [d]
+                    avg_eos_0 = eos_emb_0.mean(dim=0)             # [d]
+
+                    # ---------------------------
+                    # 4. Build representation
+                    # ---------------------------
+                    vec_u = []
+                    vec_0 = []
+
+                    w_c = 1.0
+                    w_e = 1.0
+
+                    selected_push = ['C']
+
+                    if 'C' in selected_push:
+                        vec_u.append(w_c * avg_concept_u)
+                        vec_0.append(w_c * avg_concept_0)
+
+                    if 'E' in selected_push:
+                        vec_u.append(w_e * avg_eos_u)
+                        vec_0.append(w_e * avg_eos_0)
+
+                    vec_u = torch.stack(vec_u, dim=0)   # [n_selected, d]
+                    vec_0 = torch.stack(vec_0, dim=0)   # [n_selected, d]
+
+                    # ---------------------------
+                    # 5. Cosine similarity
+                    # ---------------------------
+                    cos_excl_t = F.cosine_similarity(vec_u, vec_0, dim=-1)  # [n_selected]
+
+                    excl_term = torch.clamp(cos_excl_t - m_excl, min=0.0)
+                    excl_terms.append(excl_term.mean())
+
+                    print(f"vec_u.shape: {vec_u.shape}")
+                    print(f"pushing loss: {excl_term}")
+
+                    # just hacky
+                    P, T = W_u_e.shape[:2]
+
+                elif compute_token_option  == 'pairwise':
                 
                     cos_excl_t = F.cosine_similarity(W_u_e, W_0_e, dim=-1)
                     excl_term = torch.clamp(cos_excl_t - m_excl, min=0.0) #  B, T, 1
-                    
-                    
-                    if return_l2_baseline:
-                        # Calculate squared L2 distance: ||W_e*p_e - W_0*p_e||^2
-                        
-                        
-                        m_push = m_excl 
-                        m_pull = m_incl if isinstance(m_incl, (int, float)) else float(m_incl[1:]) # better use 0.0
-
-                        
-                        # prevent stagenation of the first iteration                        
-                        if m_pull == 0.0:
-                            with torch.no_grad():
-                                if torch.allclose(W_u_e, W_0_e):
-                                    W_u_e.add_(1e-4 * torch.randn_like(W_u_e))
-                                    
-                     
-                     
-                        # =========================
-                        # L2-push
-                        # =========================
-                        # ||W^j_{e,l} p_e - W^j_{0,l} p_e||_2^2
-                        dist_sq_push = torch.sum((W_u_e - W_0_e) ** 2, dim=-1)
-
-                        # max(m_push - dist_sq_push, 0)
-                        l_push_l2 = torch.clamp(m_push - dist_sq_push, min=0.0)
-
-                        # Average over batch/examples, keep one scalar for this (l, j)
-                        l_push_l2_terms.append(l_push_l2.mean())
-
-                        # =========================
-                        # L2-pull
-                        # =========================
-                        # ||W^j_{e,l} p_e - W^j_{0,l} p_g||_2^2
-                        dist_sq_pull = torch.sum((W_u_e - W_0_g) ** 2, dim=-1)
-
-                        # max(dist_sq_pull - m_pull, 0)
-                        l_pull_l2 = torch.clamp(dist_sq_pull - m_pull, min=0.0)
-
-                        # Average over batch/examples, keep one scalar for this (l, j)
-                        l_pull_l2_terms.append(l_pull_l2.mean())
 
 
                     P, T = excl_term.shape[:2]
                     invalid = torch.zeros((P, T), dtype=torch.bool, device=excl_term.device)
+
+
+
+
 
                     if apply_mask_before_concept_token and concept_token_idx is not None:
                         concept_token = torch.as_tensor(concept_token_idx, device=excl_term.device).unsqueeze(1) 
@@ -1130,13 +1303,6 @@ def compute_angular_exclusion_inclusion_loss(
                         excl_term = excl_term.masked_fill(mask_template, 0.0)
                         # print(f'after masked:\n{excl_term}')
 
-
-
-
-
-
-
-
                     if target_prompt_end_concentration_idx is not None or apply_push_only_eos :
                         # print(f'mask out the tokens after certain position for concentrating the pushing loss on the early tokens: {target_prompt_end_concentration_idx}')
                         end = torch.as_tensor(target_prompt_end_concentration_idx, device=excl_term.device).unsqueeze(1)  # (P,1)
@@ -1152,17 +1318,18 @@ def compute_angular_exclusion_inclusion_loss(
                             
                             invalid |= mask_earlytoken
                             excl_term = excl_term.masked_fill(mask_earlytoken, 0.0)
-                            
-                    # print(f'push mask: {invalid}')
-                    
-                    
-                    # print(f'after masked:\n{excl_term}')
-                        
-                        # print(f'after eos masked:\n{excl_term}')
+            
 
                     if aggr_feature_option == 'max':  # max over tokens (your original)
                         excl_term = excl_term.max(dim=1).values  # NOTE: dim=1 is tokens if excl_term is (P,T,...)
                     else:
+
+
+                        # print(invalid.shape)
+                        # print(f"push: {invalid}") # 55, 77
+                        print(f"L_push: {excl_term[~invalid]}") # print only
+                        print(excl_term)
+
                         if rescale_from_masking:
                             # ---- key fix: correct mean to ignore masked tokens ----
                             num_valid = (~invalid).sum(dim=1).clamp(min=1)     # (P,)
@@ -1201,33 +1368,7 @@ def compute_angular_exclusion_inclusion_loss(
 
                         full_mask = m.unsqueeze(-1) | m.unsqueeze(-2)   # (P, T, T)  rows OR cols are template tokens
                         cos_excl_t = cos_excl_t.masked_fill(full_mask, 0.0)
-                        
-                        # print(cos_excl_t)
-
-    
-                    # if template_prompt_end_idx is not None:
-                    #     P, T, _ = cos_excl_t.shape
-
-                    #     end = torch.as_tensor(template_prompt_end_idx, device=cos_excl_t.device, dtype=torch.long)  # (P,)
-                    #     end = end.clamp_(min=0, max=T)
-
-                    #     row_mask = torch.arange(T, device=cos_excl_t.device).unsqueeze(0) < end.unsqueeze(1)  # (P, T)
-
-                    #     # mask out rows i < end[p]  => cos_excl_t[p, i, :] = 0
-                    #     cos_excl_t = cos_excl_t.masked_fill(row_mask.unsqueeze(-1), 0.0)  # (P, T, T)                
-                        
-                    #     print(cos_excl_t)
-
-                        
-                    # # prevent the template prompt tokens from contributing to the pushing loss for all tokens in the target feature by masking out the cosine similarity that related to the template prompt tokens in the cos_excl_t    
-                    # if template_prompt_end_idx is not None:
-                    #     print(cos_excl_t.shape) # (P T T) (5,77,77)
-                    #     print(f'mask out the template prompt during pushing operation: {template_prompt_end_idx}') # [1, 4, 5, 4, 4] (P)
-                    #     end = torch.tensor(template_prompt_end_idx).unsqueeze(1).to(cos_excl_t.device)
-                    #     mask = torch.arange(cos_excl_t.size(1), device=cos_excl_t.device) < end
-                    #     cos_excl_t = cos_excl_t.masked_fill(mask.unsqueeze(0).unsqueeze(0), 0.0) # (P, T, T)
-                        
-                    #     print(cos_excl_t)
+            
                     
                     if aggr_token_option == 'avg':
                         excl_term = torch.clamp(cos_excl_t - m_excl, min=0.0).mean(dim=-1) # mean over the T tokens in reference feature for each token in target feature, resulting in (P, T)
@@ -1361,16 +1502,30 @@ def compute_angular_exclusion_inclusion_loss(
                 
                 
                 
-                
                 # mask out tokens before concept token (applies to both branches)
                 concept_token = torch.as_tensor(concept_token_idx, device=cos_incl_t.device).view(P, 1)
                 mask_before_concept_token = torch.arange(T, device=cos_incl_t.device).unsqueeze(0) < concept_token  # [P, T]
                 invalid |= mask_before_concept_token
                 
-                print(invalid)
-            
+                if pull_specific_token is not None:
+                    if pull_specific_token == 'C':
+                        # print('pull C')
+                        mask_except_concept = torch.arange(T, device=cos_incl_t.device).unsqueeze(0) != concept_token  # [P, T]
+                        invalid |= mask_except_concept
+                    elif pull_specific_token == 'E':
+                        # print('pull E')
+                        mask_except_eos = torch.arange(T, device=cos_incl_t.device).unsqueeze(0) != concept_token + 1  # [P, T]
+                        invalid |= mask_except_eos
 
-   
+                    elif pull_specific_token == 'CE':
+                        # print('pull CE')
+                        mask_except_concept_and_eos = (
+                            (torch.arange(T, device=cos_incl_t.device).unsqueeze(0) != concept_token) &
+                            (torch.arange(T, device=cos_incl_t.device).unsqueeze(0) != concept_token + 1)
+                        )  # [P, T]
+                        invalid |= mask_except_concept_and_eos
+
+                    # print(invalid)
                             
             if 'rs' in m_incl:
                 # print('using improved symmetric relative generic inclusion loss')
@@ -1400,8 +1555,9 @@ def compute_angular_exclusion_inclusion_loss(
                 # print(r)
                 # print(f"valid tokens: {(~invalid).sum().item()} / {invalid.numel()}")
 
-                
-                
+                print(f"L_pull: {r[~invalid]}")
+
+                print(r)
                 incl_terms.append(r[~invalid].mean())
                 
                 
@@ -1433,11 +1589,37 @@ def compute_angular_exclusion_inclusion_loss(
             
        
        
-                   
+            preserve_invalid = torch.zeros((P, T), dtype=torch.bool, device=excl_term.device)
+
+            if preserve_specific_token is not None:
+                if preserve_specific_token == 'B':
+                    preserve_invalid = torch.ones((P, T), dtype=torch.bool, device=excl_term.device)
+                    for i in range(P):
+                        preserve_invalid[i][0] = False
+
+                # mask out after eos token
+                if preserve_specific_token == 'TCE':
+
+                    concept_token_idx_ = torch.as_tensor(concept_token_idx, device=cos_incl_t.device).view(P, 1)
+                    eos_token_idx =  concept_token_idx_ + 1 
+
+                    mask_after_eos = torch.arange(T, device=cos_incl_t.device).unsqueeze(0) > eos_token_idx  # [P, T]
+                    preserve_invalid |= mask_after_eos
+
+                    # print(f"preserve_invalid: {preserve_invalid}")
+
             # preservation term
             cos_preserve = F.cosine_similarity(W_u_g, W_0_g, dim=-1)
             preserve_term =  1 - cos_preserve
-            preserve_terms.append(preserve_term.mean())
+            preserve_terms.append(preserve_term[~preserve_invalid].mean())
+
+            print(f"L_preserve: {preserve_term[~preserve_invalid]}")
+
+                   
+            # preservation term
+            # cos_preserve = F.cosine_similarity(W_u_g, W_0_g, dim=-1)
+            # preserve_term =  1 - cos_preserve
+            # preserve_terms.append(preserve_term.mean())
                 
             
 
@@ -1582,7 +1764,7 @@ def compute_angular_exclusion_inclusion_loss(
 
 
               
-            # Inclusion (Push)  
+            # Inclusion (Pull)  
               
             # symmetric 
             if 'rs' in m_incl:
@@ -1637,7 +1819,20 @@ def compute_angular_exclusion_inclusion_loss(
                 incl_terms.append(torch.clamp(float(m_incl) - cos_incl_h, min=0.0).mean())
                 
             
-            # preservation term
+            # # only bos
+            # preserve_invalid = torch.ones((P, T), dtype=torch.bool, device=excl_term.device)
+            # for i in range(P):
+            #     preserve_invalid[i][0] = False
+
+            # # preservation term
+            # cos_preserve_h = F.cosine_similarity(W_u_g_h, W_0_g_h, dim=-1)
+            # preserve_term =  1 - cos_preserve_h
+            # preserve_terms.append(preserve_term[~preserve_invalid].mean())
+
+            # print(f"L_preserve: {preserve_term[~preserve_invalid]}")
+
+
+            # # preservation term
             cos_preserve_h = F.cosine_similarity(W_u_g_h, W_0_g_h, dim=-1)
             preserve_term =  1 - cos_preserve_h
             preserve_terms.append(preserve_term.mean())
@@ -1706,7 +1901,25 @@ def compute_angular_exclusion_inclusion_loss(
     
 #+++ Main_Function 
 def main(args):
+
+
     
+
+    if args.template_prompt == 'empty': 
+        concept2prompt_templates = {
+            'object': ["{}"],
+            'style':   ["{}"]
+
+        }
+        print(f'using empty template prompts:\n {concept2prompt_templates} ')
+        
+    elif args.template_prompt == 'basic': 
+        concept2prompt_templates = {
+            'object': ["{}"],
+            'style':   ["a painting in the style of {}"]
+        }
+        print(f'using empty template prompts:\n {concept2prompt_templates} ')
+        
     
     if args.special_log_step is not None:
         args.special_log_step = [int(e) for e in args.special_log_step.split(',')]
@@ -1960,7 +2173,7 @@ def main(args):
         
         
         ####
-        erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept   # 4CELEB00 ... this is a tag for using multiple concept erasing
+        erase_multiple_concepts = "CELEB" in erase_concept or "ARTIST" in erase_concept or "NAKED" in  erase_concept # 4CELEB00 ... this is a tag for using multiple concept erasing
         if erase_multiple_concepts:
             assert args.erase_tis is None # not support yet
             erase_concepts = concept2multiple_concepts[erase_concept]
@@ -1979,11 +2192,21 @@ def main(args):
                     p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
                     p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
                     
+            elif erase_concept == '9NAKED00':
+                erase_concept_type = 'object'
+                prompt_templates = concept2prompt_templates[erase_concept_type]
+
+                generic_concepts = concept2multiple_generic_concepts[erase_concept]
+
+                for ec,gc in zip(erase_concepts,generic_concepts):
+                    p_e_prompts += [prompt_template.format(ec) for prompt_template in prompt_templates]
+                    p_g_prompts += [prompt_template.format(gc) for prompt_template in prompt_templates]
+                    p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
+
+                print(p_e_prompts)
+                print(p_g_prompts)
+
                     
-                    
-                    
-                    # p_e_prompts.extend( [ec, f"a painting in the style of {ec}", f"an artwork of {ec}", f"a photo in the style of {ec}", f"a picture in the style of {ec}"] )
-                    # p_g_prompts.extend( [generic_concept, f"a painting in the style of {generic_concept}", f"an artwork of {generic_concept}", f"a photo in the style of {generic_concept}", f"a picture in the style of {generic_concept}"] )
             else:
                 erase_concept_type = 'object'
                 prompt_templates = concept2prompt_templates[erase_concept_type]
@@ -2108,7 +2331,7 @@ def main(args):
 
         template_prompt_end_idx = None
         concept_token_idx = None
-        if args.mask_before_concept_token or args.mask_pull_before_concept_token:
+        if args.mask_before_concept_token or args.mask_pull_before_concept_token or args.pull_specific_token:
             # hack.. before eos token
             # print( pipe.tokenizer('Macbook')) #  [49406, 20617, 49407]
             # print( pipe.tokenizer('macbook')) # [49406, 20617, 49407]
@@ -2128,7 +2351,7 @@ def main(args):
                 print(f"masking out template prompt for: {p_e_prompts[i]} | template_prompt_end_idx: {template_prompt_end_idx[i]}")
              
              
-        if args.mask_pull_before_concept_token:
+        if args.mask_pull_before_concept_token or args.pull_specific_token:
             # hack.. before eos token
             
             generic_prompt_end_idx = [ pipe.tokenizer(p )['input_ids'].index(pipe.tokenizer.eos_token_id) for p in p_g_prompts]
@@ -2573,8 +2796,9 @@ def main(args):
                     rescale_from_masking = args.rescale_from_masking,   
                     
                     
-                    generic_concept_token_idx=generic_concept_token_idx if args.mask_pull_before_concept_token else None,
-                    
+                    generic_concept_token_idx=generic_concept_token_idx if (args.mask_pull_before_concept_token or args.pull_specific_token) else None,
+                    pull_specific_token = args.pull_specific_token,
+                    preserve_specific_token=args.preserve_specific_token,
                     return_l2_baseline = True
                     # mask_after_eos_nth_token = target_prompt_end_idx if args.mask_after_eos_nth_token is not None else None,
                     
@@ -2615,8 +2839,9 @@ def main(args):
                     target_prompt_end_concentration_idx=target_prompt_end_concentration_idx if args.mask_after_eos_nth_token is not None else None,
                     rescale_from_masking = args.rescale_from_masking,
                     # mask_after_eos_nth_token = target_prompt_end_idx if args.mask_after_eos_nth_token is not None else None,
-                    generic_concept_token_idx=generic_concept_token_idx if args.mask_pull_before_concept_token else None,
-                    
+                    generic_concept_token_idx=generic_concept_token_idx if (args.mask_pull_before_concept_token or args.pull_specific_token) else None,
+                    pull_specific_token=args.pull_specific_token,
+                    preserve_specific_token=args.preserve_specific_token,
         
                 )
             

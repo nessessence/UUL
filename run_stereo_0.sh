@@ -5,7 +5,8 @@ base_dir=$(pwd)
 cd $base_dir/stereo
 
 
-
+python -W ignore train.py --erase_concept 'Morgan Freeman' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of Morgan Freeman/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root2/logs/stereo/stereo-u.G2.00_U.mfreeman_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/a photo of Morgan Freeman/" --compositional_guidance_scale 2.0 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
+python -W ignore train.py --erase_concept 'Oprah Winfrey' --train_method noxattn --train_data_dir "../data_root/generated/stereo/a photo of Oprah Winfrey/" --learnable_property 'object' --initializer_token 'person' --output_dir "../data_root2/logs/stereo/stereo-u.G2.00_U.owinfrey_sd1.4.bf16_r0" --mode stereo --unet_ckpt_to_attack final_reo_unet.pt --attack_eval_images  "../data_root/generated/stereo/a photo of Oprah Winfrey/" --compositional_guidance_scale 2.0 --n_iterations 2 --num_of_adv_concepts 2   --anchor_concept_path utils/anchor_prompts_custom.json --seed 42 --device $device 
 
 
 

@@ -1,2 +1,5 @@
 {
+  "files.watcherExclude": {
+    "**/data_root/generated/study/**": true,
+  }
 }

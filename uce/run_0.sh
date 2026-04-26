@@ -1,6 +1,9 @@
 export CUDA_VISIBLE_DEVICES=0
 
-python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Amy Adams' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'aadam_uce_sd' --save_dir '../data_root/logs/uce' 
+
+
+
+# python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Amy Adams' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'aadam_uce_sd' --save_dir '../data_root/logs/uce' 
 
 
 # python trainscripts/uce_sd_erase.py --model_id 'CompVis/stable-diffusion-v1-4' --edit_concepts 'Barrack Obama' --guide_concept 'Person' --preserve_concepts 'Person' --device 'cuda:0' --concept_type 'object' --exp_name 'obama_uce_sd' --save_dir '../data_root/logs/uce' 

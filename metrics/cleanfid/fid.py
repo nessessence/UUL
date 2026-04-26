@@ -130,44 +130,44 @@ def get_files_features(l_files, model=None, num_workers=12,
     return np_feats
 
 
-"""
-Compute the inception features for a folder of image files
-"""
-def get_folder_features(fdir, model=None, num_workers=12, num=None,
-                        shuffle=False, seed=0, batch_size=128, device=torch.device("cuda"),
-                        mode="clean", custom_fn_resize=None, description="", verbose=True,
-                        custom_image_tranform=None):
-    # get all relevant files in the dataset
-    if ".zip" in fdir:
-        files = list(set(zipfile.ZipFile(fdir).namelist()))
-        # remove the non-image files inside the zip
-        files = [x for x in files if os.path.splitext(x)[1].lower()[1:] in EXTENSIONS]
-    else:
-        #TODO: including files in subfolder, note that it accepts .npy, so be careful
-        # files = natsorted([file for ext in EXTENSIONS
-        #             for file in glob(os.path.join(fdir, f"**/*.{ext}"), recursive=True)])
+# """
+# Compute the inception features for a folder of image files
+# """
+# def get_folder_features(fdir, model=None, num_workers=12, num=None,
+#                         shuffle=False, seed=0, batch_size=128, device=torch.device("cuda"),
+#                         mode="clean", custom_fn_resize=None, description="", verbose=True,
+#                         custom_image_tranform=None):
+#     # get all relevant files in the dataset
+#     if ".zip" in fdir:
+#         files = list(set(zipfile.ZipFile(fdir).namelist()))
+#         # remove the non-image files inside the zip
+#         files = [x for x in files if os.path.splitext(x)[1].lower()[1:] in EXTENSIONS]
+#     else:
+#         #TODO: including files in subfolder, note that it accepts .npy, so be careful
+#         # files = natsorted([file for ext in EXTENSIONS
+#         #             for file in glob(os.path.join(fdir, f"**/*.{ext}"), recursive=True)])
         
-        files = natsorted([
-                file for ext in EXTENSIONS
-            for file in glob(os.path.join(fdir, f"*.{ext}"))
-            ])
+#         files = natsorted([
+#                 file for ext in EXTENSIONS
+#             for file in glob(os.path.join(fdir, f"*.{ext}"))
+#             ])
 
-    if verbose:
-        print(f"Found {len(files)} images in the folder {fdir}")
-    # use a subset number of files if needed
-    if num is not None:
-        if shuffle:
-            random.seed(seed)
-            random.shuffle(files)
-        files = files[:num]
-        # print(files)
+#     if verbose:
+#         print(f"Found {len(files)} images in the folder {fdir}")
+#     # use a subset number of files if needed
+#     if num is not None:
+#         if shuffle:
+#             random.seed(seed)
+#             random.shuffle(files)
+#         files = files[:num]
+#         # print(files)
         
-    np_feats = get_files_features(files, model, num_workers=num_workers,
-                                  batch_size=batch_size, device=device, mode=mode,
-                                  custom_fn_resize=custom_fn_resize,
-                                  custom_image_tranform=custom_image_tranform,
-                                  description=description, fdir=fdir, verbose=verbose)
-    return np_feats
+#     np_feats = get_files_features(files, model, num_workers=num_workers,
+#                                   batch_size=batch_size, device=device, mode=mode,
+#                                   custom_fn_resize=custom_fn_resize,
+#                                   custom_image_tranform=custom_image_tranform,
+#                                   description=description, fdir=fdir, verbose=verbose)
+#     return np_feats
 
 
 

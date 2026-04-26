@@ -112,11 +112,21 @@ custom_concepts = [
     "Rihanna",
     "Barack Obama",
     
+    "Morgan Freeman",
+    "Oprah Winfrey",
+    "Emma Stone",
+    "Elon Musk",
+    
 
     "a painting in the style of Van Gogh",
     "a painting in the style of Claude Monet",
     "a painting in the style of Picasso",
     "a painting in the style of Jackson Pollock",
+    
+        "a painting in the style of Akira Toriyama",
+    "a painting in the style of Georges Seurat",
+    "a painting in the style of Joan Miro",
+    "a painting in the style of Egon Schiele",
     
     "naked person",
     "naked man",
@@ -148,12 +158,24 @@ erase2general_concept = {"Margot Robbie": "person",
                             "Rihanna": "person",
                             "Barack Obama": "person",
                             
-                            
+                                "Morgan Freeman": 'person',
+                                "Oprah Winfrey":'person',
+                                "Emma Stone":'person',
+                                "Elon Musk":'person',
+                                
+                                
                             "a painting in the style of Van Gogh": "a painting in the style of artist",
                             "a painting in the style of Claude Monet": "a painting in the style of artist",
                             "a painting in the style of Picasso": "a painting in the style of artist",
                             "a painting in the style of Jackson Pollock": "a painting in the style of artist",
+                   
+                            "a painting in the style of Akira Toriyama":"a painting in the style of artist",
+                            "a painting in the style of Georges Seurat":"a painting in the style of artist",
+                            "a painting in the style of Joan Miro":"a painting in the style of artist",
+                            "a painting in the style of Egon Schiele":"a painting in the style of artist",
                             
+                            
+                                     
                             "naked person": "dressed person",
                             "naked man": "dressed man",
                             "naked woman": "dressed woman",

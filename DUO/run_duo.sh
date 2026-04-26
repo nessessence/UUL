@@ -1,6 +1,7 @@
 export PATH="$HOME/.local/bin:$PATH"
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 
+
             accelerate launch               \
                 --main_process_port 50000   \
                 unlearn-sd_custom.py               \
@@ -8,12 +9,12 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
                 --mixed_precision="bf16"          \
                 --group=""                                          \
                 --config_dir="../data_root/generated/duo/config.json"    \
-                --config_name="naked_person"                      \
+                --config_name="Morgan_Freeman"                      \
                 --data_dir="../data_root/generated/duo"                  \
-                --output_dir="../data_root/logs/duo/duo-s.b100_U.naked_sd1.4.bf16_r0"                          \
-                --target_prompt="naked person"                     \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.mfreeman_sd1.4.bf16_r0"                          \
+                --target_prompt="Morgan Freeman"                     \
                 --synonym_prompt=""                      \
-                --prior_prompt="dressed person"                              \
+                --prior_prompt="person"                              \
                 --base_lr=3e-4                                      \
                 --adam_weight_decay=1e-2                            \
                 --dcoloss_beta=100                       \
@@ -40,12 +41,12 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
                 --mixed_precision="bf16"          \
                 --group=""                                          \
                 --config_dir="../data_root/generated/duo/config.json"    \
-                --config_name="naked_person"                      \
+                --config_name="Morgan_Freeman"                      \
                 --data_dir="../data_root/generated/duo"                  \
-                --output_dir="../data_root/logs/duo/duo-s.b250_U.naked_sd1.4.bf16_r0"                          \
-                --target_prompt="naked person"                     \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.mfreeman_sd1.4.bf16_r0"                          \
+                --target_prompt="Morgan Freeman"                     \
                 --synonym_prompt=""                      \
-                --prior_prompt="dressed person"                              \
+                --prior_prompt="person"                              \
                 --base_lr=3e-4                                      \
                 --adam_weight_decay=1e-2                            \
                 --dcoloss_beta=250                       \
@@ -72,12 +73,12 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
                 --mixed_precision="bf16"          \
                 --group=""                                          \
                 --config_dir="../data_root/generated/duo/config.json"    \
-                --config_name="naked_person"                      \
+                --config_name="Morgan_Freeman"                      \
                 --data_dir="../data_root/generated/duo"                  \
-                --output_dir="../data_root/logs/duo/duo-s.b500_U.naked_sd1.4.bf16_r0"                          \
-                --target_prompt="naked person"                     \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.mfreeman_sd1.4.bf16_r0"                          \
+                --target_prompt="Morgan Freeman"                     \
                 --synonym_prompt=""                      \
-                --prior_prompt="dressed person"                              \
+                --prior_prompt="person"                              \
                 --base_lr=3e-4                                      \
                 --adam_weight_decay=1e-2                            \
                 --dcoloss_beta=500                       \
@@ -104,12 +105,12 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
                 --mixed_precision="bf16"          \
                 --group=""                                          \
                 --config_dir="../data_root/generated/duo/config.json"    \
-                --config_name="naked_person"                      \
+                --config_name="Morgan_Freeman"                      \
                 --data_dir="../data_root/generated/duo"                  \
-                --output_dir="../data_root/logs/duo/duo-s.b1000_U.naked_sd1.4.bf16_r0"                          \
-                --target_prompt="naked person"                     \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.mfreeman_sd1.4.bf16_r0"                          \
+                --target_prompt="Morgan Freeman"                     \
                 --synonym_prompt=""                      \
-                --prior_prompt="dressed person"                              \
+                --prior_prompt="person"                              \
                 --base_lr=3e-4                                      \
                 --adam_weight_decay=1e-2                            \
                 --dcoloss_beta=1000                       \
@@ -128,7 +129,1036 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
                 --train_method="duo-s"                          \
                 --seed=42
             
-['duo-s.b100_U.naked_sd1.4.bf16_r0', 'duo-s.b250_U.naked_sd1.4.bf16_r0', 'duo-s.b500_U.naked_sd1.4.bf16_r0', 'duo-s.b1000_U.naked_sd1.4.bf16_r0']
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Oprah_Winfrey"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.owinfrey_sd1.4.bf16_r0"                          \
+                --target_prompt="Oprah Winfrey"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=100                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Oprah_Winfrey"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.owinfrey_sd1.4.bf16_r0"                          \
+                --target_prompt="Oprah Winfrey"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=250                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Oprah_Winfrey"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.owinfrey_sd1.4.bf16_r0"                          \
+                --target_prompt="Oprah Winfrey"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=500                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Oprah_Winfrey"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.owinfrey_sd1.4.bf16_r0"                          \
+                --target_prompt="Oprah Winfrey"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=1000                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Emma_Stone"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.estone_sd1.4.bf16_r0"                          \
+                --target_prompt="Emma Stone"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=100                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Emma_Stone"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.estone_sd1.4.bf16_r0"                          \
+                --target_prompt="Emma Stone"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=250                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Emma_Stone"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.estone_sd1.4.bf16_r0"                          \
+                --target_prompt="Emma Stone"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=500                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Emma_Stone"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.estone_sd1.4.bf16_r0"                          \
+                --target_prompt="Emma Stone"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=1000                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Elon_Musk"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.elon_sd1.4.bf16_r0"                          \
+                --target_prompt="Elon Musk"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=100                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Elon_Musk"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.elon_sd1.4.bf16_r0"                          \
+                --target_prompt="Elon Musk"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=250                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Elon_Musk"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.elon_sd1.4.bf16_r0"                          \
+                --target_prompt="Elon Musk"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=500                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="Elon_Musk"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.elon_sd1.4.bf16_r0"                          \
+                --target_prompt="Elon Musk"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="person"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=1000                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+['duo-s.b100_U.mfreeman_sd1.4.bf16_r0', 'duo-s.b250_U.mfreeman_sd1.4.bf16_r0', 'duo-s.b500_U.mfreeman_sd1.4.bf16_r0', 'duo-s.b1000_U.mfreeman_sd1.4.bf16_r0', 'duo-s.b100_U.owinfrey_sd1.4.bf16_r0', 'duo-s.b250_U.owinfrey_sd1.4.bf16_r0', 'duo-s.b500_U.owinfrey_sd1.4.bf16_r0', 'duo-s.b1000_U.owinfrey_sd1.4.bf16_r0', 'duo-s.b100_U.estone_sd1.4.bf16_r0', 'duo-s.b250_U.estone_sd1.4.bf16_r0', 'duo-s.b500_U.estone_sd1.4.bf16_r0', 'duo-s.b1000_U.estone_sd1.4.bf16_r0', 'duo-s.b100_U.elon_sd1.4.bf16_r0', 'duo-s.b250_U.elon_sd1.4.bf16_r0', 'duo-s.b500_U.elon_sd1.4.bf16_r0', 'duo-s.b1000_U.elon_sd1.4.bf16_r0']
+
+
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Akira_Toriyama"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.toriyama_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Akira Toriyama"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=100                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Akira_Toriyama"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.toriyama_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Akira Toriyama"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=250                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Akira_Toriyama"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.toriyama_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Akira Toriyama"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=500                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Akira_Toriyama"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.toriyama_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Akira Toriyama"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=1000                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Georges_Seurat"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.gsrat_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Georges Seurat"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=100                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Georges_Seurat"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.gsrat_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Georges Seurat"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=250                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Georges_Seurat"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.gsrat_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Georges Seurat"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=500                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Georges_Seurat"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.gsrat_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Georges Seurat"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=1000                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Joan_Miro"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.jmiro_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Joan Miro"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=100                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Joan_Miro"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.jmiro_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Joan Miro"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=250                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Joan_Miro"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.jmiro_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Joan Miro"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=500                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Joan_Miro"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.jmiro_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Joan Miro"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=1000                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Egon_Schiele"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b100_U.egon_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Egon Schiele"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=100                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Egon_Schiele"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b250_U.egon_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Egon Schiele"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=250                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Egon_Schiele"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b500_U.egon_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Egon Schiele"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=500                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+
+            accelerate launch               \
+                --main_process_port 50000   \
+                unlearn-sd_custom.py               \
+                --project="SD-DPO_survival-no_prompt"               \
+                --mixed_precision="bf16"          \
+                --group=""                                          \
+                --config_dir="../data_root/generated/duo/config.json"    \
+                --config_name="a_painting_in_the_style_of_Egon_Schiele"                      \
+                --data_dir="../data_root/generated/duo"                  \
+                --output_dir="../data_root/logs/duo/duo-s.b1000_U.egon_sd1.4.bf16_r0"                          \
+                --target_prompt="a painting in the style of Egon Schiele"                     \
+                --synonym_prompt=""                      \
+                --prior_prompt="a painting in the style of artist"                              \
+                --base_lr=3e-4                                      \
+                --adam_weight_decay=1e-2                            \
+                --dcoloss_beta=1000                       \
+                --base_lambda=1e6                                   \
+                --rank=32                                           \
+                --method=dpo                                        \
+                --train_batch_size=1                                \
+                --max_train_steps=1000                              \
+                --checkpointing_steps=250                           \
+                --validation_steps=250                              \
+                --num_validation_images=2                           \
+                --num_samples=64                         \
+                --t_max=750                                         \
+                --t_min=1                                           \
+                --no_grad=""                                        \
+                --train_method="duo-s"                          \
+                --seed=42
+            
+['duo-s.b100_U.toriyama_sd1.4.bf16_r0', 'duo-s.b250_U.toriyama_sd1.4.bf16_r0', 'duo-s.b500_U.toriyama_sd1.4.bf16_r0', 'duo-s.b1000_U.toriyama_sd1.4.bf16_r0', 'duo-s.b100_U.gsrat_sd1.4.bf16_r0', 'duo-s.b250_U.gsrat_sd1.4.bf16_r0', 'duo-s.b500_U.gsrat_sd1.4.bf16_r0', 'duo-s.b1000_U.gsrat_sd1.4.bf16_r0', 'duo-s.b100_U.jmiro_sd1.4.bf16_r0', 'duo-s.b250_U.jmiro_sd1.4.bf16_r0', 'duo-s.b500_U.jmiro_sd1.4.bf16_r0', 'duo-s.b1000_U.jmiro_sd1.4.bf16_r0', 'duo-s.b100_U.egon_sd1.4.bf16_r0', 'duo-s.b250_U.egon_sd1.4.bf16_r0', 'duo-s.b500_U.egon_sd1.4.bf16_r0', 'duo-s.b1000_U.egon_sd1.4.bf16_r0']
+
+
+#             accelerate launch               \
+#                 --main_process_port 50000   \
+#                 unlearn-sd_custom.py               \
+#                 --project="SD-DPO_survival-no_prompt"               \
+#                 --mixed_precision="bf16"          \
+#                 --group=""                                          \
+#                 --config_dir="../data_root/generated/duo/config.json"    \
+#                 --config_name="naked_person"                      \
+#                 --data_dir="../data_root/generated/duo"                  \
+#                 --output_dir="../data_root/logs/duo/duo-s.b100_U.naked_sd1.4.bf16_r0"                          \
+#                 --target_prompt="naked person"                     \
+#                 --synonym_prompt=""                      \
+#                 --prior_prompt="dressed person"                              \
+#                 --base_lr=3e-4                                      \
+#                 --adam_weight_decay=1e-2                            \
+#                 --dcoloss_beta=100                       \
+#                 --base_lambda=1e6                                   \
+#                 --rank=32                                           \
+#                 --method=dpo                                        \
+#                 --train_batch_size=1                                \
+#                 --max_train_steps=1000                              \
+#                 --checkpointing_steps=250                           \
+#                 --validation_steps=250                              \
+#                 --num_validation_images=2                           \
+#                 --num_samples=64                         \
+#                 --t_max=750                                         \
+#                 --t_min=1                                           \
+#                 --no_grad=""                                        \
+#                 --train_method="duo-s"                          \
+#                 --seed=42
+            
+
+#             accelerate launch               \
+#                 --main_process_port 50000   \
+#                 unlearn-sd_custom.py               \
+#                 --project="SD-DPO_survival-no_prompt"               \
+#                 --mixed_precision="bf16"          \
+#                 --group=""                                          \
+#                 --config_dir="../data_root/generated/duo/config.json"    \
+#                 --config_name="naked_person"                      \
+#                 --data_dir="../data_root/generated/duo"                  \
+#                 --output_dir="../data_root/logs/duo/duo-s.b250_U.naked_sd1.4.bf16_r0"                          \
+#                 --target_prompt="naked person"                     \
+#                 --synonym_prompt=""                      \
+#                 --prior_prompt="dressed person"                              \
+#                 --base_lr=3e-4                                      \
+#                 --adam_weight_decay=1e-2                            \
+#                 --dcoloss_beta=250                       \
+#                 --base_lambda=1e6                                   \
+#                 --rank=32                                           \
+#                 --method=dpo                                        \
+#                 --train_batch_size=1                                \
+#                 --max_train_steps=1000                              \
+#                 --checkpointing_steps=250                           \
+#                 --validation_steps=250                              \
+#                 --num_validation_images=2                           \
+#                 --num_samples=64                         \
+#                 --t_max=750                                         \
+#                 --t_min=1                                           \
+#                 --no_grad=""                                        \
+#                 --train_method="duo-s"                          \
+#                 --seed=42
+            
+
+#             accelerate launch               \
+#                 --main_process_port 50000   \
+#                 unlearn-sd_custom.py               \
+#                 --project="SD-DPO_survival-no_prompt"               \
+#                 --mixed_precision="bf16"          \
+#                 --group=""                                          \
+#                 --config_dir="../data_root/generated/duo/config.json"    \
+#                 --config_name="naked_person"                      \
+#                 --data_dir="../data_root/generated/duo"                  \
+#                 --output_dir="../data_root/logs/duo/duo-s.b500_U.naked_sd1.4.bf16_r0"                          \
+#                 --target_prompt="naked person"                     \
+#                 --synonym_prompt=""                      \
+#                 --prior_prompt="dressed person"                              \
+#                 --base_lr=3e-4                                      \
+#                 --adam_weight_decay=1e-2                            \
+#                 --dcoloss_beta=500                       \
+#                 --base_lambda=1e6                                   \
+#                 --rank=32                                           \
+#                 --method=dpo                                        \
+#                 --train_batch_size=1                                \
+#                 --max_train_steps=1000                              \
+#                 --checkpointing_steps=250                           \
+#                 --validation_steps=250                              \
+#                 --num_validation_images=2                           \
+#                 --num_samples=64                         \
+#                 --t_max=750                                         \
+#                 --t_min=1                                           \
+#                 --no_grad=""                                        \
+#                 --train_method="duo-s"                          \
+#                 --seed=42
+            
+
+#             accelerate launch               \
+#                 --main_process_port 50000   \
+#                 unlearn-sd_custom.py               \
+#                 --project="SD-DPO_survival-no_prompt"               \
+#                 --mixed_precision="bf16"          \
+#                 --group=""                                          \
+#                 --config_dir="../data_root/generated/duo/config.json"    \
+#                 --config_name="naked_person"                      \
+#                 --data_dir="../data_root/generated/duo"                  \
+#                 --output_dir="../data_root/logs/duo/duo-s.b1000_U.naked_sd1.4.bf16_r0"                          \
+#                 --target_prompt="naked person"                     \
+#                 --synonym_prompt=""                      \
+#                 --prior_prompt="dressed person"                              \
+#                 --base_lr=3e-4                                      \
+#                 --adam_weight_decay=1e-2                            \
+#                 --dcoloss_beta=1000                       \
+#                 --base_lambda=1e6                                   \
+#                 --rank=32                                           \
+#                 --method=dpo                                        \
+#                 --train_batch_size=1                                \
+#                 --max_train_steps=1000                              \
+#                 --checkpointing_steps=250                           \
+#                 --validation_steps=250                              \
+#                 --num_validation_images=2                           \
+#                 --num_samples=64                         \
+#                 --t_max=750                                         \
+#                 --t_min=1                                           \
+#                 --no_grad=""                                        \
+#                 --train_method="duo-s"                          \
+#                 --seed=42
+            
+# ['duo-s.b100_U.naked_sd1.4.bf16_r0', 'duo-s.b250_U.naked_sd1.4.bf16_r0', 'duo-s.b500_U.naked_sd1.4.bf16_r0', 'duo-s.b1000_U.naked_sd1.4.bf16_r0']
 
 # sleep 3h
 

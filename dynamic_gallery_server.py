@@ -1,6 +1,7 @@
 import io
 import os
 import re
+import json
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote, urlparse, parse_qs, urlencode
 from natsort import natsorted
@@ -12,10 +13,6 @@ from PIL import Image
 # ---------------------------------------------------------------------------
 
 def _parse_ate_ir(folder_name):
-    """Extract push (AtE) and pull (Ir) float values from a folder name.
-
-    Returns (push, pull) as floats, or (None, None) if not found.
-    """
     m_push = re.search(r'AtE(-?\d+\.\d+)', folder_name)
     m_pull = re.search(r'Ir(-?\d+\.\d+)', folder_name)
     push = float(m_push.group(1)) if m_push else None
@@ -24,11 +21,6 @@ def _parse_ate_ir(folder_name):
 
 
 def _find_exp_segment_idx(path_parts):
-    """Return the index of the exp_name segment in path_parts.
-
-    Prefers a segment containing 'esd' with AtE/Ir; falls back to the first
-    segment that has AtE or Ir at all.
-    """
     fallback = None
     for i, seg in enumerate(path_parts):
         has_pp = bool(re.search(r'AtE|Ir', seg))
@@ -42,7 +34,6 @@ def _find_exp_segment_idx(path_parts):
 
 
 def _rewrite_path(display_path, push, pull):
-    """Return display_path with AtE/Ir rewritten in the exp_name segment only."""
     parts = display_path.split('/')
     idx = _find_exp_segment_idx(parts)
     if idx is None:
@@ -57,7 +48,6 @@ def _rewrite_path(display_path, push, pull):
 
 
 def _parse_float_list(raw):
-    """Parse a comma/space-separated string into a list of floats."""
     if not raw:
         return []
     tokens = re.split(r'[,\s]+', raw.strip())
@@ -71,22 +61,17 @@ def _parse_float_list(raw):
 
 
 def _parse_str_list(raw):
-    """Parse a comma-separated string into a list of stripped non-empty strings."""
     if not raw:
         return []
     return [t.strip() for t in raw.split(',') if t.strip()]
 
 
 def _parse_token_selection(exp_segment):
-    """Extract token_selection from exp segment: the part between G{val}- and .rs
-    e.g. '...G0.00-mce-1.rs...' -> 'mce-1'
-    """
     m = re.search(r'G[\d.]+-([\w-]+)\.rs', exp_segment)
     return m.group(1) if m else None
 
 
 def _rewrite_token_selection(display_path, token_sel):
-    """Rewrite the token_selection part in the exp segment."""
     parts = display_path.split('/')
     idx = _find_exp_segment_idx(parts)
     if idx is None:
@@ -96,7 +81,6 @@ def _rewrite_token_selection(display_path, token_sel):
 
 
 def _get_image_files(abs_dir):
-    """Return natsorted list of image filenames in abs_dir, or []."""
     try:
         files = os.listdir(abs_dir)
     except OSError:
@@ -108,40 +92,20 @@ def _get_image_files(abs_dir):
 
 
 def _build_pretrained_rel_dir(display_path, base_cwd):
-    """Derive the pretrained directory path from the current exp path.
-
-    Given a path like:
-      /data_root/generated/study/esd-x-kv...AtE0.40Ir0.40.../step1000/a photo of Shibuya/7.50/
-    Returns the relative path (from cwd) like:
-      data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Shibuya/7.50/
-
-    Strategy:
-      - Find the exp_name segment (has AtE/Ir or 'esd').
-      - Skip the exp_name segment AND any immediately following step{N} segment.
-      - Everything remaining (prompt + cfg) is kept as suffix.
-      - Pretrained has no step folder — it goes directly to prompt/cfg.
-    """
     parts = [p for p in display_path.split('/') if p]
     exp_idx = _find_exp_segment_idx(parts)
     if exp_idx is None:
         return None
-
-    # Skip exp_name, then skip optional step{N} segment(s)
     skip_until = exp_idx + 1
     while skip_until < len(parts) and re.match(r'^step\d+$', parts[skip_until], re.IGNORECASE):
         skip_until += 1
-
     prefix_parts = parts[:exp_idx]
-    suffix_parts = parts[skip_until:]   # prompt + cfg, no step
+    suffix_parts = parts[skip_until:]
     pretrained_parts = prefix_parts + ['original_pretrained_sd1.4_bf16'] + suffix_parts
     return '/'.join(pretrained_parts)
 
 
 def _parse_unlearned_concept(exp_segment):
-    """Extract unlearned concept from U.{concept} in the exp segment.
-    e.g. 'esd-x-kv...U.shibuya_sd1.4...' -> 'shibuya'
-    The concept is the string after 'U.' up to the next '_' or end.
-    """
     m = re.search(r'_U\.([^_/]+)', exp_segment)
     if not m:
         return None
@@ -149,7 +113,6 @@ def _parse_unlearned_concept(exp_segment):
 
 
 def _rewrite_concept(display_path, concept):
-    """Rewrite the U.{concept} part in the exp segment."""
     parts = display_path.split('/')
     idx = _find_exp_segment_idx(parts)
     if idx is None:
@@ -159,21 +122,175 @@ def _rewrite_concept(display_path, concept):
 
 
 def _rewrite_prompt(display_path, prompt, exp_idx):
-    """Replace the prompt folder (second-to-last non-empty segment after step).
-    Path structure: .../exp/step{N}/prompt/cfg/
-    We keep cfg (last segment) and replace prompt (second-to-last).
-    """
-    # Work on the stripped-slash version
     parts = [p for p in display_path.split('/') if p]
-    # prompt is at -2, cfg at -1  (relative to end)
     if len(parts) < 2:
         return display_path
     parts[-2] = prompt
-    # Rebuild preserving leading slash
     result = ('/' if display_path.startswith('/') else '') + '/'.join(parts)
     if display_path.endswith('/'):
         result += '/'
     return result
+
+
+# ---------------------------------------------------------------------------
+# Fuzzy folder picker JS + CSS (injected into every page)
+# ---------------------------------------------------------------------------
+
+FUZZY_PICKER_JS = r"""
+<style>
+#fp-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.6); align-items: flex-start; justify-content: center;
+  padding-top: 12vh;
+}
+#fp-overlay.open { display: flex; }
+#fp-box {
+  background: #1a1a1a; border: 1px solid #444; border-radius: 8px;
+  width: min(680px, 90vw); box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+#fp-input {
+  width: 100%; box-sizing: border-box;
+  background: #111; border: none; border-bottom: 1px solid #333;
+  color: #eee; font-size: 15px; padding: 14px 16px; outline: none;
+  font-family: monospace;
+}
+#fp-list {
+  max-height: 360px; overflow-y: auto; list-style: none; margin: 0; padding: 6px 0;
+}
+#fp-list li {
+  padding: 8px 16px; font-size: 13px; font-family: monospace;
+  color: #ccc; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#fp-list li.active { background: #2a4a6a; color: #fff; }
+#fp-list li:hover { background: #222; }
+#fp-list li mark { background: none; color: #5fd7ff; font-weight: bold; }
+#fp-hint {
+  padding: 6px 16px; font-size: 11px; color: #555; border-top: 1px solid #222;
+}
+</style>
+<div id="fp-overlay">
+  <div id="fp-box">
+    <input id="fp-input" placeholder="Type to filter folders..." autocomplete="off" spellcheck="false">
+    <ul id="fp-list"></ul>
+    <div id="fp-hint">↑↓ navigate &nbsp;&middot;&nbsp; Enter to open &nbsp;&middot;&nbsp; Esc to close</div>
+  </div>
+</div>
+<script>
+(function() {
+  const overlay = document.getElementById('fp-overlay');
+  const input   = document.getElementById('fp-input');
+  const list    = document.getElementById('fp-list');
+
+  let allFolders = [];
+  let filtered   = [];
+  let activeIdx  = 0;
+  let loaded     = false;
+
+  function fuzzyMatch(str, query) {
+    if (!query) return { match: true, score: 0, html: str };
+    const s = str.toLowerCase();
+    const q = query.toLowerCase();
+    let si = 0, qi = 0, score = 0;
+    const marks = new Array(str.length).fill(false);
+    let consecutive = 0;
+    while (si < s.length && qi < q.length) {
+      if (s[si] === q[qi]) {
+        marks[si] = true;
+        qi++;
+        score += 1 + consecutive;
+        consecutive++;
+      } else {
+        consecutive = 0;
+      }
+      si++;
+    }
+    if (qi < q.length) return { match: false };
+    // Build highlighted HTML
+    let html = '';
+    for (let i = 0; i < str.length; i++) {
+      const c = str[i].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      html += marks[i] ? `<mark>${c}</mark>` : c;
+    }
+    return { match: true, score, html };
+  }
+
+  function render() {
+    const q = input.value;
+    const results = [];
+    for (const f of allFolders) {
+      const r = fuzzyMatch(f, q);
+      if (r.match) results.push({ name: f, score: r.score, html: r.html });
+    }
+    results.sort((a, b) => b.score - a.score);
+    filtered = results;
+    activeIdx = 0;
+    list.innerHTML = '';
+    results.forEach((r, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = r.html;
+      if (i === 0) li.classList.add('active');
+      li.addEventListener('mouseenter', () => setActive(i));
+      li.addEventListener('click', () => navigate(i));
+      list.appendChild(li);
+    });
+  }
+
+  function setActive(i) {
+    const items = list.querySelectorAll('li');
+    if (items[activeIdx]) items[activeIdx].classList.remove('active');
+    activeIdx = Math.max(0, Math.min(i, items.length - 1));
+    if (items[activeIdx]) {
+      items[activeIdx].classList.add('active');
+      items[activeIdx].scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  function navigate(i) {
+    if (!filtered[i]) return;
+    const base = window.location.pathname.replace(/\/?$/, '/');
+    window.location.href = base + encodeURIComponent(filtered[i].name) + '/';
+  }
+
+  async function open() {
+    overlay.classList.add('open');
+    input.value = '';
+    if (!loaded) {
+      const res = await fetch('/__folders__?dir=' + encodeURIComponent(window.location.pathname));
+      const data = await res.json();
+      allFolders = data.folders || [];
+      loaded = true;
+    }
+    render();
+    input.focus();
+  }
+
+  function close() {
+    overlay.classList.remove('open');
+  }
+
+  input.addEventListener('input', render);
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIdx + 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIdx - 1); }
+    else if (e.key === 'Enter') { e.preventDefault(); navigate(activeIdx); }
+    else if (e.key === 'Escape') { close(); }
+  });
+
+  overlay.addEventListener('mousedown', e => { if (e.target === overlay) close(); });
+
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'i') {
+      e.preventDefault();
+      loaded = false;
+      if (overlay.classList.contains('open')) close(); else open();
+    }
+    if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+  });
+})();
+</script>
+"""
 
 
 # ---------------------------------------------------------------------------
@@ -196,6 +313,10 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         qs = parse_qs(parsed.query)
 
+        if parsed.path == "/__folders__":
+            self._serve_folders(qs)
+            return
+
         if parsed.path == "/__concat__":
             self._serve_concat_image(qs)
             return
@@ -211,7 +332,36 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         super().do_GET()
 
     # ------------------------------------------------------------------
-    # /__concat__ — serve a horizontal strip of images from a directory
+    # /__folders__ — return JSON list of subdirectories for the picker
+    # ------------------------------------------------------------------
+
+    def _serve_folders(self, qs):
+        try:
+            rel_dir = qs.get("dir", ["/"])[0]
+            base = os.getcwd()
+            target_dir = os.path.normpath(os.path.join(base, rel_dir.lstrip("/")))
+            if not target_dir.startswith(base):
+                self.send_error(403, "Forbidden")
+                return
+            try:
+                entries = os.listdir(target_dir)
+            except OSError:
+                entries = []
+            folders = natsorted(
+                e for e in entries
+                if os.path.isdir(os.path.join(target_dir, e)) and not e.startswith('.')
+            )
+            data = json.dumps({"folders": folders}).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+        except Exception as e:
+            self.send_error(500, f"Internal error: {e}")
+
+    # ------------------------------------------------------------------
+    # /__concat__
     # ------------------------------------------------------------------
 
     def _serve_concat_image(self, qs):
@@ -272,10 +422,7 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
 
 
     # ------------------------------------------------------------------
-    # /__multiconcat__ — one image from each of N dirs, stitched together
-    # Query params: dir=A&dir=B&dir=C&start=N&count=M
-    # Each dir contributes `count` images starting at `start`, all dirs
-    # are stitched left-to-right into one strip.
+    # /__multiconcat__
     # ------------------------------------------------------------------
 
     def _serve_multiconcat_image(self, qs):
@@ -334,10 +481,7 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
 
 
     # ------------------------------------------------------------------
-    # /__vstack__ — each dir produces a horizontal strip (count images),
-    # all strips stacked vertically into one tall image.
-    # Query params: dir=A&dir=B&...&start=N&count=M
-    # Strips are scaled to the same width (first strip's width).
+    # /__vstack__
     # ------------------------------------------------------------------
 
     def _serve_vstack_image(self, qs):
@@ -363,7 +507,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
                         pass
                 if not images:
                     return None
-                # Resize all to first image's height, then stitch horizontally
                 target_h = images[0].height
                 resized = []
                 for img in images:
@@ -384,7 +527,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
                 self.send_error(404, "No images found")
                 return
 
-            # Scale all strips to the same width (first strip's width)
             target_w = strips[0].width
             scaled = []
             for strip in strips:
@@ -488,6 +630,7 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
                 displayname = linkname = name + "/"
             self.wfile.write(f'<li><a href="{linkname}">{displayname}</a></li>\n'.encode("utf-8"))
 
+        self.wfile.write(FUZZY_PICKER_JS.encode("utf-8"))
         self.wfile.write(b"</ul><hr></body></html>")
         return None
 
@@ -504,28 +647,24 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         token_sel_list = token_sel_list or []
 
         encoded_path = unquote(self.path)
-        display_path = urlparse(encoded_path).path   # strip query string
+        display_path = urlparse(encoded_path).path
 
-        # Find current push/pull/concept/prompt from path
         path_parts = [s for s in display_path.split('/') if s]
         exp_idx = _find_exp_segment_idx(path_parts)
         push_val, pull_val = (
             _parse_ate_ir(path_parts[exp_idx]) if exp_idx is not None else (None, None)
         )
 
-        # Extract concept (U.xxx), token_selection, and prompt (second-to-last segment) from path
         concept_val   = _parse_unlearned_concept(path_parts[exp_idx]) if exp_idx is not None else None
         token_val     = _parse_token_selection(path_parts[exp_idx]) if exp_idx is not None else None
         prompt_val    = path_parts[-2] if len(path_parts) >= 2 else None
 
-        # Apply overrides: rewrite display_path so all subsequent logic uses the new path
         if concept_override and concept_override != concept_val:
             display_path = _rewrite_concept(display_path, concept_override)
             concept_val = concept_override
         if prompt_override and prompt_override != prompt_val:
             display_path = _rewrite_prompt(display_path, prompt_override, exp_idx)
             prompt_val = prompt_override
-        # Re-parse path_parts after potential rewrites
         path_parts = [s for s in display_path.split('/') if s]
         exp_idx = _find_exp_segment_idx(path_parts)
 
@@ -535,7 +674,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         push_list_display = ",".join(f"{v:.2f}" for v in push_list)
         pull_list_display = ",".join(f"{v:.2f}" for v in pull_list)
 
-        # Build multi-rows if lists are present
         base_cwd = os.getcwd()
 
         def make_rows():
@@ -550,11 +688,9 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
 
             ts_values = token_sel_list if token_sel_list else [token_val]
 
-            # No lists at all → nothing to show
             if not pp_combos and not token_sel_list:
                 return []
 
-            # Build full combos: (push, pull, token_sel)
             if pp_combos:
                 combos = [(p, q, ts) for (p, q) in pp_combos for ts in ts_values]
             else:
@@ -583,9 +719,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         multi_rows = make_rows()
         multi_mode = bool(multi_rows)
 
-        # ------------------------------------------------------------------
-        # Pretrained row: derive from first exp variant's path
-        # ------------------------------------------------------------------
         pretrained_rel_dir = None
         pretrained_imgs = []
         if multi_mode and has_pp:
@@ -597,7 +730,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
 
         can_show_pretrained = multi_mode and has_pp and pretrained_rel_dir is not None
 
-        # Helpers for building URLs that preserve existing params
         def build_url(extra: dict):
             params = {}
             if concat_n:
@@ -621,7 +753,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
             if prompt_override:
                 params["prompt"] = prompt_override
             params.update(extra)
-            # Remove falsy/empty values so toggling off works cleanly
             params = {k: v for k, v in params.items() if v not in ("", None, 0, False)}
             return display_path + ("?" + urlencode(params) if params else "")
 
@@ -629,12 +760,10 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         parent = self._parent_href()
         rel_dir = display_path.lstrip("/")
 
-        # ---- HTTP response ----
         self.send_response(200)
         self.send_header("Content-type", "text/html; charset=utf-8")
         self.end_headers()
 
-        # Pretrained path hint shown in UI
         pretrained_hint = f"→ {pretrained_rel_dir}" if pretrained_rel_dir else ""
         pretrained_found = bool(pretrained_imgs)
         pretrained_badge = (
@@ -683,13 +812,11 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         background: #1e1500; border: 1px solid #666; border-radius: 4px;
         padding: 3px 8px; font-size: 12px; color: #666;
     }}
-    /* Gallery */
     .grid {{ display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-bottom: 6px; }}
     .grid.concat-mode {{ grid-template-columns: 1fr; }}
     .item {{ text-align: center; font-size: 11px; word-break: break-all; }}
     img {{ width: 100%; height: auto; border-radius: 3px; display: block; }}
     .sized img {{ width: auto; height: var(--img-h); max-width: 100%; }}
-    /* Multi-row mode */
     .row-block {{ margin-bottom: 20px; }}
     .row-label {{
         font-size: 13px; font-weight: bold; color: #5fd7ff;
@@ -697,7 +824,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         background: #0e1e28; border-left: 3px solid #5fd7ff; border-radius: 2px;
         display: inline-block;
     }}
-    /* Pretrained row label — amber colour to stand out */
     .row-label-pt {{
         font-size: 13px; font-weight: bold; color: #f5a623;
         margin-bottom: 6px; padding: 4px 10px;
@@ -705,7 +831,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         display: inline-block;
     }}
     .row-empty {{ color: #555; font-size: 12px; padding: 4px 10px; font-style: italic; }}
-    /* Compare (vertical stack) mode */
     .compare-block {{ margin-bottom: 28px; border: 1px solid #2a2a2a; border-radius: 4px; overflow: hidden; }}
     .compare-pos {{
         font-size: 12px; font-weight: bold; color: #888;
@@ -726,7 +851,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
 <div class="toolbar">
   {'<a href="' + parent + '">⬅️ Go back</a>' if parent else ''}
 
-  <!-- Concat form -->
   <form method="get" action="{display_path}" style="display:contents">
     {'<input type="hidden" name="push_list" value="' + push_list_display + '">' if push_list else ''}
     {'<input type="hidden" name="pull_list" value="' + pull_list_display + '">' if pull_list else ''}
@@ -743,7 +867,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
   {f'<span class="badge">tok={token_val}</span>' if token_val else ''}
   {pretrained_badge}
 
-  <!-- Size form -->
   <form method="get" action="{display_path}" style="display:contents">
     {'<input type="hidden" name="concat" value="' + str(concat_n) + '">' if concat_n else ''}
     {'<input type="hidden" name="push_list" value="' + push_list_display + '">' if push_list else ''}
@@ -758,7 +881,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
 
   {'<span class="sep">|</span>' if has_pp else ''}
 
-  <!-- Push / pull / token_sel list form -->
   {'<form method="get" action="' + display_path + '" style="display:contents">' if has_pp else ''}
   {'<input type="hidden" name="concat" value="' + str(concat_n) + '">' if (has_pp and concat_n) else ''}
   {'<div class="tg">' if has_pp else ''}
@@ -772,7 +894,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
   {'<a href="' + build_url({"push_list": "", "pull_list": "", "token_sel_list": ""}) + '"><button type="button" class="dim">✕ lists</button></a>' if (has_pp and multi_mode) else ''}
   {'</div></form>' if has_pp else ''}
 
-  <!-- Concept / prompt form — always shown when exp segment found -->
   {'<span class="sep">|</span>' if exp_idx is not None else ''}
   {'<form method="get" action="' + display_path + '" style="display:contents">' if exp_idx is not None else ''}
   {'<input type="hidden" name="concat" value="' + str(concat_n) + '">' if (exp_idx is not None and concat_n) else ''}
@@ -790,18 +911,14 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
   {'<a href="' + build_url({"concept": "", "prompt": ""}) + '"><button type="button" class="dim">✕</button></a>' if (exp_idx is not None and (concept_override or prompt_override)) else ''}
   {'</div></form>' if exp_idx is not None else ''}
 
-  <!-- Compare toggle -->
   {('<a href="' + build_url({"compare": ""}) + '"><button type="button" class="dim">☰ separate</button></a>' if compare else '<a href="' + build_url({"compare": 1}) + '"><button type="button">⊞ compare</button></a>') if multi_mode else ''}
 
-  <!-- Pretrained toggle — only shown when multi-mode and path has AtE/Ir -->
   {('<a href="' + build_url({"display_pretrained": ""}) + '"><button type="button" class="pt-on">🖼 hide pretrained</button></a>' if display_pretrained else '<a href="' + build_url({"display_pretrained": 1}) + '"><button type="button">🖼 show pretrained</button></a>') if can_show_pretrained else ''}
 
-  <!-- Show paths debug toggle -->
   {'<a href="' + build_url({"show_paths": ""}) + '"><button type="button" class="pt-on">🗂 hide paths</button></a>' if show_paths else '<a href="' + build_url({"show_paths": 1}) + '"><button type="button" class="dim">🗂 show paths</button></a>'}
 </div>
 """.encode("utf-8"))
 
-        # ---- Debug path table ----
         if show_paths and multi_mode:
             rows_for_debug = []
             if can_show_pretrained:
@@ -832,7 +949,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
                 ).encode("utf-8"))
             self.wfile.write(b'</tbody></table></div>\n')
 
-        # ---- Gallery content ----
         if multi_mode:
             self._write_multi_rows(
                 multi_rows, concat_n, img_size, compare,
@@ -843,6 +959,7 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         else:
             self._write_single_grid(image_files, concat_n, rel_dir, img_size)
 
+        self.wfile.write(FUZZY_PICKER_JS.encode("utf-8"))
         self.wfile.write(b"</div></body></html>")
         return None
 
@@ -868,14 +985,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
 
     def _write_multi_rows(self, rows, concat_n, img_size=None, compare=False,
                           display_pretrained=False, pretrained_rel_dir=None, pretrained_imgs=None):
-        """Interleaved layout: for each image-position chunk, emit that chunk
-        from every variant before advancing to the next chunk.
-
-            swap_n = concat_n if set, else 1
-
-        When display_pretrained=True, the pretrained row is prepended first at
-        each position chunk before the experiment variants.
-        """
         pretrained_imgs = pretrained_imgs or []
         swap_n = concat_n if concat_n else 1
         use_concat = bool(concat_n)
@@ -891,13 +1000,9 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
         pos = 0
         while pos < max_imgs:
             if compare:
-                # ---- Compare mode: all variants (+ pretrained) stacked vertically ----
-                # Use swap_n directly so each strip shows concat_n images side-by-side.
-                # Only skip dirs that have no images at this position at all.
                 count = swap_n
                 img_range = f"#{pos+1}" if swap_n == 1 else f"#{pos+1}&#8211;{pos+count}"
 
-                # Collect all dirs for vstack: pretrained first, then variants
                 dir_params_list = []
                 if display_pretrained and pretrained_rel_dir and pos < len(pretrained_imgs):
                     dir_params_list.append(f"dir={pretrained_rel_dir}")
@@ -922,9 +1027,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(b"</div>\n")
 
             else:
-                # ---- Separate mode ----
-
-                # Pretrained row first (if enabled)
                 if display_pretrained and pretrained_rel_dir:
                     if pos < len(pretrained_imgs):
                         count = min(swap_n, len(pretrained_imgs) - pos)
@@ -963,7 +1065,6 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
                             f'</div>\n'
                         ).encode("utf-8"))
 
-                # Experiment variant rows
                 for (label, rel_dir, img_files) in rows:
                     if pos >= len(img_files):
                         img_range = f"#{pos+1}" if swap_n == 1 else f"#{pos+1}&#8211;{pos+swap_n}"
@@ -1001,7 +1102,7 @@ class GalleryHTTPRequestHandler(SimpleHTTPRequestHandler):
                             f'</div>\n'
                         ).encode("utf-8"))
 
-                    self.wfile.write(b"</div>\n")  # close row-block
+                    self.wfile.write(b"</div>\n")
 
             pos += swap_n
 
