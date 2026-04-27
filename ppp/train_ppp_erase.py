@@ -26,7 +26,7 @@ from diffusers import DDIMScheduler
 import wandb 
 import torch
 import torch.nn.functional as F
-
+from copy import deepcopy
 #+++ Constant
 
 # these concepts do not have preservation concepts (yet)
@@ -83,6 +83,8 @@ concept2prompt_templates = {
     "a photo in the style of {}",
     "a picture in the style of {}",]
 }
+
+concept2preserve_prompt_templates = deepcopy(concept2prompt_templates)
 
 Celeb_Prelim_List = ["Margot Robbie", "Anne Hathaway", "Amy Adams", "Emma Stone", "Amber Heard",
                      "David Beckham", "Chris Hemsworth", "Elon Musk", "Adam Driver", "Andrew Garfield",
@@ -617,10 +619,12 @@ def resolve_model_name(args): #, training_step):
             
     
     if args.template_prompt is not None:
+        # TE ... mean for push and pull (not for preserve) ... I already used some T for one that does not preserve with multiple prompts template
         if args.template_prompt == 'empty':
-            base_file_name += '-Te'
-        if args.template_prompt == 'basic':
-            base_file_name += '-Tb'
+            base_file_name += '-TEe'
+        elif args.template_prompt == 'basic':
+            base_file_name += '-TEb'
+
 
 
         
@@ -948,6 +952,7 @@ def compute_angular_exclusion_inclusion_loss(
     unet_0,         # frozen reference UNet
     p_e,            # erased prompt embedding [B, T, 768]
     p_g,            # generic prompt embedding [B, T, 768]
+    p_p,
     m_excl: float,
     m_incl: Union[float, str],
     # m_incl: float,
@@ -1070,6 +1075,7 @@ def compute_angular_exclusion_inclusion_loss(
             # remain the same
             W_u_e = F.linear(p_e, W_u, b_u)
             W_u_g = F.linear(p_g, W_u, b_u) 
+            W_u_p = F.linear(p_p, W_u, b_u) 
             
             
             W_u_tis = [params_u_ti[name].detach().to(W_u.device) for params_u_ti in params_u_tis]
@@ -1091,7 +1097,8 @@ def compute_angular_exclusion_inclusion_loss(
         
             # Linear projections: [B, T, D]
             W_u_e = F.linear(p_e, W_u, b_u)
-            W_u_g = F.linear(p_g, W_u, b_u) # for preservation term
+            W_u_g = F.linear(p_g, W_u, b_u) 
+            W_u_p = F.linear(p_p, W_u, b_u) # for preservation term
             
             
             
@@ -1099,6 +1106,7 @@ def compute_angular_exclusion_inclusion_loss(
         with torch.no_grad():
             W_0_e = F.linear(p_e, W_0, b_0)
             W_0_g = F.linear(p_g, W_0, b_0)
+            W_0_p = F.linear(p_p, W_0, b_0)
             
 
         if sim_param_group == "avg_token":
@@ -1588,10 +1596,12 @@ def compute_angular_exclusion_inclusion_loss(
             norm_terms.append(torch.abs(torch.log(norm_u) - torch.log(norm_0)).mean())
             
        
-       
-            preserve_invalid = torch.zeros((P, T), dtype=torch.bool, device=excl_term.device)
+            N_Pp, T = W_u_p.shape[:2]
+            preserve_invalid = torch.zeros((N_Pp, T), dtype=torch.bool, device=excl_term.device)
 
             if preserve_specific_token is not None:
+
+                print('THIS HAVE TO ADAPT TO P_P FIRST')
                 if preserve_specific_token == 'B':
                     preserve_invalid = torch.ones((P, T), dtype=torch.bool, device=excl_term.device)
                     for i in range(P):
@@ -1609,7 +1619,7 @@ def compute_angular_exclusion_inclusion_loss(
                     # print(f"preserve_invalid: {preserve_invalid}")
 
             # preservation term
-            cos_preserve = F.cosine_similarity(W_u_g, W_0_g, dim=-1)
+            cos_preserve = F.cosine_similarity(W_u_p, W_0_p, dim=-1)
             preserve_term =  1 - cos_preserve
             preserve_terms.append(preserve_term[~preserve_invalid].mean())
 
@@ -1623,7 +1633,7 @@ def compute_angular_exclusion_inclusion_loss(
                 
             
 
-            preserve_l2_term = torch.sum((W_u_g - W_0_g) ** 2, dim=-1)
+            preserve_l2_term = torch.sum((W_u_p - W_0_p) ** 2, dim=-1)
             l_preserve_l2_terms.append(preserve_l2_term.mean())
                     #   l_push_l2 = torch.clamp(m_push - dist_sq, min=0.0)
                     #     l_push_l2_terms += [l_push_l2.mean()]
@@ -2177,11 +2187,13 @@ def main(args):
         if erase_multiple_concepts:
             assert args.erase_tis is None # not support yet
             erase_concepts = concept2multiple_concepts[erase_concept]
-            p_e_prompts = []; p_g_prompts = []
+            p_e_prompts = []; p_g_prompts = []; p_p_prompts = []
             p_template_prompts = []
             if 'ARTIST' in erase_concept:
                 erase_concept_type = 'style'
                 prompt_templates = concept2prompt_templates[erase_concept_type]
+                preserve_prompt_templates = concept2preserve_prompt_templates[erase_concept_type]
+
                 
                 for ec in erase_concepts:
                     raw_erase_concept = ec.replace('a painting in the style of ','') #  "a painting in the style of Van Gogh" --> Van Gogh 
@@ -2190,26 +2202,31 @@ def main(args):
                                         
                     p_e_prompts += [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                    p_p_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in preserve_prompt_templates]
                     p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
                     
             elif erase_concept == '9NAKED00':
                 erase_concept_type = 'object'
                 prompt_templates = concept2prompt_templates[erase_concept_type]
+                preserve_prompt_templates = concept2preserve_prompt_templates[erase_concept_type]
+
 
                 generic_concepts = concept2multiple_generic_concepts[erase_concept]
 
                 for ec,gc in zip(erase_concepts,generic_concepts):
                     p_e_prompts += [prompt_template.format(ec) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(gc) for prompt_template in prompt_templates]
+                    p_p_prompts += [prompt_template.format(gc) for prompt_template in preserve_prompt_templates]
+
                     p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
 
-                print(p_e_prompts)
-                print(p_g_prompts)
+
 
                     
             else:
                 erase_concept_type = 'object'
                 prompt_templates = concept2prompt_templates[erase_concept_type]
+                preserve_prompt_templates = concept2preserve_prompt_templates[erase_concept_type]
                 
                 for ec in erase_concepts:
                     # p_e_prompts.extend( [ec, f"a photo of {ec}", f"an image of {ec}", f"a picture of {ec}", f"a photo of a {ec}"] )
@@ -2217,6 +2234,7 @@ def main(args):
         
                     p_e_prompts += [prompt_template.format(ec) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                    p_p_prompts += [prompt_template.format(generic_concept) for prompt_template in preserve_prompt_templates]
 
                     
                     p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
@@ -2227,6 +2245,7 @@ def main(args):
             if 'a painting in the style of ' in erase_concept:
                 erase_concept_type = 'style'
                 prompt_templates = concept2prompt_templates[erase_concept_type]
+                preserve_prompt_templates = concept2preserve_prompt_templates[erase_concept_type]
                 
                 
                 
@@ -2236,6 +2255,9 @@ def main(args):
                     
                     p_e_prompts = [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts = [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                    p_p_prompts = [prompt_template.format(raw_generic_concept) for prompt_template in preserve_prompt_templates]
+
+
                     p_template_prompts =[prompt_template.format('') for prompt_template in prompt_templates]
                     
                     
@@ -2247,11 +2269,12 @@ def main(args):
                     raw_erase_concept = erase_concept.replace('a painting in the style of ','') #  "a painting in the style of Van Gogh" --> Van Gogh
                     raw_generic_concept = generic_concept.replace('a painting in the style of ','')
                     print(f'using attack token embeddings for PPP: {args.erase_tis}')
-                    p_e_prompts = []; p_g_prompts = []
+                    p_e_prompts = []; p_g_prompts = []; p_p_prompts = []
                     
                     # also adding the original
                     p_e_prompts += [prompt_template.format(raw_erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                    p_p_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in preserve_prompt_templates]
                     
                     p_template_prompts =[prompt_template.format('') for prompt_template in prompt_templates]
                     
@@ -2259,6 +2282,7 @@ def main(args):
                     for erase_ti in args.erase_tis:
                         p_e_prompts += [prompt_template.format(erase_ti) for prompt_template in prompt_templates]
                         p_g_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in prompt_templates]
+                        p_p_prompts += [prompt_template.format(raw_generic_concept) for prompt_template in preserve_prompt_templates]
                         # p_e_prompts += [f"a painting in the style of {erase_ti}", f"an artwork of {erase_ti}", f"a photo in the style of {erase_ti}", f"a picture in the style of {erase_ti}"]
                         # p_g_prompts += [f"a painting in the style of {raw_generic_concept}", f"an artwork of {raw_generic_concept}", f"a photo in the style of {raw_generic_concept}", f"a picture in the style of {raw_generic_concept}"]
                         p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
@@ -2267,9 +2291,11 @@ def main(args):
             else: 
                 erase_concept_type = 'object'
                 prompt_templates = concept2prompt_templates[erase_concept_type]
+                preserve_prompt_templates = concept2preserve_prompt_templates[erase_concept_type]
                 if args.erase_tis is None:
                     p_e_prompts = [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts = [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                    p_p_prompts = [prompt_template.format(generic_concept) for prompt_template in preserve_prompt_templates]
 
                     
                     p_template_prompts =[prompt_template.format('') for prompt_template in prompt_templates]
@@ -2280,11 +2306,12 @@ def main(args):
                 else:
                     # erase_tis = args.erase_ti.split(';') # can be more than one
                     print(f'using attack token embeddings for PPP: {args.erase_tis}')
-                    p_e_prompts = []; p_g_prompts = []; p_template_prompts = []
+                    p_e_prompts = []; p_g_prompts = []; p_p_prompts = []; p_template_prompts = []
                     
                     
                     p_e_prompts += [prompt_template.format(erase_concept) for prompt_template in prompt_templates]
                     p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                    p_p_prompts += [prompt_template.format(generic_concept) for prompt_template in preserve_prompt_templates]
                     
                     p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
                     
@@ -2292,6 +2319,7 @@ def main(args):
                     for erase_ti in args.erase_tis:
                         p_e_prompts += [prompt_template.format(erase_ti) for prompt_template in prompt_templates]
                         p_g_prompts += [prompt_template.format(generic_concept) for prompt_template in prompt_templates]
+                        p_p_prompts += [prompt_template.format(generic_concept) for prompt_template in preserve_prompt_templates]
                         p_template_prompts += [prompt_template.format('') for prompt_template in prompt_templates]
                     
 
@@ -2314,11 +2342,13 @@ def main(args):
                                 
         print(f"p_e_prompts: {p_e_prompts}")
         print(f"p_g_prompts: {p_g_prompts}")
+        print(f"p_p_prompts: {p_p_prompts}")
             
         p_e, _ = pipe.encode_prompt(prompt=p_e_prompts, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=len(p_e_prompts)*[''])
         p_g, _ = pipe.encode_prompt(prompt=p_g_prompts, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=len(p_g_prompts)*[''])
+        p_p, _ = pipe.encode_prompt(prompt=p_p_prompts, device=device, num_images_per_prompt=1, do_classifier_free_guidance=True, negative_prompt=len(p_p_prompts)*[''])
         
-        p_e, p_g = p_e.to(device), p_g.to(device)
+        p_e, p_g, p_p = p_e.to(device), p_g.to(device),  p_p.to(device)
         
         
         
@@ -2769,6 +2799,8 @@ def main(args):
                     unet_0=base_unet,
                     p_e=p_e,
                     p_g=p_g,
+                    p_p=p_p,
+
                     m_excl=args.ang_excl_margin if args.final_ang_excl_margin is None else args.final_ang_excl_margin,
                     m_incl=args.ang_incl_margin,
                     sim_param_group=args.sim_param_group,
@@ -2814,6 +2846,8 @@ def main(args):
                     unet_0=base_unet,
                     p_e=p_e,
                     p_g=p_g,
+                    p_p=p_p,
+
                     m_excl=args.ang_excl_margin if args.final_ang_excl_margin is None else args.final_ang_excl_margin,
                     m_incl=args.ang_incl_margin,
                     sim_param_group=args.sim_param_group,

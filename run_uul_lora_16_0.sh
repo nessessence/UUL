@@ -1,67 +1,244 @@
 export CUDA_VISIBLE_DEVICES=0
 export pc_id="16_0"
-echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
 '
                             accelerate launch train_dreambooth_lora.py \
                                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
                                 --load_lora_weight_path="" \
                                 --instance_data_dir="data_root/data/real_data/dummy" \
-                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
                                 --output_dir="data_root/logs/gen" \
-                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                                 --run_note 'gen img' --wait_weight \
                                 --num_validation_images 100 \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-
-echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
 '
                             accelerate launch train_dreambooth_lora.py \
                                 --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
                                 --load_lora_weight_path="" \
                                 --instance_data_dir="data_root/data/real_data/dummy" \
-                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
                                 --output_dir="data_root/logs/gen" \
                                 --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
                                 --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
                                 --run_note 'gen img' --wait_weight \
                                 --num_validation_images 100 \
                                 --donot_reinit_validation_generator \
-                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
-'
-                            accelerate launch train_dreambooth_lora.py \
-                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
-                                --load_lora_weight_path="" \
-                                --instance_data_dir="data_root/data/real_data/dummy" \
-                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
-                                --output_dir="data_root/logs/gen" \
-                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
-                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                                --run_note 'gen img' --wait_weight \
-                                --num_validation_images 100 \
-                                --donot_reinit_validation_generator \
-                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-
-echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
-'
-                            accelerate launch train_dreambooth_lora.py \
-                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
-                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
-                                --load_lora_weight_path="" \
-                                --instance_data_dir="data_root/data/real_data/dummy" \
-                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
-                                --output_dir="data_root/logs/gen" \
-                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
-                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
-                                --run_note 'gen img' --wait_weight \
-                                --num_validation_images 100 \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 $$$$
 : << 'COMMENT'
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-Tb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" --instance_prompt="a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman;a photo of naked person;a photo of naked man;a photo of naked woman;a photo of nude person;a photo of nude man;a photo of nude woman;a photo of erotic person;a photo of erotic man;a photo of erotic woman" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P16.00-N0.00G0.00-mce-1.rs.pCE-rg-TEb_U.9NAKED00_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="*cocoval.5000" --instance_prompt="*cocoval.5000" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --donot_reinit_validation_generator \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 sleep 13m
 echo 'count:0 - esd-x-kv.bG.fG.T999-1000_1.00AtE0.20Ir0.00-0.00-N0.00G0.00-mce-1.rs-rg-At_U.mrobbie_sd1.4.bf16.bs4 1000
 '
