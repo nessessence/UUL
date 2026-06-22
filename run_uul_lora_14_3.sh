@@ -1,5 +1,204 @@
 export CUDA_VISIBLE_DEVICES=3
 export pc_id="14_3"
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb5_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/old_logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb5_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb5_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of John Hoyland" --instance_prompt="a painting in the style of John Hoyland" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lambe_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/old_logs/mace/mace.psg8e-1.tr1e0.fr1e0.lambe_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lambe_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of John Hoyland" --instance_prompt="a painting in the style of John Hoyland" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb+_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/old_logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb+_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb+_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of John Hoyland" --instance_prompt="a painting in the style of John Hoyland" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - mace.psg8e-1.tr1e0.fr1e0.lamb4_U.picasso_sd1.4.bf16 0
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='data_root/old_logs/mace/mace.psg8e-1.tr1e0.fr1e0.lamb4_U.picasso_sd1.4.bf16_r0/LoRA_fusion_model'  \
+                                --load_unet_weight_path="" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/mace.psg8e-1.tr1e0.fr1e0.lamb4_U.picasso_sd1.4.bf16_r0/step0" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of John Hoyland" --instance_prompt="a painting in the style of John Hoyland" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+$$$$
+: << 'COMMENT'
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.picasso_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.picasso_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.picasso_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of John Hoyland" --instance_prompt="a painting in the style of John Hoyland" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.cmonet_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.cmonet_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.cmonet_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Van Gogh;a painting in the style of Picasso" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of Picasso" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.cmonet_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.cmonet_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.cmonet_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Van Gogh;a painting in the style of Picasso" --instance_prompt="a painting in the style of Van Gogh;a painting in the style of Picasso" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.rihanna_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.rihanna_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.rihanna_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Rihanna;a photo of Maya Angelou;a photo of Gillian Anderson;a photo of Jim Morrison;a photo of Jennifer Connelly;a photo of Benicio Del Toro;a photo of Avril Lavigne;a photo of Aaron Paul;a photo of Bill Murray;a photo of Kim Jong Un;a photo of Justin Bieber;a photo of David Bowie;a photo of Barry Manilow;a photo of Judy Garland;a photo of Betty White;a photo of Denise Richards;a photo of Gal Gadot;a photo of Pierce Brosnan;a photo of Julianne Moore;a photo of David Tennant;a photo of Jackie Chan;a photo of Natalie Portman;a photo of Rachel Dratch;a photo of Liv Tyler;a photo of Gordon Ramsey;a photo of Patrick Stewart;a photo of Doris Day;a photo of Matthew Mcconaughey;a photo of Amy Schumer;a photo of Hayley Atwell;a photo of Niall Horan;a photo of Neil Degrasse Tyson;a photo of Heath Ledger;a photo of Kristen Stewart;a photo of Amy Poehler;a photo of Kirsten Dunst;a photo of Matt Damon;a photo of Joan Rivers;a photo of Bill Nye;a photo of Britney Spears;a photo of Lizzy Caplan;a photo of Emma Roberts;a photo of Clint Eastwood;a photo of Rachel Mcadams;a photo of Harry Dean Stanton;a photo of Krysten Ritter;a photo of Aretha Franklin;a photo of Kate Upton;a photo of George Takei;a photo of Christina Hendricks;a photo of Andy Samberg" --instance_prompt="a photo of Rihanna;a photo of Maya Angelou;a photo of Gillian Anderson;a photo of Jim Morrison;a photo of Jennifer Connelly;a photo of Benicio Del Toro;a photo of Avril Lavigne;a photo of Aaron Paul;a photo of Bill Murray;a photo of Kim Jong Un;a photo of Justin Bieber;a photo of David Bowie;a photo of Barry Manilow;a photo of Judy Garland;a photo of Betty White;a photo of Denise Richards;a photo of Gal Gadot;a photo of Pierce Brosnan;a photo of Julianne Moore;a photo of David Tennant;a photo of Jackie Chan;a photo of Natalie Portman;a photo of Rachel Dratch;a photo of Liv Tyler;a photo of Gordon Ramsey;a photo of Patrick Stewart;a photo of Doris Day;a photo of Matthew Mcconaughey;a photo of Amy Schumer;a photo of Hayley Atwell;a photo of Niall Horan;a photo of Neil Degrasse Tyson;a photo of Heath Ledger;a photo of Kristen Stewart;a photo of Amy Poehler;a photo of Kirsten Dunst;a photo of Matt Damon;a photo of Joan Rivers;a photo of Bill Nye;a photo of Britney Spears;a photo of Lizzy Caplan;a photo of Emma Roberts;a photo of Clint Eastwood;a photo of Rachel Mcadams;a photo of Harry Dean Stanton;a photo of Krysten Ritter;a photo of Aretha Franklin;a photo of Kate Upton;a photo of George Takei;a photo of Christina Hendricks;a photo of Andy Samberg" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 25 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.pollock_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.pollock_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.pollock_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a painting in the style of Jackson Pollock;a painting in the style of John Hoyland;a painting in the style of Henri Edmond Cross;a painting in the style of Kay Nielsen;a painting in the style of Akihiko Yoshida;a painting in the style of Adonna Khare;a painting in the style of Alphonse Mucha;a painting in the style of Albert Lynch;a painting in the style of Yves Klein;a painting in the style of Thomas Kinkade;a painting in the style of Carlos Schwabe;a painting in the style of Carl Larsson;a painting in the style of Carl Spitzweg;a painting in the style of Christophe Vacher;a painting in the style of Ivan Aivazovsky;a painting in the style of Taras Shevchenko;a painting in the style of Ito Shinsui;a painting in the style of Konstantin Somov;a painting in the style of Andy Warhol;a painting in the style of Adam Elsheimer;a painting in the style of Jacob Jordaens;a painting in the style of Ernst Ludwig Kirchner;a painting in the style of Eric Fischl;a painting in the style of Al Williamson;a painting in the style of Frida Kahlo;a painting in the style of Alex Alemany;a painting in the style of Jean Honore Fragonard;a painting in the style of Edward Hopper;a painting in the style of Catrin Welz-Stein;a painting in the style of Edouard Manet;a painting in the style of Louis Janmot;a painting in the style of Maurice Denis;a painting in the style of Giuseppe Arcimboldo;a painting in the style of Harry Clarke;a painting in the style of Marc Chagall;a painting in the style of Dante Gabriel Rossetti;a painting in the style of Bruce Pennington;a painting in the style of Chantal Joffe;a painting in the style of Anthony Van Dyck;a painting in the style of Osman Hamdi;a painting in the style of Paul Serusier;a painting in the style of Balthus;a painting in the style of James Ensor;a painting in the style of Hubert Robert;a painting in the style of Felicien Rops;a painting in the style of Pierre Puvis De Chavannes;a painting in the style of Al Feldstein;a painting in the style of Christopher Balaskas;a painting in the style of Aleksi Briclot;a painting in the style of Frederic Remington;a painting in the style of Raphael Kirchner" --instance_prompt="a painting in the style of Jackson Pollock;a painting in the style of John Hoyland;a painting in the style of Henri Edmond Cross;a painting in the style of Kay Nielsen;a painting in the style of Akihiko Yoshida;a painting in the style of Adonna Khare;a painting in the style of Alphonse Mucha;a painting in the style of Albert Lynch;a painting in the style of Yves Klein;a painting in the style of Thomas Kinkade;a painting in the style of Carlos Schwabe;a painting in the style of Carl Larsson;a painting in the style of Carl Spitzweg;a painting in the style of Christophe Vacher;a painting in the style of Ivan Aivazovsky;a painting in the style of Taras Shevchenko;a painting in the style of Ito Shinsui;a painting in the style of Konstantin Somov;a painting in the style of Andy Warhol;a painting in the style of Adam Elsheimer;a painting in the style of Jacob Jordaens;a painting in the style of Ernst Ludwig Kirchner;a painting in the style of Eric Fischl;a painting in the style of Al Williamson;a painting in the style of Frida Kahlo;a painting in the style of Alex Alemany;a painting in the style of Jean Honore Fragonard;a painting in the style of Edward Hopper;a painting in the style of Catrin Welz-Stein;a painting in the style of Edouard Manet;a painting in the style of Louis Janmot;a painting in the style of Maurice Denis;a painting in the style of Giuseppe Arcimboldo;a painting in the style of Harry Clarke;a painting in the style of Marc Chagall;a painting in the style of Dante Gabriel Rossetti;a painting in the style of Bruce Pennington;a painting in the style of Chantal Joffe;a painting in the style of Anthony Van Dyck;a painting in the style of Osman Hamdi;a painting in the style of Paul Serusier;a painting in the style of Balthus;a painting in the style of James Ensor;a painting in the style of Hubert Robert;a painting in the style of Felicien Rops;a painting in the style of Pierre Puvis De Chavannes;a painting in the style of Al Feldstein;a painting in the style of Christopher Balaskas;a painting in the style of Aleksi Briclot;a painting in the style of Frederic Remington;a painting in the style of Raphael Kirchner" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 25 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P32.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" --instance_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P1.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" --instance_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P16.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P16.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P16.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" --instance_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80P32.00-N0.00G0.00-mt.rs.pc-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" --instance_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P1.00-N0.00G0.00-mte-1.rs.pE-rg-TEb_U.zendaya_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P1.00-N0.00G0.00-mte-1.rs.pE-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40P1.00-N0.00G0.00-mte-1.rs.pE-rg-TEb_U.zendaya_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" --instance_prompt="a photo of Zendaya;a photo of Amy Adams;a photo of Will Smith;a photo of Andrew Garfield;a photo of Nicki Minaj;a photo of Chris Hemsworth;a photo of Octavia Spencer;a photo of Anne Hathaway;a photo of Idris Elba" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 50 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40-64.00P64.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.zendaya_sd1.4.bf16.bs4 1000
 '
                             accelerate launch train_dreambooth_lora.py \
@@ -280,8 +479,6 @@ echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.80-64.00P64.
                                 --run_note 'gen img' --wait_weight \
                                 --num_validation_images 50 \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-: << 'COMMENT'
 echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.20Ir0.40-64.00P1.00-N0.00G0.00-mte-1.rs.pC-rg-TEb_U.zendaya_sd1.4.bf16.bs4 1000
 '
                             accelerate launch train_dreambooth_lora.py \

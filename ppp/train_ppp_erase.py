@@ -626,7 +626,8 @@ def resolve_model_name(args): #, training_step):
             base_file_name += '-TEe'
         elif args.template_prompt == 'basic':
             base_file_name += '-TEb'
-
+        elif args.template_prompt == 'primitive':
+            base_file_name += '-TEp'
     if args.weight_decay is not None or args.lr != 5e-5:
         base_file_name+= '_'
         if args.lr != 5e-5:
@@ -705,8 +706,8 @@ def resolve_model_name(args): #, training_step):
     base_file_name += "_sd1.4"  
     base_file_name += f".{args.train_precision}"
     
-    if args.lr != 5e-5:
-        base_file_name += f".lr{args.lr:.0e}"
+    # if args.lr != 5e-5:
+    #     base_file_name += f".lr{args.lr:.0e}"
 
     if args.batch_size != 1:
         base_file_name += f".bs{args.batch_size}" # n just for note that still one preservation concept
@@ -943,10 +944,14 @@ def get_parser():
 
     parser.add_argument("--preserve_specific_token",default=None,choices=['B','T','TCE','C','E','CE']) # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
     
-    parser.add_argument("--template_prompt",default=None,choices=[None,'empty','basic']) # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
+    parser.add_argument("--template_prompt",default=None,choices=[None,'empty','basic','primitive']) # for pushing loss, whether to mask out the tokens before the concept token or not (default as masking out)
 
 
     parser.add_argument("--weight_decay",type=float, default=None) 
+
+    parser.add_argument("--only_save_base_sim",  action='store_true')
+
+
 
     
     return parser
@@ -1050,6 +1055,7 @@ def compute_angular_exclusion_inclusion_loss(
     l_pull_l2_terms = []
     l_preserve_l2_terms = []
 
+    all_base_generic_target_similariy = [] # for analysis
     for name, W_u in params_u.items():
         if layer_filter not in name:
             continue
@@ -1503,8 +1509,8 @@ def compute_angular_exclusion_inclusion_loss(
 
                 cos_incl_t = torch.stack(cos_incl_t)
                 base_cos_incl_t = torch.stack(base_cos_incl_t)
-                print(f'cos_incl_t: {cos_incl_t}')
-                print(f'base_cos_incl_t: {base_cos_incl_t}')
+                # print(f'cos_incl_t: {cos_incl_t}')
+                # print(f'base_cos_incl_t: {base_cos_incl_t}')
 
 
     
@@ -1552,6 +1558,7 @@ def compute_angular_exclusion_inclusion_loss(
                 # for 'r' and 'rs'
                 with torch.no_grad():
                     base_cos_incl_t = F.cosine_similarity(W_0_e, W_0_g_shifted, dim=-1)
+                    print(f"base cossim: {base_cos_incl_t}")
                     # print(base_cos_incl_t)
                 
                 
@@ -1643,7 +1650,6 @@ def compute_angular_exclusion_inclusion_loss(
                 r = torch.clamp(m_incl_ - cos_incl_t/base_cos_incl_t, min=0.0)
                 # incl_terms.append(r.mean())
                 
-                
                 # print(r)
                 # print(f"valid tokens: {(~invalid).sum().item()} / {invalid.numel()}")
 
@@ -1652,11 +1658,18 @@ def compute_angular_exclusion_inclusion_loss(
                     print(f"L_pull: {r}")
                     incl_terms.append(r.mean())
 
+                    all_base_generic_target_similariy += [base_cos_incl_t.detach()]
+
+
+
                 else:
 
                     print(f"L_pull: {r[~invalid]}")
 
                     incl_terms.append(r[~invalid].mean())
+
+
+                    all_base_generic_target_similariy += [base_cos_incl_t[~invalid].detach()]
                 
                 
        
@@ -1892,6 +1905,8 @@ def compute_angular_exclusion_inclusion_loss(
                     base_cos_incl_h = F.cosine_similarity(W_0_e_h, W_0_g_h, dim=-1)
                 r = torch.clamp(m_incl_ - cos_incl_h/base_cos_incl_h, min=0.0)
                 incl_terms.append(r.mean())
+
+                all_base_generic_target_similariy += [base_cos_incl_h.detach()]
                 
      
             ##
@@ -1989,9 +2004,9 @@ def compute_angular_exclusion_inclusion_loss(
         l_pull_l2 = torch.stack(l_pull_l2_terms).mean()
         l_preserve_l2 = torch.stack(l_preserve_l2_terms).mean()
         
-        return L_excl, L_incl, L_norm, L_w, L_preserve, L_push_l2, l_pull_l2, l_preserve_l2
+        return L_excl, L_incl, L_norm, L_w, L_preserve, L_push_l2, l_pull_l2, l_preserve_l2, all_base_generic_target_similariy
 
-    return L_excl, L_incl, L_norm, L_w, L_preserve  #  L_ang, 
+    return L_excl, L_incl, L_norm, L_w, L_preserve,all_base_generic_target_similariy  #  L_ang, 
 
 #---
 
@@ -2019,6 +2034,13 @@ def main(args):
             'object': ["{}"],
             'style':   ["a painting in the style of {}"]
         }
+
+    elif args.template_prompt == 'primitive': 
+        concept2prompt_templates = {
+            'object': ["a photo of {}"],
+            'style':   ["a painting in the style of {}"]
+        }
+
         print(f'using empty template prompts:\n {concept2prompt_templates} ')
         
     
@@ -2970,7 +2992,7 @@ def main(args):
                 print('test')
                 # L_excl, L_incl, L_ang, L_norm, L_w, L_preserve, L_push_l2, l_pull_l2, l_preserve_l2
                 # replace Lang (cosine) with the L2
-                _,_,a_norm_loss,weight_modification_loss, _, a_excl_loss,a_incl_loss,a_preserve_loss = compute_angular_exclusion_inclusion_loss(
+                _,_,a_norm_loss,weight_modification_loss, _, a_excl_loss,a_incl_loss,a_preserve_loss,all_base_generic_target_similariy = compute_angular_exclusion_inclusion_loss(
                     unet_u=esd_unet, 
                     unet_0=base_unet,
                     p_e=p_e,
@@ -3019,7 +3041,7 @@ def main(args):
             
             
             else:
-                a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss = compute_angular_exclusion_inclusion_loss(
+                a_excl_loss,a_incl_loss,a_norm_loss,weight_modification_loss, a_preserve_loss,all_base_generic_target_similariy = compute_angular_exclusion_inclusion_loss(
                     unet_u=esd_unet, 
                     unet_0=base_unet,
                     p_e=p_e,
@@ -3061,6 +3083,36 @@ def main(args):
                     relevant_generic_concept_idx=relevant_generic_concept_idx
         
                 )
+            if args.only_save_base_sim:
+                base_dir = 'similariy_analysis/prelim_sim'
+
+
+
+                if args.template_prompt == 'empty':
+                    base_file_name += '-TEe'
+                elif args.template_prompt == 'basic':
+                    base_dir += '-TEb'
+                elif args.template_prompt == 'primitive':
+                    base_dir += '-TEp'
+
+
+
+                if args.pull_specific_token is not None:
+                    base_dir += f'-{args.pull_specific_token}'  
+
+                elif args.pull_specific_token is None and args.mask_pull_before_concept_token:
+                    base_dir += f'-pc'  
+
+                os.makedirs(base_dir,exist_ok=True)
+
+
+                save_path__ = osp.join(base_dir, f'{args.erase_concept}.safetensors')
+                torch.save(all_base_generic_target_similariy,save_path__)
+                print(f'save base similarity to {save_path__}')
+                print(all_base_generic_target_similariy)
+
+                exit()
+
             
 
             # print(erase_embeds[0:1,:,:].shape, general_embeds[0:1,:,:].shape)
