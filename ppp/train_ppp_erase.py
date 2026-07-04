@@ -2042,7 +2042,14 @@ def main(args):
         }
 
         print(f'using empty template prompts:\n {concept2prompt_templates} ')
-        
+    else:
+
+        concept2prompt_templates = {
+            'object': ["a photo of {}"],
+            'style':   ["a painting in the style of {}"]
+        }
+
+        print(f'using empty template prompts:\n {concept2prompt_templates} ')
     
     if args.special_log_step is not None:
         args.special_log_step = [int(e) for e in args.special_log_step.split(',')]

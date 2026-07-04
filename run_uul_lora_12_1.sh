@@ -1,5 +1,1927 @@
 export CUDA_VISIBLE_DEVICES=1
 export pc_id="12_1"
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte0.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte0.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte0.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Will Smith" --instance_prompt="a photo of Barack Obama;a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte0.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte0.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte0.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Will Smith" --instance_prompt="a photo of Barack Obama;a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+$$$$
+: << 'COMMENT'
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Will Smith" --instance_prompt="a photo of Barack Obama;a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Will Smith" --instance_prompt="a photo of Barack Obama;a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Barack Obama;a photo of Will Smith" --instance_prompt="a photo of Barack Obama;a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Will Smith" --instance_prompt="a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Will Smith" --instance_prompt="a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P16.00-N0.00G0.00-mte-1.rs.pCE-rg-TEb_U.obama_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Will Smith" --instance_prompt="a photo of Will Smith" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.40Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.60Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pC-rg-TEb_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of Goku" --instance_prompt="a photo of Goku" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.10Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.30Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.50Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.70Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE0.90Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+
+                accelerate launch metrics/cce/cce_concept_inversion.py \
+                --pretrained_model_name_or_path="CompVis/stable-diffusion-v1-4"  \
+                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                --load_pretrained_lora_weight_path="" \
+                --train_data_dir="data_root/generated/study/original_pretrained_sd1.4_bf16/a photo of Goku/7.50" \
+                --learnable_property="object" \
+                --placeholder_token="cce0" --initializer_token="random" \
+                --resolution=512 \
+                --train_batch_size=1 \
+                --gradient_accumulation_steps=1 \
+                --max_train_steps=500 \
+                --learning_rate=5.0e-04 --scale_lr \
+                --lr_scheduler="constant" \
+                --lr_warmup_steps=0 \
+                --save_steps=50 \
+                --checkpointing_steps=1001 \
+                --output_dir="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                --num_train_images=100 \
+                --mixed_precision="bf16" 
+echo 'count:0 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 100 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:1 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 500 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:2 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 200 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:3 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 300 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
+echo 'count:4 - esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4 1000
+'
+                            accelerate launch train_dreambooth_lora.py \
+                                --pretrained_model_name_or_path='CompVis/stable-diffusion-v1-4'  \
+                                --load_unet_weight_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000.safetensors" \
+                                --load_lora_weight_path="" \
+                                --instance_data_dir="data_root/data/real_data/dummy" \
+                                --gen_image_path="data_root/generated/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/step1000" \
+                                --output_dir="data_root/logs/gen" \
+                                --validation_prompt="a photo of cce0" --instance_prompt="a photo of cce0" \
+                                --lora_rank 1 --target_lora_modules to_k to_v --target_lora_layers cross \
+                                --run_note 'gen img' --wait_weight \
+                                --num_validation_images 100 \
+                                --load_token_embedding_path="data_root/logs/esd/study/esd-x-kv.bG.fG.T999-1000.peUG-PS1.00_1.00AtE1.00Ir0.40P32.00-N0.00G0.00-mce-1.rs.pc-rg_U.goku_sd1.4.bf16.bs4_r0/cce/uS1000" \
+                                --placeholder_token="cce0" --initializer_token='random' \
+                                --load_token_embedding_step 400 \
+                                --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
 
 echo 'count:4 - suma-x.tie50_U.naked_sd1.4.bf16 1000
 '
@@ -18,8 +1940,6 @@ echo 'count:4 - suma-x.tie50_U.naked_sd1.4.bf16 1000
                                 --placeholder_token="cce0" --initializer_token='random' \
                                 --load_token_embedding_step 400 \
                                 --cfg_scale 7.50 --gen_batch 10 --gen_dtype "bf16" 
-$$$$
-: << 'COMMENT'
 Unlearn concept: naked
 suma-x.tie50_U.naked_sd1.4.bf16_r0
 echo 'count: 1'

@@ -1,0 +1,3 @@
+
+export CUDA_VISIBLE_DEVICES=0
+export pc_id="23_0"
